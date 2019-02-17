@@ -1,0 +1,30 @@
+name: widjucks
+
+variables:
+  LABEXTENSIONS: >
+    @jupyter-widgets/jupyterlab-manager@0.38
+    .
+
+commands:
+  setup:
+    unix: python -m pip install -e . --no-deps --ignore-installed -vv
+  lab:
+    unix: jupyter lab --no-browser --debug
+  lab:ext:
+    unix: jupyter labextension install ${LABEXTENSIONS} --no-build
+  lab:build:
+    unix: jupyter lab build --dev
+  cc:
+    unix: cookiecutter https://github.com/jupyter-widgets/widget-ts-cookiecutter.git
+
+env_specs:
+  default:
+    channels:
+      - conda-forge
+      - defaults
+    packages:
+      - nodejs >8,<9
+      - jupyterlab >=0.35,<0.36
+      - python >=3.7,<3.8
+      - ipywidgets
+      - cookiecutter

@@ -1,0 +1,4 @@
+lib/
+node_modules/
+envs/
+*.egg-info

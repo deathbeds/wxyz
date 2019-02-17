@@ -1,0 +1,50 @@
+{
+  "name": "jupyter-widjucks",
+  "version": "0.1.0",
+  "description": "nunjucks for Jupyter widgets",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "widgets"
+  ],
+  "files": [
+    "lib/**/*.js"
+  ],
+  "homepage": "https://github.com/deathbeds/widjucks",
+  "bugs": {
+    "url": "https://github.com/deathbeds/widjucks/issues"
+  },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "dead pixels collective",
+    "email": ""
+  },
+  "main": "lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/widjucks"
+  },
+  "scripts": {
+    "build": "tsc -p src/ts/jupyter-widjucks"
+  },
+  "dependencies": {
+    "nunjucks": "^3.1.7"
+  },
+  "peerDependencies": {
+    "@jupyter-widgets/base": "^1.1.10",
+    "@phosphor/application": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/nunjucks": "^3.0.0",
+    "@jupyter-widgets/base": "^1.1.10",
+    "@phosphor/application": "^1.6.0",
+    "@phosphor/widgets": "^1.6.0",
+    "@types/node": "^10.11.6",
+    "typescript": "~3.3.3"
+  },
+  "jupyterlab": {
+    "extension": "lib/plugin"
+  }
+}
