@@ -13,6 +13,8 @@ import * as nunjucks from 'nunjucks';
 
 import * as marked from 'marked';
 
+nunjucks.installJinjaCompat();
+
 import {
   MODULE_NAME, MODULE_VERSION
 } from './version';
@@ -30,19 +32,16 @@ class WidjuckModel extends DOMWidgetModel {
       _view_name: WidjuckModel.view_name,
       _view_module: WidjuckModel.view_module,
       _view_module_version: WidjuckModel.view_module_version,
-      value : '<b>Hello Jupyter!</b>',
-      template: '<b>{{ greeting }} {{ planet }}!</b>',
-      template_context: {
-        greeting: 'Hello',
-        planet: 'Jupyter'
-      }
+      value : '',
+      template: ''
     };
   }
 
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
     this.on('change:template', this._template_changed, this);
-    this.on('change:template_context', this._template_context_changed, this);
+    this.on('change', this._template_context_changed, this);
+    this._template_changed();
   }
 
   private _template_changed() {
@@ -57,9 +56,10 @@ class WidjuckModel extends DOMWidgetModel {
   private _template_context_changed() {
     let oldHTML = this.get('value');
     try {
-      const html = marked.parse(
-        this._template.render(this.get('template_context') || {})
-      );
+      const html = marked.parse(this._template.render({
+        ...this.attributes,
+        value: null
+      }));
       if (oldHTML !== html) {
         this.set('value', html);
         this.save();
