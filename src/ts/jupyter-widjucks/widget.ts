@@ -5,47 +5,103 @@ import {
   DOMWidgetModel, DOMWidgetView, ISerializers
 } from '@jupyter-widgets/base';
 
+import { defaultSanitizer } from '@jupyterlab/apputils';
+
+import * as renderers from '@jupyterlab/rendermime';
+
+import * as nunjucks from 'nunjucks';
+
+import * as marked from 'marked';
+
 import {
   MODULE_NAME, MODULE_VERSION
 } from './version';
 
 
 export
-class ExampleModel extends DOMWidgetModel {
+class WidjuckModel extends DOMWidgetModel {
+  private env = new nunjucks.Environment();
+
   defaults() {
     return {...super.defaults(),
-      _model_name: ExampleModel.model_name,
-      _model_module: ExampleModel.model_module,
-      _model_module_version: ExampleModel.model_module_version,
-      _view_name: ExampleModel.view_name,
-      _view_module: ExampleModel.view_module,
-      _view_module_version: ExampleModel.view_module_version,
-      value : 'Hello World'
+      _model_name: WidjuckModel.model_name,
+      _model_module: WidjuckModel.model_module,
+      _model_module_version: WidjuckModel.model_module_version,
+      _view_name: WidjuckModel.view_name,
+      _view_module: WidjuckModel.view_module,
+      _view_module_version: WidjuckModel.view_module_version,
+      value : '<b>Hello Jupyter!</b>',
+      template: '<b>{{ greeting }} {{ planet }}!</b>',
+      template_context: {
+        greeting: 'Hello',
+        planet: 'Jupyter'
+      }
     };
   }
 
-  static serializers: ISerializers = {
-      ...DOMWidgetModel.serializers,
-      // Add any extra serializers here
-    }
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.on('change:template', this._template_changed, this);
+    this.on('change:template_context', this._template_context_changed, this);
+  }
 
-  static model_name = 'ExampleModel';
+  private _template_changed() {
+    try {
+      this._template = nunjucks.compile(this.get('template') || '', this.env);
+      this._template_context_changed();
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  private _template_context_changed() {
+    let oldHTML = this.get('value');
+    try {
+      const html = marked.parse(
+        this._template.render(this.get('template_context') || {})
+      );
+      if (oldHTML !== html) {
+        this.set('value', html);
+        this.save();
+      }
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  static serializers: ISerializers = {
+    ...DOMWidgetModel.serializers,
+    // Add any extra serializers here
+  }
+
+  private _template: nunjucks.Template = nunjucks.compile('');
+
+  static model_name = 'WidjuckModel';
   static model_module = MODULE_NAME;
   static model_module_version = MODULE_VERSION;
-  static view_name = 'ExampleView';   // Set to null if no view
+  static view_name = 'WidjuckView';   // Set to null if no view
   static view_module = MODULE_NAME;   // Set to null if no view
   static view_module_version = MODULE_VERSION;
 }
 
 
 export
-class ExampleView extends DOMWidgetView {
+class WidjuckView extends DOMWidgetView {
   render() {
     this.value_changed();
     this.model.on('change:value', this.value_changed, this);
   }
 
   value_changed() {
-    this.el.textContent = this.model.get('value');
+    renderers.renderHTML({
+      host: this.el,
+      source: this.model.get('value'),
+      trusted: true,
+      sanitizer: defaultSanitizer,
+      resolver: null,
+      linkHandler: null,
+      shouldTypeset: false,
+      latexTypesetter: null
+    });
   }
 }

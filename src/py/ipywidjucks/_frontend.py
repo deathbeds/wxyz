@@ -8,5 +8,5 @@
 Information about the frontend package of the widgets.
 """
 
-module_name = "widjucks"
+module_name = "jupyter-widjucks"
 module_version = "^0.1.0"
