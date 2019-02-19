@@ -16,7 +16,11 @@ commands:
     unix: jupyter lab build --dev
   cc:
     unix: cookiecutter https://github.com/jupyter-widgets/widget-ts-cookiecutter.git
-      
+  lint:
+    unix: |-
+      isort -rc src *.py \
+      && black src *.py \
+      && jlpm prettier
 
 env_specs:
   default:

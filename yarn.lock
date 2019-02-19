@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@jupyter-widgets/base@^1.1.10":
+"@jupyter-widgets/base@^1.1.10", "@jupyter-widgets/base@^1.2.2":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@jupyter-widgets/base/-/base-1.2.3.tgz#9f2586f5234a2d12cb76585f7d402cb16bebcef0"
   dependencies:
@@ -16,6 +16,21 @@
     base64-js "^1.2.1"
     jquery "^3.1.1"
     lodash "^4.17.4"
+
+"@jupyter-widgets/controls@1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@jupyter-widgets/controls/-/controls-1.4.2.tgz#79ede94f060a421d6583351f1d855d76a8cf3fcb"
+  dependencies:
+    "@jupyter-widgets/base" "^1.2.2"
+    "@phosphor/algorithm" "^1.1.0"
+    "@phosphor/domutils" "^1.1.0"
+    "@phosphor/messaging" "^1.2.1"
+    "@phosphor/signaling" "^1.2.0"
+    "@phosphor/widgets" "^1.3.0"
+    d3-format "^1.3.0"
+    jquery "^3.1.1"
+    jquery-ui "^1.12.1"
+    underscore "^1.8.3"
 
 "@jupyterlab/apputils@^0.19.1":
   version "0.19.1"
@@ -127,7 +142,7 @@
     "@phosphor/disposable" "^1.1.2"
     "@phosphor/signaling" "^1.2.2"
 
-"@phosphor/algorithm@^1.1.2":
+"@phosphor/algorithm@^1.1.0", "@phosphor/algorithm@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@phosphor/algorithm/-/algorithm-1.1.2.tgz#fd1de9104c9a7f34e92864586ddf2e7f2e7779e8"
 
@@ -166,7 +181,7 @@
   dependencies:
     "@phosphor/algorithm" "^1.1.2"
 
-"@phosphor/domutils@^1.1.2":
+"@phosphor/domutils@^1.1.0", "@phosphor/domutils@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@phosphor/domutils/-/domutils-1.1.2.tgz#e2efeb052f398c42b93b89e9bab26af15cc00514"
 
@@ -192,7 +207,7 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@phosphor/properties/-/properties-1.1.2.tgz#78cc77eff452839da02255de48e814946cc09a28"
 
-"@phosphor/signaling@^1.2.2":
+"@phosphor/signaling@^1.2.0", "@phosphor/signaling@^1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@phosphor/signaling/-/signaling-1.2.2.tgz#3fcf97ca88e38bfb357fe8fe6bf7513347a514a9"
   dependencies:
@@ -227,11 +242,25 @@
     "@types/jquery" "*"
     "@types/underscore" "*"
 
+"@types/codemirror@^0.0.71":
+  version "0.0.71"
+  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.71.tgz#861f1bcb3100c0a064567c5400f2981cf4ae8ca7"
+  dependencies:
+    "@types/tern" "*"
+
+"@types/estree@*":
+  version "0.0.39"
+  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
+
 "@types/jquery@*":
   version "3.3.29"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.29.tgz#680a2219ce3c9250483722fccf5570d1e2d08abd"
   dependencies:
     "@types/sizzle" "*"
+
+"@types/js-yaml@^3.12.0":
+  version "3.12.0"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.12.0.tgz#3494ce97358e2675e24e97a747ec23478eeaf8b6"
 
 "@types/lodash@^4.14.66":
   version "4.14.121"
@@ -263,6 +292,12 @@
 "@types/sizzle@*":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+
+"@types/tern@*":
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/@types/tern/-/tern-0.22.1.tgz#d96467553128794f42fbe7ba8f60b520acffb817"
+  dependencies:
+    "@types/estree" "*"
 
 "@types/underscore@*":
   version "1.8.9"
@@ -328,6 +363,12 @@ are-we-there-yet@~1.1.2:
   dependencies:
     delegates "^1.0.0"
     readable-stream "^2.0.6"
+
+argparse@^1.0.7:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
+  dependencies:
+    sprintf-js "~1.0.2"
 
 arr-diff@^4.0.0:
   version "4.0.0"
@@ -583,6 +624,10 @@ csstype@^2.2.0:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.2.tgz#3043d5e065454579afc7478a18de41909c8a2f01"
 
+d3-format@^1.3.0:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.3.2.tgz#6a96b5e31bcb98122a30863f7d92365c00603562"
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
@@ -686,6 +731,10 @@ escape-string-regexp@^1.0.5:
 esprima@^2.7.0:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
+
+esprima@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
 
 expand-brackets@^2.1.4:
   version "2.1.4"
@@ -1081,6 +1130,10 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
+jquery-ui@^1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.12.1.tgz#bcb4045c8dd0539c134bc1488cdd3e768a7a9e51"
+
 jquery@^3.1.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
@@ -1088,6 +1141,13 @@ jquery@^3.1.1:
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
+
+js-yaml@^3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.1.tgz#295c8632a18a23e054cf5c9d3cecafe678167600"
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
 
 jsbn@~0.1.0:
   version "0.1.1"
@@ -1485,6 +1545,10 @@ postcss@^6.0.14:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
+prettier@^1.16.4:
+  version "1.16.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
+
 process-nextick-args@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.0.tgz#a37d732f4271b4ab1ad070d35508e8290788ffaa"
@@ -1773,6 +1837,10 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
+sprintf-js@~1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
+
 srcset@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/srcset/-/srcset-1.0.0.tgz#a5669de12b42f3b1d5e83ed03c71046fc48f41ef"
@@ -1909,7 +1977,7 @@ ua-parser-js@^0.7.18:
   version "0.7.19"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.19.tgz#94151be4c0a7fb1d001af7022fdaca4642659e4b"
 
-underscore@>=1.7.0:
+underscore@>=1.7.0, underscore@^1.8.3:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
 

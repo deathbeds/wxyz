@@ -1,72 +1,49 @@
-import * as nunjucks from 'nunjucks';
+import * as nunjucks from "nunjucks";
 
-import {WidgetModel} from '@jupyter-widgets/base';
+import {
+  WidgetModel,
+  unpack_models as deserialize
+} from "@jupyter-widgets/base";
 
-import {Model} from './base';
+import { FnModel } from "./base";
 
 nunjucks.installJinjaCompat();
 
-
-export class TemplateModel extends Model {
-  static model_name = 'TemplateModel';
-
-  private _env = new nunjucks.Environment();
-  private _template: nunjucks.Template = nunjucks.compile('');
+export class TemplateModel extends FnModel<string, string> {
+  static model_name = "TemplateModel";
+  static serializers = { ...FnModel.serializers, context: { deserialize } };
 
   defaults() {
-    return {...super.defaults(),
+    return {
+      ...super.defaults(),
       _model_name: TemplateModel.model_name,
-      value : '',
-      template: '',
-      context: null,
-      error: ''
+      value: "",
+      context: null
     };
   }
 
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
-    this
-      .on({
-        'change:template': this.template_changed,
-        'change:context': this.context_changed
-      })
-      .template_changed()
-      .update_value();
-    return this;
+    this.on("change:context", this.context_changed, this).context_changed();
+
+    return this.source_changed();
   }
 
   protected context_changed() {
-    console.log(this.get('context'));
-  }
-
-  protected template_changed() {
-    try {
-      this._template = nunjucks.compile(this.get('template') || '', this._env);
-    } catch(err) {
-      this.set('error', `${err}`);
+    let previous = (this.previousAttributes() as any) || {};
+    if (previous.context) {
+      (previous.context as WidgetModel).off(void 0, void 0, this);
     }
-    return this;
+    let context = this.get("context") as WidgetModel;
+    if (context && context.on) {
+      context.on("change", this.source_changed, this);
+    }
+    return this.source_changed();
   }
 
-  protected update_value() {
-    let changed = false;
-    let contextWidget: WidgetModel = this.get('context');
-
+  theFunction(source: string) {
+    let contextWidget: WidgetModel = this.get("context");
     let context = contextWidget ? contextWidget.attributes : {};
-
-    try {
-      let value = this._template.render(context);
-      if (value !== this.get('value')) {
-        this.set('value', value);
-        changed = true;
-      }
-      this.set('error', '');
-    } catch(err) {
-      this.set('err', `${err}`);
-      changed = true;
-    } finally {
-      changed && this.save();
-    }
-    return this;
+    return nunjucks.renderString(source || "", context);
   }
 }

@@ -1,2 +1,2 @@
-export * from './version';
-export * from './widgets';
+export * from "./version";
+export * from "./widgets";
