@@ -30,7 +30,8 @@
     "build": "tsc -p src/ts/jupyter-widjucks"
   },
   "dependencies": {
-    "nunjucks": "^3.1.7"
+    "nunjucks": "^3.1.7",
+    "jsonld": "^1.5.1"
   },
   "peerDependencies": {
     "@jupyter-widgets/base": "^1.1.10",

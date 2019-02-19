@@ -16,6 +16,7 @@ commands:
     unix: jupyter lab build --dev
   cc:
     unix: cookiecutter https://github.com/jupyter-widgets/widget-ts-cookiecutter.git
+      
 
 env_specs:
   default:
@@ -23,8 +24,13 @@ env_specs:
       - conda-forge
       - defaults
     packages:
-      - nodejs >8,<9
-      - jupyterlab >=0.35,<0.36
-      - python >=3.7,<3.8
-      - ipywidgets
+      - black
       - cookiecutter
+      - flake8
+      - ipywidgets
+      - isort
+      - jupyterlab >=0.35,<0.36
+      - nodejs >8,<9
+      - pyld
+      - pylint
+      - python >=3.7,<3.8
