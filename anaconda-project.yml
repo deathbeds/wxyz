@@ -1,21 +1,22 @@
-name: widjucks
+name: wxyz
+description: experimental widgets
 
 variables:
   LABEXTENSIONS: >
     @jupyter-widgets/jupyterlab-manager@0.38
-    .
+    src/packages/jupyterlab-wxyz
 
 commands:
   setup:
-    unix: python -m pip install -e . --no-deps --ignore-installed -vv
+    unix: |
+      cd src/ipywxyz \
+      && python -m pip install -e . --no-deps --ignore-installed --no-cache-dir -vv
   lab:
     unix: jupyter lab --no-browser --debug
   lab:ext:
     unix: jupyter labextension install ${LABEXTENSIONS} --no-build
   lab:build:
     unix: jupyter lab build --dev
-  cc:
-    unix: cookiecutter https://github.com/jupyter-widgets/widget-ts-cookiecutter.git
   lint:
     unix: |-
       isort -rc src *.py \
@@ -29,7 +30,6 @@ env_specs:
       - defaults
     packages:
       - black
-      - cookiecutter
       - flake8
       - ipywidgets
       - isort

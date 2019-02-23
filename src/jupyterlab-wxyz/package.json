@@ -1,19 +1,21 @@
 {
-  "name": "jupyter-widjucks",
+  "name": "@deathbeds/jupyter-ipywxyz",
   "version": "0.1.0",
-  "description": "nunjucks for Jupyter widgets",
+  "description": "Experimental widgets for JupyterLab",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension",
+    "jupyter-widgets",
     "widgets"
   ],
   "files": [
-    "src/ts/jupyter-widjucks/{lib,style}/**/*.{js,ts,svg,json,css}"
+    "{lib,style}/**/*.{js,ts,svg,json,css}",
+    "LICENSE.txt"
   ],
-  "homepage": "https://github.com/deathbeds/widjucks",
+  "homepage": "https://github.com/deathbeds/wxyz",
   "bugs": {
-    "url": "https://github.com/deathbeds/widjucks/issues"
+    "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -21,14 +23,13 @@
     "email": ""
   },
   "main": "lib/index.js",
-  "types": "./lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/deathbeds/widjucks"
+    "url": "https://github.com/deathbeds/wxyz"
   },
   "scripts": {
-    "build": "tsc -p src/ts/jupyter-widjucks",
-    "prettier": "prettier --write *.{json,md,yml} src/**/*.{ts,css,json,map}"
+    "build": "tsc"
   },
   "dependencies": {
     "js-yaml": "^3.12.1",
@@ -62,6 +63,6 @@
     "typescript": "~3.3.3"
   },
   "jupyterlab": {
-    "extension": "src/ts/jupyter-widjucks/lib/plugin"
+    "extension": "lib/plugin"
   }
 }
