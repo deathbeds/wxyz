@@ -1,3 +1,5 @@
+""" Reusable boilerplate for widgets
+"""
 import ipywidgets as W
 import traitlets as T
 
@@ -5,6 +7,9 @@ from .._version import module_name, module_version
 
 
 class Base(W.Widget):
+    """ A widget hoping to go places
+    """
+
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
     _view_module = T.Unicode(module_name).tag(sync=True)
@@ -17,6 +22,9 @@ class Base(W.Widget):
 
 
 class Fn(Base):
+    """ A widget that turns a source into a value
+    """
+
     source = T.Unicode("").tag(sync=True)
     value = T.Unicode("").tag(sync=True)
 

@@ -1,16 +1,19 @@
-import yaml
+""" Widgets for working with YAML
+"""
+# pylint: disable=too-many-ancestors
+from yaml import safe_load
 
-from .base import Base, T, W
+from .base import T, W
+from .json import JSON
 
 
 @W.register
-class YAML(Base):
-    _model_name = T.Unicode("YAMLModel").tag(sync=True)
+class YAML(JSON):
+    """ A Widget that parses YAML source into... something
+    """
 
-    value = T.Union([T.Dict(), T.List(), T.Unicode(), T.Int(), T.Float()]).tag(
-        sync=True
-    )
+    _model_name = T.Unicode("YAMLModel").tag(sync=True)
 
     @T.observe("source")
     def _source_changed(self, *_):
-        self.value = yaml.safe_load(self.source)
+        self.value = safe_load(self.source)

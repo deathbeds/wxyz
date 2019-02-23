@@ -1,3 +1,5 @@
+""" Some widgets
+"""
 from ._version import __version__  # noqa
 from ._version import version_info  # noqa
 from .widgets.dock import DockBox  # noqa

@@ -1,3 +1,5 @@
+""" Widgets for templating
+"""
 from collections import defaultdict
 
 import jinja2
@@ -7,11 +9,12 @@ from .base import Fn, T, W
 
 @W.register
 class Template(Fn):
+    """ Transforms text source into text output with a given context
+    """
+
     _model_name = T.Unicode("TemplateModel").tag(sync=True)
 
-    context = T.Union([
-            T.Dict(), T.Instance(W.Widget)
-        ], allow_none=True).tag(
+    context = T.Union([T.Dict(), T.Instance(W.Widget)], allow_none=True).tag(
         sync=True, **W.widget_serialization
     )
 
@@ -22,9 +25,10 @@ class Template(Fn):
 
     @T.observe("source")
     def _source_changed(self, *_):
+        # pylint: disable=broad-except
         try:
             self.value = jinja2.Template(self.source).render(
-                self.context._trait_values if self.context else defaultdict(lambda: "")
+                self.context if self.context else defaultdict(lambda: "")
             )
             self.error = ""
         except Exception as err:
