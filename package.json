@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "wxyz",
+  "name": "WXYZ",
   "version": "0.0.0",
   "description": "experimental widgets",
   "main": "index.js",
@@ -8,11 +8,15 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "lerna run build",
-    "lint": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml}"
+    "bootstrap": "jlpm build",
+    "build": "lerna exec jlpm build",
+    "lint": "jlpm lint:prettier && jlpm lint:ts",
+    "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml,css}",
+    "lint:ts": "tslint --fix packages/**/*.ts",
+    "watch": "lerna exec jlpm watch"
   },
   "devDependencies": {
-    "lerna": "^3.13.0",
+    "lerna": "3.13.0",
     "prettier": "^1.16.4",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",

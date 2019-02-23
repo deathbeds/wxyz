@@ -5,6 +5,8 @@ import { TextareaModel } from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '..';
 
+const EDITOR_CLASS = 'jp-WXYZ-Editor';
+
 export class EditorModel extends TextareaModel {
   static model_name = 'EditorModel';
   static model_module = NAME;
@@ -23,23 +25,18 @@ export class EditorModel extends TextareaModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       description: 'An Editor',
-      icon_class: 'jp-EditIcon',
+      icon_class: 'jp-EditIcon'
     };
   }
 }
 
 export class EditorView extends DOMWidgetView {
   private _editor: CodeMirror.Editor = null as any;
-  private _editorNode: HTMLElement = null as any;
 
   render() {
     super.render();
-    this.el.style.display = 'flex';
-    this.el.style.flexDirection = 'column';
-    this._editorNode = document.createElement('div');
-    this._editorNode.style.flex = '1';
-    this.el.appendChild(this._editorNode);
-    this._editor = CodeMirror(this._editorNode);
+    this.pWidget.addClass(EDITOR_CLASS);
+    this._editor = CodeMirror(this.el);
     this._editor.on('change', () => {
       this.model.set('value', this._editor.getValue());
       this.touch();

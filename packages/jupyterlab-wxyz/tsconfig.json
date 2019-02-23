@@ -1,21 +1,8 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "lib": ["es2015", "dom"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "noUnusedLocals": true,
-    "outDir": "../../../lib",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "esnext",
-    "types": ["node"],
-    "rootDir": "src",
-    "outDir": "lib"
+    "rootDir": "./src",
+    "outDir": "./lib"
   },
-  "include": ["./**/*.ts", "./@types/**/*.ts"]
+  "include": ["./**/*"]
 }

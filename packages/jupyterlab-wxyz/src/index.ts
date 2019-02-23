@@ -1,1 +1,2 @@
-export { name as NAME, version as VERSION } from '../package.json';
+export const NAME = '@deathbeds/jupyterlab-wxyz';
+export const VERSION = '0.1.0';

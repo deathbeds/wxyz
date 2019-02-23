@@ -1,50 +1,17 @@
 {
-  "name": "@deathbeds/jupyter-ipywxyz",
-  "version": "0.1.0",
-  "description": "Experimental widgets for JupyterLab",
-  "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension",
-    "jupyter-widgets",
-    "widgets"
-  ],
-  "files": [
-    "{lib,style}/**/*.{js,ts,svg,json,css}",
-    "LICENSE.txt"
-  ],
-  "homepage": "https://github.com/deathbeds/wxyz",
+  "author": {
+    "email": "",
+    "name": "dead pixels collective"
+  },
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
-  },
-  "license": "BSD-3-Clause",
-  "author": {
-    "name": "dead pixels collective",
-    "email": ""
-  },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/deathbeds/wxyz"
-  },
-  "scripts": {
-    "build": "tsc"
   },
   "dependencies": {
     "js-yaml": "^3.12.1",
     "jsonld": "^1.5.1",
     "nunjucks": "^3.1.7"
   },
-  "peerDependencies": {
-    "@jupyter-widgets/base": "^1.1.10",
-    "@jupyter-widgets/controls": "1.4.2",
-    "@jupyterlab/rendermime": "^0.19.1",
-    "@phosphor/application": "^1.6.0",
-    "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
-    "codemirror": "~5.39.0",
-    "marked": "0.5.1"
-  },
+  "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
     "@jupyter-widgets/base": "^1.1.10",
     "@jupyter-widgets/controls": "1.4.2",
@@ -59,10 +26,43 @@
     "@types/nunjucks": "^3.0.0",
     "codemirror": "~5.39.0",
     "marked": "0.5.1",
-    "prettier": "^1.16.4",
     "typescript": "~3.3.3"
   },
+  "files": [
+    "{lib,style}/**/*.{js,ts,svg,json,css,map}",
+    "LICENSE.txt"
+  ],
+  "homepage": "https://github.com/deathbeds/wxyz",
   "jupyterlab": {
     "extension": "lib/plugin"
-  }
+  },
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "name": "@deathbeds/jupyter-wxyz",
+  "peerDependencies": {
+    "@jupyter-widgets/base": "^1.1.10",
+    "@jupyter-widgets/controls": "1.4.2",
+    "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
+    "@jupyterlab/rendermime": "^0.19.1",
+    "@phosphor/application": "^1.6.0",
+    "codemirror": "~5.39.0",
+    "marked": "0.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "jlpm build --watch"
+  },
+  "types": "lib/index.d.ts",
+  "version": "0.1.0"
 }

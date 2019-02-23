@@ -5,3 +5,13 @@
 .p-DockPanel > .jupyter-widgets {
   margin: 0;
 }
+
+.jp-WXYZ-Editor {
+  display: flex;
+  flex-direction: column;
+}
+
+.jp-WXYZ-Editor .CodeMirror {
+  flex: 1;
+  overflow-y: auto;
+}

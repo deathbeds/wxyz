@@ -7,7 +7,7 @@ export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
     return {
       ...super.defaults(),
       _model_name: JSONModel.model_name,
-      value: null as any,
+      value: null as any
     };
   }
 

@@ -19,7 +19,7 @@ export class Model<T> extends DOMWidgetModel {
       _view_module_version: VERSION,
       icon_class: 'jp-CircleIcon',
       description: 'An Undescribed Widget',
-      closable: true,
+      closable: true
     };
   }
 }
@@ -46,7 +46,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
       ...super.defaults(),
       source: (null as unknown) as T,
       value: (null as unknown) as U,
-      error: (null as unknown) as string,
+      error: (null as unknown) as string
     };
   }
 

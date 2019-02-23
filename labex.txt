@@ -1,2 +1,2 @@
 @jupyter-widgets/jupyterlab-manager@0.38
-src/packages/jupyterlab-wxyz
+./packages/jupyterlab-wxyz

@@ -20,7 +20,7 @@ export class DockBoxModel extends BoxModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       _model_name: DockBoxModel.model_name,
-      _view_name: DockBoxModel.view_name,
+      _view_name: DockBoxModel.view_name
     };
   }
 }

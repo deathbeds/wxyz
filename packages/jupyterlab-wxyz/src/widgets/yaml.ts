@@ -9,7 +9,7 @@ export class YAMLModel extends JSONModel {
     return {
       ...super.defaults(),
       _model_name: YAMLModel.model_name,
-      value: {} as any,
+      value: {} as any
     };
   }
 

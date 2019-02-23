@@ -2,7 +2,7 @@ import * as nunjucks from 'nunjucks';
 
 import {
   WidgetModel,
-  unpack_models as deserialize,
+  unpack_models as deserialize
 } from '@jupyter-widgets/base';
 
 import { FnModel } from './base';
@@ -21,12 +21,12 @@ export class TemplateModel extends FnModel<
     return {
       ...super.defaults(),
       _model_name: TemplateModel.model_name,
-      context: null,
+      context: null as WidgetModel
     };
   }
 
   theFunction(source: string) {
-    let context = (this.theContext || {}).attributes || {};
+    let context = (this.theContext || ({} as WidgetModel)).attributes || {};
     return nunjucks.renderString(source || '', context);
   }
 

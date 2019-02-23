@@ -5,7 +5,6 @@ import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '.';
 import * as widgetExports from './widgets';
-import * as V from './version';
 import '../style/index.css';
 
 const EXTENSION_ID = `${NAME}:plugin`;
@@ -18,9 +17,9 @@ const plugin: IPlugin<Application<Widget>, void> = {
     registry.registerWidget({
       name: NAME,
       version: VERSION,
-      exports: widgetExports,
+      exports: widgetExports
     });
-  },
+  }
 };
 
 export default plugin;

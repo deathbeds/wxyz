@@ -1,7 +1,13 @@
 {
-  "rulesDirectory": ["tslint-plugin-prettier"],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*.ts",
+      "node_modules/**/*.tsx",
+      "**/*.d.ts",
+      "jupyterlab/**/*.ts"
+    ]
+  },
   "rules": {
-    "prettier": [true, { "singleQuote": true }],
     "align": [true, "parameters", "statements"],
     "ban": [
       true,
@@ -59,6 +65,12 @@
       "check-whitespace"
     ],
     "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "prettier": [
+      true,
+      {
+        "singleQuote": true
+      }
+    ],
     "quotemark": {
       "options": [true, "single", "avoid-escape"],
       "severity": "off"
@@ -67,10 +79,9 @@
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "switch-default": true,
     "trailing-comma": [
-      false,
+      true,
       {
-        "multiline": "never",
-        "singleline": "never"
+        "esSpecCompliant": true
       }
     ],
     "triple-equals": [true, "allow-null-check", "allow-undefined-check"],
@@ -99,7 +110,8 @@
       "check-format",
       "allow-leading-underscore",
       "ban-keywords",
-      "allow-pascal-case"
+      "allow-pascal-case",
+      "allow-snake-case"
     ],
     "whitespace": [
       true,
@@ -109,12 +121,5 @@
       "check-type"
     ]
   },
-  "linterOptions": {
-    "exclude": [
-      "node_modules/**/*.ts",
-      "node_modules/**/*.tsx",
-      "**/*.d.ts",
-      "jupyterlab/**/*.ts"
-    ]
-  }
+  "rulesDirectory": ["tslint-plugin-prettier"]
 }

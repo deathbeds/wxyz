@@ -8,7 +8,9 @@ commands:
     unix: |-
       isort -rc packages \
       && black packages \
-      && jlpm lint
+      && jlpm lint \
+      && flake8 packages/ipywxyz \
+      && pylint ipywxyz
 
 env_specs:
   default:
@@ -20,12 +22,12 @@ env_specs:
       - isort
       - pylint
   wxyz:
-    channels:
-      - conda-forge
-      - defaults
     packages:
       - ipywidgets
       - jupyterlab >=0.35,<0.36
-      - nodejs >8,<9
+      - nodejs >=8.11,<9
       - pyld
       - python >=3.7,<3.8
+    channels:
+      - conda-forge
+      - defaults
