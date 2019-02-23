@@ -8,7 +8,7 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm build",
+    "bootstrap": "jlpm && jlpm build",
     "build": "lerna exec jlpm build",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml,css}",
