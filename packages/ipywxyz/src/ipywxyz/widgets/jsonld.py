@@ -29,9 +29,7 @@ class Expand(Fn):
     def _change(self, *_):
         try:
             self.error = ""
-            self.value = jsonld.expand(self.source, dict(
-                expandContext=self.context
-            ))
+            self.value = jsonld.expand(self.source, dict(expandContext=self.context))
         except Exception as err:
             self.error = f"{err}"
 
@@ -59,9 +57,9 @@ class Compact(Fn):
     def _change(self, *_):
         try:
             self.error = ""
-            self.value = jsonld.compact(self.source, self.context, dict(
-                expandContext=self.expand_context
-            ))
+            self.value = jsonld.compact(
+                self.source, self.context, dict(expandContext=self.expand_context)
+            )
         except Exception as err:
             self.error = f"{err}"
 
@@ -89,9 +87,9 @@ class Flatten(Fn):
     def _change(self, *_):
         try:
             self.error = ""
-            self.value = jsonld.flatten(self.source, self.context, dict(
-                expandContext=self.expand_context
-            ))
+            self.value = jsonld.flatten(
+                self.source, self.context, dict(expandContext=self.expand_context)
+            )
         except Exception as err:
             self.error = f"{err}"
 
@@ -119,9 +117,9 @@ class Frame(Fn):
     def _change(self, *_):
         try:
             self.error = ""
-            self.value = jsonld.frame(self.source, self.frame, dict(
-                expandContext=self.expand_context
-            ))
+            self.value = jsonld.frame(
+                self.source, self.frame, dict(expandContext=self.expand_context)
+            )
         except Exception as err:
             self.error = f"{err}"
 
@@ -134,13 +132,13 @@ class Normalize(Fn):
     _model_name = T.Unicode("NormalizeModel").tag(sync=True)
 
     source = T.Dict(allow_none=True).tag(sync=True)
-    value = T.Union([
-        T.Dict(allow_none=True),
-        T.Unicode(allow_none=True)
-    ]).tag(sync=True)
+    value = T.Union([T.Dict(allow_none=True), T.Unicode(allow_none=True)]).tag(
+        sync=True
+    )
     expand_context = T.Dict(allow_none=True).tag(sync=True)
-    format = T.Unicode(default_value="application/n-quads",
-                       allow_none=True).tag(sync=True)
+    format = T.Unicode(default_value="application/n-quads", allow_none=True).tag(
+        sync=True
+    )
 
     @T.default("source")
     @T.default("expand_context")
@@ -152,9 +150,8 @@ class Normalize(Fn):
     def _change(self, *_):
         try:
             self.error = ""
-            self.value = jsonld.normalize(self.source, dict(
-                expandContext=self.expand_context,
-                format=self.format
-            ))
+            self.value = jsonld.normalize(
+                self.source, dict(expandContext=self.expand_context, format=self.format)
+            )
         except Exception as err:
             self.error = f"{err}"

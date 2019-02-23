@@ -1,11 +1,40 @@
 declare module 'jsonld' {
+  export function compact<T = any>(
+    doc: any,
+    context: IContext,
+    options: ICompactOptions
+  ): Promise<T>;
+
+  export function expand<T = any>(
+    doc: any,
+    options: IExpandOptions
+  ): Promise<T>;
+
+  export function flatten<T = any>(
+    doc: any,
+    context: IContext,
+    options: IExpandOptions
+  ): Promise<T>;
+
+  export function frame<T = any>(
+    doc: any,
+    frame: IContext,
+    options: IExpandOptions
+  ): Promise<T>;
+
+  export function normalize<T = any>(
+    doc: any,
+    options: INormalizeOptions
+  ): Promise<T>;
+
   export interface IStaticContext {
     [key: string]: any;
   }
   export interface IContext {
     '@context': string | IStaticContext | (string | IStaticContext)[];
   }
-  export interface ICompactOptions {
+
+  export interface ICompactOptions extends IExpandOptions {
     /*
      * @param [options] options to use:
      *          [framing] true if compaction is occuring during a framing operation.
@@ -19,8 +48,6 @@ declare module 'jsonld' {
     compactToRelative?: boolean;
     /** true to always output a top-level graph (default: false). */
     graph?: boolean;
-    /** a context to expand with. */
-    expandContext?: IContext;
     /** true to assume the input is expanded and skip expansion, false not to, defaults to false. */
     skipExpansion?: boolean;
     /** true if compaction is occuring during a framing operation. */
@@ -41,18 +68,13 @@ declare module 'jsonld' {
      *            will be used. */
     // issuer: new IdentifierIssuer('_:b')
   }
-  export function compact<T=any>(
-    doc: any,
-    context: IContext,
-    options: ICompactOptions
-  ): Promise<T>;
 
   export interface IExpandOptions {
+    /** a context to expand with. */
     expandContext?: IContext;
   }
 
-  export function expand<T=any>(
-    doc: any,
-    options: IExpandOptions
-  ): Promise<T>;
+  export interface INormalizeOptions extends IExpandOptions {
+    format?: string;
+  }
 }
