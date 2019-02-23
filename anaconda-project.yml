@@ -6,9 +6,9 @@ commands:
     unix: jupyter lab --no-browser --debug
   lint:
     unix: |-
-      isort -rc src *.py \
-      && black src *.py \
-      && jlpm prettier
+      isort -rc packages \
+      && black packages \
+      && jlpm lint
 
 env_specs:
   default:

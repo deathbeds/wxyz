@@ -9,11 +9,14 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "lerna run build",
-    "lint": "prettier '*.{json,md,yml,yaml}' 'packages/**/*.{ts,json,md,yml,yaml}'"
+    "lint": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml}"
   },
   "devDependencies": {
     "lerna": "^3.13.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1"
   },
   "workspaces": [
     "packages/jupyterlab-*"

@@ -1,13 +1,13 @@
-import { FnModel } from "./base";
+import { FnModel } from './base';
 
 export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
-  static model_name = "JSONModel";
+  static model_name = 'JSONModel';
 
   defaults() {
     return {
       ...super.defaults(),
       _model_name: JSONModel.model_name,
-      value: null as any
+      value: null as any,
     };
   }
 

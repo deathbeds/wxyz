@@ -1,14 +1,14 @@
-import { BoxModel, BoxView } from "@jupyter-widgets/controls";
+import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 
-import {NAME, VERSION} from "..";
+import { NAME, VERSION } from '..';
 
-import { JupyterPhosphorDockPanelWidget } from "./_dock";
+import { JupyterPhosphorDockPanelWidget } from './_dock';
 
 export class DockBoxModel extends BoxModel {
-  static model_name = "DockBoxModel";
+  static model_name = 'DockBoxModel';
   static model_module = NAME;
   static model_module_version = VERSION;
-  static view_name: "DockBoxView";
+  static view_name: 'DockBoxView';
   static view_module = NAME;
   static view_module_version = VERSION;
 
@@ -20,7 +20,7 @@ export class DockBoxModel extends BoxModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       _model_name: DockBoxModel.model_name,
-      _view_name: DockBoxModel.view_name
+      _view_name: DockBoxModel.view_name,
     };
   }
 }

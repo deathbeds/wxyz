@@ -1,6 +1,6 @@
-import { DOMWidgetModel, ISerializers } from "@jupyter-widgets/base";
+import { DOMWidgetModel, ISerializers } from '@jupyter-widgets/base';
 
-import {NAME, VERSION} from "..";
+import { NAME, VERSION } from '..';
 
 export class Model<T> extends DOMWidgetModel {
   static model_module = NAME;
@@ -17,9 +17,9 @@ export class Model<T> extends DOMWidgetModel {
       _model_module_version: VERSION,
       _view_module: NAME,
       _view_module_version: VERSION,
-      icon_class: "jp-CircleIcon",
-      description: "An Undescribed Widget",
-      closable: true
+      icon_class: 'jp-CircleIcon',
+      description: 'An Undescribed Widget',
+      closable: true,
     };
   }
 }
@@ -39,55 +39,55 @@ export namespace Model {
 }
 
 export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
-  static model_name = "FnModel";
+  static model_name = 'FnModel';
 
   defaults() {
     return {
       ...super.defaults(),
       source: (null as unknown) as T,
       value: (null as unknown) as U,
-      error: (null as unknown) as string
+      error: (null as unknown) as string,
     };
   }
 
   initialize(attributes: V, options: any) {
     super.initialize(attributes, options);
-    return this.on("change:source", this.theSourceChanged, this);
+    return this.on('change:source', this.theSourceChanged, this);
   }
 
   theFunction(source: T): U {
-    console.error("undeFned", source);
+    console.error('undeFned', source);
     return (null as unknown) as U;
   }
 
   get theSource(): T {
-    return this.get("source");
+    return this.get('source');
   }
   set theSource(src: T) {
-    this.set("source", src);
+    this.set('source', src);
     this.save();
   }
 
   get theValue(): U {
-    return this.get("value");
+    return this.get('value');
   }
   set theValue(val: U) {
-    this.set("value", val);
+    this.set('value', val);
     this.save();
   }
 
   get theError(): string {
-    return this.get("error");
+    return this.get('error');
   }
 
   set theError(err: string) {
-    this.set("error", err);
+    this.set('error', err);
     this.save();
   }
 
   protected theSourceChanged() {
     let changed = false;
-    let err = "";
+    let err = '';
     try {
       let value = this.theFunction(this.theSource);
       if (value !== this.theValue) {

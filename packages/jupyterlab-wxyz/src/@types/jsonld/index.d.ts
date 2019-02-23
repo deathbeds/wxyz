@@ -1,9 +1,9 @@
-declare module "jsonld" {
+declare module 'jsonld' {
   export interface IStaticContext {
     [key: string]: any;
   }
   export interface IContext {
-    "@context": string | IStaticContext | (string | IStaticContext)[];
+    '@context': string | IStaticContext | (string | IStaticContext)[];
   }
   export interface ICompactOptions {
     /*
