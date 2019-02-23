@@ -50,7 +50,11 @@ export class EditorView extends DOMWidgetView {
 
   value_changed() {
     if (this._editor.getValue() !== this.model.get('value')) {
-      this._editor.setValue(this.model.get('value'));
+      let value = this.model.get('value');
+      if (typeof value !== 'string') {
+        value = JSON.stringify(value, null, 2);
+      }
+      this._editor.setValue(value);
     }
   }
 }

@@ -1,5 +1,6 @@
 """ Widgets for working with JSON
 """
+# pylint: disable=no-self-use,broad-except
 from pyld import jsonld
 
 from .base import Fn, T, W
@@ -14,10 +15,10 @@ class Expand(Fn):
 
     source = T.Dict(allow_none=True).tag(sync=True)
     value = T.List(allow_none=True).tag(sync=True)
-    context = T.Dict(allow_none=True).tag(sync=True)
+    expand_context = T.Dict(allow_none=True).tag(sync=True)
 
     @T.default("source")
-    @T.default("context")
+    @T.default("expand_context")
     def _default_source_contex(self):
         return {}
 
@@ -25,11 +26,13 @@ class Expand(Fn):
     def _default_value(self):
         return []
 
-    @T.observe("source", "context")
+    @T.observe("source", "expand_context")
     def _change(self, *_):
         try:
             self.error = ""
-            self.value = jsonld.expand(self.source, dict(expandContext=self.context))
+            self.value = jsonld.expand(
+                self.source, dict(expandContext=self.expand_context)
+            )
         except Exception as err:
             self.error = f"{err}"
 
