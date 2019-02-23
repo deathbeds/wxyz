@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+if [ "${NB_UID}not-on-binder" -ne "not-on-binder" ]; then
+  if [ "${CONDA_PREFIX}no-conda-prefix" = "no-conda-prefix" ]; then
+    export CONDA_PREFIX=$CONDA_DIR
+  fi
+fi
+
+set -ex
+pushd src/ipwxyz
+python -m pip install -e . --ignore-installed --no-dependencies
+popd
+
+jlpm bootstrap

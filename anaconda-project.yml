@@ -1,22 +1,9 @@
 name: wxyz
 description: experimental widgets
 
-variables:
-  LABEXTENSIONS: >
-    @jupyter-widgets/jupyterlab-manager@0.38
-    src/packages/jupyterlab-wxyz
-
 commands:
-  setup:
-    unix: |
-      cd src/ipywxyz \
-      && python -m pip install -e . --no-deps --ignore-installed --no-cache-dir -vv
   lab:
     unix: jupyter lab --no-browser --debug
-  lab:ext:
-    unix: jupyter labextension install ${LABEXTENSIONS} --no-build
-  lab:build:
-    unix: jupyter lab build --dev
   lint:
     unix: |-
       isort -rc src *.py \
