@@ -25,16 +25,20 @@ commands:
 
 env_specs:
   default:
+    inherit_from:
+      - wxyz
+    packages:
+      - black
+      - flake8
+      - isort
+      - pylint
+  wxyz:
     channels:
       - conda-forge
       - defaults
     packages:
-      - black
-      - flake8
       - ipywidgets
-      - isort
       - jupyterlab >=0.35,<0.36
       - nodejs >8,<9
       - pyld
-      - pylint
       - python >=3.7,<3.8

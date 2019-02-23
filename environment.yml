@@ -1,0 +1,12 @@
+name: wxyz
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - ipywidgets
+  - jupyterlab >=0.35,<0.36
+  - nodejs >8,<9
+  - pyld
+  - python >=3.7,<3.8
