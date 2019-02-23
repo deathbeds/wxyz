@@ -25,8 +25,8 @@ class Fn(Base):
     """ A widget that turns a source into a value
     """
 
-    source = T.Unicode("").tag(sync=True)
-    value = T.Unicode("").tag(sync=True)
+    source = T.Any(default_value=None, allow_none=True).tag(sync=True)
+    value = T.Any(default_value=None, allow_none=True).tag(sync=True)
 
-    def __init__(self, source="", **kwargs):
+    def __init__(self, source=None, **kwargs):
         super(Fn, self).__init__(source=source, **kwargs)

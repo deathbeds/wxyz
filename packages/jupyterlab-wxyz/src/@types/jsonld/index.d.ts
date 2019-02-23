@@ -41,9 +41,18 @@ declare module 'jsonld' {
      *            will be used. */
     // issuer: new IdentifierIssuer('_:b')
   }
-  export function compact(
+  export function compact<T=any>(
     doc: any,
     context: IContext,
     options: ICompactOptions
-  ): any;
+  ): Promise<T>;
+
+  export interface IExpandOptions {
+    expandContext?: IContext;
+  }
+
+  export function expand<T=any>(
+    doc: any,
+    options: IExpandOptions
+  ): Promise<T>;
 }

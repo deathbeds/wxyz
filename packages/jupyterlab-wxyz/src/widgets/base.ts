@@ -85,11 +85,11 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
     this.save();
   }
 
-  protected theSourceChanged() {
+  protected async theSourceChanged() {
     let changed = false;
     let err = '';
     try {
-      let value = this.theFunction(this.theSource);
+      let value = await this.theFunction(this.theSource);
       if (value !== this.theValue) {
         this.theValue = value;
         changed = true;
