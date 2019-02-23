@@ -1,4 +1,4 @@
-# widjucks
+# wxyz
 
 Try to bring more isomorphic capabilities to the Jupyter Widget stack
 
