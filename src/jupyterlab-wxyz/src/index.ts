@@ -1,2 +1,1 @@
-export * from "./version";
-export * from "./widgets";
+export {name as NAME, version as VERSION} from "../package.json";

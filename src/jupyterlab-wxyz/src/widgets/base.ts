@@ -1,22 +1,22 @@
 import { DOMWidgetModel, ISerializers } from "@jupyter-widgets/base";
 
-import * as V from "../version";
+import {NAME, VERSION} from "..";
 
 export class Model<T> extends DOMWidgetModel {
-  static model_module = V.MODULE_NAME;
-  static model_module_version = V.MODULE_VERSION;
-  static view_module = V.MODULE_NAME;
-  static view_module_version = V.MODULE_VERSION;
+  static model_module = NAME;
+  static model_module_version = VERSION;
+  static view_module = NAME;
+  static view_module_version = VERSION;
 
   static serializers: ISerializers = { ...DOMWidgetModel.serializers };
 
   defaults(): T {
     return {
       ...super.defaults(),
-      _model_module: V.MODULE_NAME,
-      _model_module_version: V.MODULE_VERSION,
-      _view_module: V.MODULE_NAME,
-      _view_module_version: V.MODULE_VERSION,
+      _model_module: NAME,
+      _model_module_version: VERSION,
+      _view_module: NAME,
+      _view_module_version: VERSION,
       icon_class: "jp-CircleIcon",
       description: "An Undescribed Widget",
       closable: true
