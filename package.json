@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "wxyz",
   "version": "0.0.0",
   "description": "experimental widgets",
@@ -6,9 +7,15 @@
   "repository": "https://github.com/deathbeds/wxyz",
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
-  "private": true,
+  "scripts": {
+    "build": "lerna run build",
+    "lint": "prettier '*.{json,md,yml,yaml}' 'packages/**/*.{ts,json,md,yml,yaml}'"
+  },
   "devDependencies": {
     "lerna": "^3.13.0",
     "prettier": "^1.16.4"
-  }
+  },
+  "workspaces": [
+    "packages/jupyterlab-*"
+  ]
 }

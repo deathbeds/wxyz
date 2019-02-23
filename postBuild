@@ -11,3 +11,4 @@ python -m pip install -e . --ignore-installed --no-dependencies
 popd
 
 jlpm bootstrap
+jupyter labextension install $(cat labex.txt)
