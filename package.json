@@ -1,0 +1,14 @@
+{
+  "name": "wxyz",
+  "version": "0.0.0",
+  "description": "experimental widgets",
+  "main": "index.js",
+  "repository": "https://github.com/deathbeds/wxyz",
+  "author": "deadpixels@googlegroups.com",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.13.0",
+    "prettier": "^1.16.4"
+  }
+}

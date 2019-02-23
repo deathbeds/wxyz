@@ -6,7 +6,7 @@ if [ "${NB_UID}not-on-binder" -ne "not-on-binder" ]; then
 fi
 
 set -ex
-pushd src/ipwxyz
+pushd src/ipywxyz
 python -m pip install -e . --ignore-installed --no-dependencies
 popd
 
