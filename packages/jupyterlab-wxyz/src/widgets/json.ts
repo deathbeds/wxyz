@@ -11,7 +11,7 @@ export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
     };
   }
 
-  theFunction(source: string) {
+  async theFunction(source: string) {
     return JSON.parse(source);
   }
 }

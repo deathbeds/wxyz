@@ -55,7 +55,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
     return this.on('change:source', this.theSourceChanged, this);
   }
 
-  theFunction(source: T): U {
+  async theFunction(source: T): Promise<U> {
     console.error('undeFned', source);
     return (null as unknown) as U;
   }
@@ -87,7 +87,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
 
   protected async theSourceChanged() {
     let changed = false;
-    let err = '';
+    this.theError = '';
     try {
       let value = await this.theFunction(this.theSource);
       if (value !== this.theValue) {
@@ -96,8 +96,8 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
       }
     } catch (err) {
       changed = true;
+      this.theError = err;
     }
-    this.theError = err;
     changed && this.save();
     return this;
   }

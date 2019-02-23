@@ -25,12 +25,22 @@ export class TemplateModel extends FnModel<
     };
   }
 
-  theFunction(source: string) {
+  async theFunction(source: string) {
     let context = this.theContext;
     if (context instanceof WidgetModel) {
       context = context.attributes;
     }
-    return nunjucks.renderString(source || '', context || {});
+    let promise = new Promise<string>((resolve, reject) => {
+      return nunjucks.renderString(source || '', context || {}, (err, res) => {
+        if (err) {
+          reject(err);
+          return;
+        } else {
+          resolve(res);
+        }
+      });
+    });
+    return await promise;
   }
 
   get theContext() {

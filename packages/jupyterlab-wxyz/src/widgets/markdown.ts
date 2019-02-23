@@ -16,8 +16,17 @@ export class MarkdownModel extends FnModel<
     };
   }
 
-  theFunction(source: string) {
-    return marked.parse(source);
+  async theFunction(source: string) {
+    const promise = new Promise<string>((resolve, reject) => {
+      marked.parse(source, {}, (err, result) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(result);
+      });
+    });
+    return await promise;
   }
 }
 

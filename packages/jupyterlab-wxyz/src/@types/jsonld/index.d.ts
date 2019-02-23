@@ -1,28 +1,28 @@
 declare module 'jsonld' {
-  export function compact<T = any>(
+  export function compact<T = object>(
     doc: any,
     context: IContext,
     options: ICompactOptions
   ): Promise<T>;
 
-  export function expand<T = any>(
+  export function expand<T = object>(
     doc: any,
     options: IExpandOptions
-  ): Promise<T>;
+  ): Promise<T[]>;
 
-  export function flatten<T = any>(
+  export function flatten<T = object>(
     doc: any,
     context: IContext,
     options: IExpandOptions
   ): Promise<T>;
 
-  export function frame<T = any>(
+  export function frame<T = object>(
     doc: any,
     frame: IContext,
     options: IExpandOptions
   ): Promise<T>;
 
-  export function normalize<T = any>(
+  export function normalize<T = object | string>(
     doc: any,
     options: INormalizeOptions
   ): Promise<T>;

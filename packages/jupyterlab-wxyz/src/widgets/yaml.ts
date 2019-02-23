@@ -13,7 +13,7 @@ export class YAMLModel extends JSONModel {
     };
   }
 
-  theFunction(source: string) {
+  async theFunction(source: string) {
     return safeLoad(source);
   }
 }
