@@ -9,7 +9,7 @@
     "widgets"
   ],
   "files": [
-    "lib/**/*.js"
+    "src/ts/jupyter-widjucks/{lib,style}/**/*.{js,ts,svg,json,css}"
   ],
   "homepage": "https://github.com/deathbeds/widjucks",
   "bugs": {
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "tsc -p src/ts/jupyter-widjucks",
-    "prettier": "prettier --write *.{json,md,yml} src/**/*.{ts,css,json}"
+    "prettier": "prettier --write *.{json,md,yml} src/**/*.{ts,css,json,map}"
   },
   "dependencies": {
     "js-yaml": "^3.12.1",
@@ -40,12 +40,14 @@
     "@jupyter-widgets/controls": "1.4.2",
     "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
+    "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
     "codemirror": "~5.39.0",
     "marked": "0.5.1"
   },
   "devDependencies": {
     "@jupyter-widgets/base": "^1.1.10",
     "@jupyter-widgets/controls": "1.4.2",
+    "@jupyter-widgets/jupyterlab-manager": "^0.38",
     "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
     "@phosphor/widgets": "^1.6.0",
@@ -60,6 +62,6 @@
     "typescript": "~3.3.3"
   },
   "jupyterlab": {
-    "extension": "lib/plugin"
+    "extension": "src/ts/jupyter-widjucks/lib/plugin"
   }
 }

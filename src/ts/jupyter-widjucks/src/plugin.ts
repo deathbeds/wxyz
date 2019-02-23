@@ -5,6 +5,7 @@ import { IJupyterWidgetRegistry } from "@jupyter-widgets/base";
 
 import * as widgetExports from "./widgets";
 import * as V from "./version";
+import "../style/index.css";
 
 const EXTENSION_ID = "widjucks:plugin";
 
@@ -13,7 +14,6 @@ const plugin: IPlugin<Application<Widget>, void> = {
   requires: [IJupyterWidgetRegistry],
   autoStart: true,
   activate: (app: Application<Widget>, registry: IJupyterWidgetRegistry) => {
-    console.log(widgetExports);
     registry.registerWidget({
       name: V.MODULE_NAME,
       version: V.MODULE_VERSION,

@@ -1,15 +1,12 @@
-from .base import Base
-from .base import T
-from .base import W
-
 import json
+
+from .base import Fn, T, W
 
 
 @W.register
-class JSON(Base):
+class JSON(Fn):
     _model_name = T.Unicode("JSONModel").tag(sync=True)
 
-    source = T.Unicode("").tag(sync=True)
     value = T.Union([T.Dict(), T.List(), T.Unicode(), T.Int(), T.Float()]).tag(
         sync=True
     )

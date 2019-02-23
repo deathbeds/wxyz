@@ -1,14 +1,15 @@
-import { FnModel } from "./base";
 import { safeLoad } from "js-yaml";
 
-export class YAMLModel extends FnModel<string, any> {
+import { JSONModel } from "./json";
+
+export class YAMLModel extends JSONModel {
   static model_name = "YAMLModel";
 
   defaults() {
     return {
       ...super.defaults(),
       _model_name: YAMLModel.model_name,
-      value: {}
+      value: {} as any
     };
   }
 

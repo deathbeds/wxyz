@@ -21,7 +21,9 @@ export class EditorModel extends TextareaModel {
       _model_module_version: V.MODULE_VERSION,
       _view_name: EditorModel.view_name,
       _view_module: V.MODULE_NAME,
-      _view_module_version: V.MODULE_VERSION
+      _view_module_version: V.MODULE_VERSION,
+      description: "An Editor",
+      icon_class: "jp-EditIcon"
     };
   }
 }
@@ -38,13 +40,15 @@ export class EditorView extends DOMWidgetView {
     this._editorNode.style.flex = "1";
     this.el.appendChild(this._editorNode);
     this._editor = CodeMirror(this._editorNode);
-    this.value_changed();
     this._editor.on("change", () => {
       this.model.set("value", this._editor.getValue());
       this.touch();
     });
     this.model.on("change:value", this.value_changed, this);
-    this._editor.refresh();
+    setTimeout(() => {
+      this._editor.refresh();
+      this.value_changed();
+    }, 1);
   }
 
   value_changed() {
