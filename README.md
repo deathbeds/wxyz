@@ -1,8 +1,14 @@
 # wxyz
 
+> has nothing to do with wx
+
 Try to bring more isomorphic capabilities to the Jupyter Widget stack
 
-| widget  | ipython | js        | _your kernel_ |
-| ------- | ------: | --------- | :-----------: |
-| Widjuck |  jinja2 | nunjucks  |      🙏       |
-| LD      |    pyld | jsonld.js |      🙏       |
+| ipython |    widget    | js         |
+| ------: | :----------: | ---------- |
+|  jinja2 | **Template** | nunjucks   |
+|    json |   **JSON**   | JSON       |
+| mistune | **Markdown** | marked     |
+|  pyyaml |   **YAML**   | js-yaml    |
+|       - |  **Editor**  | CodeMirror |
+|       - |   **Dock**   | Phosphor   |
