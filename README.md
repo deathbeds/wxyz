@@ -10,10 +10,11 @@ Try to bring more isomorphic capabilities to the Jupyter Widget stack
 | ------: | :----------: | ---------- |
 |  jinja2 | **Template** | nunjucks   |
 |    json |   **JSON**   | JSON       |
+|    pyld |   **Compact**, **Expand**, **Flatten**, **Frame**, **Normalize** | jsonld.js  |
 | mistune | **Markdown** | marked     |
 |  pyyaml |   **YAML**   | js-yaml    |
 |       - |  **Editor**  | CodeMirror |
 |       - |   **Dock**   | Phosphor   |
 
-[binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab
+[binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/notebooks/index.ipynb
 [binder-badge]: https://mybinder.org/badge_logo.svg

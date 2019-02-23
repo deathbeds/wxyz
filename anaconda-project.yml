@@ -23,6 +23,8 @@ env_specs:
       - pylint
   wxyz:
     packages:
+      - bqplot
+      - importnb
       - ipywidgets
       - jupyterlab >=0.35,<0.36
       - nodejs >=8.11,<9
