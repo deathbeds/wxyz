@@ -9,7 +9,9 @@ from .base import Fn, T, W
 class Template(Fn):
     _model_name = T.Unicode("TemplateModel").tag(sync=True)
 
-    context = T.Instance(W.Widget, allow_none=True).tag(
+    context = T.Union([
+            T.Dict(), T.Instance(W.Widget)
+        ], allow_none=True).tag(
         sync=True, **W.widget_serialization
     )
 

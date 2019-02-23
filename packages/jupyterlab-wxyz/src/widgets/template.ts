@@ -26,14 +26,17 @@ export class TemplateModel extends FnModel<
   }
 
   theFunction(source: string) {
-    let context = (this.theContext || ({} as WidgetModel)).attributes || {};
-    return nunjucks.renderString(source || '', context);
+    let context = this.theContext;
+    if (context instanceof WidgetModel) {
+      context = context.attributes;
+    }
+    return nunjucks.renderString(source || '', context || {});
   }
 
   get theContext() {
     return this.get('context');
   }
-  set theContext(context: WidgetModel) {
+  set theContext(context: TemplateModel.TContext) {
     this.set('context', context);
     this.save();
   }
@@ -47,17 +50,21 @@ export class TemplateModel extends FnModel<
   }
 
   protected theContextChanged(): void {
-    let previous = (this.previousAttributes() as any).context as WidgetModel;
-    previous && previous.off && previous.off(void 0, void 0, this);
-    this.theContext &&
-      this.theContext.on &&
-      this.theContext.on('change', this.theSourceChanged, this);
+    let previous = (this.previousAttributes() as any).context;
+    if (previous instanceof WidgetModel) {
+      previous.off(void 0, void 0, this);
+    }
+    let context = this.theContext;
+    if (context instanceof WidgetModel) {
+      context.on('change', this.theSourceChanged, this);
+    }
     this.theSourceChanged();
   }
 }
 
 export namespace TemplateModel {
+  export type TContext = WidgetModel | object | Array<any> | null;
   export interface ITraits extends FnModel.ITraits<string, string> {
-    context: WidgetModel | null;
+    context: TContext;
   }
 }

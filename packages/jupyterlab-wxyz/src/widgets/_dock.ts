@@ -35,8 +35,14 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
       return;
     }
     function onTitle() {
-      const { description, icon_class, closable } = view.model.attributes;
-      widget.title.label = description || `A Widget`;
+      const {
+        description,
+        icon_class,
+        closable,
+        _view_name,
+        _model_name
+      } = view.model.attributes;
+      widget.title.label = description || _view_name || _model_name;
       widget.title.iconClass = `jp-Icon-16 ${icon_class || 'jp-CircleIcon'}`;
       widget.title.closable = closable != null ? closable : true;
     }

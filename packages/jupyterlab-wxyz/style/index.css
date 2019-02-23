@@ -4,6 +4,7 @@
 
 .p-DockPanel > .jupyter-widgets {
   margin: 0;
+  overflow-y: auto;
 }
 
 .jp-WXYZ-Editor {
@@ -13,5 +14,4 @@
 
 .jp-WXYZ-Editor .CodeMirror {
   flex: 1;
-  overflow-y: auto;
 }
