@@ -11,6 +11,9 @@ commands:
       && jlpm lint \
       && flake8 packages/ipywxyz \
       && pylint ipywxyz
+  test:
+    unix: |-
+      pytest --nbval notebooks/API
 
 env_specs:
   default:
@@ -20,16 +23,21 @@ env_specs:
       - black
       - flake8
       - isort
+      - nbval
       - pylint
+      - pytest
+      - pytest-cov
   wxyz:
     packages:
       - bqplot
       - importnb
       - ipywidgets
+      - jsonpointer
       - jupyterlab >=0.35,<0.36
       - nodejs >=8.11,<9
       - pyld
       - python >=3.7,<3.8
+      - pyyaml
     channels:
       - conda-forge
       - defaults

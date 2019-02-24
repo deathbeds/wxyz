@@ -1,10 +1,10 @@
 """ Widgets for working with YAML
 """
-# pylint: disable=too-many-ancestors
+# pylint: disable=too-many-ancestors,no-self-use
 from yaml import safe_load
 
-from .base import T, W
-from .json import JSON
+from ._base import T, W
+from .widget_json import JSON
 
 
 @W.register
@@ -14,6 +14,7 @@ class YAML(JSON):
 
     _model_name = T.Unicode("YAMLModel").tag(sync=True)
 
-    @T.observe("source")
-    def _source_changed(self, *_):
-        self.value = safe_load(self.source)
+    def the_function(self, source):
+        """ "safely" load some YAML
+        """
+        return safe_load(source)

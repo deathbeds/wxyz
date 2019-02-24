@@ -1,8 +1,9 @@
 """ Widgets for working with markdown
 """
+# pylint: disable=no-self-use
 from nbconvert.filters.markdown import markdown2html_mistune
 
-from .base import Fn, T, W
+from ._base import Fn, T, W
 
 
 @W.register
@@ -12,6 +13,7 @@ class Markdown(Fn):
 
     _model_name = T.Unicode("MarkdownModel").tag(sync=True)
 
-    @T.observe("source")
-    def _source_changed(self, *_):
-        self.value = markdown2html_mistune(self.source)
+    def the_function(self, source):
+        """ Render some Jupyter markdown
+        """
+        return markdown2html_mistune(source)

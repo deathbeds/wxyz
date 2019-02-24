@@ -1,7 +1,7 @@
 """ Widgets that render in the dock
 """
 # pylint: disable=too-many-ancestors
-from .base import Base, T, W
+from ._base import Base, T, W
 
 
 @W.register
