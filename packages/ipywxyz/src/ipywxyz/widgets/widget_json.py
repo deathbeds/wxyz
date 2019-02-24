@@ -36,8 +36,6 @@ class JSONPointer(Fn):
     source = T.Dict(allow_none=True).tag(sync=True)
     pointer = T.Unicode(allow_none=True).tag(sync=True)
 
-    value = T.Dict(allow_none=True).tag(sync=True)
-
     _observed_traits = ["source", "pointer"]
 
     def the_function(self, source, pointer):
