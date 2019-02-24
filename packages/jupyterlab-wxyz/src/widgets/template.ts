@@ -1,5 +1,3 @@
-import * as nunjucks from 'nunjucks';
-
 import {
   WidgetModel,
   unpack_models as deserialize
@@ -7,7 +5,13 @@ import {
 
 import { FnModel } from './base';
 
-nunjucks.installJinjaCompat();
+import { lazyLoader } from './lazy';
+
+const _nunjucks = lazyLoader(async () => {
+  const nj = await import(/* webpackChunkName: "nunjucks" */ 'nunjucks');
+  nj.installJinjaCompat();
+  return nj;
+});
 
 export class TemplateModel extends FnModel<
   string,
@@ -30,8 +34,9 @@ export class TemplateModel extends FnModel<
     if (context instanceof WidgetModel) {
       context = context.attributes;
     }
+    let { renderString } = _nunjucks.get() || (await _nunjucks.load());
     let promise = new Promise<string>((resolve, reject) => {
-      return nunjucks.renderString(source || '', context || {}, (err, res) => {
+      return renderString(source || '', context || {}, (err, res) => {
         if (err) {
           reject(err);
           return;

@@ -1,3 +1,4 @@
+// no need to lazy load marked, as it's already in vendoer~main
 import marked from 'marked';
 
 import { FnModel } from './base';

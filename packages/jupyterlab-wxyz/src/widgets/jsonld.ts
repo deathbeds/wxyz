@@ -1,6 +1,9 @@
+// this is a name-only import
 import * as jsonld from 'jsonld';
 
 import { JSONLDBase } from './_jsonld';
+
+const { getJSONLD, loadJSONLD } = JSONLDBase;
 
 export class ExpandModel extends JSONLDBase<
   object,
@@ -16,7 +19,8 @@ export class ExpandModel extends JSONLDBase<
   async theFunction(source: object) {
     const context = this.theExpandContext;
     const opts = context ? { expandContext: context } : {};
-    return await jsonld.expand(source, opts);
+    const { expand } = getJSONLD() || (await loadJSONLD());
+    return await expand(source, opts);
   }
 }
 
@@ -41,7 +45,8 @@ export class CompactModel extends JSONLDBase<
   async theFunction(source: object) {
     const expandContext = this.theExpandContext;
     const context = this.get('context') as jsonld.IContext;
-    return await jsonld.compact(source, context, {
+    const { compact } = getJSONLD() || (await loadJSONLD());
+    return await compact(source, context, {
       ...(expandContext ? { expandContext } : {})
     });
   }
@@ -68,7 +73,8 @@ export class FlattenModel extends JSONLDBase<
   async theFunction(source: object) {
     const expandContext = this.theExpandContext;
     const context = this.get('context') as jsonld.IContext;
-    return await jsonld.flatten(source, context, {
+    const { flatten } = getJSONLD() || (await loadJSONLD());
+    return await flatten(source, context, {
       ...(expandContext ? { expandContext } : {})
     });
   }
@@ -90,8 +96,9 @@ export class FrameModel extends JSONLDBase<object, object, FrameModel.ITraits> {
 
   async theFunction(source: object) {
     const expandContext = this.theExpandContext;
-    const frame = this.get('frame') as jsonld.IContext;
-    return await jsonld.frame(source, frame, {
+    const frameContext = this.get('frame') as jsonld.IContext;
+    const { frame } = getJSONLD() || (await loadJSONLD());
+    return await frame(source, frameContext, {
       ...(expandContext ? { expandContext } : {})
     });
   }
@@ -118,7 +125,8 @@ export class NormalizeModel extends JSONLDBase<
   async theFunction(source: object) {
     const expandContext = this.theExpandContext;
     const format = this.get('format');
-    return await jsonld.normalize(source, {
+    const { normalize } = getJSONLD() || (await loadJSONLD());
+    return await normalize(source, {
       ...(expandContext ? { expandContext } : {}),
       ...(format ? { format } : {})
     });

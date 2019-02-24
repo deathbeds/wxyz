@@ -1,6 +1,7 @@
 import * as jsonld from 'jsonld';
 
 import { FnModel } from './base';
+import { lazyLoader } from './lazy';
 
 export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
   T,
@@ -36,5 +37,16 @@ export namespace JSONLDBase {
   export interface ITraits<T = object, U = object>
     extends FnModel.ITraits<T, U> {
     expandContext: jsonld.IContext;
+  }
+
+  const _jsonld = lazyLoader(
+    async () => await import(/* webpackChunkName: "jsonld" */ 'jsonld')
+  );
+
+  export function getJSONLD() {
+    return _jsonld.get();
+  }
+  export function loadJSONLD() {
+    return _jsonld.load();
   }
 }
