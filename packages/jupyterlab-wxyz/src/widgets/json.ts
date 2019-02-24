@@ -1,4 +1,4 @@
-import { FnModel } from './base';
+import { FnModel } from './_base';
 
 export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
   static model_name = 'JSONModel';

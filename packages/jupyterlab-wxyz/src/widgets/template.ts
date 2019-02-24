@@ -3,7 +3,7 @@ import {
   unpack_models as deserialize
 } from '@jupyter-widgets/base';
 
-import { FnModel } from './base';
+import { FnModel } from './_base';
 
 import { lazyLoader } from './lazy';
 

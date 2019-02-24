@@ -1,6 +1,6 @@
 import * as jsonld from 'jsonld';
 
-import { FnModel } from './base';
+import { FnModel } from './_base';
 import { lazyLoader } from './lazy';
 
 export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<

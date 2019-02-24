@@ -1,7 +1,7 @@
 // no need to lazy load marked, as it's already in vendoer~main
 import marked from 'marked';
 
-import { FnModel } from './base';
+import { FnModel } from './_base';
 
 export class MarkdownModel extends FnModel<
   string,
