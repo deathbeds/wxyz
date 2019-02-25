@@ -6,7 +6,7 @@ const externals = ['@jupyter-widgets/base'];
 const pySrc = path.resolve(__dirname, '..', '..', 'ipywxyz', 'src', 'ipywxyz');
 
 const output: Partial<webpack.Output> = {
-  filename: 'index.js',
+  filename: '[name].[contenthash].js',
   libraryTarget: 'amd'
 };
 
@@ -21,6 +21,9 @@ const nbextension: webpack.Configuration = {
     ]
   },
   output: { path: path.resolve(pySrc, 'static', 'wxyz'), ...output },
+  optimization: {
+    runtimeChunk: 'single'
+  },
   externals
 };
 

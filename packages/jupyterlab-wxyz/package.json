@@ -23,7 +23,7 @@
   ],
   "homepage": "https://github.com/deathbeds/wxyz",
   "jupyterlab": {
-    "extension": "lib/plugin"
+    "extension": "lib/index"
   },
   "keywords": [
     "jupyter",

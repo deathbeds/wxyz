@@ -7,7 +7,7 @@ fi
 
 set -eux
 python -m pip install -e ./packages/ipywxyz --ignore-installed --no-dependencies
-
 jlpm bootstrap
+jupyter labextension link packages/jupyter-wxyz --no-build
 jupyter labextension install $(cat labex.txt) --no-build
 jupyter lab build

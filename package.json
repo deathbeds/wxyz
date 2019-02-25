@@ -8,12 +8,12 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm && jlpm build",
-    "build": "lerna exec jlpm build --stream --prefix",
+    "bootstrap": "jlpm && jlpm build && jlpm webpack",
+    "build": "tsc -b",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml,css}",
     "lint:ts": "tslint --fix packages/**/*.ts",
-    "watch": "lerna exec jlpm watch --stream --prefix",
+    "watch": "jlpm build --watch",
     "webpack": "lerna exec --scope @deathbeds/wxyz-nbextension jlpm webpack --stream --prefix"
   },
   "devDependencies": {
