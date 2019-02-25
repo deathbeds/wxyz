@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfigbase.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "commonjs"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../jupyter-wxyz"
+    }
+  ]
+}

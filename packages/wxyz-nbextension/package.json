@@ -1,0 +1,47 @@
+{
+  "author": {
+    "email": "",
+    "name": "dead pixels collective"
+  },
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "dependencies": {
+    "@deathbeds/jupyter-wxyz": "^0.1.0"
+  },
+  "description": "Experimental widgets for JupyterLab",
+  "devDependencies": {
+    "typescript": "~3.3.3",
+    "ts-node": "^8.0.2",
+    "@types/node": "^11.9.5",
+    "webpack": "^4.29.5",
+    "@types/webpack": "^4.4.24",
+    "source-map-loader": "^0.2.4"
+  },
+  "files": [
+    "{lib,dist}/**/*.{js,map}",
+    "LICENSE.txt"
+  ],
+  "homepage": "https://github.com/deathbeds/wxyz",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "name": "@deathbeds/wxyz-nbextension",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "jlpm build --watch",
+    "webpack": "webpack --config lib/webpack.config.js"
+  },
+  "types": "lib/index.d.ts",
+  "version": "0.1.0"
+}

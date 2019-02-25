@@ -7,31 +7,18 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "js-yaml": "^3.12.1",
-    "jsonld": "^1.5.1",
-    "nunjucks": "^3.1.7",
-    "jsonpointer": "^4.0.0"
+    "@deathbeds/jupyter-wxyz": "^0.1.0"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
     "@jupyter-widgets/base": "^1.1.10",
-    "@jupyter-widgets/controls": "1.4.2",
-    "@jupyter-widgets/jupyterlab-manager": "^0.38",
-    "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
     "@phosphor/widgets": "^1.6.0",
-    "@types/codemirror": "^0.0.71",
-    "@types/js-yaml": "^3.12.0",
-    "@types/marked": "~0.3.0",
     "@types/node": "^10.11.6",
-    "@types/nunjucks": "^3.0.0",
-    "ajv": "^6.5.5",
-    "codemirror": "~5.39.0",
-    "marked": "0.5.1",
     "typescript": "~3.3.3"
   },
   "files": [
-    "{lib,style}/**/*.{js,ts,svg,json,css,map}",
+    "lib/**/*.{js,ts,svg,json,css,map}",
     "LICENSE.txt"
   ],
   "homepage": "https://github.com/deathbeds/wxyz",
@@ -47,16 +34,13 @@
   ],
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
-  "name": "@deathbeds/jupyter-wxyz",
+  "name": "@deathbeds/jupyterlab-wxyz",
   "peerDependencies": {
     "@jupyter-widgets/base": "^1.1.10",
-    "@jupyter-widgets/controls": "1.4.2",
-    "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
-    "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
-    "ajv": "^6.5.5",
-    "codemirror": "~5.39.0",
-    "marked": "0.5.1"
+    "@phosphor/widgets": "^1.6.0",
+    "@types/node": "^10.11.6",
+    "typescript": "~3.3.3"
   },
   "repository": {
     "type": "git",

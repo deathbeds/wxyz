@@ -9,20 +9,45 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "bootstrap": "jlpm && jlpm build",
-    "build": "lerna exec jlpm build",
+    "build": "lerna exec jlpm build --stream --prefix",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml,css}",
     "lint:ts": "tslint --fix packages/**/*.ts",
-    "watch": "lerna exec jlpm watch"
+    "watch": "lerna exec jlpm watch --stream --prefix",
+    "webpack": "lerna exec --scope @deathbeds/wxyz-nbextension jlpm webpack --stream --prefix"
   },
   "devDependencies": {
+    "@jupyter-widgets/base": "^1.1.10",
+    "@jupyter-widgets/controls": "1.4.2",
+    "@phosphor/application": "^1.6.0",
+    "@phosphor/widgets": "^1.6.0",
+    "@types/codemirror": "^0.0.71",
+    "@types/js-yaml": "^3.12.0",
+    "@types/marked": "~0.3.0",
+    "@types/node": "^10.11.6",
+    "@types/nunjucks": "^3.0.0",
+    "@types/webpack": "^4.4.24",
+    "ajv": "^6.5.5",
+    "codemirror": "~5.39.0",
+    "js-yaml": "^3.12.1",
+    "jsonld": "^1.5.1",
+    "jsonpointer": "^4.0.0",
     "lerna": "3.13.0",
+    "marked": "0.5.1",
+    "nunjucks": "^3.1.7",
     "prettier": "^1.16.4",
+    "source-map-loader": "^0.2.4",
+    "ts-node": "^8.0.2",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1"
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "~3.3.3",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "workspaces": [
-    "packages/jupyterlab-*"
+    "packages/jupyter-wxyz",
+    "packages/jupyterlab-wxyz",
+    "packages/wxyz-nbextension"
   ]
 }
