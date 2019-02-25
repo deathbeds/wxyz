@@ -9,7 +9,8 @@
   "dependencies": {
     "js-yaml": "^3.12.1",
     "jsonld": "^1.5.1",
-    "nunjucks": "^3.1.7"
+    "nunjucks": "^3.1.7",
+    "jsonpointer": "^4.0.0"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
@@ -27,8 +28,7 @@
     "ajv": "^6.5.5",
     "codemirror": "~5.39.0",
     "marked": "0.5.1",
-    "typescript": "~3.3.3",
-    "jsonpointer": "^4.0.0"
+    "typescript": "~3.3.3"
   },
   "files": [
     "{lib,style}/**/*.{js,ts,svg,json,css,map}",
@@ -54,7 +54,6 @@
     "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
     "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
-    "jsonpointer": "^4.0.0",
     "ajv": "^6.5.5",
     "codemirror": "~5.39.0",
     "marked": "0.5.1"
