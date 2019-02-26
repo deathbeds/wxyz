@@ -4,7 +4,6 @@ import { Widget } from '@phosphor/widgets';
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '@deathbeds/jupyter-wxyz';
-import * as widgetExports from '@deathbeds/jupyter-wxyz/lib/widgets';
 
 const EXTENSION_ID = `${NAME}:plugin`;
 
@@ -16,7 +15,9 @@ const plugin: IPlugin<Application<Widget>, void> = {
     registry.registerWidget({
       name: NAME,
       version: VERSION,
-      exports: widgetExports
+      exports: async () =>
+        (await import(/* webpackChunkName: "wxyz" */ '@deathbeds/jupyter-wxyz/lib/widgets'))
+          .default
     });
   }
 };

@@ -2,6 +2,9 @@ name: wxyz
 description: experimental widgets
 
 commands:
+  nb:ext:
+    unix: >
+      jupyter nbextension install --symlink --sys-prefix --py ipywxyz
   lab:
     unix: jupyter lab --no-browser --debug
   lint:
@@ -35,6 +38,7 @@ env_specs:
       - jsonpointer
       - jupyterlab >=0.35,<0.36
       - nodejs >=8.11,<9
+      - pydot
       - pyld
       - python >=3.7,<3.8
       - pyyaml

@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@deathbeds/jupyter-wxyz@file:packages/jupyter-wxyz":
+  version "0.1.0"
+  dependencies:
+    js-yaml "^3.12.1"
+    jsonld "^1.5.1"
+    jsonpointer "^4.0.0"
+    nunjucks "^3.1.7"
+
 "@jupyter-widgets/base@^1.1.10", "@jupyter-widgets/base@^1.2.2":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@jupyter-widgets/base/-/base-1.2.3.tgz#9f2586f5234a2d12cb76585f7d402cb16bebcef0"

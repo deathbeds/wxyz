@@ -22,7 +22,16 @@ const nbextension: webpack.Configuration = {
   },
   output: { path: path.resolve(pySrc, 'static', 'wxyz'), ...output },
   optimization: {
-    runtimeChunk: 'single'
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   },
   externals
 };
@@ -30,7 +39,7 @@ const nbextension: webpack.Configuration = {
 const bundle: webpack.Configuration = {
   ...nbextension,
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '..', 'dist'),
     library: '@deathbeds/jupyterlab-wxyz',
     publicPath: `https://deathbeds.github.io/wxyz/wxyz-nbextextension@0.1.0/dist/`,
     ...output

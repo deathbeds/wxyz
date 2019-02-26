@@ -14,7 +14,8 @@
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml,css}",
     "lint:ts": "tslint --fix packages/**/*.ts",
     "watch": "jlpm build --watch",
-    "webpack": "lerna exec --scope @deathbeds/wxyz-nbextension jlpm webpack --stream --prefix"
+    "webpack": "lerna exec --stream --scope @deathbeds/wxyz-nbextension jlpm webpack",
+    "webpack:watch": "lerna exec --stream --scope @deathbeds/wxyz-nbextension jlpm webpack:watch"
   },
   "devDependencies": {
     "@jupyter-widgets/base": "^1.1.10",

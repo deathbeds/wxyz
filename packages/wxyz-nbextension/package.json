@@ -40,7 +40,8 @@
   "scripts": {
     "build": "tsc -b",
     "watch": "jlpm build --watch",
-    "webpack": "webpack --config lib/webpack.config.js"
+    "webpack": "webpack --config lib/webpack.config.js",
+    "webpack:watch": "jlpm webpack --watch"
   },
   "types": "lib/index.d.ts",
   "version": "0.1.0"

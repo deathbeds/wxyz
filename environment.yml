@@ -11,6 +11,7 @@ dependencies:
   - jsonpointer
   - jupyterlab >=0.35,<0.36
   - nodejs >=8.11,<9
+  - pydot
   - pyld
   - python >=3.7,<3.8
   - pyyaml
