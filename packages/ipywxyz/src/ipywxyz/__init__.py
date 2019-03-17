@@ -1,8 +1,7 @@
 """ Some widgets
 """
 # flake8: noqa
-from ._version import __version__
-from ._version import version_info
+from ._version import __version__, version_info
 
 # these just emulate stuff in lab
 from .widgets.widget_dock import DockBox

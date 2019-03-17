@@ -8,16 +8,65 @@ import {
 import { Message } from '@phosphor/messaging';
 import { toArray } from '@phosphor/algorithm';
 
+export const CSS = {
+  HIDE_TABS: 'jp-WXYZ-DockBox-hide-tabs',
+  DOCK_BOX: 'jp-WXYZ-DockBox'
+};
+
+let nextId = 0;
+
 export class JupyterPhosphorDockPanelWidget extends DockPanel {
   private _ignoreLayoutChanges: boolean;
+  private _style: HTMLStyleElement;
 
   constructor(options: JupyterPhosphorWidget.IOptions & DockPanel.IOptions) {
     let view = options.view;
     delete options.view;
     super(options);
+    this.addClass(CSS.DOCK_BOX);
+    this.id = this.id || `${CSS.DOCK_BOX}-${nextId++}`;
     this._view = view;
     this.layoutModified.connect(this.onLayoutChanged, this);
     view.model.on('change:dock_layout', this.onLayoutModelChanged, this);
+    view.model.on('change:tab_size', this.onStyleChanged, this);
+    view.model.on('change:border_size', this.onStyleChanged, this);
+    view.model.on('change:hide_tabs', this.onStyleChanged, this);
+    this._style = document.createElement('style');
+    this.onStyleChanged();
+    document.head.appendChild(this._style);
+  }
+
+  onStyleChanged() {
+    let styles: string[] = [];
+    let size = this._view.model.get('tab_size');
+    let border = this._view.model.get('border_size');
+    let hideTabs = this._view.model.get('hide_tabs');
+
+    if (hideTabs) {
+      styles.push(`
+        #${this.id} .p-DockPanel-tabBar[data-orientation='horizontal'] {
+          min-height: 0;
+          max-height: 0;
+          border: 0;
+        }
+        `);
+    } else if (size != null) {
+      styles.push(`
+        #${this.id} {
+          --jp-private-horizontal-tab-height: ${size};
+        }
+      `);
+    }
+
+    if (border != null && border.length) {
+      styles.push(`
+        #${this.id} {
+          --jp-border-width: ${border};
+        }
+      `);
+    }
+
+    this._style.textContent = styles.join('\n');
   }
 
   async onLayoutModelChanged() {

@@ -29,7 +29,10 @@ export class DockBoxModel extends BoxModel {
       _view_module_version: VERSION,
       _model_name: DockBoxModel.model_name,
       _view_name: DockBoxModel.view_name,
-      dock_layout: null as DockLayout.AreaConfig
+      dock_layout: null as DockLayout.AreaConfig,
+      tab_size: null,
+      border: null,
+      hide_tabs: null
     };
   }
 }
