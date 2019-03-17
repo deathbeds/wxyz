@@ -1,4 +1,7 @@
+import { unpack_models as deserialize } from '@jupyter-widgets/base';
+
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
+import { DockLayout } from '@phosphor/widgets';
 
 import { NAME, VERSION } from '..';
 
@@ -12,6 +15,11 @@ export class DockBoxModel extends BoxModel {
   static view_module = NAME;
   static view_module_version = VERSION;
 
+  static serializers = {
+    ...BoxModel.serializers,
+    dock_layout: { deserialize }
+  };
+
   defaults() {
     return {
       ...super.defaults(),
@@ -20,7 +28,8 @@ export class DockBoxModel extends BoxModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       _model_name: DockBoxModel.model_name,
-      _view_name: DockBoxModel.view_name
+      _view_name: DockBoxModel.view_name,
+      dock_layout: null as DockLayout.AreaConfig
     };
   }
 }
