@@ -14,3 +14,4 @@ dependencies:
   - pyld
   - python >=3.7,<3.8
   - pyyaml
+  - tornado <6
