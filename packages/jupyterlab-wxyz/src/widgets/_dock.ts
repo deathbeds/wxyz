@@ -4,6 +4,7 @@ import {
   DOMWidgetView,
   DOMWidgetModel
 } from '@jupyter-widgets/base';
+import { Application } from '@phosphor/application';
 
 import { Message } from '@phosphor/messaging';
 import { toArray } from '@phosphor/algorithm';
@@ -16,6 +17,7 @@ export const CSS = {
 let nextId = 0;
 
 export class JupyterPhosphorDockPanelWidget extends DockPanel {
+  protected _view: DOMWidgetView;
   private _ignoreLayoutChanges: boolean;
   private _style: HTMLStyleElement;
 
@@ -197,6 +199,14 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
       this._ignoreLayoutChanges = false;
     }, 100);
   }
+}
 
-  private _view: DOMWidgetView;
+export class JupyterLabPhosphorDockPanelWidget extends JupyterPhosphorDockPanelWidget {
+  app: Application<Widget>;
+
+  insertWidget(i: number, widget: Widget) {
+    super.insertWidget(i, widget);
+    widget.id = widget.id || `jp-WXYZ-DockPop-pop-${nextId++}`;
+    (this.app.shell as any).addToMainArea(widget, { mode: 'split-right' });
+  }
 }

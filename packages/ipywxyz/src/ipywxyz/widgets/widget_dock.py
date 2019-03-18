@@ -38,3 +38,12 @@ class DockBox(Base, W.Box):
     border_size = T.Unicode(
         help="CSS size value for border width", allow_none=True
     ).tag(sync=True)
+
+
+@W.register
+class DockPop(Base, W.Box):
+    """ A "box" that just adds stuff to the main JupyterLab area
+    """
+
+    _model_name = T.Unicode("DockPopModel").tag(sync=True)
+    _view_name = T.Unicode("DockPopView").tag(sync=True)

@@ -5,7 +5,10 @@ import { DockLayout } from '@phosphor/widgets';
 
 import { NAME, VERSION } from '..';
 
-import { JupyterPhosphorDockPanelWidget } from './_dock';
+import {
+  JupyterPhosphorDockPanelWidget,
+  JupyterLabPhosphorDockPanelWidget
+} from './_dock';
 
 export class DockBoxModel extends BoxModel {
   static model_name = 'DockBoxModel';
@@ -41,5 +44,23 @@ export class DockBoxView extends BoxView {
   _createElement(tagName: string) {
     this.pWidget = new JupyterPhosphorDockPanelWidget({ view: this }) as any;
     return this.pWidget.node;
+  }
+}
+
+export class DockPopModel extends BoxModel {
+  static model_name = 'DockPopModel';
+  static model_module = NAME;
+  static model_module_version = VERSION;
+  static view_name: 'DockPopView';
+  static view_module = NAME;
+  static view_module_version = VERSION;
+}
+
+export class DockPopView extends BoxView {
+  _createElement(tagName: string) {
+    let pWidget = new JupyterLabPhosphorDockPanelWidget({ view: this }) as any;
+    this.pWidget = pWidget;
+    pWidget.app = (DockPopView as any)['app'];
+    return pWidget.node;
   }
 }

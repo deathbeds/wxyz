@@ -4,7 +4,7 @@
 from ._version import __version__, version_info
 
 # these just emulate stuff in lab
-from .widgets.widget_dock import DockBox
+from .widgets.widget_dock import DockBox, DockPop
 from .widgets.widget_editor import Editor
 
 # some of these have dependencies that might fail

@@ -14,6 +14,7 @@ const plugin: IPlugin<Application<Widget>, void> = {
   requires: [IJupyterWidgetRegistry],
   autoStart: true,
   activate: (app: Application<Widget>, registry: IJupyterWidgetRegistry) => {
+    (widgetExports.DockPopView as any)['app'] = app;
     registry.registerWidget({
       name: NAME,
       version: VERSION,
