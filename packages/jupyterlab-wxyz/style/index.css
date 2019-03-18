@@ -2,6 +2,25 @@
   overflow: hidden;
 }
 
+/* dockpanel */
+.jp-LinkedOutputView
+  > .jp-OutputArea
+  > .jp-OutputArea-output
+  > .jupyter-widgets.p-DockPanel {
+  height: 100% !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+}
+
+/* slider */
+.jupyter-widgets.p-DockPanel .widget-inline-vbox .widget-readout {
+  width: auto;
+  height: auto;
+}
+
 .p-DockPanel > .jupyter-widgets {
   margin: 0;
   overflow-y: auto;

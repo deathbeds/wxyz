@@ -40,9 +40,9 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
 
   onStyleChanged() {
     let styles: string[] = [];
-    let size = this._view.model.get('tab_size');
-    let border = this._view.model.get('border_size');
-    let hideTabs = this._view.model.get('hide_tabs');
+    let size = (this._view.model.get('tab_size') || '').trim();
+    let border = (this._view.model.get('border_size') || '').trim();
+    let hideTabs = this._view.model.get('hide_tabs') || false;
 
     if (hideTabs) {
       styles.push(`
@@ -52,7 +52,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
           border: 0;
         }
         `);
-    } else if (size != null) {
+    } else if (size.length) {
       styles.push(`
         #${this.id} {
           --jp-private-horizontal-tab-height: ${size};
@@ -60,7 +60,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
       `);
     }
 
-    if (border != null && border.length) {
+    if (border.length) {
       styles.push(`
         #${this.id} {
           --jp-border-width: ${border};

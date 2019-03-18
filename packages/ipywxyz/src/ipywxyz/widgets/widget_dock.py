@@ -39,6 +39,7 @@ class DockBox(Base, W.Box):
         help="CSS size value for border width", allow_none=True
     ).tag(sync=True)
 
+
 MODES = """
 tab-after
 tab-before
@@ -46,12 +47,16 @@ split-top
 split-left
 split-right
 split-bottom
-""".strip().split("\n")
+""".strip().split(
+    "\n"
+)
+
 
 @W.register
 class DockPop(Base, W.Box):
     """ A "box" that just adds stuff to the main JupyterLab area
     """
+
     mode = T.Enum(MODES, default_value=None, allow_none=True).tag(sync=True)
 
     _model_name = T.Unicode("DockPopModel").tag(sync=True)
