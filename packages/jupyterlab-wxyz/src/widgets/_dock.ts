@@ -20,6 +20,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
   protected _view: DOMWidgetView;
   private _ignoreLayoutChanges: boolean;
   private _style: HTMLStyleElement;
+  private _defaultSpacing: number;
 
   constructor(options: JupyterPhosphorWidget.IOptions & DockPanel.IOptions) {
     let view = options.view;
@@ -30,12 +31,22 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     this._view = view;
     this.layoutModified.connect(this.onLayoutChanged, this);
     view.model.on('change:dock_layout', this.onLayoutModelChanged, this);
-    view.model.on('change:tab_size', this.onStyleChanged, this);
-    view.model.on('change:border_size', this.onStyleChanged, this);
-    view.model.on('change:hide_tabs', this.onStyleChanged, this);
+    view.model.on(
+      'change:hide_tabs change:tab_size change:border_size',
+      this.onStyleChanged,
+      this
+    );
+    view.model.on('change:spacing', this.onSpacing, this);
     this._style = document.createElement('style');
     this.onStyleChanged();
+    this._defaultSpacing = this.spacing;
+    this.onSpacing();
     document.head.appendChild(this._style);
+  }
+
+  onSpacing() {
+    let spacing = this._view.model.get('spacing');
+    this.spacing = spacing == null ? this._defaultSpacing : spacing;
   }
 
   onStyleChanged() {
@@ -50,6 +61,10 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
           min-height: 0;
           max-height: 0;
           border: 0;
+          margin: 0;
+          padding: 0;
+          visibility: hidden;
+          height: 0 !important;
         }
         `);
     } else if (size.length) {
@@ -69,6 +84,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     }
 
     this._style.textContent = styles.join('\n');
+    this.onSpacing();
   }
 
   async onLayoutModelChanged() {
@@ -76,6 +92,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     this._ignoreLayoutChanges = true;
     if (main) {
       this.restoreLayout({ main });
+      this.onSpacing();
     }
     setTimeout(() => {
       this._ignoreLayoutChanges = false;

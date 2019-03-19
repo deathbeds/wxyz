@@ -38,6 +38,7 @@ class DockBox(Base, W.Box):
     border_size = T.Unicode(
         help="CSS size value for border width", allow_none=True
     ).tag(sync=True)
+    spacing = T.Float(help="Spacing between children", allow_none=True).tag(sync=True)
 
 
 MODES = """

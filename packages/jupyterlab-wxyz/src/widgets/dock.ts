@@ -1,3 +1,5 @@
+import screenfull from 'screenfull';
+
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
@@ -43,6 +45,15 @@ export class DockBoxModel extends BoxModel {
 export class DockBoxView extends BoxView {
   _createElement(tagName: string) {
     this.pWidget = new JupyterPhosphorDockPanelWidget({ view: this }) as any;
+    this.pWidget.node.title = 'Ctrl+Click to view full screen';
+    this.pWidget.node.addEventListener('click', (evt: MouseEvent) => {
+      if (evt.ctrlKey) {
+        const anyful = screenfull as any;
+        if (anyful && anyful.enabled) {
+          anyful.toggle(this.pWidget.node);
+        }
+      }
+    });
     return this.pWidget.node;
   }
 }
