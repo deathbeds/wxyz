@@ -7,6 +7,7 @@ from ._version import __version__, version_info
 from .widgets.widget_dock import DockBox, DockPop
 from .widgets.widget_editor import Editor
 from .widgets.widget_fullscreen import Fullscreen
+from .widgets.widget_svg import SVGBox
 
 # some of these have dependencies that might fail
 try:

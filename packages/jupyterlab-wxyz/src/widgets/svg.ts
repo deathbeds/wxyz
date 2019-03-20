@@ -1,11 +1,15 @@
 // porting https://github.com/openseat/ipylayoutwidgets/blob/master/ipylayoutwidgets/static/ipylayoutwidgets/js/SVGLayoutBoxView.js
 
+import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import * as d3 from 'd3-selection';
 import _ from 'lodash';
 
-const SVG_CLASS = 'jp-WXYZ-SVG';
+const CSS = {
+  SVG: 'jp-WXYZ-SVG',
+  LAYOUT: 'jp-WXYZ-SVG-Layout'
+};
 
 export class SVGBoxModel extends BoxModel {
   static model_name = 'SVGBoxModel';
@@ -29,28 +33,28 @@ export class SVGBoxModel extends BoxModel {
   }
 }
 
+type TDims = {
+  height: number;
+  width: number;
+};
+
 export class SVGBoxView extends BoxView {
   private _parser = new DOMParser();
   private _d3: d3.Selection<any, any, any, any>;
   private _lastSVG: string;
+  private _original: TDims;
 
-  initialize() {
+  initialize(options: any) {
     this._d3 = d3
       .select(this.el)
       .style('position', 'relative')
       .style('text-align', 'center');
     d3.select(window).on('resize', _.bind(this.update, this));
-    console.log(this._d3, this._parser);
-    // //
-    this.model.on('change:svg', _.bind(this.loadSVG, this));
-    // //
-    // // SVGLayoutBoxView.__super__.initialize.apply(this, arguments);
-    // //
-    // // this.update();
-  }
-
-  loadSVG() {
-    console.log('load', this.model.get('svg'));
+    this.pWidget.addClass(CSS.SVG);
+    this.model.on('change:svg change:area_attr', this.loadSVG, this);
+    super.initialize(options);
+    this.update(options);
+    setTimeout(() => this.resize(), 100);
   }
 
   update(options: any) {
@@ -72,160 +76,158 @@ export class SVGBoxView extends BoxView {
 
     this.resize();
   }
-  //
-  // load_svg: function(){
-  //   var view = this,
-  //     el = this.el.parentNode;
-  //
-  //   view.last_layout = this.model.get("svg");
-  //
-  //   var layout = this.d3.selectAll(".ipnbdbtk-svg-layout").data([1])
-  //   layout.remove();
-  //   layout.enter()
-  //     .call(function(){
-  //       var xml = view.parser.parseFromString(view.last_layout, "image/svg+xml"),
-  //         importedNode = document.importNode(xml.documentElement, true),
-  //         layout = view.d3.insert(
-  //             function(){return importedNode; },
-  //             ":first-child"
-  //           )
-  //           .classed({"ipnbdbtk-svg-layout": 1})
-  //           .style({
-  //             "z-index": -1
-  //           });
-  //
-  //         // find all of the `svg:g`s that are groups
-  //         var children = layout.selectAll("g").filter(function(){
-  //           return this.parentNode === layout.node() &&
-  //             d3.select(this).attr("inkscape:groupmode") === "layer";
-  //         });
-  //
-  //         var root = layout.append("g").attr("id", "ROOT-"+ view.cid);
-  //
-  //         children.each(function(){ root.node().appendChild(this); });
-  //
-  //         view.original = {
-  //           height: parseInt(layout.attr("height")),
-  //           width: parseInt(layout.attr("width")),
-  //         };
-  //
-  //         layout.attr({
-  //           width: el.clientWidth,
-  //           height: el.clientHeight,
-  //         });
-  //     });
-  // },
-  //
-  // patternToRegexp: function(pattern){
-  //   return new RegExp(
-  //     pattern
-  //       .replace(".", "\\.")
-  //       .replace("*", ".*")
-  //   )
-  // },
-  //
+
+  loadSVG(): void {
+    const view = this;
+    const el = this.el.parentNode;
+    const areaAttr = this.model.get('area_attr');
+
+    this._lastSVG = this.model.get('svg');
+    const layout = this._d3.selectAll(CSS.LAYOUT).data([1]);
+    layout.remove();
+    layout.enter().call(function() {
+      const xml = view._parser.parseFromString(view._lastSVG, 'image/svg+xml');
+      const importedNode = document.importNode(xml.documentElement, true);
+      const newLayout = view._d3
+        .insert(() => importedNode, ':first-child')
+        .classed(CSS.LAYOUT, true);
+
+      // find all of the `svg:g`s that are groups
+      const children = layout.selectAll('g').filter(
+        // tslint:disable
+        function() {
+          return (
+            (this as any).parentNode === newLayout.node() &&
+            d3.select(this).attr(`:${areaAttr}`) != null
+          );
+          // tslint:enable
+        }
+      );
+      const root = layout
+        .append('g')
+        .attr('id', `${CSS.LAYOUT}-ROOT-${view.cid}`);
+      children.each(function() {
+        // tslint:disable
+        root.node().appendChild(this as any);
+        // tslint:enable
+      });
+
+      view._original = {
+        height: parseInt(newLayout.attr('height'), 10),
+        width: parseInt(newLayout.attr('width'), 10)
+      };
+
+      layout.attr('width', el.clientWidth).attr('height', el.clientHeight);
+    });
+  }
+
+  patternToRegexp(pattern: string): RegExp {
+    if (pattern == null) {
+      return /.*/;
+    }
+    try {
+      return new RegExp(pattern.replace('.', '\\.').replace('*', '.*'));
+    } catch (err) {
+      return null;
+    }
+  }
+
   resize(): void {
-    const layout = this._d3.select(SVG_CLASS);
-    console.log('resize', layout);
-    // const el = this.el.parentNode;
-    // const doc = document.documentElement;
-    // const aspectRatio = this.original.width / this.original.height;
-    //   width = Math.min(el.clientWidth, doc.clientWidth),
-    //   height = width / aspect_ratio,
-    //   label_map = {},
-    //   visible_layers = this.model.get("visible_layers")
-    //     .map(this.patternToRegexp),
-    //   scale = width / this.original.width;
-    //
-    //   if(scale * this.original.height > doc.clientHeight){
-    //     scale = doc.clientHeight / this.original.height;
-    //     height = doc.clientHeight;
-    //     width = height * aspect_ratio;
-    //   }
-    //
-    //   layout.attr({
-    //       width: width,
-    //       height: height
-    //     })
-    //     .style({
-    //       opacity: this.model.get("show_svg") ? 1 : 0
-    //     })
-    //     .select("#ROOT-"+ view.cid)
-    //     .attr({
-    //       transform: "scale(" + scale + ")"
-    //     });
-    //
-    //   var layer = layout.selectAll("g"),
-    //     named = layer.filter(function(){
-    //       var label = d3.select(this).attr("inkscape:label");
-    //
-    //       return label && visible_layers.find(function(visible_re){
-    //         return label.match(visible_re);
-    //       });
-    //     });
-    //
-    //   layer.each(function(){
-    //     var layer = this,
-    //       el = d3.select(this),
-    //       label = el.attr("inkscape:label"),
-    //       visible = named[0].indexOf(layer) > -1 ||
-    //         _.any(named[0], function(child){ return layer.contains(child); });
-    //
-    //     if(label && visible){
-    //       label_map[label] = this;
-    //     }
-    //
-    //     el.style({
-    //       display: visible ? "inline" : "none"
-    //     });
-    //   });
-    //
-    //   var el_bb = view.el.getBoundingClientRect();
-    //
-    //   _(view.model.get("widget_map"))
-    //     .map(function(item, label){
-    //       var label_re = view.patternToRegexp(label),
-    //           layer = _(label_map).find(function(layer, layer_label){
-    //             return layer_label.match(label_re);
-    //           }),
-    //           bb = layer && layer.getBoundingClientRect(),
-    //           changed = false;
-    //
-    //       if(!layer){
-    //         _(item.views).map(function(child){
-    //           child.then(function(child){
-    //             d3.select(child.el)
-    //               .transition()
-    //               .style({opacity: 0})
-    //               .transition().style({display: "none"});
-    //           })
-    //         });
-    //
-    //         return;
-    //       }
-    //
-    //       ["width", "height"].map(function(attr){
-    //         if(!item.has(attr)){ return; }
-    //         item.set(attr, bb[attr]);
-    //         changed = true;
-    //       });
-    //
-    //       _(item.views).map(function(child){
-    //         child.then(function(child){
-    //           d3.select(child.el)
-    //             .transition()
-    //             .style({
-    //               position: "absolute",
-    //               display: "block",
-    //               opacity: 1.0,
-    //               top: (bb.top - el_bb.top) + "px",
-    //               left: (bb.left - el_bb.left) + "px",
-    //               width: bb.width + "px",
-    //               height: bb.height + "px"
-    //             });
-    //           child.touch();
-    //         })
-    //       });
-    //     });
+    const layout = this._d3.select(`.${CSS.LAYOUT}`);
+    const view = this;
+    const el = this.el.parentNode;
+    const doc = document.documentElement;
+    const aspectRatio = this._original.width / this._original.height;
+    const areaWidgets = view.model.get('area_widgets');
+    const visibleAreas = this.model
+      .get('visible_areas')
+      .map(this.patternToRegexp)
+      .filter(Object);
+    let width = Math.min(el.clientWidth, doc.clientWidth);
+    let height = width / aspectRatio;
+    let scale = width / this._original.width;
+    let labelMap = {} as any;
+    let areaAttr = this.model.get('area_attr');
+
+    if (scale * this._original.height > doc.clientHeight) {
+      scale = doc.clientHeight / this._original.height;
+      height = doc.clientHeight;
+      width = height * aspectRatio;
+    }
+    layout
+      .attr('width', width)
+      .attr('height', height)
+      .style('opacity', this.model.get('show_svg') ? 1 : 0)
+      .select(`#${CSS.LAYOUT}-ROOT-${view.cid}`)
+      .attr('transform', `scale(${scale})`);
+    const area = layout.selectAll('g');
+    const named: any = area.filter(function() {
+      // tslint:disable
+      const label = d3.select(this).attr(`:${areaAttr}`);
+      // tslint:enable
+      return label && visibleAreas.find((re: any) => label.match(re));
+    });
+
+    area.each(function() {
+      // tslint:disable
+      const area = this;
+      // tslint:enable
+      const el = d3.select(area);
+      const label = el.attr(`:${areaAttr}`);
+      const visible =
+        named._groups.indexOf(area) > -1 ||
+        _.some(named._groups[0], (child: any) => (area as any).contains(child));
+
+      if (label && visible) {
+        labelMap[label] = area;
+      }
+
+      el.style('display', visible ? 'inline' : 'none');
+    });
+
+    const el_bb = view.el.getBoundingClientRect();
+    const childModels: DOMWidgetModel[] = view.model.get('children');
+
+    _(areaWidgets).forIn(function(idx, label) {
+      const item = childModels[idx];
+      let labelRegExp = view.patternToRegexp(label);
+      if (!labelRegExp) {
+        return;
+      }
+      const area = _(labelMap).find((area: any, areaLabel: any) =>
+        areaLabel.match(labelRegExp)
+      );
+      const bb = area && area.getBoundingClientRect();
+
+      if (!area) {
+        _(item.views).forIn(function(child) {
+          child.then((child: any) =>
+            d3.select(child.el).style('display', 'none')
+          );
+        });
+
+        return;
+      }
+
+      ['width', 'height'].map(function(attr) {
+        if (!item.has(attr)) {
+          return;
+        }
+        item.set(attr, bb[attr]);
+      });
+
+      _(item.views).forIn(function(child) {
+        child.then(function(child: any) {
+          d3.select(child.el)
+            .style('position', 'absolute')
+            .style('opacity', 1.0)
+            .style('top', `${bb.top - el_bb.top}px`)
+            .style('left', `${bb.left - el_bb.left}px`)
+            .style('width', `${bb.width}px`)
+            .style('height', `${bb.height}px`);
+          child.touch();
+        });
+      });
+    });
   }
 }
