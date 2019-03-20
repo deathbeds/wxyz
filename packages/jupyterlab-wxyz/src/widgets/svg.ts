@@ -49,12 +49,12 @@ export class SVGBoxView extends BoxView {
       .select(this.el)
       .style('position', 'relative')
       .style('text-align', 'center');
-    d3.select(window).on('resize', _.bind(this.update, this));
+    d3.select(window).on('', _.bind(this.update, this));
     this.pWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
     super.initialize(options);
     this.update(options);
-    setTimeout(() => this.resize(), 100);
+    setTimeout(() => this.resize(), 11);
   }
 
   update(options: any) {
@@ -119,6 +119,7 @@ export class SVGBoxView extends BoxView {
 
       layout.attr('width', el.clientWidth).attr('height', el.clientHeight);
     });
+    this.resize();
   }
 
   patternToRegexp(pattern: string): RegExp {
@@ -133,6 +134,9 @@ export class SVGBoxView extends BoxView {
   }
 
   resize(): void {
+    if (!this._original) {
+      return;
+    }
     const layout = this._d3.select(`.${CSS.LAYOUT}`);
     const view = this;
     const el = this.el.parentNode;
@@ -200,12 +204,11 @@ export class SVGBoxView extends BoxView {
       const bb = area && area.getBoundingClientRect();
 
       if (!area) {
-        _(item.views).forIn(function(child) {
-          child.then((child: any) =>
-            d3.select(child.el).style('display', 'none')
-          );
+        _(item.views).forIn(function(childPromise) {
+          childPromise.then((child: any) => {
+            d3.select(child.el).style('display', 'none');
+          });
         });
-
         return;
       }
 
@@ -220,6 +223,7 @@ export class SVGBoxView extends BoxView {
         child.then(function(child: any) {
           d3.select(child.el)
             .style('position', 'absolute')
+            .style('display', null)
             .style('opacity', 1.0)
             .style('top', `${bb.top - el_bb.top}px`)
             .style('left', `${bb.left - el_bb.left}px`)
