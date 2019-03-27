@@ -16,6 +16,11 @@ except ImportError:
     pass
 
 try:
+    from .widgets.widget_datagrid import DataGrid
+except ImportError:
+    pass
+
+try:
     from .widgets.widget_jsonld import Expand, Compact, Flatten, Frame, Normalize
 except ImportError:
     pass

@@ -34,3 +34,12 @@
 .jp-WXYZ-Editor .CodeMirror {
   flex: 1;
 }
+
+/* grid */
+.jp-WXYZ-DataGrid {
+  flex-direction: column;
+}
+
+.jp-WXYZ-DataGrid .p-DataGrid {
+  flex: 1;
+}

@@ -1,3 +1,4 @@
+export * from './datagrid';
 export * from './dock';
 export * from './editor';
 export * from './fullscreen';
