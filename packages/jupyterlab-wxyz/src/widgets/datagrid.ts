@@ -58,12 +58,17 @@ class EventedDataGrid extends DataGrid {
     const ny: number = (this as any)._scrollY;
     const nmx: number = this.maxScrollX;
     const nmy: number = this.maxScrollY;
-    const ox = m.get('x');
-    const oy = m.get('y');
+    const ox = m.get('scroll_x');
+    const oy = m.get('scroll_y');
     if (ox === nx && oy === ny) {
       return;
     }
-    this._view.model.set({ x: nx, y: ny, max_x: nmx, max_y: nmy });
+    this._view.model.set({
+      scroll_x: nx,
+      scroll_y: ny,
+      max_x: nmx,
+      max_y: nmy
+    });
     this._view.touch();
   }
 
@@ -74,7 +79,7 @@ class EventedDataGrid extends DataGrid {
   set view(view: DataGridView) {
     const m = view.model;
     this._view = view;
-    m.on('change:x change:y', this.onModelScroll, this);
+    m.on('change:scroll_x change:scroll_y', this.onModelScroll, this);
     m.on(SIZES.map(t => `change:${t}`).join(' '), this.onModelSize, this);
     m.on(COLORS.map(t => `change:${t}`).join(' '), this.onColor, this);
   }
@@ -141,8 +146,8 @@ class EventedDataGrid extends DataGrid {
 
   onModelScroll() {
     const m = this._view.model;
-    let x = m.get('x');
-    let y = m.get('y');
+    let x = m.get('scroll_x');
+    let y = m.get('scroll_y');
     if (x != null && y != null) {
       this._scrollLock = true;
       this.scrollTo(x, y);
@@ -155,7 +160,33 @@ class EventedDataGrid extends DataGrid {
     switch (evt.type) {
       default:
         break;
+      case 'mousemove':
+        this.updateHover(evt as MouseEvent);
+        break;
     }
+  }
+
+  updateHover(evt: MouseEvent): void {
+    const m = this._view.model;
+    const { offsetX, offsetY } = evt as MouseEvent;
+    const { headerWidth, headerHeight } = this;
+    const r1 = (this as any)._rowSections.sectionIndex(
+      offsetY - headerHeight + this.scrollY
+    );
+    const c1 = (this as any)._columnSections.sectionIndex(
+      offsetX - headerWidth + this.scrollX
+    );
+
+    if (m.get('hover_row') === r1 && m.get('hover_column') === c1) {
+      return;
+    }
+
+    m.set({
+      hover_row: r1,
+      hover_column: c1
+    });
+
+    this._view.touch();
   }
 }
 

@@ -1,8 +1,8 @@
 """ SVG Box widget
 """
+# pylint: disable=too-many-ancestors,unused-argument
 from pathlib import Path
 
-# pylint: disable=too-many-ancestors,unused-argument
 from ._base import Base, T, W
 
 # default XML attribute, with an Inkscape default
