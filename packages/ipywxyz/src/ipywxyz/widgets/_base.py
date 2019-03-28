@@ -7,8 +7,31 @@ import traitlets as T
 from .._version import module_name, module_version
 
 
-class Base(W.Widget):
-    """ A widget hoping to go places
+class WXYZBase(W.Widget):
+    """ Version and front-end metadata
+    """
+
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+    _view_module = T.Unicode(module_name).tag(sync=True)
+    _view_module_version = T.Unicode(module_version).tag(sync=True)
+
+
+class WXYZBox(W.Box):
+    """ Version and front-end metadata
+    """
+
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+    _view_module = T.Unicode(module_name).tag(sync=True)
+    _view_module_version = T.Unicode(module_version).tag(sync=True)
+
+
+class Base(WXYZBase):
+    """ Utility traitlets, primarily based around
+        - development convenience
+        - ipywidgets conventions
+        - integration with ipywxyz.DockBox, mostly phosphor Widget.label attrs
     """
 
     _model_module = T.Unicode(module_name).tag(sync=True)
@@ -23,7 +46,7 @@ class Base(W.Widget):
 
 
 class Fn(Base):
-    """ A widget that turns a source into a value
+    """ Turns a `source` into a `value`
     """
 
     source = T.Any(allow_none=True).tag(sync=True)

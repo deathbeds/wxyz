@@ -20,6 +20,18 @@ class AlphaColor(W.widgets.trait_types.Color):
         return super(AlphaColor, self).validate(obj, value)
 
 
+class EmptyAlphaColor(W.widgets.trait_types.Color):
+    """ A color with alpha that might be the empty string
+    """
+
+    def validate(self, obj, value):
+        """ expand the validation to work for rgba
+        """
+        if value == "":
+            return value
+        return super(EmptyAlphaColor, self).validate(obj, value)
+
+
 class AlphaColorPicker(W.ColorPicker):
     """ A color picker that should allow setting opacity
     """

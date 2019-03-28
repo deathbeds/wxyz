@@ -1,6 +1,25 @@
-import { DOMWidgetModel, ISerializers } from '@jupyter-widgets/base';
+import {
+  WidgetModel,
+  DOMWidgetModel,
+  ISerializers
+} from '@jupyter-widgets/base';
+import { BoxModel } from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '..';
+
+export class WXYZ extends WidgetModel {
+  static model_module = NAME;
+  static model_module_version = VERSION;
+  static view_module = NAME;
+  static view_module_version = VERSION;
+}
+
+export class WXYZBox extends BoxModel {
+  static model_module = NAME;
+  static model_module_version = VERSION;
+  static view_module = NAME;
+  static view_module_version = VERSION;
+}
 
 export class Model<T> extends DOMWidgetModel {
   static model_module = NAME;

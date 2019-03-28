@@ -1,20 +1,82 @@
-import { BoxModel, BoxView } from '@jupyter-widgets/controls';
+import { BoxView } from '@jupyter-widgets/controls';
 
-import { DataGrid, JSONModel } from '@phosphor/datagrid';
+import {
+  DataGrid,
+  JSONModel,
+  CellRenderer,
+  TextRenderer
+} from '@phosphor/datagrid';
+
+import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '..';
+import { WXYZ, WXYZBox } from './_base';
 
 const CSS = {
   DATA_GRID: 'jp-WXYZ-DataGrid'
 };
 
-export class DataGridModel extends BoxModel {
+export class CellRendererModel extends WXYZ {
+  static model_name = 'CellRendererModel';
+
+  toRenderer(): CellRenderer {
+    return null;
+  }
+}
+
+export class FormatFuncModel extends WXYZ {
+  static model_name = 'FormatFuncModel';
+
+  toFormatFunc(): TextRenderer.FormatFunc {
+    return null;
+  }
+}
+
+export class FixedFuncModel extends FormatFuncModel {
+  static model_name = 'FixedFuncModel';
+
+  toFormatFunc() {
+    return TextRenderer.formatFixed({
+      digits: this.get('digits'),
+      missing: this.get('missing')
+    });
+  }
+}
+
+export class TextRendererModel extends CellRendererModel {
+  static model_name = 'TextRendererModel';
+
+  static serializers = {
+    ...CellRendererModel.serializers,
+    format_func: { deserialize }
+  };
+
+  toRenderer(): TextRenderer {
+    const formatFunc: FormatFuncModel = this.get('format_func');
+
+    return new TextRenderer({
+      textColor: this.get('text_color'),
+      backgroundColor: this.get('background_color') || '',
+      format: formatFunc ? formatFunc.toFormatFunc() : null,
+      horizontalAlignment: this.get('horizontal_alignment'),
+      verticalAlignment: this.get('vertical_alignment'),
+      font: this.get('font')
+    });
+  }
+}
+
+export class DataGridModel extends WXYZBox {
   static model_name = 'DataGridModel';
   static model_module = NAME;
   static model_module_version = VERSION;
-  static view_name: 'DataGridView';
+  static view_name = 'DataGridView';
   static view_module = NAME;
   static view_module_version = VERSION;
+
+  static serializers = {
+    ...WXYZBox.serializers,
+    cell_renderers: { deserialize }
+  };
 
   defaults() {
     return {
@@ -80,8 +142,27 @@ class EventedDataGrid extends DataGrid {
     const m = view.model;
     this._view = view;
     m.on('change:scroll_x change:scroll_y', this.onModelScroll, this);
+    m.on('change:cell_renderers', this.onModelCellRenderers, this);
     m.on(SIZES.map(t => `change:${t}`).join(' '), this.onModelSize, this);
     m.on(COLORS.map(t => `change:${t}`).join(' '), this.onColor, this);
+    this.onModelCellRenderers();
+    this.onModelSize();
+    this.onColor();
+    this.onModelScroll();
+  }
+
+  onModelCellRenderers() {
+    let renderers: CellRendererModel[] = this._view.model.get('cell_renderers');
+
+    this.cellRenderers.clear();
+
+    for (let rm of renderers) {
+      this.cellRenderers.set(
+        rm.get('region') || 'body',
+        rm.get('metadata') || {},
+        rm.toRenderer()
+      );
+    }
   }
 
   onColor() {
