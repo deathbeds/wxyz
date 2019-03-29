@@ -17,7 +17,13 @@ except ImportError:
     pass
 
 try:
-    from .widgets.widget_datagrid import DataGrid, CellRenderer, TextRenderer
+    from .widgets.widget_datagrid import DataGrid
+    from .widgets.widget_stylegrid import StyleGrid, CellRenderer, TextRenderer
+except ImportError:
+    pass
+
+try:
+    from .widgets.widget_selectgrid import SelectGrid
 except ImportError:
     pass
 

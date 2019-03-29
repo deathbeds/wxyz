@@ -35,7 +35,7 @@
   flex: 1;
 }
 
-/* grid */
+/* data grid */
 .jp-WXYZ-DataGrid {
   flex-direction: column;
 }
@@ -45,17 +45,23 @@
   border: 0;
 }
 
-.jp-WXYZ-DataGrid .p-DataGrid .p-ScrollBar-track {
+/* style grid */
+.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-track {
   background-color: var(--jp-layout-color3);
   border: var(--jp-border-width) solid var(--jp-border-color0);
 }
 
-.jp-WXYZ-DataGrid .p-DataGrid .p-ScrollBar-button {
+.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-button {
   background-color: var(--jp-layout-color2);
   border: var(--jp-border-width) solid var(--jp-border-color0);
 }
 
-.jp-WXYZ-DataGrid .p-DataGrid .p-ScrollBar-thumb {
+.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-thumb {
   background-color: var(--jp-layout-color2);
   border: var(--jp-border-width) solid var(--jp-border-color0);
+}
+
+/* select grid */
+.jp-WXYZ-SelectGrid {
+  border: solid 1px red;
 }
