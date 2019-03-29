@@ -19,7 +19,7 @@ const CSS = {
 export class CellRendererModel extends WXYZ {
   static model_name = 'CellRendererModel';
 
-  toRenderer(): CellRenderer {
+  toRenderer(onChildChanged?: () => void): CellRenderer {
     return null;
   }
 }
@@ -51,8 +51,15 @@ export class TextRendererModel extends CellRendererModel {
     format_func: { deserialize }
   };
 
-  toRenderer(): TextRenderer {
-    const formatFunc: FormatFuncModel = this.get('format_func');
+  toRenderer(onChildChanged?: () => void): TextRenderer {
+    let formatFunc: FormatFuncModel;
+
+    try {
+      formatFunc = this.get('format_func');
+      onChildChanged && formatFunc.on('change', () => onChildChanged());
+    } catch {
+      // TODO: something reasonable
+    }
 
     return new TextRenderer({
       textColor: this.get('text_color'),
@@ -151,17 +158,22 @@ class EventedDataGrid extends DataGrid {
     this.onModelScroll();
   }
 
+  setRenderer(rm: CellRendererModel) {
+    this.cellRenderers.set(
+      rm.get('region') || 'body',
+      rm.get('metadata') || {},
+      rm.toRenderer(() => this.setRenderer(rm))
+    );
+  }
+
   onModelCellRenderers() {
     let renderers: CellRendererModel[] = this._view.model.get('cell_renderers');
 
     this.cellRenderers.clear();
 
     for (let rm of renderers) {
-      this.cellRenderers.set(
-        rm.get('region') || 'body',
-        rm.get('metadata') || {},
-        rm.toRenderer()
-      );
+      rm.on('change', () => this.setRenderer(rm));
+      this.setRenderer(rm);
     }
   }
 
