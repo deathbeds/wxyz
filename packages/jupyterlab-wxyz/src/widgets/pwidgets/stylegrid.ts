@@ -1,4 +1,4 @@
-import { DataGrid } from '@phosphor/datagrid';
+import { DataGrid, TextRenderer, CellRenderer } from '@phosphor/datagrid';
 
 // TODO: fix circulare references
 import { DataGridView } from '../datagrid';
@@ -19,6 +19,26 @@ const COLORS = [
   'header_grid_line_color'
 ];
 
+const SELECTED: CellRenderer.ConfigFunc<string> = config => {
+  let selection: number[] = null;
+  try {
+    selection = (config.metadata as any).jmodel.selection;
+  } catch {
+    // whatever
+  }
+
+  if (
+    selection &&
+    config.column >= selection[0] &&
+    config.column <= selection[1] &&
+    config.row >= selection[2] &&
+    config.row <= selection[3]
+  ) {
+    return 'rgba(0,0,255,0.125)';
+  }
+  return 'rgba(0,0,0,0)';
+};
+
 export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   protected _view: DataGridView;
 
@@ -31,7 +51,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     this.onSetView();
   }
 
-  onSetView() {
+  protected onSetView() {
     const m = this.view.model;
     m.on('change:cell_renderers', this.onModelCellRenderers, this);
     m.on(SIZES.map(t => `change:${t}`).join(' '), this.onModelSize, this);
@@ -53,6 +73,12 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     let renderers: CellRendererModel[] = this._view.model.get('cell_renderers');
 
     this.cellRenderers.clear();
+
+    this.cellRenderers.set(
+      'body',
+      {},
+      new TextRenderer({ backgroundColor: SELECTED })
+    );
 
     for (let rm of renderers) {
       rm.on('change', () => this.setRenderer(rm));

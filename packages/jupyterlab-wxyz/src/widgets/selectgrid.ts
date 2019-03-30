@@ -29,7 +29,12 @@ export class SelectGridModel extends DataGridModel {
 }
 
 export class SelectGridView extends DataGridView {
+  createGrid() {
+    return new SelectGrid();
+  }
+
   initialize(options: any) {
+    options.createGrid = () => this.createGrid();
     super.initialize(options);
     this.pWidget.addClass(CSS.SELECT_GRID);
   }

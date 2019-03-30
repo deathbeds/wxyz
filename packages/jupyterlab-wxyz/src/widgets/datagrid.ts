@@ -1,10 +1,11 @@
 import { BoxView } from '@jupyter-widgets/controls';
 
-import { JSONModel, DataGrid } from '@phosphor/datagrid';
+import { DataGrid } from '@phosphor/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
 import { WXYZBox } from './_base';
+import { WXYZJSONModel } from './pmodels/jsonmodel';
 
 const CSS = {
   DATA_GRID: 'jp-WXYZ-DataGrid'
@@ -49,10 +50,12 @@ export class DataGridView extends BoxView {
   protected onValue() {
     const data = this.model.get('value');
     if (data) {
-      this._grid.model = new JSONModel(data);
+      this._grid.model = new WXYZJSONModel(data);
+      (this._grid.model as any).jmodel = this.model;
     } else {
       this._grid.model = null;
     }
+    this._grid.repaint();
   }
 }
 

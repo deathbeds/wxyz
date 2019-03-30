@@ -30,6 +30,7 @@ export class StyleGridView extends DataGridView {
   }
 
   initialize(options: any) {
+    options.createGrid = () => this.createGrid();
     super.initialize(options);
     this.pWidget.addClass(CSS.STYLE_GRID);
   }

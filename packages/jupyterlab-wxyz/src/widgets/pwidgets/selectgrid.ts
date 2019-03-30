@@ -43,21 +43,67 @@ export class SelectGrid extends StyleGrid {
         break;
       case 'touchstart':
       case 'mousedown':
-        console.log(evt.type, evt);
+        this.onSelectStart(evt);
         break;
       case 'touchend':
       case 'mouseup':
-        console.log(evt.type, evt);
+        if (this._view.model.get('selecting')) {
+          this.onSelectEnd(evt);
+        }
         break;
       case 'touchmove':
       case 'mousemove':
         this.updateHover(evt as MouseEvent);
+        if (this._view.model.get('selecting')) {
+          this.onSelect(evt);
+        }
         break;
     }
   }
 
-  updateHover(evt: MouseEvent): void {
-    const m = this._view.model;
+  onSelectStart(_: Event) {
+    let m = this._view.model;
+    const s = m.get('selection');
+    const [c, r] = this.hoveredCell(_);
+    if ((_ as MouseEvent).shiftKey) {
+      m.set({
+        selection: [s[0], c, s[2], r],
+        selecting: false
+      });
+    } else {
+      m.set({
+        selection: [c, c, r, r],
+        selecting: true
+      });
+    }
+    this._view.touch();
+    this.repaint();
+  }
+
+  onSelect(evt: Event) {
+    let m = this._view.model;
+    let s = m.get('selection') || [0, 0, 0, 0];
+    const [c1, r1] = this.hoveredCell(evt);
+    let n = [s[0], c1, s[2], r1];
+    m.set({ selection: n });
+    this._view.touch();
+    this.repaint();
+  }
+
+  onSelectEnd(evt: Event) {
+    const [c1, r1] = this.hoveredCell(evt);
+    const old = this._view.model.get('selection');
+
+    this._view.model.set({
+      selecting: false,
+      selection: [old[0], c1, old[2], r1]
+    });
+
+    this._view.touch();
+    this.repaint();
+  }
+
+  hoveredCell(evt: Event) {
     const { offsetX, offsetY } = evt as MouseEvent;
     const { headerWidth, headerHeight } = this;
     const r1 = (this as any)._rowSections.sectionIndex(
@@ -67,19 +113,18 @@ export class SelectGrid extends StyleGrid {
       offsetX - headerWidth + this.scrollX
     );
 
-    if (m.get('hover_row') === r1 && m.get('hover_column') === c1) {
-      return;
-    }
+    return [c1, r1];
+  }
 
-    m.set({
-      hover_row: r1,
-      hover_column: c1
-    });
-
+  updateHover(evt: MouseEvent): void {
+    const m = this._view.model;
+    const [c, r] = this.hoveredCell(evt);
+    m.set({ hover_row: r, hover_column: c });
     this.view.touch();
   }
 
-  onSetView() {
+  protected onSetView() {
+    super.onSetView();
     this.view.model.on(
       'change:scroll_x change:scroll_y',
       this.onModelScroll,
