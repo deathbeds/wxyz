@@ -55,12 +55,12 @@ export class TextRendererModel extends CellRendererModel {
     }
 
     return new TextRenderer({
-      textColor: this.get('text_color'),
-      backgroundColor: this.get('background_color') || '',
+      textColor: () => this.get('text_color'),
+      backgroundColor: () => this.get('background_color') || '',
       format: formatFunc ? formatFunc.toFormatFunc() : null,
-      horizontalAlignment: this.get('horizontal_alignment'),
-      verticalAlignment: this.get('vertical_alignment'),
-      font: this.get('font')
+      horizontalAlignment: () => this.get('horizontal_alignment'),
+      verticalAlignment: () => this.get('vertical_alignment'),
+      font: () => this.get('font')
     });
   }
 }

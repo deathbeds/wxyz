@@ -2,6 +2,34 @@ import { Message } from '@phosphor/messaging';
 
 import { StyleGrid } from './stylegrid';
 
+import { CellRenderer, TextRenderer } from '@phosphor/datagrid';
+
+const SELECT_COLOR = 'rgba(0,0,255,0.125)';
+
+export const selectedFunc: CellRenderer.ConfigFunc<string> = config => {
+  let selection: number[] = null;
+  let jmodel: any;
+  try {
+    jmodel = (config.metadata as any).jmodel;
+    // this is the `attributes` of the Jupyter Widget model
+    selection = jmodel.selection;
+  } catch {
+    // whatever
+  }
+
+  if (
+    selection &&
+    config.column >= selection[0] &&
+    config.column <= selection[1] &&
+    config.row >= selection[2] &&
+    config.row <= selection[3]
+  ) {
+    let selectionColor = jmodel ? jmodel.selection_color : '';
+    return selectionColor || SELECT_COLOR;
+  }
+  return 'rgba(0,0,0,0)';
+};
+
 export class SelectGrid extends StyleGrid {
   protected _scrollLock = false;
 
@@ -10,6 +38,18 @@ export class SelectGrid extends StyleGrid {
       this.node.addEventListener(evt, this)
     );
     super.onBeforeAttach(msg);
+  }
+
+  makeRenderers() {
+    return [
+      {
+        region: 'body',
+        metadata: null,
+        renderer: new TextRenderer({ backgroundColor: selectedFunc }),
+        model: null
+      },
+      ...super.makeRenderers()
+    ];
   }
 
   scrollTo(x: number, y: number): void {
