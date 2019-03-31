@@ -27,3 +27,8 @@ dependencies:
   - tornado <6
   - tpot
   - xgboost
+  - matplotlib
+  - umap-learn
+  - cycler
+  - pip:
+      - yellowbrick
