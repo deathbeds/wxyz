@@ -45,6 +45,8 @@ env_specs:
       - pyld
       - python >=3.7,<3.8
       - pyyaml
+      - scikit-image
+      - scikit-learn
       - tornado <6
     channels:
       - conda-forge

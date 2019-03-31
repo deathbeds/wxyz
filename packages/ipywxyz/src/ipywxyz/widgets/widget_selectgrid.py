@@ -23,6 +23,10 @@ class SelectGrid(StyleGrid):
     hover_row = T.Int(0).tag(sync=True)
     hover_column = T.Int(0).tag(sync=True)
 
+    viewport = T.Tuple(
+        T.Int(), T.Int(), T.Int(), T.Int(), default_value=[0, 0, 0, 0]
+    ).tag(sync=True)
+
     selection = T.Tuple(
         T.Int(), T.Int(), T.Int(), T.Int(), default_value=[0, 0, 0, 0]
     ).tag(sync=True)

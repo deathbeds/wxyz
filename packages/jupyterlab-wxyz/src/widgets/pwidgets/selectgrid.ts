@@ -1,8 +1,10 @@
 import { Message } from '@phosphor/messaging';
+import { Widget } from '@phosphor/widgets';
 
 import { StyleGrid } from './stylegrid';
 
 import { CellRenderer, TextRenderer } from '@phosphor/datagrid';
+import { SectionList } from '@phosphor/datagrid/lib/sectionlist';
 
 const SELECT_COLOR = 'rgba(0,0,255,0.125)';
 
@@ -73,6 +75,13 @@ export class SelectGrid extends StyleGrid {
       max_x: nmx,
       max_y: nmy
     });
+    this.updateViewport();
+    this._view.touch();
+  }
+
+  onResize(msg: Widget.ResizeMessage) {
+    super.onResize(msg);
+    this.updateViewport();
     this._view.touch();
   }
 
@@ -98,6 +107,12 @@ export class SelectGrid extends StyleGrid {
           this.onSelect(evt);
         }
         break;
+      case 'wheel':
+        this.updateViewport();
+        break;
+    }
+    if (this._view.model.changedAttributes()) {
+      this._view.touch();
     }
   }
 
@@ -152,28 +167,63 @@ export class SelectGrid extends StyleGrid {
     const c1 = (this as any)._columnSections.sectionIndex(
       offsetX - headerWidth + this.scrollX
     );
-
     return [c1, r1];
+  }
+
+  viewExtent() {
+    const { headerWidth, headerHeight, scrollX, scrollY } = this;
+    const rows: SectionList = (this as any)._rowSections;
+    const cols: SectionList = (this as any)._columnSections;
+
+    const x = scrollX - headerWidth;
+    const y = scrollY - headerHeight;
+
+    const vc = cols.sectionIndex(x) + 1;
+    const vr = rows.sectionIndex(y) + 1;
+
+    const vc1 = cols.sectionIndex(x + this.viewportWidth);
+    const vr1 = rows.sectionIndex(y + this.viewportHeight);
+
+    return [vc, vc1, vr, vr1];
+  }
+
+  updateViewport(): void {
+    const [vc, vc1, vr, vr1] = this.viewExtent();
+    const m = this._view.model;
+    m.set({ viewport: [vc, vc1, vr, vr1] });
   }
 
   updateHover(evt: MouseEvent): void {
     const m = this._view.model;
     const [c, r] = this.hoveredCell(evt);
-    m.set({ hover_row: r, hover_column: c });
-    this.view.touch();
+    m.set({
+      hover_row: r,
+      hover_column: c
+    });
   }
 
   protected onSetView() {
     super.onSetView();
+    this.view.model.on('change:viewport', this.onModelViewport, this);
     this.view.model.on(
       'change:scroll_x change:scroll_y',
       this.onModelScroll,
       this
     );
     this.onModelScroll();
+    this.onModelViewport();
   }
 
-  onModelScroll() {
+  protected onModelViewport() {
+    const m = this.view.model;
+    const [vc, vc1, vr, vr1] = this.viewExtent();
+    let [mvc, mvc1, mvr, mvr1] = m.get('viewport');
+    if (vc !== mvc || vc1 !== mvc1 || vr !== mvr || vr1 !== mvr1) {
+      this.scrollTo(mvc * this.baseColumnSize, mvr * this.baseRowSize);
+    }
+  }
+
+  protected onModelScroll() {
     const m = this.view.model;
     let x = m.get('scroll_x');
     let y = m.get('scroll_y');
