@@ -37,17 +37,27 @@ env_specs:
   wxyz:
     packages:
       - bqplot
+      - dask
+      - dask >=0.18.2
+      - dask-ml
+      - distributed
       - importnb
       - ipywidgets
       - jsonpointer
       - jupyterlab >=0.35,<0.36
+      - lime
       - nodejs >=8.11,<9
+      - py-xgboost
       - pyld
       - python >=3.7,<3.8
       - pyyaml
       - scikit-image
       - scikit-learn
+      - scikit-mdr
+      - skrebate
       - tornado <6
+      - tpot
+      - xgboost
     channels:
       - conda-forge
       - defaults
