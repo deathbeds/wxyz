@@ -12,6 +12,7 @@ dependencies:
   - distributed
   - importnb
   - ipywidgets
+  - ipydatawidgets
   - jsonpointer
   - jupyterlab >=0.35,<0.36
   - lime

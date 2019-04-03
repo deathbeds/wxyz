@@ -1,3 +1,4 @@
+./packages/jupyterlab-wxyz
 @jupyter-widgets/jupyterlab-manager@0.38
 bqplot@0.4.5
-./packages/jupyterlab-wxyz
+jupyterlab-datawidgets@6.1.0
