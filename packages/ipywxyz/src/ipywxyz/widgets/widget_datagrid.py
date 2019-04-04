@@ -21,7 +21,7 @@ dataframe_serialization = dict(
 
 
 @W.register
-class DataGrid(Base, W.Box):
+class DataGrid(Base, W.Box, W.ValueWidget):
     """ An (overly) opinionated DataFrame-backed datagrid
         [0.1.6]/datagrid.ts#L64
 

@@ -41,6 +41,3 @@ try:
     from .widgets.widget_template import Template
 except ImportError:
     pass
-
-with __import__('importnb').Notebook():
-    from .extension import *

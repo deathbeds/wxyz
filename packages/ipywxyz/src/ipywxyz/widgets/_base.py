@@ -45,7 +45,7 @@ class Base(WXYZBase):
     closable = T.Bool(default_value=True).tag(sync=True)
 
 
-class Fn(Base):
+class Fn(Base, W.ValueWidget):
     """ Turns a `source` into a `value`
     """
 
