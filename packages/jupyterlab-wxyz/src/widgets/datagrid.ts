@@ -5,7 +5,7 @@ import { DataGrid } from '@phosphor/datagrid';
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
 import { WXYZBox } from './_base';
-import { DataSourceModel } from './datasource';
+import { WXYZDataSourceModel } from './datasource';
 
 const CSS = {
   DATA_GRID: 'jp-WXYZ-DataGrid'
@@ -49,10 +49,7 @@ export class DataGridView extends BoxView {
   }
 
   protected onSource() {
-    const source: DataSourceModel = this.model.get('source');
-
-    console.log(source);
-
+    const source: WXYZDataSourceModel = this.model.get('source');
     if (source) {
       this._grid.model = source.gridModel();
       (this._grid.model as any).jmodel = this.model;

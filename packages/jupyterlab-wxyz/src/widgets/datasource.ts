@@ -1,12 +1,15 @@
 import { WXYZ } from './_base';
-import { WXYZJSONModel } from './pmodels/jsonmodel';
-import { WXYZNDArrayModel } from './pmodels/ndarraymodel';
+import { PWXYZJSONModel } from './pmodels/jsonmodel';
+import { PWXYZNDArrayModel } from './pmodels/ndarraymodel';
 import { DataModel } from '@phosphor/datagrid';
 
-import { listenToUnion } from 'jupyter-dataserializers';
+import {
+  data_union_serialization // ,
+  // listenToUnion
+} from 'jupyter-dataserializers';
 
-export class DataSourceModel extends WXYZ {
-  static model_name = 'DataSourceModel';
+export class WXYZDataSourceModel extends WXYZ {
+  static model_name = 'WXYZDataSourceModel';
 
   gridModel(): DataModel {
     return null;
@@ -15,42 +18,53 @@ export class DataSourceModel extends WXYZ {
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: DataSourceModel.model_name
+      _model_name: WXYZDataSourceModel.model_name
     };
   }
 }
 
-export class TableSchemaSourceModel extends DataSourceModel {
-  static model_name = 'TableSchemaSourceModel';
+export class WXYZTableSchemaModel extends WXYZDataSourceModel {
+  static model_name = 'WXYZTableSchemaModel';
 
   gridModel(): DataModel {
-    return new WXYZJSONModel(this.get('value'));
+    return new PWXYZJSONModel(this.get('value'));
   }
 
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: TableSchemaSourceModel.model_name
+      _model_name: WXYZTableSchemaModel.model_name
     };
   }
 }
 
-export class NDArraySourceModel extends DataSourceModel {
-  static model_name = 'NDArraySourceModel';
+export class WXYZNDArrayModel extends WXYZDataSourceModel {
+  static model_name = 'WXYZNDArrayModel';
+  private _gridModel: PWXYZNDArrayModel;
 
-  gridModel(): DataModel {
-    let model = new WXYZNDArrayModel(this.get('value'));
-
-    listenToUnion(this, 'value', (...args: any[]) => {
-      console.log('changed', args, model);
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.on('change:value', () => {
+      this._gridModel.setNDArray(this.get('value'));
     });
-    return model;
   }
+
+  gridModel(): DataModel {
+    if (!this._gridModel) {
+      this._gridModel = new PWXYZNDArrayModel(this.get('value'));
+    }
+    return this._gridModel;
+  }
+
+  static serializers = {
+    ...WXYZDataSourceModel.serializers,
+    value: data_union_serialization
+  };
 
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: NDArraySourceModel.model_name
+      _model_name: WXYZNDArrayModel.model_name
     };
   }
 }
