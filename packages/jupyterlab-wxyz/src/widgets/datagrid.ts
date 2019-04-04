@@ -5,7 +5,7 @@ import { DataGrid } from '@phosphor/datagrid';
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
 import { WXYZBox } from './_base';
-import { WXYZJSONModel } from './pmodels/jsonmodel';
+import { WXYZDataSourceModel } from './datasource';
 
 const CSS = {
   DATA_GRID: 'jp-WXYZ-DataGrid'
@@ -17,7 +17,8 @@ export class DataGridModel extends WXYZBox {
 
   static serializers = {
     ...WXYZBox.serializers,
-    cell_renderers: { deserialize }
+    cell_renderers: { deserialize },
+    source: { deserialize }
   };
 
   defaults() {
@@ -37,20 +38,20 @@ export class DataGridView extends BoxView {
     super.initialize(options);
     this._grid = createGrid();
     this._grid.view = this;
-    this.model.on('change:value', this.onValue, this);
+    this.model.on('change:source', this.onSource, this);
     this.pWidget.addWidget(this._grid);
     this.pWidget.addClass(CSS.DATA_GRID);
-    this.onValue();
+    this.onSource();
   }
 
   protected createGrid(): DataGridView.IViewedGrid {
     return new DataGrid() as DataGridView.IViewedGrid;
   }
 
-  protected onValue() {
-    const data = this.model.get('value');
-    if (data) {
-      this._grid.model = new WXYZJSONModel(data);
+  protected onSource() {
+    const source: WXYZDataSourceModel = this.model.get('source');
+    if (source) {
+      this._grid.model = source.gridModel();
       (this._grid.model as any).jmodel = this.model;
     } else {
       this._grid.model = null;
