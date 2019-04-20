@@ -126,6 +126,7 @@ export class FileBoxView extends controls.BoxView {
       dragenter: 'onDragEnter',
       dragover: 'onDragOver',
       dragleave: 'onDragLeave',
+      dragend: 'onDragLeave',
       dragexit: 'onDragLeave',
       drop: 'onDrop'
     };
@@ -146,7 +147,6 @@ export class FileBoxView extends controls.BoxView {
   }
 
   onDragEnter(evt: DragEvent) {
-    this.pWidget.addClass(CSS.FILE_BOX_OVER);
     evt.stopPropagation();
     evt.preventDefault();
   }
@@ -154,6 +154,7 @@ export class FileBoxView extends controls.BoxView {
   onDragOver(evt: DragEvent) {
     evt.stopPropagation();
     evt.preventDefault();
+    this.pWidget.addClass(CSS.FILE_BOX_OVER);
   }
 
   onDragLeave(_: DragEvent) {
