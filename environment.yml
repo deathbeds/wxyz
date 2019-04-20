@@ -11,6 +11,7 @@ dependencies:
   - dask-ml
   - distributed
   - importnb
+  - ipympl
   - ipywidgets
   - jsonpointer
   - jupyterlab >=0.35,<0.36
