@@ -5,6 +5,12 @@ import * as controls from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import { WXYZ, WXYZBox, createWXYZ } from './_base';
 
+const CSS = {
+  FILE_BOX: 'jp-WXYZ-FileBox',
+  FILE_BOX_OVER: 'jp-WXYZ-FileBox-dragover',
+  FILE_BOX_TARGET: 'jp-WXYZ-FileBox-DragTarget'
+};
+
 export class FileModel extends widgets.DOMWidgetModel {
   static model_name = 'FileModel';
   static view_name = 'FileView';
@@ -124,10 +130,22 @@ export class FileBoxView extends controls.BoxView {
   private _input: HTMLInputElement;
   model: FileBoxModel;
 
+  events() {
+    return {
+      dragenter: 'onDragEnter',
+      dragover: 'onDragOver',
+      dragleave: 'onDragLeave',
+      dragexit: 'onDragLeave',
+      drop: 'onDrop'
+    };
+  }
+
   initialize(options: any) {
     super.initialize(options);
     const i = (this._input = this.makeInput());
+    const t = this.makeTarget();
     this.el.appendChild(i);
+    this.el.appendChild(t);
     this.model.on(
       'change:multiple change:accept',
       this.onInputAttributes,
@@ -136,11 +154,40 @@ export class FileBoxView extends controls.BoxView {
     this.onInputAttributes();
   }
 
+  onDragEnter(evt: DragEvent) {
+    this.pWidget.addClass(CSS.FILE_BOX_OVER);
+    evt.stopPropagation();
+    evt.preventDefault();
+  }
+
+  onDragOver(evt: DragEvent) {
+    evt.stopPropagation();
+    evt.preventDefault();
+  }
+
+  onDragLeave(_: DragEvent) {
+    this.pWidget.removeClass(CSS.FILE_BOX_OVER);
+  }
+
+  onDrop(evt: DragEvent) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    this.pWidget.removeClass(CSS.FILE_BOX_OVER);
+    this._input.files = evt.dataTransfer.files;
+    this.onInputChange();
+  }
+
   protected makeInput() {
     const inp: HTMLInputElement = document.createElement('input');
     inp.type = 'file';
     inp.addEventListener('change', () => this.onInputChange());
     return inp;
+  }
+
+  protected makeTarget() {
+    const tgt = document.createElement('div');
+    tgt.className = CSS.FILE_BOX_TARGET;
+    return tgt;
   }
 
   async onInputChange() {
