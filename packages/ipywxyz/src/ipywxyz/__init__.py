@@ -44,4 +44,5 @@ except ImportError:
     pass
 
 with __import__("importnb").Notebook():
+    # pylint: disable=import-error
     from .extension import *

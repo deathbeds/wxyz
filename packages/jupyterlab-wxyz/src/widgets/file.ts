@@ -45,23 +45,14 @@ export class FileModel extends widgets.DOMWidgetModel {
     };
   }
 
-  async setFile(file: File) {
-    const { name, type, size, lastModified } = file;
+  set file(file: File) {
     const reader = new FileReader();
 
-    const value = await new Promise<ArrayBuffer>((resolve, reject) => {
-      reader.onload = () => resolve(reader.result as ArrayBuffer);
-      reader.onerror = () => [reader.abort(), reject()];
-      reader.readAsArrayBuffer(file);
-    });
-
-    this.set({
-      last_modified: lastModified,
-      mime_type: type,
-      name,
-      size,
-      value
-    });
+    reader.onload = () => {
+      this.set({ value: reader.result });
+      this.save_changes();
+    };
+    reader.readAsArrayBuffer(file);
   }
 }
 
@@ -71,8 +62,8 @@ export class FileView extends widgets.DOMWidgetView {
   initialize(parameters: any) {
     super.initialize(parameters);
     const m = this.model;
-    m.on('change: name', this.onNameChange, this);
-    m.on('change: value', this.onValueChange, this);
+    m.on('change:name', this.onNameChange, this);
+    m.on('change:value', this.onValueChange, this);
   }
 
   render() {
@@ -94,7 +85,7 @@ export class FileView extends widgets.DOMWidgetView {
       URL.revokeObjectURL(this.anchor.href);
     }
     const value: ArrayBuffer = this.model.get('value');
-    let url: string = null;
+    let url: string = '#';
     if (value != null) {
       let blob = new Blob([value], { type: this.model.get('mime_type') });
       url = URL.createObjectURL(blob);
@@ -193,14 +184,19 @@ export class FileBoxView extends controls.BoxView {
   async onInputChange() {
     const children = await Promise.all(
       toArray(this._input.files).map(async file => {
+        const { name, type, size, lastModified } = file;
         const child: FileModel = await createWXYZ(
           this.model.widget_manager,
           FileModel.model_name,
           FileModel.view_name,
-          {}
+          {
+            last_modified: lastModified,
+            mime_type: type,
+            name,
+            size
+          }
         );
-        await child.setFile(file);
-        child.save_changes();
+        child.file = file;
         return child;
       })
     );

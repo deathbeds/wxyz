@@ -1,3 +1,6 @@
+""" File upload/download widgets
+"""
+# pylint: disable=too-many-ancestors,no-member
 from ._base import Base, T, W
 
 
@@ -15,8 +18,8 @@ class File(Base):
         sync=True, **W.trait_types.bytes_serialization
     )
     name = T.Unicode(help="The file's name").tag(sync=True)
-    last_modified = T.Int(help="Timestamp of last file modification")
-    size = T.Int(help="The size of the file in bytes")
+    last_modified = T.Int(help="Timestamp of last file modification").tag(sync=True)
+    size = T.Int(help="The size of the file in bytes").tag(sync=True)
     mime_type = T.Unicode(help="The file's MIME type.").tag(sync=True)
 
 
