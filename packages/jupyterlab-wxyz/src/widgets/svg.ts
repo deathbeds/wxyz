@@ -85,12 +85,7 @@ export class SVGBoxView extends BoxView {
     const areaAttr = this.model.get('area_attr');
 
     this._lastSVG = this.model.get('svg');
-    const layout = this._d3.selectAll(CSS.LAYOUT).data([1]) as d3.Selection<
-      Element,
-      any,
-      any,
-      any
-    >;
+    const layout = this._d3.selectAll(CSS.LAYOUT).data([1]);
     layout.remove();
     this._zoom = null;
     layout.enter().call(function() {
@@ -220,7 +215,7 @@ export class SVGBoxView extends BoxView {
       if (!labelRegExp) {
         return;
       }
-      const area = _(labelMap).find((area: any, areaLabel: any) =>
+      const area = _(labelMap).find((_area: any, areaLabel: any) =>
         areaLabel.match(labelRegExp)
       );
       const bb = area && area.getBoundingClientRect();
