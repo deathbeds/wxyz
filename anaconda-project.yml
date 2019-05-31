@@ -47,6 +47,7 @@ env_specs:
       - jupyterlab >=0.35,<0.36
       - lime
       - nodejs >=8.11,<9
+      - pip
       - py-xgboost
       - pyld
       - python >=3.7,<3.8
