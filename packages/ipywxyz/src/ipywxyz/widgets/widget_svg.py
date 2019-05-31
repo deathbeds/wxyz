@@ -27,6 +27,7 @@ class SVGBox(Base, W.Box):
     area_attr = T.Unicode(
         DEFAULT_ATTR, help="namespaced XML attribute on SVG `g`s " "with unique values"
     ).tag(sync=True)
+    area_offsets = T.Dict(help="svg `g` offets").tag(sync=True)
 
     area_widgets = T.Dict(
         help="a dictionary of child indices keyed by unique values of "

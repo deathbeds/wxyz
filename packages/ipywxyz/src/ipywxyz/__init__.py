@@ -42,5 +42,5 @@ try:
 except ImportError:
     pass
 
-with __import__('importnb').Notebook():
+with __import__("importnb").Notebook():
     from .extension import *

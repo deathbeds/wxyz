@@ -4,6 +4,8 @@ import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import * as d3 from 'd3-selection';
+import * as d3Zoom from 'd3-zoom';
+// import * as d3Drag from 'd3-drag';
 import _ from 'lodash';
 
 const CSS = {
@@ -83,8 +85,14 @@ export class SVGBoxView extends BoxView {
     const areaAttr = this.model.get('area_attr');
 
     this._lastSVG = this.model.get('svg');
-    const layout = this._d3.selectAll(CSS.LAYOUT).data([1]);
+    const layout = this._d3.selectAll(CSS.LAYOUT).data([1]) as d3.Selection<
+      Element,
+      any,
+      any,
+      any
+    >;
     layout.remove();
+    this._zoom = null;
     layout.enter().call(function() {
       const xml = view._parser.parseFromString(view._lastSVG, 'image/svg+xml');
       const importedNode = document.importNode(xml.documentElement, true);
@@ -106,6 +114,7 @@ export class SVGBoxView extends BoxView {
       const root = layout
         .append('g')
         .attr('id', `${CSS.LAYOUT}-ROOT-${view.cid}`);
+
       children.each(function() {
         // tslint:disable
         root.node().appendChild(this as any);
@@ -119,6 +128,7 @@ export class SVGBoxView extends BoxView {
 
       layout.attr('width', el.clientWidth).attr('height', el.clientHeight);
     });
+
     this.resize();
   }
 
@@ -133,12 +143,24 @@ export class SVGBoxView extends BoxView {
     }
   }
 
+  private _zoom: d3Zoom.ZoomBehavior<any, any>;
+
   resize(): void {
     if (!this._original) {
       return;
     }
     const layout = this._d3.select(`.${CSS.LAYOUT}`);
+
     const view = this;
+    if (!this._zoom) {
+      this._zoom = d3Zoom.zoom().on('zoom', function() {
+        const attr = layout.attr('transform', d3.event.transform);
+        view.resize();
+        return attr;
+      });
+
+      layout.call(this._zoom);
+    }
     const el = this.el.parentNode;
     const doc = document.documentElement;
     const aspectRatio = this._original.width / this._original.height;
