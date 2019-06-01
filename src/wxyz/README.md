@@ -1,3 +1,0 @@
-# ipywxyz
-
-> Experimental Jupyter widgets
