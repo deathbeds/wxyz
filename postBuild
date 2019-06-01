@@ -6,8 +6,8 @@ if [[ "${NB_UID}not-on-binder" -ne "not-on-binder" ]]; then
 fi
 
 set -eux
-python -m pip install -e ./packages/ipywxyz --ignore-installed --no-dependencies
+python -m _scripts._setup
 
-jlpm bootstrap
-jupyter labextension install $(cat labex.txt) --no-build
-jupyter lab build
+# jlpm bootstrap
+# jupyter labextension install $(cat labex.txt) --no-build
+# jupyter lab build
