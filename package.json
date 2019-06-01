@@ -27,6 +27,6 @@
     "jquery": "^3.4.1"
   },
   "workspaces": [
-    "src/wxyz-*"
+    "src/ts/wxyz-*"
   ]
 }

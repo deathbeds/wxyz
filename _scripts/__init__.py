@@ -5,6 +5,8 @@ import sys
 HERE = Path(__file__).parent
 ROOT = HERE.parent
 SRC = ROOT / "src"
+PY_SRC = SRC / "py"
+TS_SRC = SRC / "ts"
 
 PY = sys.executable
 
