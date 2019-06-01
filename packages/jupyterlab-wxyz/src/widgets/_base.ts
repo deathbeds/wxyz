@@ -12,6 +12,16 @@ export class WXYZ extends WidgetModel {
   static model_module_version = VERSION;
   static view_module = NAME;
   static view_module_version = VERSION;
+
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_module: NAME,
+      _model_module_version: VERSION,
+      _view_module: NAME,
+      _view_module_version: VERSION
+    };
+  }
 }
 
 export class WXYZBox extends BoxModel {
@@ -19,6 +29,16 @@ export class WXYZBox extends BoxModel {
   static model_module_version = VERSION;
   static view_module = NAME;
   static view_module_version = VERSION;
+
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_module: NAME,
+      _model_module_version: VERSION,
+      _view_module: NAME,
+      _view_module_version: VERSION
+    };
+  }
 }
 
 export class Model<T> extends DOMWidgetModel {
@@ -128,4 +148,33 @@ export namespace FnModel {
     source: U;
     error: string;
   }
+}
+
+export async function createWXYZ(
+  manager: any,
+  model: string,
+  view: string,
+  args: any = {}
+) {
+  return await createModel(manager, NAME, model, view, args);
+}
+
+export async function createModel(
+  manager: any,
+  _module: string,
+  model: string,
+  view: string,
+  args: any = {}
+) {
+  return await manager.new_widget(
+    {
+      model_module: _module,
+      model_name: model,
+      model_module_version: '*',
+      view_module: _module,
+      view_name: view,
+      view_module_version: '*'
+    },
+    args
+  );
 }

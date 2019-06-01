@@ -10,5 +10,6 @@ export * from './stylegrid';
 export * from './svg';
 export * from './template';
 export * from './yaml';
+export * from './file';
 
 export * from './models/cells';

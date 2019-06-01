@@ -7,6 +7,7 @@ from .widgets.widget_color import AlphaColorPicker
 # these just emulate stuff in lab
 from .widgets.widget_dock import DockBox, DockPop
 from .widgets.widget_editor import Editor
+from .widgets.widget_file import File, FileBox
 from .widgets.widget_fullscreen import Fullscreen
 from .widgets.widget_svg import SVGBox
 
@@ -43,4 +44,5 @@ except ImportError:
     pass
 
 with __import__("importnb").Notebook():
+    # pylint: disable=import-error
     from .extension import *
