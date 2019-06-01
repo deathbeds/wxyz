@@ -9,4 +9,4 @@ if __name__ == "__main__":
         _run([
             sys.executable,
             "-m", "pip", "install", "-e", ".", "--ignore-installed", "--no-deps"
-        ]), cwd=str(pkg))
+        ], cwd=str(pkg))
