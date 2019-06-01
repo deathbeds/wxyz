@@ -2,15 +2,12 @@ name: wxyz
 description: experimental widgets
 
 commands:
+  setup:
+    unix: python -m _scripts._setup
   lab:
     unix: jupyter lab --no-browser --debug
   lint:
-    unix: |-
-      isort -rc packages \
-      && black packages \
-      && jlpm lint \
-      && flake8 packages/ipywxyz \
-      && pylint ipywxyz
+    unix:  python -m _scripts._lint
   test:
     unix: |-
       pytest --nbval notebooks/API
@@ -25,7 +22,7 @@ commands:
 env_specs:
   default:
     inherit_from:
-      - wxyz
+      - wxyz-demo
     packages:
       - black
       - flake8
@@ -34,7 +31,7 @@ env_specs:
       - pylint
       - pytest
       - pytest-cov
-  wxyz:
+  wxyz-demo:
     packages:
       - bqplot
       - dask

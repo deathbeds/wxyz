@@ -1,4 +1,4 @@
-name: wxyz
+name: wxyz-demo
 
 channels:
   - conda-forge
