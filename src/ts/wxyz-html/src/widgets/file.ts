@@ -3,7 +3,11 @@ import * as widgets from '@jupyter-widgets/base';
 import * as controls from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '..';
-import { WXYZ, WXYZBox, createWXYZ } from './_base';
+import {
+  WXYZ,
+  WXYZBox,
+  createWXYZ
+} from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 const CSS = {
   FILE_BOX: 'jp-WXYZ-FileBox',
