@@ -8,8 +8,9 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm && jlpm build",
+    "bootstrap": "jlpm && jlpm build:meta",
     "build": "lerna exec jlpm build",
+    "build:meta": "jlpm build --scope @deathbeds/wxyz-meta",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./src/**/*.{ts,json,md,yml,yaml,css}",
     "lint:ts": "tslint --fix src/**/*.ts",
