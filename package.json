@@ -23,10 +23,12 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "fstream": "^1.0.12"
   },
   "resolutions": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "fstream": "^1.0.12"
   },
   "workspaces": [
     "src/ts/wxyz-*"
