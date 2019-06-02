@@ -4,15 +4,19 @@
 from wxyz.core.base import T, W, WXYZBase
 from wxyz.html.widget_color import AlphaColor, EmptyAlphaColor
 
-from .base import DataGridBase
 from .widget_datagrid import DataGrid
 
+from ._version import module_name, module_version
 
 @W.register
-class CellRenderer(WXYZBase, DataGridBase):
+class CellRenderer(WXYZBase):
     """ [0.1.6]/cellrenderer.ts#L29
     """
 
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+    _view_module = T.Unicode(module_name).tag(sync=True)
+    _view_module_version = T.Unicode(module_version).tag(sync=True)
     _model_name = T.Unicode("CellRendererModel").tag(sync=True)
 
     region = T.Unicode("body").tag(sync=True)
@@ -20,17 +24,25 @@ class CellRenderer(WXYZBase, DataGridBase):
 
 
 @W.register
-class FormatFunc(WXYZBase, DataGridBase):
+class FormatFunc(WXYZBase):
     """ [0.1.6]/textrenderer.ts#L308
     """
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+    _view_module = T.Unicode(module_name).tag(sync=True)
+    _view_module_version = T.Unicode(module_version).tag(sync=True)
 
     _model_name = T.Unicode("FormatFuncModel").tag(sync=True)
 
 
 @W.register
-class TextRenderer(CellRenderer, DataGridBase):
+class TextRenderer(CellRenderer):
     """ [0.1.6]/textrenderer.ts#L21
     """
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+    _view_module = T.Unicode(module_name).tag(sync=True)
+    _view_module_version = T.Unicode(module_version).tag(sync=True)
 
     _model_name = T.Unicode("TextRendererModel").tag(sync=True)
 

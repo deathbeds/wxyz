@@ -5,9 +5,11 @@ import jinja2
 
 from wxyz.core.base import Fn, T, W
 
+from .base import JinjaBase
+
 
 @W.register
-class Template(Fn):
+class Template(Fn, JinjaBase):
     """ Transforms text source into text output with a given context
     """
 

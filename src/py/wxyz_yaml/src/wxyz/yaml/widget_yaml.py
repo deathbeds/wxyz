@@ -3,12 +3,12 @@
 # pylint: disable=too-many-ancestors,no-self-use,too-few-public-methods
 from yaml import safe_load
 
-from wxyz.core.base import T, W
+from .base import YAMLBase, T, W
 from wxyz.core.widget_json import JSON
 
 
 @W.register
-class YAML(JSON):
+class YAML(JSON, YAMLBase):
     """ A Widget that parses YAML source into... something
     """
 
