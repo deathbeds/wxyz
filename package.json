@@ -14,7 +14,8 @@
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./src/**/*.{ts,json,md,yml,yaml,css}",
     "lint:ts": "tslint --fix src/**/*.ts",
-    "watch": "lerna exec jlpm watch"
+    "watch": "lerna exec jlpm watch",
+    "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta"
   },
   "devDependencies": {
     "lerna": "3.13.0",
