@@ -37,7 +37,6 @@ steps:
         tpot
         traittypes
         umap-learn
-        xgboost
   - script: >
       python -m pip install --no-deps yellowbrick
     displayName: yellowbrick from pip
