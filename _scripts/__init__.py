@@ -10,5 +10,7 @@ TS_SRC = SRC / "ts"
 
 PY = sys.executable
 
+DIST = ROOT / "dist"
+
 def _run(args, **kwargs):
     return subprocess.check_call(list(map(str, args)), **kwargs)

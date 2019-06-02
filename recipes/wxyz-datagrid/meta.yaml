@@ -1,13 +1,13 @@
-{% set name = "ipywxyz" %}
+{% set name = "wxyz-datagrid" %}
 {% set version = "0.1.0" %}
-{% set fname = name ~ "-" ~ version ~ ".tar.gz" %}
+{% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
 
 package:
   name: '{{ name }}'
   version: '{{ version }}'
 
 source:
-  path: ../dist/sdist/{{ fname }}
+  path: ../../dist/sdist/{{ fname }}
 
 build:
   noarch: python
@@ -20,19 +20,15 @@ requirements:
     - pip
   run:
     - python
-    - ipywidgets
+    - wxyz-core
+    - pandas
 
 test:
-  requires:
-    - jinja2
-    - jsonpointer
-    - pyld
-    - jupyterlab
   imports:
-    - ipywxyz
+    - wxyz.datagrid
 
 about:
   home: https://github.com/deathbeds/wxyz
   license: BSD-3-Clause
-  license_file: {{ RECIPE_DIR }}/../LICENSE.txt
+  license_file: {{ RECIPE_DIR }}/../../LICENSE.txt
   summary: experimental Jupyter widgets

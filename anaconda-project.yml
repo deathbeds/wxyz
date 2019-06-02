@@ -12,11 +12,7 @@ commands:
     unix: |-
       pytest --nbval notebooks/API
   build:
-    unix: |-
-      cd packages/ipywxyz \
-      && python setup.py sdist --dist-dir $PROJECT_DIR/dist/sdist \
-      && cd $PROJECT_DIR \
-      && conda-build -c conda-forge --output-folder dist/conda-bld conda.recipe
+    unix: python -m _scripts._build
     env_spec: _build
 
 env_specs:
