@@ -4,11 +4,12 @@
 from wxyz.core.base import T, W, WXYZBase
 from wxyz.html.widget_color import AlphaColor, EmptyAlphaColor
 
+from .base import DataGridBase
 from .widget_datagrid import DataGrid
 
 
 @W.register
-class CellRenderer(WXYZBase):
+class CellRenderer(WXYZBase, DataGridBase):
     """ [0.1.6]/cellrenderer.ts#L29
     """
 
@@ -19,7 +20,7 @@ class CellRenderer(WXYZBase):
 
 
 @W.register
-class FormatFunc(WXYZBase):
+class FormatFunc(WXYZBase, DataGridBase):
     """ [0.1.6]/textrenderer.ts#L308
     """
 
@@ -27,7 +28,7 @@ class FormatFunc(WXYZBase):
 
 
 @W.register
-class TextRenderer(CellRenderer):
+class TextRenderer(CellRenderer, DataGridBase):
     """ [0.1.6]/textrenderer.ts#L21
     """
 

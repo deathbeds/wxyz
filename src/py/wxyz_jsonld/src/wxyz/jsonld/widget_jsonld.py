@@ -5,9 +5,10 @@ from pyld import jsonld
 
 from wxyz.core.base import Fn, T, W
 
+from .base import JSONLDBase
 
 @W.register
-class Compact(Fn):
+class Compact(Fn, JSONLDBase):
     """ Compact a JSON document with a context
     """
 
@@ -28,7 +29,7 @@ class Compact(Fn):
 
 
 @W.register
-class Expand(Fn):
+class Expand(Fn, JSONLDBase):
     """ Expand a JSON document to a list of nodes
     """
 
@@ -47,7 +48,7 @@ class Expand(Fn):
 
 
 @W.register
-class Flatten(Fn):
+class Flatten(Fn, JSONLDBase):
     """ Flatten a JSON document to a flat graph
     """
 
@@ -68,7 +69,7 @@ class Flatten(Fn):
 
 
 @W.register
-class Frame(Fn):
+class Frame(Fn, JSONLDBase):
     """ Frame a JSON document
     """
 
@@ -89,7 +90,7 @@ class Frame(Fn):
 
 
 @W.register
-class Normalize(Fn):
+class Normalize(Fn, JSONLDBase):
     """ Normalize a JSON document
     """
 
