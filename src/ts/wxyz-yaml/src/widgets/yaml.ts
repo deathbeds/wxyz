@@ -1,5 +1,5 @@
-import { JSONModel } from './json';
-import { lazyLoader } from './lazy';
+import { JSONModel } from '@deathbeds/wxyz-core/lib/widgets/json';
+import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
 
 const _yaml = lazyLoader(
   async () => await import(/* webpackChunkName: "js-yaml" */ 'js-yaml')

@@ -8,6 +8,6 @@ fi
 set -eux
 python -m _scripts._setup
 
-# jlpm bootstrap
+jlpm bootstrap
 # jupyter labextension install $(cat labex.txt) --no-build
 # jupyter lab build
