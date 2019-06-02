@@ -7,10 +7,9 @@ commands:
   lab:
     unix: jupyter lab --no-browser --debug
   lint:
-    unix:  python -m _scripts._lint
+    unix: python -m _scripts._lint
   test:
-    unix: |-
-      pytest --nbval notebooks/API
+    unix: python -m _scripts._test
   build:
     unix: python -m _scripts._build
     env_spec: _build
