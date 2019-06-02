@@ -10,7 +10,7 @@ import json
 import pandas as pd
 import traittypes as TT
 
-from wxyz.core.base import Base, T, W
+from .base import DataGridBase, T, W
 
 TABLE = {"orient": "table"}
 
@@ -21,7 +21,7 @@ dataframe_serialization = dict(
 
 
 @W.register
-class DataGrid(Base, W.Box):
+class DataGrid(DataGridBase, W.Box):
     """ An (overly) opinionated DataFrame-backed datagrid
         [0.1.6]/datagrid.ts#L64
 

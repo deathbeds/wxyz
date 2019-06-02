@@ -1,9 +1,9 @@
 """ A selectable Data Frame
 """
 # pylint: disable=R0903,C0103,W0703,R0901
-from wxyz.core.base import T, W
 from wxyz.html.widget_color import AlphaColor
 
+from .base import T, W
 from .widget_stylegrid import StyleGrid
 
 
