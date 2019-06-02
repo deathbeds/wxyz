@@ -1,4 +1,11 @@
 @jupyter-widgets/jupyterlab-manager@0.38
 jupyter-matplotlib@0.3.0
 bqplot@0.4.5
-./packages/jupyterlab-wxyz
+./src/ts/wxyz-core
+./src/ts/wxyz-datagrid
+./src/ts/wxyz-html
+./src/ts/wxyz-jsonld
+./src/ts/wxyz-lab
+./src/ts/wxyz-svg
+./src/ts/wxyz-tpl-nunjucks
+./src/ts/wxyz-yaml
