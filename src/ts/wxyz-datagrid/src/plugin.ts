@@ -13,7 +13,7 @@ const plugin: IPlugin<Application<Widget>, void> = {
   id: EXTENSION_ID,
   requires: [IJupyterWidgetRegistry],
   autoStart: true,
-  activate: (app: Application<Widget>, registry: IJupyterWidgetRegistry) => {
+  activate: (_app: Application<Widget>, registry: IJupyterWidgetRegistry) => {
     registry.registerWidget({
       name: NAME,
       version: VERSION,

@@ -2,7 +2,7 @@ import { CellRenderer, TextRenderer } from '@phosphor/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
-import { WXYZ } from '../_base';
+import { WXYZ } from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 export interface IChildChangedFunc {
   (): void;
