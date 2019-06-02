@@ -1,11 +1,11 @@
 """ File upload/download widgets
 """
 # pylint: disable=too-many-ancestors,no-member
-from wxyz.core.base import Base, T, W
+from .base import HTMLBase, T, W
 
 
 @W.register
-class File(Base):
+class File(HTMLBase):
     """ A file. Might be uploaded from the browser.
 
         https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
@@ -24,7 +24,7 @@ class File(Base):
 
 
 @W.register
-class FileBox(Base, W.Box):
+class FileBox(HTMLBase, W.Box):
     """ A box of files, which can be used to upload and download files
     """
 

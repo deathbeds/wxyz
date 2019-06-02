@@ -1,11 +1,11 @@
 """ Full Screen widget
 """
 # pylint: disable=too-many-ancestors
-from wxyz.core.base import Base, T, W
+from .base import HTMLBase, T, W
 
 
 @W.register
-class Fullscreen(Base, W.Box):
+class Fullscreen(HTMLBase, W.Box):
     """ A full screen container
     """
 
