@@ -25,6 +25,9 @@ requirements:
 test:
   imports:
     - wxyz.html
+    - wxyz.html.widget_color
+    - wxyz.html.widget_file
+    - wxyz.html.widget_fullscreen
 
 about:
   home: https://github.com/deathbeds/wxyz

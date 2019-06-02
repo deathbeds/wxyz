@@ -26,6 +26,7 @@ requirements:
 test:
   imports:
     - wxyz.jsonld
+    - wxyz.jsonld.widget_jsonld
 
 about:
   home: https://github.com/deathbeds/wxyz

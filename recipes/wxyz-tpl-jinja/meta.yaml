@@ -26,6 +26,7 @@ requirements:
 test:
   imports:
     - wxyz.tpl_jinja
+    - wxyz.tpl_jinja.widget_template
 
 about:
   home: https://github.com/deathbeds/wxyz

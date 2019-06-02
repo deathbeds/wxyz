@@ -26,6 +26,7 @@ requirements:
 test:
   imports:
     - wxyz.svg
+    - wxyz.svg.widget_svg
 
 about:
   home: https://github.com/deathbeds/wxyz

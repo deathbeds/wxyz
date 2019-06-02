@@ -26,6 +26,7 @@ requirements:
 test:
   imports:
     - wxyz.yaml
+    - wxyz.yaml.widget_yaml
 
 about:
   home: https://github.com/deathbeds/wxyz

@@ -21,10 +21,12 @@ requirements:
   run:
     - python
     - ipywidgets
+    - jsonpointer
 
 test:
   imports:
     - wxyz.core
+    - wxyz.core.widget_json
 
 about:
   home: https://github.com/deathbeds/wxyz

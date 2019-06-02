@@ -6,7 +6,7 @@ import json
 import jsonpointer
 import jsonschema
 
-from wxyz.core.base import Fn, T, W
+from .base import Fn, T, W
 
 
 @W.register

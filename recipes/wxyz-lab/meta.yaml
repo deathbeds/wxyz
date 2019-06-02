@@ -25,6 +25,9 @@ requirements:
 test:
   imports:
     - wxyz.lab
+    - wxyz.lab.widget_dock
+    - wxyz.lab.widget_editor
+    - wxyz.lab.widget_markdown
 
 about:
   home: https://github.com/deathbeds/wxyz
