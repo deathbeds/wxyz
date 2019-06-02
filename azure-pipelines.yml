@@ -1,0 +1,19 @@
+jobs:
+- template: ci/job.test.yml
+  parameters:
+    name: Linux
+    vmImage: ubuntu-16.04
+
+- template: ci/job.test.yml
+  parameters:
+    name: MacOSX
+    vmImage: macos-10.13
+
+- template: ci/job.test.yml
+  parameters:
+    name: Windows
+    vmImage: vs2017-win2016
+
+trigger: [master]
+
+pr: [master]
