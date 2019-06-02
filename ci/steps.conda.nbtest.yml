@@ -1,3 +1,6 @@
+parameters:
+  name: Linux
+
 steps:
   - task: CondaEnvironment@1
     inputs:
@@ -36,6 +39,10 @@ steps:
         tpot
         traittypes
         umap-learn
-  - script: >
-      python -m pip install --no-deps yellowbrick
+
+  - script: python -m pip install --no-deps yellowbrick
     displayName: yellowbrick from pip
+
+  - ${{ if eq(parameters.name, 'Windows') }}:
+    - script: python -m pip install pyzmq
+      displayName: pyzmq from pip
