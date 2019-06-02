@@ -1,0 +1,10 @@
+parameters:
+  name: Linux
+
+steps:
+  - script: >
+      python -m _scripts._setup
+    displayName: Build and Test
+  - script: >
+      python -m _scripts._lint
+    displayName: Linting

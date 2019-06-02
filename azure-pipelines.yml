@@ -1,4 +1,9 @@
 jobs:
+- template: ci/job.lint.yml
+  parameters:
+    name: Linux
+    vmImage: ubuntu-16.04
+
 - template: ci/job.test.yml
   parameters:
     name: Linux
