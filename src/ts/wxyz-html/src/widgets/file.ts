@@ -6,7 +6,7 @@ import { NAME, VERSION } from '..';
 import {
   WXYZ,
   WXYZBox,
-  createWXYZ
+  createModel
 } from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 const CSS = {
@@ -190,7 +190,7 @@ export class FileBoxView extends controls.BoxView {
     const children = await Promise.all(
       toArray(this._input.files).map(async file => {
         const { name, type, size, lastModified } = file;
-        const child: FileModel = await createWXYZ(
+        const child: FileModel = await createModel(
           this.model.widget_manager,
           NAME,
           FileModel.model_name,
