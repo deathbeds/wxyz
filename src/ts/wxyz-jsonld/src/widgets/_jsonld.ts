@@ -1,7 +1,7 @@
 import * as jsonld from 'jsonld';
 
-import { FnModel } from './_base';
-import { lazyLoader } from './lazy';
+import { FnModel } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
 
 export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
   T,
