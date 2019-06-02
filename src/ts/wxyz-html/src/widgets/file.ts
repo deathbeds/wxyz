@@ -192,6 +192,7 @@ export class FileBoxView extends controls.BoxView {
         const { name, type, size, lastModified } = file;
         const child: FileModel = await createWXYZ(
           this.model.widget_manager,
+          NAME,
           FileModel.model_name,
           FileModel.view_name,
           {

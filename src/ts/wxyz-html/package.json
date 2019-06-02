@@ -14,6 +14,7 @@
     "@jupyter-widgets/base": "^1.1.10",
     "@jupyter-widgets/controls": "1.4.2",
     "@jupyter-widgets/jupyterlab-manager": "^0.38",
+    "@deathbeds/wxyz-core": "^0.1.0",
     "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
     "@phosphor/widgets": "^1.6.0",
@@ -42,6 +43,7 @@
   "peerDependencies": {
     "@jupyter-widgets/base": "^1.1.10",
     "@jupyter-widgets/controls": "1.4.2",
+    "@deathbeds/wxyz-core": "^0.1.0",
     "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
     "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0"

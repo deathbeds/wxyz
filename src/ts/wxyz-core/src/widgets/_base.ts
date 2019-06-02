@@ -152,11 +152,12 @@ export namespace FnModel {
 
 export async function createWXYZ(
   manager: any,
+  namespace: string,
   model: string,
   view: string,
   args: any = {}
 ) {
-  return await createModel(manager, NAME, model, view, args);
+  return await createModel(manager, namespace, model, view, args);
 }
 
 export async function createModel(
