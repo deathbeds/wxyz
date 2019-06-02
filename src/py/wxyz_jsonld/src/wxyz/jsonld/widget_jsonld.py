@@ -1,11 +1,12 @@
 """ Widgets for working with JSON
 """
-# pylint: disable=no-self-use,redefined-builtin
+# pylint: disable=no-self-use,redefined-builtin,too-many-ancestors
 from pyld import jsonld
 
 from wxyz.core.base import Fn, T, W
 
 from .base import JSONLDBase
+
 
 @W.register
 class Compact(Fn, JSONLDBase):

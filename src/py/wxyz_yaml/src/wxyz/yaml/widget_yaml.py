@@ -3,8 +3,9 @@
 # pylint: disable=too-many-ancestors,no-self-use,too-few-public-methods
 from yaml import safe_load
 
-from .base import YAMLBase, T, W
 from wxyz.core.widget_json import JSON
+
+from .base import T, W, YAMLBase
 
 
 @W.register

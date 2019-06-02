@@ -4,9 +4,9 @@
 from wxyz.core.base import T, W, WXYZBase
 from wxyz.html.widget_color import AlphaColor, EmptyAlphaColor
 
+from ._version import module_name, module_version
 from .widget_datagrid import DataGrid
 
-from ._version import module_name, module_version
 
 @W.register
 class CellRenderer(WXYZBase):
@@ -27,6 +27,7 @@ class CellRenderer(WXYZBase):
 class FormatFunc(WXYZBase):
     """ [0.1.6]/textrenderer.ts#L308
     """
+
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
     _view_module = T.Unicode(module_name).tag(sync=True)
@@ -39,6 +40,7 @@ class FormatFunc(WXYZBase):
 class TextRenderer(CellRenderer):
     """ [0.1.6]/textrenderer.ts#L21
     """
+
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
     _view_module = T.Unicode(module_name).tag(sync=True)

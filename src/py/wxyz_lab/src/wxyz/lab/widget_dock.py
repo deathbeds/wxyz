@@ -22,7 +22,6 @@ The `widgets` list of a `tab-area` should be indices of `children`
 """
 
 
-
 @W.register
 class DockBox(LabBase, W.Box):
     """ A Box that renders as a DockPanel
