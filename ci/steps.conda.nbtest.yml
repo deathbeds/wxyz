@@ -26,7 +26,6 @@ steps:
         pip
         py-xgboost
         pyld
-        pyld
         pylint
         python>=3.7,<3.8.0a0
         pyyaml
@@ -39,3 +38,6 @@ steps:
         traittypes
         umap-learn
         xgboost
+  - script: >
+      python -m pip install --no-deps yellowbrick
+    displayName: yellowbrick from pip
