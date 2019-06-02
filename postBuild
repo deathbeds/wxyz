@@ -9,5 +9,5 @@ set -eux
 python -m _scripts._setup
 
 jlpm bootstrap
-# jupyter labextension install $(cat labex.txt) --no-build
-# jupyter lab build
+jupyter labextension install $(cat labex.txt) --no-build
+jupyter lab build

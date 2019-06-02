@@ -1,4 +1,4 @@
-@jupyter-widgets/jupyterlab-manager@0.38
+@jupyter-widgets/jupyterlab-manager@0.38.1
 jupyter-matplotlib@0.3.0
 bqplot@0.4.5
 ./src/ts/wxyz-core

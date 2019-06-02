@@ -18,7 +18,7 @@
     "@phosphor/application": "^1.6.0",
     "@phosphor/widgets": "^1.6.0",
     "@types/node": "^10.11.6",
-    "ajv": "^6.5.5",
+    "ajv": "~5.1.6",
     "typescript": "~3.5.0"
   },
   "files": [
@@ -45,7 +45,7 @@
     "@jupyter-widgets/jupyterlab-manager": "^0.38.1",
     "@jupyterlab/rendermime": "^0.19.1",
     "@phosphor/application": "^1.6.0",
-    "ajv": "^6.5.5"
+    "ajv": "~5.1.6"
   },
   "repository": {
     "type": "git",
