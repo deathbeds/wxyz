@@ -4,7 +4,7 @@ steps:
       createOptions: -c conda-forge -c defaults
       createCustomEnvironment: true
       updateConda: false
-      environmentName: _wxyz-test
+      environmentName: _wxyz-build
       packageSpecs: >
         conda-build>=3.18.2,<3.19
         conda>=4.6.14,<4.7

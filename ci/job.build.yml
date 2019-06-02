@@ -8,10 +8,10 @@ jobs:
       vmImage: ${{ parameters.vmImage }}
 
     steps:
-      - template: steps.conda.test.yml
+      - template: steps.conda.build.yml
         parameters:
           name: ${{ parameters.name }}
 
-      - template: steps.test.yml
+      - template: steps.build.yml
         parameters:
           name: ${{ parameters.name }}
