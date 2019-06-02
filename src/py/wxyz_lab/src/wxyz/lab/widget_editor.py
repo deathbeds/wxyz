@@ -1,11 +1,11 @@
 """ Text editing widgets
 """
 # pylint: disable=too-many-ancestors
-from wxyz.core.base import Base, T, W
+from .base import LabBase, T, W
 
 
 @W.register
-class Editor(Base, W.Textarea):
+class Editor(LabBase, W.Textarea):
     """ A basic editor
     """
 

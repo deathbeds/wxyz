@@ -3,11 +3,13 @@
 # pylint: disable=no-self-use
 from nbconvert.filters.markdown import markdown2html_mistune
 
-from wxyz.core.base import Fn, T, W
+# pylint: disable=too-many-ancestors
+from .base import LabBase, T, W
+from wxyz.core.base import Fn
 
 
 @W.register
-class Markdown(Fn):
+class Markdown(Fn, LabBase):
     """ A widget that turns markdown source into HTML source
     """
 

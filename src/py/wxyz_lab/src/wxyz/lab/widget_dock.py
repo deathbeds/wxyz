@@ -1,7 +1,7 @@
 """ Widgets that render in the dock
 """
 # pylint: disable=too-many-ancestors
-from wxyz.core.base import Base, T, W
+from .base import LabBase, T, W
 
 DOCK_LAYOUT_HELP = """
 An AreaConfig from `DockPanel.saveLayout` from `@phosphor/widgets`,
@@ -22,8 +22,9 @@ The `widgets` list of a `tab-area` should be indices of `children`
 """
 
 
+
 @W.register
-class DockBox(Base, W.Box):
+class DockBox(LabBase, W.Box):
     """ A Box that renders as a DockPanel
     """
 
@@ -54,7 +55,7 @@ split-bottom
 
 
 @W.register
-class DockPop(Base, W.Box):
+class DockPop(LabBase, W.Box):
     """ A "box" that just adds stuff to the main JupyterLab area
     """
 
