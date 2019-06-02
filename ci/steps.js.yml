@@ -1,0 +1,12 @@
+parameters:
+  name: Linux
+
+steps:
+  - script: jlpm bootstrap
+    displayName: Perform NPM stuff
+
+  - script: jupyter labextension install $(cat labex.txt) --no-build
+    displayName: Install Viable Extensions (and selected third-party)
+
+  - script: jupyter lab build
+    displayName: Build Lab

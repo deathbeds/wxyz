@@ -4,6 +4,11 @@ jobs:
     name: Linux
     vmImage: ubuntu-16.04
 
+- template: ci/job.js.yml
+  parameters:
+    name: Linux
+    vmImage: ubuntu-16.04
+
 - template: ci/job.build.yml
   parameters:
     name: Linux
