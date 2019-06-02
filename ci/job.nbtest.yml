@@ -1,0 +1,17 @@
+parameters:
+  name: Linux
+  vmImage: ubuntu-16.04
+
+jobs:
+  - job: NBTest_${{ parameters.name }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+
+    steps:
+      - template: steps.conda.nbtest.yml
+        parameters:
+          name: ${{ parameters.name }}
+
+      - template: steps.nbtest.yml
+        parameters:
+          name: ${{ parameters.name }}

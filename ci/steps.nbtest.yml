@@ -6,5 +6,5 @@ steps:
       python -m _scripts._setup
     displayName: Setup Local Env
   - script: >
-      python -m _scripts._lint
-    displayName: Linting
+      python -m _scripts._test
+    displayName: Notebook Test
