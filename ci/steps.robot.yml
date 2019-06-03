@@ -4,7 +4,7 @@ parameters:
 steps:
   - task: DownloadPipelineArtifact@0
     inputs:
-      artifactName: conda-build
+      artifactName: conda-bld
       targetPath: dist/conda-bld
   - task: DownloadPipelineArtifact@0
     inputs:
