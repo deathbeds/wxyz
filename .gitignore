@@ -1,9 +1,12 @@
-lib/
-node_modules/
-envs/
-*.egg-info
 __pycache__/
 .ipynb_checkpoints/
-Untitled*.ipynb
 .pytest_cache/
+*.egg-info
+*.tsbuildinfo
+dask-worker-space/
 dist/
+envs/
+lib/
+node_modules/
+Untitled*.ipynb
+/lab/

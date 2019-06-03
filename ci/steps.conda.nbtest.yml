@@ -1,0 +1,49 @@
+parameters:
+  name: Linux
+
+steps:
+  - task: CondaEnvironment@1
+    inputs:
+      createOptions: -c defaults -c conda-forge
+      createCustomEnvironment: true
+      updateConda: false
+      environmentName: wxyz-nbtest
+      packageSpecs: >
+        bqplot
+        cycler
+        dask
+        dask-ml
+        distributed
+        importnb
+        ipympl
+        ipywidgets
+        isort
+        jinja2
+        jsonpointer
+        jupyterlab>=0.35.6,<0.36
+        lime
+        lxml
+        matplotlib
+        nodejs
+        numpy
+        pandas
+        pip
+        pyld
+        pylint
+        python>=3.7,<3.8.0a0
+        pyyaml
+        scikit-image
+        scikit-learn
+        scikit-mdr
+        skrebate
+        tornado<6
+        tpot
+        traittypes
+        umap-learn
+
+  - script: python -m pip install --no-deps yellowbrick
+    displayName: yellowbrick from pip
+
+  - ${{ if eq(parameters.name, 'Windows') }}:
+    - script: python -m pip uninstall -y pyzmq && python -m pip install pyzmq
+      displayName: pyzmq from pip

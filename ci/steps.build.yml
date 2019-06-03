@@ -1,0 +1,11 @@
+parameters:
+  name: Linux
+
+steps:
+  - script: python -m _scripts._build
+    displayName: Build and Test
+  - ${{ if eq(parameters.name, 'Linux') }}:
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: conda-bld
+        targetPath: dist/conda-bld

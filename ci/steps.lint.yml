@@ -1,0 +1,9 @@
+parameters:
+  name: Linux
+
+steps:
+  - script: python -m _scripts._setup
+    displayName: Setup Local Env
+
+  - script: python -m _scripts._lint
+    displayName: Linting

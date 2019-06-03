@@ -1,0 +1,13 @@
+/* file box */
+.jp-WXYZ-FileBox-DragTarget {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+.jp-WXYZ-FileBox-dragover .jp-WXYZ-FileBox-DragTarget {
+  background: rgba(33, 150, 243, 0.1);
+  border: var(--jp-border-width) dashed var(--jp-brand-color1);
+}

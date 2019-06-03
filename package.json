@@ -8,21 +8,29 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm && jlpm build",
+    "bootstrap": "jlpm && jlpm build:meta",
     "build": "lerna exec jlpm build",
+    "build:meta": "jlpm build --scope @deathbeds/wxyz-meta",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
-    "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./packages/**/*.{ts,json,md,yml,yaml,css}",
-    "lint:ts": "tslint --fix packages/**/*.ts",
-    "watch": "lerna exec jlpm watch"
+    "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./src/**/*.{ts,json,md,yml,yaml,css}",
+    "lint:ts": "tslint --fix src/**/*.ts",
+    "watch": "lerna exec jlpm watch",
+    "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta"
   },
   "devDependencies": {
     "lerna": "3.13.0",
     "prettier": "^1.16.4",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1"
+    "tslint-plugin-prettier": "^2.0.1",
+    "jquery": "^3.4.1",
+    "fstream": "^1.0.12"
+  },
+  "resolutions": {
+    "jquery": "^3.4.1",
+    "fstream": "^1.0.12"
   },
   "workspaces": [
-    "packages/jupyterlab-*"
+    "src/ts/wxyz-*"
   ]
 }

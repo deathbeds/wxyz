@@ -1,0 +1,14 @@
+parameters:
+  name: Linux
+
+steps:
+  - task: DownloadPipelineArtifact@0
+    inputs:
+      artifactName: lab
+      targetPath: lab
+
+  - script: python -m _scripts._setup
+    displayName: Setup Local Env
+
+  - script: python -m _scripts._robot
+    displayName: Robot Tests

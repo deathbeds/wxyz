@@ -2,30 +2,28 @@ name: wxyz
 description: experimental widgets
 
 commands:
+  setup:
+    unix: python -m _scripts._setup
+  labextension:
+    unix: python -m _scripts._labextension
+  labextension:all:
+    unix: python -m _scripts._labextension install $(cat labex.txt)
   lab:
-    unix: jupyter lab --no-browser --debug
+    unix: python -m _scripts._lab
   lint:
-    unix: |-
-      isort -rc packages \
-      && black packages \
-      && jlpm lint \
-      && flake8 packages/ipywxyz \
-      && pylint ipywxyz
+    unix: python -m _scripts._lint
   test:
-    unix: |-
-      pytest --nbval notebooks/API
+    unix: python -m _scripts._test
+  robot:
+    unix: python -m _scripts._robot
   build:
-    unix: |-
-      cd packages/ipywxyz \
-      && python setup.py sdist --dist-dir $PROJECT_DIR/dist/sdist \
-      && cd $PROJECT_DIR \
-      && conda-build -c conda-forge --output-folder dist/conda-bld conda.recipe
+    unix: python -m _scripts._build
     env_spec: _build
 
 env_specs:
   default:
     inherit_from:
-      - wxyz
+      - wxyz-demo
     packages:
       - black
       - flake8
@@ -34,18 +32,40 @@ env_specs:
       - pylint
       - pytest
       - pytest-cov
-  wxyz:
+      - geckodriver
+      - robotframework
+      - robotframework-seleniumlibrary
+  wxyz-demo:
     packages:
       - bqplot
+      - dask
+      - dask >=0.18.2
+      - dask-ml
+      - distributed
       - importnb
+      - ipympl
       - ipywidgets
       - jsonpointer
       - jupyterlab >=0.35,<0.36
+      - lime
       - nodejs >=8.11,<9
+      - pip
+      - py-xgboost
       - pyld
       - python >=3.7,<3.8
       - pyyaml
+      - scikit-image
+      - scikit-learn
+      - scikit-mdr
+      - skrebate
       - tornado <6
+      - tpot
+      - xgboost
+      - matplotlib
+      - umap-learn
+      - cycler
+      - pip:
+          - yellowbrick
     channels:
       - conda-forge
       - defaults

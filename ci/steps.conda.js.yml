@@ -1,0 +1,11 @@
+steps:
+  - task: CondaEnvironment@1
+    inputs:
+      createOptions: -c conda-forge -c defaults
+      createCustomEnvironment: true
+      updateConda: false
+      environmentName: _wxyz-js
+      packageSpecs: >
+        python>=3.6,<3.7.0a0
+        nodejs
+        jupyterlab>=0.35,<0.36

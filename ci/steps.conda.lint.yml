@@ -1,0 +1,25 @@
+steps:
+  - task: CondaEnvironment@1
+    inputs:
+      createOptions: -c conda-forge -c defaults
+      createCustomEnvironment: true
+      updateConda: false
+      environmentName: wxyz-lint
+      packageSpecs: >
+        black
+        flake8
+        importnb
+        ipywidgets
+        isort
+        jinja2
+        jsonpointer
+        jupyterlab>=0.35.6,<0.36
+        lxml
+        matplotlib
+        nodejs
+        pandas
+        pyld
+        pylint
+        python>=3.7,<3.8.0a0
+        pyyaml
+        traittypes

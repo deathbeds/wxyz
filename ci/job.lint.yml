@@ -1,0 +1,17 @@
+parameters:
+  name: Linux
+  vmImage: ubuntu-16.04
+
+jobs:
+  - job: Lint_${{ parameters.name }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+
+    steps:
+      - template: steps.conda.lint.yml
+        parameters:
+          name: ${{ parameters.name }}
+
+      - template: steps.lint.yml
+        parameters:
+          name: ${{ parameters.name }}

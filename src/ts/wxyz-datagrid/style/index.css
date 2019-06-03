@@ -1,0 +1,30 @@
+
+/* data grid */
+.jp-WXYZ-DataGrid {
+  flex-direction: column;
+}
+
+.jp-WXYZ-DataGrid .p-DataGrid {
+  flex: 1;
+  border: 0;
+}
+
+/* style grid */
+.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-track {
+  background-color: var(--jp-layout-color3);
+  border: var(--jp-border-width) solid var(--jp-border-color0);
+}
+
+.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-button {
+  background-color: var(--jp-layout-color2);
+  border: var(--jp-border-width) solid var(--jp-border-color0);
+}
+
+.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-thumb {
+  background-color: var(--jp-layout-color2);
+  border: var(--jp-border-width) solid var(--jp-border-color0);
+}
+
+/* select grid */
+.jp-WXYZ-SelectGrid {
+}

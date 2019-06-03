@@ -1,0 +1,39 @@
+{% set name = "wxyz-datagrid" %}
+{% set version = "0.1.0" %}
+{% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
+
+package:
+  name: '{{ name }}'
+  version: '{{ version }}'
+
+source:
+  path: ../../dist/sdist/{{ fname }}
+
+build:
+  noarch: python
+  number: 0
+  script: '{{ PYTHON }} -m pip install {{ fname }} --no-deps -vv'
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - wxyz-core
+    - wxyz-html
+    - pandas
+    - traittypes
+
+test:
+  imports:
+    - wxyz.datagrid
+    - wxyz.datagrid.widget_datagrid
+    - wxyz.datagrid.widget_selectgrid
+    - wxyz.datagrid.widget_stylegrid
+
+about:
+  home: https://github.com/deathbeds/wxyz
+  license: BSD-3-Clause
+  license_file: {{ RECIPE_DIR }}/../../LICENSE.txt
+  summary: experimental Jupyter widgets
