@@ -3,16 +3,18 @@ parameters:
   vmImage: ubuntu-16.04
 
 jobs:
-  - job: NBTest_${{ parameters.name }}
-    dependsOn: Lint_Linux
+  - job: Robot_${{ parameters.name }}
+    dependsOn:
+      - Build_Linux
+      - JS_Linux
     pool:
       vmImage: ${{ parameters.vmImage }}
 
     steps:
-      - template: steps.conda.nbtest.yml
+      - template: steps.conda.robot.yml
         parameters:
           name: ${{ parameters.name }}
 
-      - template: steps.nbtest.yml
+      - template: steps.robot.yml
         parameters:
           name: ${{ parameters.name }}

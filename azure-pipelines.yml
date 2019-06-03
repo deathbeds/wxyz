@@ -39,6 +39,21 @@ jobs:
     name: Windows
     vmImage: vs2017-win2016
 
+- template: ci/job.robot.yml
+  parameters:
+    name: Windows
+    vmImage: vs2017-win2016
+
+- template: ci/job.robot.yml
+  parameters:
+    name: MacOSX
+    vmImage: macos-10.13
+
+- template: ci/job.robot.yml
+  parameters:
+    name: Linux
+    vmImage: vs2017-win2016
+
 trigger: [master]
 
 pr: [master]

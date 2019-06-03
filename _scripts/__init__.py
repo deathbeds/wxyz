@@ -14,5 +14,10 @@ DIST = ROOT / "dist"
 IPYNB = ROOT / "notebooks"
 IPYNB_HTML = DIST / "notebooks"
 
+TEST_OUT = DIST / "test_output"
+ROBOT_OUT = TEST_OUT / "robot"
+
+ATEST = ROOT / "atest"
+
 def _run(args, **kwargs):
     return subprocess.check_call(list(map(str, args)), **kwargs)

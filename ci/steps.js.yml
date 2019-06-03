@@ -5,8 +5,16 @@ steps:
   - script: jlpm bootstrap
     displayName: Perform NPM stuff
 
-  - script: jupyter labextension install $(cat labex.txt) --no-build
+  - script: jupyter labextension install $(cat labex.txt) --no-build --app-dir lab
     displayName: Install Viable Extensions (and selected third-party)
 
-  - script: jupyter lab build
+  - script: jupyter lab build --app-dir lab
     displayName: Build Lab
+
+  - ${{ if eq(parameters.name, 'Linux') }}:
+    - script: rm -rf lab/{staging}
+      displayName: clean staging
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: lab
+        targetPath: lab

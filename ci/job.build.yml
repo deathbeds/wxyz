@@ -4,6 +4,7 @@ parameters:
 
 jobs:
   - job: Build_${{ parameters.name }}
+    dependsOn: Lint_Linux
     pool:
       vmImage: ${{ parameters.vmImage }}
 

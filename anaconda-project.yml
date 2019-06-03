@@ -10,6 +10,8 @@ commands:
     unix: python -m _scripts._lint
   test:
     unix: python -m _scripts._test
+  robot:
+    unix: python -m _scripts._robot
   build:
     unix: python -m _scripts._build
     env_spec: _build
@@ -26,6 +28,9 @@ env_specs:
       - pylint
       - pytest
       - pytest-cov
+      - geckodriver
+      - robotframework
+      - robotframework-seleniumlibrary
   wxyz-demo:
     packages:
       - bqplot
