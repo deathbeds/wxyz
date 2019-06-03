@@ -16,6 +16,7 @@ IPYNB_HTML = DIST / "notebooks"
 
 TEST_OUT = DIST / "test_output"
 ROBOT_OUT = TEST_OUT / "robot"
+LAB = ROOT / "lab"
 
 ATEST = ROOT / "atest"
 

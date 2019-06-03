@@ -4,8 +4,12 @@ description: experimental widgets
 commands:
   setup:
     unix: python -m _scripts._setup
+  labextension:
+    unix: python -m _scripts._labextension
+  labextension:all:
+    unix: python -m _scripts._labextension install $(cat labex.txt)
   lab:
-    unix: jupyter lab --no-browser --debug
+    unix: python -m _scripts._lab
   lint:
     unix: python -m _scripts._lint
   test:

@@ -5,7 +5,6 @@ parameters:
 jobs:
   - job: Robot_${{ parameters.name }}
     dependsOn:
-      - Build_Linux
       - JS_Linux
     pool:
       vmImage: ${{ parameters.vmImage }}
