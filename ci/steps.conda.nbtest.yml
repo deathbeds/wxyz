@@ -25,6 +25,7 @@ steps:
         lxml
         matplotlib
         nodejs
+        numpy
         pandas
         pip
         pyld
