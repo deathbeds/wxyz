@@ -27,14 +27,18 @@ env_specs:
     packages:
       - black
       - flake8
+      - geckodriver
       - isort
       - nbval
+      - pillow
+      - pip
       - pylint
       - pytest
       - pytest-cov
-      - geckodriver
       - robotframework
       - robotframework-seleniumlibrary
+      - pip:
+        - robotframework-jupyterlibrary
   wxyz-demo:
     packages:
       - bqplot

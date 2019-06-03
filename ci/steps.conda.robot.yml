@@ -14,6 +14,7 @@ steps:
         dask
         dask-ml
         distributed
+        geckodriver
         importnb
         ipympl
         ipywidgets
@@ -26,11 +27,14 @@ steps:
         matplotlib
         nodejs
         pandas
+        pillow
         pip
         pyld
         pylint
         python>=3.7,<3.8.0a0
         pyyaml
+        robotframework
+        robotframework-seleniumlibrary
         scikit-image
         scikit-learn
         scikit-mdr
@@ -39,9 +43,9 @@ steps:
         tpot
         traittypes
         umap-learn
-        robotframework
-        robotframework-seleniumlibrary
-        geckodriver
+
+  - script: python -m pip install --no-deps robotframework-jupyterlibrary
+    displayName: JupyterLibrary from pip
 
   - ${{ if eq(parameters.name, 'Windows') }}:
     - script: python -m pip uninstall -y pyzmq && python -m pip install pyzmq
