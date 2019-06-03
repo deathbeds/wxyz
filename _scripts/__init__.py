@@ -1,12 +1,14 @@
 from pathlib import Path
 import subprocess
 import sys
+import platform
 
 HERE = Path(__file__).parent
 ROOT = HERE.parent
 SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
+PLATFORM = platform.system()
 
 PY = sys.executable
 
