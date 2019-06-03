@@ -44,5 +44,5 @@ steps:
     displayName: yellowbrick from pip
 
   - ${{ if eq(parameters.name, 'Windows') }}:
-    - script: python -m pip install pyzmq
+    - script: python -m pip uninstall pyzmq && python -m pip install pyzmq
       displayName: pyzmq from pip
