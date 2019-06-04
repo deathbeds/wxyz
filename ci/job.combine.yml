@@ -37,7 +37,7 @@ jobs:
           targetPath: dist/test_output
         displayName: Restore Robot Output Windows
 
-      - script: python -m scripts.combine
+      - script: python -m _scripts._combine
         condition: always()
         displayName: Rebot
 
