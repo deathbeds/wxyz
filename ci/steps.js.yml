@@ -8,7 +8,7 @@ steps:
   - script: python -m _scripts._labextension install $(cat labex.txt)
     displayName: Install Viable Extensions (and selected third-party)
 
-  - script: rm -rf lab/{staging}
+  - script: rm -rf lab/staging
     displayName: clean staging
 
   - task: PublishPipelineArtifact@0
