@@ -4,7 +4,6 @@ parameters:
 
 jobs:
   - job: JS_${{ parameters.name }}
-    dependsOn: Lint_Linux
     pool:
       vmImage: ${{ parameters.vmImage }}
 
