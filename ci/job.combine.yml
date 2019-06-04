@@ -46,4 +46,4 @@ jobs:
         displayName: Publish Combined Robot Output
         inputs:
           pathtoPublish: dist/test_output
-          artifactName: RobotLab Robot Output
+          artifactName: WXYZ Robot Output
