@@ -1,0 +1,49 @@
+parameters:
+  name: Linux
+  vmImage: ubuntu-16.04
+
+jobs:
+  - job: Combine
+    condition: always()
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    dependsOn:
+      - Robot_Linux
+      - Robot_MacOSX
+      - Robot_Windows
+    steps:
+      - template: steps.conda.robot.yml
+        parameters:
+          name: Linux
+
+      - task: DownloadPipelineArtifact@0
+        condition: always()
+        inputs:
+          artifactName: Robot Output Linux
+          targetPath: dist/test_output
+        displayName: Restore Robot Output Linux
+
+      - task: DownloadPipelineArtifact@0
+        condition: always()
+        inputs:
+          artifactName: Robot Output MacOSX
+          targetPath: dist/test_output
+        displayName: Restore Robot Output MacOSX
+
+      - task: DownloadPipelineArtifact@0
+        condition: always()
+        inputs:
+          artifactName: Robot Output Windows
+          targetPath: dist/test_output
+        displayName: Restore Robot Output Windows
+
+      - script: python -m scripts.combine
+        condition: always()
+        displayName: Rebot
+
+      - task: PublishBuildArtifacts@1
+        condition: always()
+        displayName: Publish Combined Robot Output
+        inputs:
+          pathtoPublish: dist/test_output
+          artifactName: RobotLab Robot Output

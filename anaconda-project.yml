@@ -16,6 +16,8 @@ commands:
     unix: python -m _scripts._test
   robot:
     unix: python -m _scripts._robot
+  combine:
+    unix: python -m _scripts._combine
   build:
     unix: python -m _scripts._build
     env_spec: _build

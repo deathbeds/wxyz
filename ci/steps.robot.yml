@@ -12,3 +12,20 @@ steps:
 
   - script: python -m _scripts._robot
     displayName: Robot Tests
+
+  - ${{ if eq(parameters.name, 'MacOSX') }}:
+    - script: chmod -R 777 dist
+      displayName: Fix artifact permissions
+
+  - task: PublishTestResults@2
+    displayName: Publish Test Results
+    inputs:
+      testResultsFiles: dist/test_output/**/*.xunit.xml
+    condition: always()
+
+  - task: PublishPipelineArtifact@0
+    displayName: Publish ${{ parameters.name }} Robot Output
+    inputs:
+      targetPath: dist/test_output
+      artifactName: Robot Output ${{ parameters.name }}
+    condition: always()
