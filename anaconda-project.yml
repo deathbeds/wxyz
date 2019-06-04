@@ -38,6 +38,7 @@ env_specs:
   wxyz-demo:
     packages:
       - bqplot
+      - cycler
       - dask
       - dask >=0.18.2
       - dask-ml
@@ -48,6 +49,7 @@ env_specs:
       - jsonpointer
       - jupyterlab >=0.35,<0.36
       - lime
+      - matplotlib
       - nodejs >=8.11,<9
       - pip
       - py-xgboost
@@ -60,10 +62,9 @@ env_specs:
       - skrebate
       - tornado <6
       - tpot
-      - xgboost
-      - matplotlib
+      - transitions
       - umap-learn
-      - cycler
+      - xgboost
       - pip:
           - yellowbrick
     channels:

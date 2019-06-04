@@ -6,6 +6,7 @@ channels:
 
 dependencies:
   - bqplot
+  - cycler
   - dask
   - dask >=0.18.2
   - dask-ml
@@ -16,6 +17,7 @@ dependencies:
   - jsonpointer
   - jupyterlab >=0.35,<0.36
   - lime
+  - matplotlib
   - nodejs >=8.11,<9
   - pip
   - py-xgboost
@@ -28,9 +30,8 @@ dependencies:
   - skrebate
   - tornado <6
   - tpot
-  - xgboost
-  - matplotlib
+  - transitions
   - umap-learn
-  - cycler
+  - xgboost
   - pip:
       - yellowbrick

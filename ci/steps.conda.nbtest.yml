@@ -39,6 +39,7 @@ steps:
         tornado<6
         tpot
         traittypes
+        transitions
         umap-learn
 
   - script: python -m pip install --no-deps yellowbrick
