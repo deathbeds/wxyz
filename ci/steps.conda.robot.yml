@@ -50,3 +50,6 @@ steps:
   - ${{ if eq(parameters.name, 'Windows') }}:
     - script: python -m pip uninstall -y pyzmq && python -m pip install pyzmq
       displayName: pyzmq from pip
+
+    - script: python -m pip uninstall -y pillow && python -m pip install pillow
+      displayName: pillow from pip
