@@ -18,6 +18,8 @@ jobs:
         parameters:
           name: ${{ parameters.name }}
 
+      - template: steps.conda-forge.windows.yml
+
       - template: steps.robot.yml
         parameters:
           name: ${{ parameters.name }}

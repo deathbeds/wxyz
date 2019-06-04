@@ -1,0 +1,22 @@
+steps:
+  - ${{ if eq(parameters.name, 'Windows') }}:
+    - powershell: |
+        Set-PSDebug -Trace 1
+        $batchcontent = @"
+        ECHO ON
+        SET vcpython=C:\Program Files (x86)\Common Files\Microsoft\Visual C++ for Python\9.0
+        DIR "%vcpython%"
+        CALL "%vcpython%\vcvarsall.bat" %*
+        "@
+        $batchDir = "C:\Program Files (x86)\Common Files\Microsoft\Visual C++ for Python\9.0\VC"
+        $batchPath = "$batchDir" + "\vcvarsall.bat"
+        New-Item -Path $batchPath -ItemType "file" -Force
+        Set-Content -Value $batchcontent -Path $batchPath
+        Get-ChildItem -Path $batchDir
+        Get-ChildItem -Path ($batchDir + '\..')
+      condition: contains(variables['CONFIG'], 'vs2008')
+      displayName: Patch vs2008 (if needed)
+    - script: |
+        rmdir C:\strawberry /s /q
+      continueOnError: true
+      displayName: remove strawberryperl
