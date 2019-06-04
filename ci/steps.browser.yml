@@ -1,0 +1,11 @@
+parameters:
+  name: Linux
+
+steps:
+  - ${{ if eq(parameters.name, 'MacOSX') }}:
+    - script: |
+        brew update \
+        && brew tap caskroom/cask \
+        && brew cask install google-chrome \
+        && brew cask install firefox
+      displayName: Install Browsers on MacOSX

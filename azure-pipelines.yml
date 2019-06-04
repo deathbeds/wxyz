@@ -40,10 +40,11 @@ jobs:
 #     name: Windows
 #     vmImage: vs2017-win2016
 
+
 - template: ci/job.robot.yml
   parameters:
-    name: Windows
-    vmImage: vs2017-win2016
+    name: Linux
+    vmImage: ubuntu-16.04
 
 - template: ci/job.robot.yml
   parameters:
@@ -52,8 +53,9 @@ jobs:
 
 - template: ci/job.robot.yml
   parameters:
-    name: Linux
+    name: Windows
     vmImage: vs2017-win2016
+
 
 trigger: [master]
 
