@@ -1,17 +1,18 @@
 """ Widgets for working with State Machines
 """
+# pylint: disable=fixme,no-member,broad-except
 import ipywidgets.widgets.trait_types as TT
 from transitions import Machine
 from transitions.extensions import MachineFactory
 
 from .base import StateMachineBase, T, W
 
-no_pygraphviz = False
+NO_PYGRAPHVIZ = False
 
 try:
-    import pygraphviz
+    __import__("pygraphviz")
 except ImportError:
-    no_pygraphviz = True
+    NO_PYGRAPHVIZ = True
 
 
 class _StateModel(T.HasTraits):
@@ -21,14 +22,11 @@ class _StateModel(T.HasTraits):
 
 @W.register
 class StateMachine(StateMachineBase):
-    """ A Widget that implements a state machine with itself as a Model
+    """ A Widget that implements a state machine
 
         https://github.com/pytransitions/transitions#basic-initialization
-
-        - A function names will be created for each trigger.
-        - a `trigger` function
-
     """
+
     _Machine = Machine
 
     _model_name = T.Unicode("StateMachineModel").tag(sync=True)
@@ -41,7 +39,6 @@ class StateMachine(StateMachineBase):
     state = T.Unicode(allow_none=True).tag(sync=True)
 
     initial = T.Unicode().tag(sync=True)
-    state_model = T.Instance(_StateModel)
     machine = T.Instance(Machine, allow_none=True)
     nested = T.Bool(False).tag(sync=True)
     graph = T.Bool(False).tag(sync=True)
@@ -49,8 +46,10 @@ class StateMachine(StateMachineBase):
     svg = T.Unicode("").tag(sync=True)
     prog = T.Unicode("dot").tag(sync=True)
 
+    model = T.Instance(_StateModel)
+
     def _update_svg(self):
-        if self.graph and self.machine and self.model and not no_pygraphviz:
+        if self.graph and self.machine and self.model and not NO_PYGRAPHVIZ:
             try:
                 self.svg = self.model.get_graph().draw(format="svg", prog=self.prog)
                 self.error = ""
@@ -62,9 +61,7 @@ class StateMachine(StateMachineBase):
         model = self.model = _StateModel()
 
         machine = MachineFactory.get_predefined(
-            nested=self.nested,
-            graph=self.graph,
-            locked=self.locked
+            nested=self.nested, graph=self.graph, locked=self.locked
         )(
             model=model,
             states=self.states,
@@ -74,7 +71,7 @@ class StateMachine(StateMachineBase):
 
         T.dlink((model, "state"), (self, "state"))
 
-        def maybe_update(x):
+        def maybe_update(*_):
             if machine == self.machine:
                 machine.set_state(self.state)
 
