@@ -1,6 +1,7 @@
 *** Settings ***
 Library   JupyterLibrary
-Test Setup        Open JupyterLab    browser=headlessfirefox
+Resource  ./Browser.robot
+Test Setup        Open WXYZ Lab    browser=${BROWSER}
 Test Teardown     Run Keywords    Execute JupyterLab Command    Save Notebook
 ...               AND    Wait Until Keyword Succeeds    2 x    1 s    Execute JupyterLab Command    Reset Application State
 ...               AND    Run keyword And Ignore Error    Handle Alert    timeout=1 s
