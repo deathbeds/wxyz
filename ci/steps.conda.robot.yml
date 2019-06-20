@@ -14,6 +14,7 @@ steps:
         dask
         dask-ml
         distributed
+        geckodriver
         importnb
         ipympl
         ipywidgets
@@ -31,6 +32,8 @@ steps:
         pylint
         python>=3.7,<3.8.0a0
         pyyaml
+        robotframework
+        robotframework-seleniumlibrary
         scikit-image
         scikit-learn
         scikit-mdr
@@ -38,10 +41,8 @@ steps:
         tornado<6
         tpot
         traittypes
+        transitions
         umap-learn
-        robotframework
-        robotframework-seleniumlibrary
-        geckodriver
 
   - ${{ if eq(parameters.name, 'Windows') }}:
     - script: python -m pip uninstall -y pyzmq && python -m pip install pyzmq
