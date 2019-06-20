@@ -8,6 +8,7 @@ Initial release.
 ### Features
 - **core**: reusable components for functional/isomorphic widgets
 - **html**: missing native features already in the browser
+- **iiif**: rich image viewing and annotation 
 - **jinja**: (sandboxed) templates as first-class UI generators
 - **datagrid**: desktop-grade tabular data
 - **jsonld**: computable linked data
