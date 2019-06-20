@@ -1,9 +1,9 @@
 """ Widgets for working with IIIF
 """
 # pylint: disable=too-many-ancestors,no-self-use,too-few-public-methods
-import iiif
+# import iiif
 
-from .base import T, W, IIIFBase
+from .base import IIIFBase, T, W
 
 
 @W.register
