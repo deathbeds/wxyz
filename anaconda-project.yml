@@ -38,21 +38,27 @@ env_specs:
   wxyz-demo:
     packages:
       - bqplot
+      - configargparse
+      - cycler
       - dask
       - dask >=0.18.2
       - dask-ml
       - distributed
+      - iiif
       - importnb
       - ipympl
       - ipywidgets
       - jsonpointer
       - jupyterlab >=0.35,<0.36
       - lime
+      - matplotlib
       - nodejs >=8.11,<9
+      - pillow
       - pip
       - py-xgboost
       - pyld
       - python >=3.7,<3.8
+      - python-magic
       - pyyaml
       - scikit-image
       - scikit-learn
@@ -60,12 +66,11 @@ env_specs:
       - skrebate
       - tornado <6
       - tpot
-      - xgboost
-      - matplotlib
       - umap-learn
-      - cycler
+      - xgboost
       - pip:
-          - yellowbrick
+        - yellowbrick
+        - iiif
     channels:
       - conda-forge
       - defaults
