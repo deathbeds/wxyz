@@ -85,8 +85,8 @@ export class SVGBoxView extends BoxView {
     const areaAttr = this.model.get('area_attr');
 
     this._lastSVG = this.model.get('svg');
+    this._d3.selectAll('svg').remove();
     const layout = this._d3.selectAll(CSS.LAYOUT).data([1]);
-    layout.remove();
     this._zoom = null;
     layout.enter().call(function() {
       const xml = view._parser.parseFromString(view._lastSVG, 'image/svg+xml');
@@ -156,31 +156,31 @@ export class SVGBoxView extends BoxView {
 
       layout.call(this._zoom);
     }
-    const el = this.el.parentNode;
-    const doc = document.documentElement;
-    const aspectRatio = this._original.width / this._original.height;
+    // const el = this.el.parentNode;
+    // const doc = document.documentElement;
+    // const aspectRatio = this._original.width / this._original.height;
     const areaWidgets = view.model.get('area_widgets');
     const visibleAreas = this.model
       .get('visible_areas')
       .map(this.patternToRegexp)
       .filter(Object);
-    let width = Math.min(el.clientWidth, doc.clientWidth);
-    let height = width / aspectRatio;
-    let scale = width / this._original.width;
+    // let width = Math.min(el.clientWidth, doc.clientWidth);
+    // let scale = width / this._original.width;
+    // let height = width / aspectRatio;
     let labelMap = {} as any;
     let areaAttr = this.model.get('area_attr');
 
-    if (scale * this._original.height > doc.clientHeight) {
-      scale = doc.clientHeight / this._original.height;
-      height = doc.clientHeight;
-      width = height * aspectRatio;
-    }
+    // if (scale * this._original.height > doc.clientHeight) {
+    //   scale = doc.clientHeight / this._original.height;
+    //   height = doc.clientHeight;
+    //   width = height * aspectRatio;
+    // }
     layout
-      .attr('width', width)
-      .attr('height', height)
+      // .attr('width', width)
+      // .attr('height', height)
       .style('opacity', this.model.get('show_svg') ? 1 : 0)
-      .select(`#${CSS.LAYOUT}-ROOT-${view.cid}`)
-      .attr('transform', `scale(${scale})`);
+      .select(`#${CSS.LAYOUT}-ROOT-${view.cid}`);
+    // .attr('transform', `scale(${scale})`);
     const area = layout.selectAll('g');
     const named: any = area.filter(function() {
       // tslint:disable

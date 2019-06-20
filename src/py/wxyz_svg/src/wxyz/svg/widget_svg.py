@@ -34,8 +34,8 @@ class SVGBox(SVGBase, W.Box):
         "`area_attr` in SVG"
     ).tag(sync=True)
 
-    visible_areas = T.Tuple(
-        [None],
+    visible_areas = T.List(
+        default=[None],
         help="a list of `area_attrs`s of SVG `g`s to show. " "Accepts [None] for all",
     ).tag(sync=True)
 
