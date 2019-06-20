@@ -9,6 +9,7 @@
     {"path": "../wxyz-core"},
     {"path": "../wxyz-datagrid"},
     {"path": "../wxyz-html"},
+    {"path": "../wxyz-iiif"},
     {"path": "../wxyz-jsonld"},
     {"path": "../wxyz-lab"},
     {"path": "../wxyz-svg"},

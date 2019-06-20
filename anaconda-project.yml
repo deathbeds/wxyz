@@ -43,6 +43,7 @@ env_specs:
       - dask >=0.18.2
       - dask-ml
       - distributed
+      - flask
       - importnb
       - ipympl
       - ipywidgets
