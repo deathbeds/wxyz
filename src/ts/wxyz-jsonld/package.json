@@ -14,7 +14,7 @@
     "@jupyter-widgets/base": "^2.0.1",
     "@jupyter-widgets/controls": "^1.5.1",
     "@jupyter-widgets/jupyterlab-manager": "^1.0.1",
-    "deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-core": "^0.2.0",
     "@jupyterlab/rendermime": "^1.0.0",
     "@phosphor/application": "^1.6.0",
     "@phosphor/widgets": "^1.6.0",
@@ -45,7 +45,7 @@
     "@jupyter-widgets/controls": "^1.5.1",
     "@jupyter-widgets/jupyterlab-manager": "^1.0.1",
     "@jupyterlab/rendermime": "^1.0.0",
-    "deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-core": "^0.2.0",
     "@phosphor/application": "^1.6.0"
   },
   "repository": {
