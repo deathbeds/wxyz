@@ -225,6 +225,6 @@ export class JupyterLabPhosphorDockPanelWidget extends JupyterPhosphorDockPanelW
     super.insertWidget(i, widget);
     const mode = this._view.model.get('mode') || 'tab-after';
     widget.id = widget.id || `jp-WXYZ-DockPop-pop-${nextId++}`;
-    (this.app.shell as any).addToMainArea(widget, { mode });
+    (this.app.shell as any).add(widget, 'main', { mode });
   }
 }

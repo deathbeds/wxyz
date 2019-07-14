@@ -1,11 +1,13 @@
 # ROADMAP
 
 ## 0.1.0
+
 > _in-progress_
 
 Initial release.
 
 ### Features
+
 - **core**: reusable components for functional/isomorphic widgets
 - **html**: missing native features already in the browser
 - **jinja**: (sandboxed) templates as first-class UI generators
@@ -16,12 +18,15 @@ Initial release.
 - **yaml**: the best worst UI for JSON
 
 ### Infrastructure
+
 - [x] Binder
 
 # FUTURE
+
 > _in-planning_
 
 ## Integrations
+
 - [ ] with [importnb][]
 - [ ] with [jupyterlab_graphviz][]
 - [ ] with [jupyterlab-drawio][]
@@ -31,6 +36,7 @@ Initial release.
 - [ ] with [voila][]
 
 ### Infrastructure
+
 - [ ] Azure Pipelines
   - [ ] hypothesis
   - [ ] mypy
@@ -42,8 +48,8 @@ Initial release.
   - [x] isort
   - [x] pylint
 
-
 # REFS
+
 > _See source_
 
 [importnb]: https://github.com/deathbeds/importnb

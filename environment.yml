@@ -33,4 +33,4 @@ dependencies:
   - umap-learn
   - cycler
   - pip:
-    - yellowbrick
+      - yellowbrick

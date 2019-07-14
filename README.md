@@ -17,8 +17,6 @@ Try to bring more isomorphic capabilities to the Jupyter Widget stack.
 |       - |                                  **Dock**                                  | Phosphor   |
 |  pandas |                               **SelectGrid**                               | Phosphor   |
 
-
-
 [binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/notebooks/index.ipynb
 [binder-badge]: https://mybinder.org/badge_logo.svg
-[ROADMAP]: ./ROADMAP.md
+[roadmap]: ./ROADMAP.md
