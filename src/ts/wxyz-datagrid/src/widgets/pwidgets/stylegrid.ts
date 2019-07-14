@@ -1,7 +1,7 @@
 import { DataGrid } from '@phosphor/datagrid';
 
-// TODO: fix circulare references
-import { DataGridView } from '../datagrid';
+// TODO: fix circular references
+import { DataGridView, IViewedGrid } from '../datagrid';
 import { CellRendererModel } from '../models/cells';
 
 const SIZES = [
@@ -19,7 +19,7 @@ const COLORS = [
   'header_grid_line_color'
 ];
 
-export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
+export class StyleGrid extends DataGrid implements IViewedGrid {
   protected _view: DataGridView;
 
   get view() {
