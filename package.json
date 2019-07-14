@@ -8,7 +8,7 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm && jlpm build:meta",
+    "bootstrap": "jlpm && jlpm lerna bootstrap && jlpm build:meta",
     "build": "lerna exec jlpm build",
     "build:meta": "jlpm build --scope @deathbeds/wxyz-meta",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
@@ -18,7 +18,7 @@
     "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta"
   },
   "devDependencies": {
-    "lerna": "3.13.0",
+    "lerna": "^3.13.2",
     "prettier": "^1.16.4",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
