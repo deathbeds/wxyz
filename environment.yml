@@ -14,9 +14,9 @@ dependencies:
   - ipympl
   - ipywidgets
   - jsonpointer
-  - jupyterlab >=0.35,<0.36
+  - jupyterlab >=1.0,<1.1
   - lime
-  - nodejs >=8.11,<9
+  - nodejs >=11,<12
   - pip
   - py-xgboost
   - pyld
@@ -33,4 +33,4 @@ dependencies:
   - umap-learn
   - cycler
   - pip:
-      - yellowbrick
+    - yellowbrick
