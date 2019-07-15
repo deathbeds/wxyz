@@ -30,9 +30,9 @@ export class DataGridModel extends WXYZBox {
 }
 
 export class DataGridView extends BoxView {
-  protected _grid: IViewedGrid;
+  protected _grid: DataGridView.IViewedGrid;
 
-  initialize(options: IOptions) {
+  initialize(options: DataGridView.IOptions) {
     const createGrid = options.createGrid || this.createGrid;
     super.initialize(options);
     this._grid = createGrid();
@@ -43,8 +43,8 @@ export class DataGridView extends BoxView {
     this.onValue();
   }
 
-  protected createGrid(): IViewedGrid {
-    return new DataGrid() as IViewedGrid;
+  protected createGrid(): DataGridView.IViewedGrid {
+    return new DataGrid() as DataGridView.IViewedGrid;
   }
 
   protected onValue() {
@@ -59,10 +59,11 @@ export class DataGridView extends BoxView {
   }
 }
 
-export interface IViewedGrid extends DataGrid {
-  view: DataGridView;
-}
-
-export interface IOptions {
-  createGrid: () => IViewedGrid;
+export namespace DataGridView {
+  export interface IViewedGrid extends DataGrid {
+    view: DataGridView;
+  }
+  export interface IOptions {
+    createGrid: () => IViewedGrid;
+  }
 }
