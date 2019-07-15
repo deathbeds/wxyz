@@ -2,9 +2,7 @@
 
 ## 0.1.0
 
-> _in-progress_
-
-Initial release.
+> _unreleased_
 
 ### Features
 
