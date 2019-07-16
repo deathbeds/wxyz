@@ -6,8 +6,15 @@
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
+  "dependencies": {
+    "cytoscape": "^3.8.1",
+    "cytoscape-cx2js": "^0.6.0"
+  },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.2.0",
+    "@types/cytoscape": "^3.4.3",
+    "@types/node": "^10.11.6",
     "typescript": "~3.5.0"
   },
   "files": [
@@ -15,6 +22,9 @@
     "LICENSE.txt"
   ],
   "homepage": "https://github.com/deathbeds/wxyz",
+  "jupyterlab": {
+    "extension": "lib/plugin"
+  },
   "keywords": [
     "jupyter",
     "jupyterlab",
@@ -24,17 +34,11 @@
   ],
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-meta",
+  "name": "@deathbeds/wxyz-cytoscape",
   "peerDependencies": {
     "@deathbeds/wxyz-core": "^0.2.0",
-    "@deathbeds/wxyz-cytoscape": "^0.2.0",
-    "@deathbeds/wxyz-datagrid": "^0.2.0",
-    "@deathbeds/wxyz-html": "^0.2.0",
-    "@deathbeds/wxyz-jsonld": "^0.2.0",
-    "@deathbeds/wxyz-lab": "^0.2.0",
-    "@deathbeds/wxyz-svg": "^0.2.0",
-    "@deathbeds/wxyz-tpl-nunjucks": "^0.2.0",
-    "@deathbeds/wxyz-yaml": "^0.2.0"
+    "@types/node": "^10.11.6",
+    "typescript": "~3.5.0"
   },
   "repository": {
     "type": "git",

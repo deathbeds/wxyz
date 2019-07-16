@@ -1,4 +1,5 @@
 import * as core from '@deathbeds/wxyz-core';
+import * as cytoscape from '@deathbeds/wxyz-cytoscape';
 import * as datagrid from '@deathbeds/wxyz-datagrid';
 import * as html from '@deathbeds/wxyz-html';
 import * as jsonld from '@deathbeds/wxyz-jsonld';
@@ -10,5 +11,15 @@ import * as yaml from '@deathbeds/wxyz-yaml';
 const DEBUG = false;
 
 if (DEBUG) {
-  console.log(core, datagrid, html, jsonld, lab, svg, tplNunjucks, yaml);
+  console.log(
+    core,
+    cytoscape,
+    datagrid,
+    html,
+    jsonld,
+    lab,
+    svg,
+    tplNunjucks,
+    yaml
+  );
 }

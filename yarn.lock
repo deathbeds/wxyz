@@ -1364,6 +1364,11 @@
   dependencies:
     "@types/tern" "*"
 
+"@types/cytoscape@^3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@types/cytoscape/-/cytoscape-3.4.3.tgz#8b9353154dc895231cd344ed1c7eff2d1391c103"
+  integrity sha512-uADb/vBj/xTeNNRvtYlzPz1rftMR4Jf6ipq4jqKfYibMZ173sAbdFM3Fl2fPbGfP28CWJpqhcpHp4+NUq3Ma4g==
+
 "@types/d3-color@*":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@types/d3-color/-/d3-color-1.2.2.tgz#80cf7cfff7401587b8f89307ba36fe4a576bc7cf"
@@ -2250,6 +2255,27 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
   integrity sha1-GzN5LhHpFKL9bW7WRHRkRE5fpkA=
+
+cytoscape-canvas@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cytoscape-canvas/-/cytoscape-canvas-3.0.1.tgz#7d963be51e6e5f3f2482b05d22562c8ee941d125"
+  integrity sha512-R1nCLnJHGTR5fWEpNQQBPyoigdnfhnk1lOHegzmzz1Kg6yxzVf0hfdRAMa0wPAhtC4kkgyoViiIfZ/zyCqMhEQ==
+
+cytoscape-cx2js@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/cytoscape-cx2js/-/cytoscape-cx2js-0.6.0.tgz#dd7b4b376c26235f5764d00f11ffce90ed20604b"
+  integrity sha512-bfgiXAdKQvgQfL62RjFjyTPS+tSyeC4DJ399i6T07KvyWT6c7Tgp0BNl73e2HuJdQG1a2vbGmnpU1g0Lg/v3nA==
+  dependencies:
+    cytoscape-canvas "3.0.1"
+    lodash "^4.17.10"
+
+cytoscape@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.8.1.tgz#0b87f646054ea3e86f347e9c53a2fc64df1be31b"
+  integrity sha512-hfoGBlqj8LJPnU5WgmQKdGpZaMknk8dPyGEJlzLa1xPwhmBscPMrmPxK2ffyKJIozeHm4UoYw4gPc0rAif4kVA==
+  dependencies:
+    heap "^0.2.6"
+    lodash.debounce "^4.0.8"
 
 d3-color@1:
   version "1.2.8"
@@ -3155,6 +3181,11 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+heap@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/heap/-/heap-0.2.6.tgz#087e1f10b046932fc8594dd9e6d378afc9d1e5ac"
+  integrity sha1-CH4fELBGky/IWU3Z5tN4r8nR5aw=
+
 hosted-git-info@^2.1.4, hosted-git-info@^2.6.0:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
@@ -3801,6 +3832,11 @@ lodash.clonedeep@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
+
 lodash.escape@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
@@ -3866,7 +3902,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1:
+lodash@^4.17.10, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
   integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==

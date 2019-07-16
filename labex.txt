@@ -1,6 +1,7 @@
 @jupyter-widgets/jupyterlab-manager@1.0.1
 bqplot@0.4.6
 ./src/ts/wxyz-core
+./src/ts/wxyz-cytoscape
 ./src/ts/wxyz-datagrid
 ./src/ts/wxyz-html
 ./src/ts/wxyz-jsonld
