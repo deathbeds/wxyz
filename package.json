@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "WXYZ",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "experimental widgets",
   "main": "index.js",
   "repository": "https://github.com/deathbeds/wxyz",
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm && jlpm build:meta",
+    "bootstrap": "jlpm && jlpm lerna bootstrap && jlpm build:meta",
     "build": "lerna exec jlpm build",
     "build:meta": "jlpm build --scope @deathbeds/wxyz-meta",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
@@ -18,9 +18,9 @@
     "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta"
   },
   "devDependencies": {
-    "lerna": "3.13.0",
-    "prettier": "^1.16.4",
-    "tslint": "^5.12.1",
+    "lerna": "^3.13.2",
+    "prettier": "^1.17.0",
+    "tslint": "^5.15.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "jquery": "^3.4.1",
@@ -28,7 +28,11 @@
   },
   "resolutions": {
     "jquery": "^3.4.1",
-    "fstream": "^1.0.12"
+    "fstream": "^1.0.12",
+    "lodash": "^4.17.13",
+    "lodash.template": "^4.5.0",
+    "lodash.mergewith": "^4.6.2",
+    "js-yaml": "^3.13.1"
   },
   "workspaces": [
     "src/ts/wxyz-*"

@@ -1,6 +1,5 @@
-@jupyter-widgets/jupyterlab-manager@0.38.1
-jupyter-matplotlib@0.3.0
-bqplot@0.4.5
+@jupyter-widgets/jupyterlab-manager@1.0.1
+bqplot@0.4.6
 ./src/ts/wxyz-core
 ./src/ts/wxyz-datagrid
 ./src/ts/wxyz-html
