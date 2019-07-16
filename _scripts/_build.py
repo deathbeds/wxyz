@@ -15,7 +15,7 @@ CONDA_ORDER = [
 ]
 
 CONDA_BUILD_ARGS = [
-    "conda-build", "-c", "conda-forge", ".", "--output-folder", DIST / "conda-bld",
+    "conda-build", "-c", "conda-forge", "--output-folder", DIST / "conda-bld",
 ]
 
 
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         _run([PY, "setup.py", "sdist", "--dist-dir", DIST / "sdist"], cwd=str(pkg))
 
     try:
-        _run([*CONDA_BUILD_ARGS, "--skip-existing"], cwd=ROOT / "recipes")
+        _run([*CONDA_BUILD_ARGS, "--skip-existing", "."], cwd=ROOT / "recipes")
     except:
         for pkg in CONDA_ORDER:
             _run([*CONDA_BUILD_ARGS, f"wxyz-{pkg}"], cwd=ROOT / "recipes")
