@@ -1,0 +1,13 @@
+:root {
+  --jp-wxyz-cytoscape-icon: url(./img/cytoscape-js-logo.svg);
+}
+
+.jp-WXYZ-CytoscapeIcon {
+  background-image: var(--jp-wxyz-cytoscape-icon);
+}
+
+.jp-WXYZ-Cytoscape {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

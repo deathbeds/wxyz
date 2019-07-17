@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "cytoscape": "^3.8.1",
-    "cytoscape-cx2js": "^0.6.0"
+    "cytoscape-cx2js": "^0.6.0",
+    "cytoscape-elk": "^1.1.10"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {

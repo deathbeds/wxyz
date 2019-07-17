@@ -1,26 +1,17 @@
-import { Application, IPlugin } from '@phosphor/application';
-import { Widget } from '@phosphor/widgets';
-
-import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
-
-import { NAME, VERSION } from '.';
-import * as widgetExports from './widgets';
+import { NAME as name, VERSION as version } from '.';
+import { wxyzPlugin } from '@deathbeds/wxyz-core/lib/util';
+import * as exports from './widgets';
 import '../style/index.css';
 
-const EXTENSION_ID = `${NAME}:plugin`;
-
-const plugin: IPlugin<Application<Widget>, void> = {
-  id: EXTENSION_ID,
-  requires: [IJupyterWidgetRegistry],
-  autoStart: true,
-  activate: (app: Application<Widget>, registry: IJupyterWidgetRegistry) => {
-    (widgetExports.DockPopView as any)['app'] = app;
-    registry.registerWidget({
-      name: NAME,
-      version: VERSION,
-      exports: widgetExports
-    });
+const plugin = wxyzPlugin({
+  name,
+  version,
+  exports,
+  on: {
+    register: (app, _registry) => {
+      (exports.DockPopView as any)['app'] = app;
+    }
   }
-};
+});
 
 export default plugin;
