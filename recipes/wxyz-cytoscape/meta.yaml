@@ -1,4 +1,4 @@
-{% set name = "wxyz-yaml" %}
+{% set name = "wxyz-cytoscape" %}
 {% set version = "0.2.0" %}
 {% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
 
@@ -21,12 +21,11 @@ requirements:
   run:
     - python
     - wxyz-core
-    - pyyaml
 
 test:
   imports:
-    - wxyz.yaml
-    - wxyz.yaml.widget_yaml
+    - wxyz.cytoscape
+    - wxyz.cytoscape.widget_cytoscape
 
 about:
   home: https://github.com/deathbeds/wxyz
