@@ -11,7 +11,8 @@ CONDA_ORDER = [
     "datagrid",
     "svg",
     "tpl-jjinja"
-    "yaml"
+    "yaml",
+    "cytoscape"
 ]
 
 CONDA_BUILD_ARGS = [
