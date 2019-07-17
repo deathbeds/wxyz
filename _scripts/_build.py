@@ -10,7 +10,7 @@ CONDA_ORDER = [
     "lab",
     "datagrid",
     "svg",
-    "tpl-jjinja"
+    "tpl-jjinja",
     "yaml",
     "cytoscape"
 ]
