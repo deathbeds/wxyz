@@ -6,14 +6,14 @@
   },
   "include": ["./src/**/*"],
   "references": [
-    {"path": "../wxyz-core"},
-    {"path": "../wxyz-datagrid"},
-    {"path": "../wxyz-html"},
-    {"path": "../wxyz-jsonld"},
-    {"path": "../wxyz-lab"},
-    {"path": "../wxyz-svg"},
-    {"path": "../wxyz-tpl-nunjucks"},
-    {"path": "../wxyz-yaml"},
-    {"path": "../wxyz-jsone"}
+    { "path": "../wxyz-core" },
+    { "path": "../wxyz-datagrid" },
+    { "path": "../wxyz-html" },
+    { "path": "../wxyz-jsone" },
+    { "path": "../wxyz-jsonld" },
+    { "path": "../wxyz-lab" },
+    { "path": "../wxyz-svg" },
+    { "path": "../wxyz-tpl-nunjucks" },
+    { "path": "../wxyz-yaml" }
   ]
 }

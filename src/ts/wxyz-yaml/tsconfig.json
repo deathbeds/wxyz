@@ -5,7 +5,9 @@
     "outDir": "./lib"
   },
   "include": ["./src/**/*"],
-  "references": [{
-    "path": "../wxyz-core"
-  }]
+  "references": [
+    {
+      "path": "../wxyz-core"
+    }
+  ]
 }

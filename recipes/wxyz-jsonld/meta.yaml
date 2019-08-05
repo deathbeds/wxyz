@@ -1,5 +1,5 @@
 {% set name = "wxyz-jsonld" %}
-{% set version = "0.1.0" %}
+{% set version = "0.2.0" %}
 {% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
 
 package:

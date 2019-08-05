@@ -8,16 +8,7 @@
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
-    "typescript": "~3.5.0",
-    "@deathbeds/wxyz-core": "^0.1.0",
-    "@deathbeds/wxyz-datagrid": "^0.1.0",
-    "@deathbeds/wxyz-html": "^0.1.0",
-    "@deathbeds/wxyz-jsonld": "^0.1.0",
-    "@deathbeds/wxyz-lab": "^0.1.0",
-    "@deathbeds/wxyz-svg": "^0.1.0",
-    "@deathbeds/wxyz-tpl-nunjucks": "^0.1.0",
-    "@deathbeds/wxyz-yaml": "^0.1.0",
-    "@deathbeds/wxyz-jsone": "^0.1.0"
+    "typescript": "~3.5.0"
   },
   "files": [
     "{lib,style}/**/*.{js,ts,svg,json,css,map}",
@@ -35,15 +26,15 @@
   "main": "lib/index.js",
   "name": "@deathbeds/wxyz-meta",
   "peerDependencies": {
-    "@deathbeds/wxyz-core": "^0.1.0",
-    "@deathbeds/wxyz-datagrid": "^0.1.0",
-    "@deathbeds/wxyz-html": "^0.1.0",
-    "@deathbeds/wxyz-jsonld": "^0.1.0",
-    "@deathbeds/wxyz-lab": "^0.1.0",
-    "@deathbeds/wxyz-svg": "^0.1.0",
-    "@deathbeds/wxyz-tpl-nunjucks": "^0.1.0",
-    "@deathbeds/wxyz-yaml": "^0.1.0",
-    "@deathbeds/wxyz-jsone": "^0.1.0"
+    "@deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-datagrid": "^0.2.0",
+    "@deathbeds/wxyz-html": "^0.2.0",
+    "@deathbeds/wxyz-jsone": "^0.2.0",
+    "@deathbeds/wxyz-jsonld": "^0.2.0",
+    "@deathbeds/wxyz-lab": "^0.2.0",
+    "@deathbeds/wxyz-svg": "^0.2.0",
+    "@deathbeds/wxyz-tpl-nunjucks": "^0.2.0",
+    "@deathbeds/wxyz-yaml": "^0.2.0"
   },
   "repository": {
     "type": "git",
@@ -54,5 +45,5 @@
     "watch": "jlpm build --watch"
   },
   "types": "lib/index.d.ts",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }
