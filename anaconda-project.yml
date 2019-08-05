@@ -66,6 +66,7 @@ env_specs:
       - cycler
       - pip:
           - yellowbrick
+          - json-e
     channels:
       - conda-forge
       - defaults

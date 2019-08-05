@@ -4,6 +4,7 @@ bqplot@0.4.5
 ./src/ts/wxyz-core
 ./src/ts/wxyz-datagrid
 ./src/ts/wxyz-html
+./src/ts/wxyz-jsone
 ./src/ts/wxyz-jsonld
 ./src/ts/wxyz-lab
 ./src/ts/wxyz-svg
