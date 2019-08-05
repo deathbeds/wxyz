@@ -2,6 +2,7 @@ import { DOMWidgetView, DOMWidgetModel } from '@jupyter-widgets/base';
 
 import { Core } from 'cytoscape';
 import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
+import { Throttler } from '@jupyterlab/coreutils';
 
 import { NAME, VERSION } from '..';
 
@@ -198,12 +199,8 @@ export class CytoscapeView extends DOMWidgetView {
     _cyto.use(elk);
 
     // http://js.cytoscape.org/#events/collection-events
-    this._cytoscape.on('select', _evt => {
-      const selected = this._cytoscape.$(':selected');
-      console.log(selected.jsons());
-      this.model.set('selected_elements', selected.jsons());
-      this.touch();
-    });
+    const throttledSelect = new Throttler(() => this.onSelect(), 100);
+    this._cytoscape.on('select', throttledSelect.invoke);
 
     const handlers = Object.keys(
       (this.model as CytoscapeModel).cyDefaults()
@@ -217,5 +214,12 @@ export class CytoscapeView extends DOMWidgetView {
     });
 
     handlers.map(h => h());
+  }
+
+  onSelect() {
+    const selected = this._cytoscape.$(':selected');
+    console.log(selected.jsons());
+    this.model.set('selected_elements', selected.jsons());
+    this.touch();
   }
 }
