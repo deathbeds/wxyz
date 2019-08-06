@@ -1,4 +1,5 @@
 import CodeMirror from 'codemirror';
+import 'codemirror/modes/yaml';
 
 const RE_OP0 = /(then|else|from|each\([^)]+\))(?=:)/;
 const RE_OP1 = /\$(flattenDeep|mergeDeep)/;
