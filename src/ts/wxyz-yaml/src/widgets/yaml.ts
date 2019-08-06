@@ -18,6 +18,7 @@ export class YAMLModel extends JSONModel {
 
   async theFunction(source: string) {
     const { safeLoad } = _yaml.get() || (await _yaml.load());
+    console.log('yaml', source);
     return safeLoad(source);
   }
 }

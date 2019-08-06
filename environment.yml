@@ -13,6 +13,7 @@ dependencies:
   - importnb
   - ipympl
   - ipywidgets
+  - json-e
   - jsonpointer
   - jupyterlab >=1.0,<1.1
   - lime
@@ -34,4 +35,3 @@ dependencies:
   - cycler
   - pip:
       - yellowbrick
-      - json-e

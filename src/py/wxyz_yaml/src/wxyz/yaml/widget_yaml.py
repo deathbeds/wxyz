@@ -15,6 +15,8 @@ class YAML(JSON, YAMLBase):
 
     _model_name = T.Unicode("YAMLModel").tag(sync=True)
 
+    value = T.Any(allow_none=True).tag(sync=True)
+
     def the_function(self, source):
         """ "safely" load some YAML
         """

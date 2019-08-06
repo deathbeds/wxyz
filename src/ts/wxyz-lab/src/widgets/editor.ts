@@ -7,6 +7,8 @@ import { NAME, VERSION } from '..';
 
 const EDITOR_CLASS = 'jp-WXYZ-Editor';
 
+const WATCHED_OPTIONS = ['mode', 'theme'];
+
 export class EditorModel extends TextareaModel {
   static model_name = 'EditorModel';
   static model_module = NAME;
@@ -25,7 +27,9 @@ export class EditorModel extends TextareaModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       description: 'An Editor',
-      icon_class: 'jp-EditIcon'
+      icon_class: 'jp-EditIcon',
+      mode: null,
+      theme: null
     };
   }
 }
@@ -42,10 +46,22 @@ export class EditorView extends DOMWidgetView {
       this.touch();
     });
     this.model.on('change:value', this.value_changed, this);
+    const watchers = WATCHED_OPTIONS.map(opt => {
+      const watcher = this.optionWatcher(opt);
+      this.model.on(`change:${opt}`, watcher);
+      return watcher;
+    });
     setTimeout(() => {
-      this._editor.refresh();
       this.value_changed();
+      watchers.map(fn => fn());
     }, 1);
+  }
+
+  optionWatcher(attr: string) {
+    return () => {
+      this._editor.setOption(attr, this.model.get(attr));
+      this._editor.refresh();
+    };
   }
 
   value_changed() {

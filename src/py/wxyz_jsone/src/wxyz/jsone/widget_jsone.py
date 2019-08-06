@@ -15,9 +15,9 @@ class JSONE(Fn, JSONEBase):
 
     _model_name = T.Unicode("JSONEModel").tag(sync=True)
 
-    source = T.Dict(allow_none=True).tag(sync=True)
-    context = T.Dict(allow_none=True).tag(sync=True)
-    value = T.Dict(allow_none=True).tag(sync=True)
+    source = T.Any(allow_none=True).tag(sync=True)
+    context = T.Any(allow_none=True).tag(sync=True)
+    value = T.Any(allow_none=True).tag(sync=True)
 
     _observed_traits = ["source", "context"]
 

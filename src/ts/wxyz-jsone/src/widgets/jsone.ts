@@ -12,14 +12,16 @@ export class JSONEModel extends JSONModel {
     return {
       ...super.defaults(),
       _model_name: JSONEModel.model_name,
-      value: {} as any
+      value: {} as any,
+      context: {} as any
     };
   }
 
-  async theFunction(source: string) {
+  async theFunction(source: Object) {
     const jsone = _jsone.get() || (await _jsone.load());
     const context = this.theContext;
-    return jsone.default(JSON.parse(source), context);
+    const result = jsone.default(source, context);
+    return result;
   }
 
   get theContext() {

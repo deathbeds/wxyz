@@ -45,6 +45,7 @@ env_specs:
       - importnb
       - ipympl
       - ipywidgets
+      - json-e
       - jsonpointer
       - jupyterlab >=1.0,<1.1
       - lime
@@ -66,7 +67,6 @@ env_specs:
       - cycler
       - pip:
           - yellowbrick
-          - json-e
     channels:
       - conda-forge
       - defaults
