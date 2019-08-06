@@ -19,6 +19,7 @@ steps:
         ipywidgets
         isort
         jinja2
+        json-e
         jsonpointer
         jupyterlab>=1.0,<1.1
         lime
