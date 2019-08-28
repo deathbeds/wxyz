@@ -17,7 +17,7 @@ jobs:
   - template: ci/job.build.yml
     parameters:
       name: MacOSX
-      vmImage: macos-10.13
+      vmImage: macos-10.14
 
   - template: ci/job.build.yml
     parameters:
@@ -32,7 +32,7 @@ jobs:
   - template: ci/job.nbtest.yml
     parameters:
       name: MacOSX
-      vmImage: macos-10.13
+      vmImage: macos-10.14
 
   # TODO: reinstate
   # - template: ci/job.nbtest.yml
@@ -48,7 +48,7 @@ jobs:
   - template: ci/job.robot.yml
     parameters:
       name: MacOSX
-      vmImage: macos-10.13
+      vmImage: macos-10.14
 
   - template: ci/job.robot.yml
     parameters:
