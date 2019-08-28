@@ -2,6 +2,10 @@ parameters:
   name: Linux
 
 steps:
+  - ${{ if eq(parameters.name, 'MacOSX') }}:
+    - bash: sudo chown -R $USER $CONDA
+      displayName: Take ownership of conda installation
+
   - task: CondaEnvironment@1
     inputs:
       createOptions: -c defaults -c conda-forge
