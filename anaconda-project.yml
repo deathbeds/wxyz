@@ -46,7 +46,7 @@ env_specs:
       - ipympl
       - ipywidgets
       - jsonpointer
-      - jupyterlab >=1.0,<1.1
+      - jupyterlab>=1,<2
       - lime
       - nodejs >=11,<12
       - pip
