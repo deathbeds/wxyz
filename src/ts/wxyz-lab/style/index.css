@@ -78,3 +78,40 @@
   background: rgba(33, 150, 243, 0.1);
   border: var(--jp-border-width) dashed var(--jp-brand-color1);
 }
+
+/* blueprint */
+.jp-WXYZ-Blueprint-Button > .bp3-button {
+  color: var(--jp-ui-font-color1);
+  user-select: none;
+  border: var(--jp-border-width) solid transparent;
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:not(.bp3-minimal) {
+  background-color: var(--jp-layout-color2);
+  background-image: none;
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:hover {
+  color: var(--jp-ui-font-color2);
+  background-color: var(--jp-layout-color2);
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:hover:not(.bp3-minimal) {
+  border: var(--jp-border-width) solid var(--jp-border-color1);
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:focus {
+  background-color: var(--jp-layout-color2);
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:focus:not(.bp3-minimal) {
+  border: var(--jp-border-width) solid var(--jp-brand-color1);
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:active {
+  background-color: var(--jp-layout-color3);
+}
+
+.jp-WXYZ-Blueprint-Button > .bp3-button:active:not(.bp3-minimal) {
+  border: var(--jp-border-width) solid var(--jp-brand-color1);
+}
