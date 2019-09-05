@@ -1,0 +1,56 @@
+{
+  "author": {
+    "email": "",
+    "name": "dead pixels collective"
+  },
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "dependencies": {
+    "react-jsonschema-form": "^1.8.0"
+  },
+  "description": "Experimental widgets for JupyterLab",
+  "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.2.0",
+    "@types/react-jsonschema-form": "1.6.2",
+    "@blueprintjs/core": "*",
+    "@types/node": "^10.11.6",
+    "typescript": "~3.5.0",
+    "@types/react-dom": "*"
+  },
+  "files": [
+    "{lib,style}/**/*.{js,ts,svg,json,css,map}",
+    "LICENSE.txt"
+  ],
+  "homepage": "https://github.com/deathbeds/wxyz",
+  "jupyterlab": {
+    "extension": "lib/plugin"
+  },
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "name": "@deathbeds/wxyz-json-schema-form",
+  "peerDependencies": {
+    "@deathbeds/wxyz-core": "^0.2.0",
+    "@blueprintjs/core": "*",
+    "typescript": "~3.5.0",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "jlpm build --watch"
+  },
+  "types": "lib/index.d.ts",
+  "version": "0.2.0"
+}

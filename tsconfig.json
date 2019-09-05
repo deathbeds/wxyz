@@ -10,6 +10,7 @@
     "sourceMap": true,
     "preserveWatchOutput": true,
     "module": "esnext",
+    "jsx": "react",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "target": "es2015",

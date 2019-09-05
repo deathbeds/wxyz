@@ -1,0 +1,56 @@
+.jp-WXYZ-JSONSchemaForm {
+  overflow-y: auto;
+}
+
+.jp-WXYZ-JSONSchemaForm .rjsf {
+  display: flex;
+  flex-direction: column;
+}
+
+.jp-WXYZ-JSONSchemaForm > form {
+  padding: var(--jp-ui-font-size1);
+}
+
+.jp-WXYZ-JSONSchemaForm fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.jp-WXYZ-JSONSchemaForm button[type='submit'] {
+  display: none;
+}
+
+.jp-WXYZ-JSONSchemaForm .control-label,
+.jp-WXYZ-JSONSchemaForm legend {
+  margin: 0;
+  padding: 0;
+  margin-bottom: calc(var(--jp-ui-font-size1) / 2);
+  font-weight: bold;
+  display: block;
+}
+
+.jp-WXYZ-JSONSchemaForm .form-group {
+  margin-bottom: var(--jp-ui-font-size1);
+  width: 100%;
+  position: relative;
+}
+
+.jp-WXYZ-JSONSchemaForm .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.jp-WXYZ-JSONSchemaForm .field-description {
+  font-style: italic;
+  margin-bottom: calc(var(--jp-ui-font-size1) / 2);
+  color: var(--jp-ui-font-color2);
+}
+
+.jp-WXYZ-JSONSchemaForm .required {
+  font-size: var(--jp-ui-font-size3);
+  color: var(--jp-warn-color1);
+  font-weight: 800;
+  position: absolute;
+  margin-left: 0.1em;
+  margin-top: -0.1em;
+}
