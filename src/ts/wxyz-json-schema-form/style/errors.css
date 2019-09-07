@@ -16,6 +16,13 @@
 
 .jp-WXYZ-JSONSchemaForm .has-error > input[type='text'],
 .jp-WXYZ-JSONSchemaForm .has-error > input[type='number'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='date'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='datetime-local'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='url'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='email'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='file'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='password'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='color'],
 .jp-WXYZ-JSONSchemaForm .has-error > textarea {
   border: solid 1px var(--jp-warn-color1);
 }

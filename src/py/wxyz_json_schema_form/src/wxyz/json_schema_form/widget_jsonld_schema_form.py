@@ -16,3 +16,4 @@ class JSONSchemaForm(W.DOMWidget, JSONSchemaFormBase):
     value = T.Any(allow_none=True).tag(sync=True)
     schema = T.Dict(allow_none=True).tag(sync=True)
     ui_schema = T.Dict(allow_none=True).tag(sync=True)
+    errors = T.List().tag(sync=True)

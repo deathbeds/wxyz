@@ -1,5 +1,12 @@
 .jp-WXYZ-JSONSchemaForm input[type='text'],
 .jp-WXYZ-JSONSchemaForm input[type='number'],
+.jp-WXYZ-JSONSchemaForm input[type='date'],
+.jp-WXYZ-JSONSchemaForm input[type='datetime-local'],
+.jp-WXYZ-JSONSchemaForm input[type='url'],
+.jp-WXYZ-JSONSchemaForm input[type='email'],
+.jp-WXYZ-JSONSchemaForm input[type='file'],
+.jp-WXYZ-JSONSchemaForm input[type='password'],
+.jp-WXYZ-JSONSchemaForm input[type='color'],
 .jp-WXYZ-JSONSchemaForm textarea {
   box-sizing: border-box;
   border: var(--jp-widgets-input-border-width) solid
@@ -16,8 +23,16 @@
 
 .jp-WXYZ-JSONSchemaForm input[type='text']:focus,
 .jp-WXYZ-JSONSchemaForm input[type='number']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='date']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='datetime-local']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='url']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='email']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='file']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='password']:focus,
+.jp-WXYZ-JSONSchemaForm input[type='color']:focus,
 .jp-WXYZ-JSONSchemaForm textarea:focus {
   border-color: var(--jp-widgets-input-focus-border-color);
+  background-color: var(--jp-widgets-input-background-color);
 }
 
 .jp-WXYZ-JSONSchemaForm select {
@@ -37,6 +52,11 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+.jp-WXYZ-JSONSchemaForm select[multiple] {
+  padding: 0;
+  background: none;
 }
 
 .jp-WXYZ-JSONSchemaForm select:focus {

@@ -37,7 +37,8 @@ export class JSONSchemaFormModel extends DOMWidgetModel {
       _view_module_version: VERSION,
       value: {} as any,
       schema: {} as any,
-      ui_schema: {} as any
+      ui_schema: {} as any,
+      errors: []
     };
   }
 
@@ -58,6 +59,14 @@ export class JSONSchemaFormModel extends DOMWidgetModel {
   get uiSchema(): any {
     return this.get('ui_schema') || {};
   }
+
+  get errors(): any[] {
+    return this.get('errors') || [];
+  }
+
+  set errors(errors) {
+    this.set('errors', errors);
+  }
 }
 
 export class JSONSchemaFormView extends DOMWidgetView {
@@ -68,7 +77,11 @@ export class JSONSchemaFormView extends DOMWidgetView {
     this._idPrefix = `id-wxyz-json-schema-form-${Private.nextId()}`;
     this.pWidget.addClass(FORM_CLASS);
     _rjsf.load().then(() => {
-      this.m.on('change', this.rerender, this);
+      this.m.on(
+        'change:schema change:ui_schema change:value',
+        this.rerender,
+        this
+      );
       this.rerender();
     });
   }
@@ -110,10 +123,11 @@ export class JSONSchemaFormView extends DOMWidgetView {
     );
   }
 
-  onChange = (evt: any, _err: any) => {
+  onChange = (evt: any, _err?: any) => {
     const { m } = this;
-    const { formData } = evt;
+    const { formData, errors } = evt;
     if (formData != null) {
+      m.errors = errors;
       m.formData = this._lastEmitted = formData;
       this.touch();
     }
