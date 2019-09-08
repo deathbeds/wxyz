@@ -1,0 +1,59 @@
+{
+  "author": {
+    "email": "",
+    "name": "dead pixels collective"
+  },
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "dependencies": {
+    "jss": "^9.8.7",
+    "jss-preset-default": "^4.5.0"
+  },
+  "description": "Experimental widgets for JupyterLab",
+  "devDependencies": {
+    "@jupyter-widgets/base": "^2.0.1",
+    "@jupyter-widgets/controls": "^1.5.1",
+    "@jupyter-widgets/jupyterlab-manager": "^1.0.1",
+    "@jupyterlab/rendermime": "^1.0.0",
+    "@phosphor/application": "^1.6.0",
+    "@types/node": "^10.11.6",
+    "@types/jss": "^9.5.8",
+    "typescript": "~3.5.0"
+  },
+  "files": [
+    "{lib,style}/**/*.{js,ts,svg,json,css,map}",
+    "LICENSE.txt"
+  ],
+  "homepage": "https://github.com/deathbeds/wxyz",
+  "jupyterlab": {
+    "extension": "lib/plugin"
+  },
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "name": "@deathbeds/wxyz-jss",
+  "peerDependencies": {
+    "@jupyter-widgets/base": "^2.0.1",
+    "@jupyter-widgets/controls": "^1.5.1",
+    "@jupyter-widgets/jupyterlab-manager": "^1.0.1",
+    "@jupyterlab/rendermime": "^1.0.0",
+    "@phosphor/application": "^1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "jlpm build --watch"
+  },
+  "types": "lib/index.d.ts",
+  "version": "0.2.0"
+}

@@ -11,6 +11,7 @@
     { "path": "../wxyz-html" },
     { "path": "../wxyz-json-schema-form" },
     { "path": "../wxyz-jsonld" },
+    { "path": "../wxyz-jss" },
     { "path": "../wxyz-lab" },
     { "path": "../wxyz-svg" },
     { "path": "../wxyz-tpl-nunjucks" },
