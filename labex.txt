@@ -8,3 +8,4 @@ bqplot@0.4.7
 ./src/ts/wxyz-svg
 ./src/ts/wxyz-tpl-nunjucks
 ./src/ts/wxyz-yaml
+./src/ts/wxyz-json-schema-form
