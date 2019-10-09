@@ -1,5 +1,5 @@
-@jupyter-widgets/jupyterlab-manager@1.0.1
-bqplot@0.4.6
+@jupyter-widgets/jupyterlab-manager@1.0.2
+bqplot@0.4.7
 ./src/ts/wxyz-core
 ./src/ts/wxyz-cytoscape
 ./src/ts/wxyz-datagrid
@@ -9,3 +9,4 @@ bqplot@0.4.6
 ./src/ts/wxyz-svg
 ./src/ts/wxyz-tpl-nunjucks
 ./src/ts/wxyz-yaml
+./src/ts/wxyz-json-schema-form

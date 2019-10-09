@@ -1,0 +1,38 @@
+.jp-WXYZ-JSONSchemaForm .errors {
+  order: 999;
+  color: var(--jp-warn-color0);
+}
+
+.jp-WXYZ-JSONSchemaForm .errors h3 {
+  margin: 0;
+}
+
+.jp-WXYZ-JSONSchemaForm .errors ul,
+.jp-WXYZ-JSONSchemaForm .errors li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='text'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='number'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='date'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='datetime-local'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='url'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='email'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='file'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='password'],
+.jp-WXYZ-JSONSchemaForm .has-error > input[type='color'],
+.jp-WXYZ-JSONSchemaForm .has-error > textarea {
+  border: solid 1px var(--jp-warn-color1);
+}
+
+.jp-WXYZ-JSONSchemaForm .field .error-detail {
+  list-style: none;
+  color: var(--jp-warn-color0);
+  margin: 0;
+  padding: 0;
+}
+.jp-WXYZ-JSONSchemaForm .field .error-detail li {
+  margin-top: calc(var(--jp-ui-font-size1) / 2);
+}

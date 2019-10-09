@@ -10,6 +10,7 @@
     { "path": "../wxyz-cytoscape" },
     { "path": "../wxyz-datagrid" },
     { "path": "../wxyz-html" },
+    { "path": "../wxyz-json-schema-form" },
     { "path": "../wxyz-jsonld" },
     { "path": "../wxyz-lab" },
     { "path": "../wxyz-svg" },

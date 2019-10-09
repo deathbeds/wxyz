@@ -14,7 +14,7 @@ dependencies:
   - ipympl
   - ipywidgets
   - jsonpointer
-  - jupyterlab >=1.0,<1.1
+  - jupyterlab>=1,<2
   - lime
   - nodejs >=8,<9
   - pip

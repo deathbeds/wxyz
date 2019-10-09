@@ -2,6 +2,10 @@ parameters:
   name: Linux
 
 steps:
+  - ${{ if eq(parameters.name, 'MacOSX') }}:
+    - bash: sudo chown -R $USER $CONDA
+      displayName: Take ownership of conda installation
+
   - task: CondaEnvironment@1
     inputs:
       createOptions: -c conda-forge -c defaults
@@ -20,7 +24,7 @@ steps:
         isort
         jinja2
         jsonpointer
-        jupyterlab>=1.0,<1.1
+        jupyterlab>=1,<2
         lime
         lxml
         matplotlib

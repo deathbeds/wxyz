@@ -6,21 +6,17 @@
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
+  "dependencies": {
+    "react-jsonschema-form": "^1.8.0"
+  },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
-    "@jupyter-widgets/base": "^2.0.1",
-    "@jupyter-widgets/controls": "^1.5.1",
-    "@jupyter-widgets/jupyterlab-manager": "^1.0.1",
-    "@jupyterlab/rendermime": "^1.0.0",
     "@deathbeds/wxyz-core": "^0.2.0",
-    "@phosphor/application": "^1.6.0",
-    "@phosphor/widgets": "^1.6.0",
-    "@types/codemirror": "^0.0.71",
-    "@types/marked": "~0.3.0",
+    "@types/react-jsonschema-form": "1.6.2",
+    "@blueprintjs/core": "*",
     "@types/node": "^10.11.6",
-    "codemirror": "*",
-    "marked": "*",
-    "typescript": "~3.5.0"
+    "typescript": "~3.5.0",
+    "@types/react-dom": "*"
   },
   "files": [
     "{lib,style}/**/*.{js,ts,svg,json,css,map}",
@@ -39,17 +35,13 @@
   ],
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-lab",
+  "name": "@deathbeds/wxyz-json-schema-form",
   "peerDependencies": {
-    "@jupyter-widgets/base": "^2.0.1",
-    "@jupyter-widgets/controls": "^1.5.1",
-    "@jupyter-widgets/jupyterlab-manager": "^1.0.1",
     "@deathbeds/wxyz-core": "^0.2.0",
-    "@jupyterlab/rendermime": "^1.0.0",
-    "@phosphor/application": "^1.6.0",
-    "ajv": "*",
-    "codemirror": "*",
-    "marked": "*"
+    "@blueprintjs/core": "*",
+    "typescript": "~3.5.0",
+    "react": "*",
+    "react-dom": "*"
   },
   "repository": {
     "type": "git",
@@ -60,5 +52,5 @@
     "watch": "jlpm build --watch"
   },
   "types": "lib/index.d.ts",
-  "version": "0.2.1"
+  "version": "0.2.0"
 }
