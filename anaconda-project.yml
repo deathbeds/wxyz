@@ -46,7 +46,7 @@ env_specs:
       - ipympl
       - ipywidgets
       - jsonpointer
-      - jupyterlab>=1,<2
+      - jupyterlab>=1.1.4,<2
       - lime
       - nodejs >=8,<9
       - pip
@@ -58,7 +58,7 @@ env_specs:
       - scikit-learn
       - scikit-mdr
       - skrebate
-      - tornado <6
+      - tornado
       - tpot
       - xgboost
       - matplotlib

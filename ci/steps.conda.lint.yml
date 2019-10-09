@@ -13,7 +13,7 @@ steps:
         isort
         jinja2
         jsonpointer
-        jupyterlab>=1,<2
+        jupyterlab>=1.1.4,<2
         lxml
         matplotlib
         nodejs
