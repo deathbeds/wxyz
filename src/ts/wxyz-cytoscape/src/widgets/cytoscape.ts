@@ -179,6 +179,7 @@ export class CytoscapeModel extends DOMWidgetModel {
 
 export class CytoscapeView extends DOMWidgetView {
   private _cytoscape: Core;
+  private _throttledSelect: Throttler;
 
   render() {
     super.render();
@@ -189,18 +190,21 @@ export class CytoscapeView extends DOMWidgetView {
       .catch(err => console.error('CytoscapeView error', err));
   }
 
+  remove() {
+    super.remove();
+    this._throttledSelect.dispose();
+  }
+
   async initCytoscape() {
-    await _cytoscape.load();
-    await _elk.load();
+    await Promise.all([_cytoscape.load(), _elk.load()]);
     const _cyto = _cytoscape.get();
     const elk = _elk.get();
-    console.log(elk);
     this._cytoscape = _cyto({ container: this.el });
     _cyto.use(elk);
 
     // http://js.cytoscape.org/#events/collection-events
-    const throttledSelect = new Throttler(() => this.onSelect(), 100);
-    this._cytoscape.on('select', throttledSelect.invoke);
+    this._throttledSelect = new Throttler(() => this.onSelect(), 100);
+    this._cytoscape.on('select', () => this._throttledSelect.invoke());
 
     const handlers = Object.keys(
       (this.model as CytoscapeModel).cyDefaults()
@@ -218,7 +222,6 @@ export class CytoscapeView extends DOMWidgetView {
 
   onSelect() {
     const selected = this._cytoscape.$(':selected');
-    console.log(selected.jsons());
     this.model.set('selected_elements', selected.jsons());
     this.touch();
   }

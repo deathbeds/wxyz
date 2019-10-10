@@ -7,14 +7,14 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "cytoscape": "^3.8.1",
+    "cytoscape": "^3.11.0",
     "cytoscape-cx2js": "^0.6.0",
     "cytoscape-elk": "^1.1.10"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
     "@deathbeds/wxyz-core": "^0.2.0",
-    "@types/cytoscape": "^3.4.3",
+    "@types/cytoscape": "^3.8.2",
     "@types/node": "^10.11.6",
     "typescript": "~3.5.0"
   },
@@ -39,7 +39,8 @@
   "peerDependencies": {
     "@deathbeds/wxyz-core": "^0.2.0",
     "@types/node": "^10.11.6",
-    "typescript": "~3.5.0"
+    "typescript": "~3.5.0",
+    "@jupyterlab/coreutils": "~3.1.0"
   },
   "repository": {
     "type": "git",
