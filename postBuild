@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if [[ "${NB_UID}not-on-binder" -ne "not-on-binder" ]]; then
   if [[ "${CONDA_PREFIX}no-conda-prefix" = "no-conda-prefix" ]]; then
-    export CONDA_PREFIX=$CONDA_DIR
+    source $CONDA_DIR/bin/activate $CONDA_DIR
   fi
 fi
 
