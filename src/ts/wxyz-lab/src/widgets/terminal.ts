@@ -10,9 +10,49 @@ import { TerminalPhosphorWidget } from './_terminal';
 
 import { fit } from 'xterm/lib/addons/fit/fit';
 
+const TRAITS = {
+  allow_transparency: 'allowTransparency',
+  bell_sound: 'bellSound',
+  bell_style: 'bellStyle',
+  cancel_events: 'cancelEvents',
+  colors: 'colors',
+  convert_eol: 'convertEol',
+  cursor_blink: 'cursorBlink',
+  cursor_style: 'cursorStyle',
+  debug: 'debug',
+  disable_stdin: 'disableStdin',
+  enable_bold: 'enableBold',
+  font_family: 'fontFamily',
+  font_size: 'fontSize',
+  font_weight: 'fontWeight',
+  font_weight_bold: 'fontWeightBold',
+  letter_spacing: 'letterSpacing',
+  line_height: 'lineHeight',
+  mac_option_is_meta: 'macOptionIsMeta',
+  pop_on_bell: 'popOnBell',
+  renderer_type: 'rendererType',
+  right_click_selects_word: 'rightClickSelectsWord',
+  screen_keys: 'screenKeys',
+  scrollback: 'scrollback',
+  tab_stop_width: 'tabStopWidth',
+  term_name: 'termName',
+  use_flow_control: 'useFlowControl',
+  visual_bell: 'visualBell'
+} as { [key: string]: string };
+
 const TERMINAL_CLASS = 'jp-WXYZ-Terminal';
 // const JP_TERMINAL_CLASS = 'jp-Terminal';
 // const JP_TERMINAL_BODY_CLASS = 'jp-Terminal-body';
+
+function _makeListener(
+  view: TerminalView,
+  traitName: string,
+  attrName: string
+) {
+  view.model.on(`change:${traitName}`, () =>
+    view.setTermOption(attrName, view.model.get(traitName))
+  );
+}
 
 export class TerminalModel extends DOMWidgetModel {
   static model_name = 'TerminalModel';
@@ -39,6 +79,7 @@ export class TerminalModel extends DOMWidgetModel {
       selection: '',
       local_echo: false,
       fit: true,
+      active_terminals: 0,
       theme: {
         foreground: '#fff',
         background: '#000',
@@ -53,8 +94,10 @@ export class TerminalModel extends DOMWidgetModel {
 export class TerminalView extends DOMWidgetView {
   static view_name = 'TerminalView';
 
+  pWidget: TerminalPhosphorWidget;
+
   private _term: Xterm;
-  private _wrapper: HTMLDivElement;
+  private _wasInitialized = false;
 
   _setElement(el: HTMLElement) {
     if (this.pWidget) {
@@ -68,11 +111,13 @@ export class TerminalView extends DOMWidgetView {
     });
   }
 
+  setTermOption(attr: string, value: any) {
+    this._term.setOption(attr, value);
+  }
+
   render() {
     super.render();
     this.pWidget.addClass(TERMINAL_CLASS);
-    this._wrapper = document.createElement('div');
-    this.pWidget.node.appendChild(this._wrapper);
 
     this._term = new Xterm({
       rows: this.model.get('rows'),
@@ -80,39 +125,66 @@ export class TerminalView extends DOMWidgetView {
       theme: this.model.get('theme')
     });
 
-    setTimeout(() => {
-      this._term.open(this._wrapper);
+    if (this.pWidget.isVisible) {
+      this.onInit();
+    } else {
+      setTimeout(() => this.onInit(), 200);
+      this.pWidget.shown.connect(this.onResize, this);
+    }
+  }
 
-      this.model.on('change:rows change:cols', () => {
+  onInit() {
+    if (this._wasInitialized) {
+      return;
+    }
+    this._term.open(this.pWidget.node);
+
+    this.model.on('change:rows change:cols change:fit', () => {
+      if (this.model.get('fit')) {
+        this.onResize();
+      } else {
         this._term.resize(this.model.get('cols'), this.model.get('rows'));
-        // TODO; make this optional
-        // fit(this._term);
-      });
+      }
+    });
 
-      this.model.on('msg:custom', this.onCustomMessage, this);
-      this.model.on('change:theme', this.onTheme, this);
-      this.model.on('change:scroll', this.onScroll, this);
+    this.model.on('msg:custom', this.onCustomMessage, this);
+    this.model.on('change:theme', this.onTheme, this);
+    this.model.on('change:scroll', this.onScroll, this);
 
-      this._term.onScroll(this.onTermScroll.bind(this));
+    for (const traitName of Object.keys(TRAITS)) {
+      _makeListener(this, traitName, TRAITS[traitName]);
+    }
 
-      this._term.onSelectionChange(this.onTermSelect.bind(this));
+    this._term.onScroll(this.onTermScroll.bind(this));
 
-      this._term.onData(this.onTermData.bind(this));
+    this._term.onSelectionChange(this.onTermSelect.bind(this));
 
-      this._term.attachCustomKeyEventHandler(event => {
-        if (event.ctrlKey && event.key === 'c' && this._term.hasSelection()) {
-          return false;
-        }
+    this._term.onData(this.onTermData.bind(this));
 
-        return true;
-      });
+    this._term.attachCustomKeyEventHandler(event => {
+      if (event.ctrlKey && event.key === 'c' && this._term.hasSelection()) {
+        return false;
+      }
 
-      (this.pWidget as TerminalPhosphorWidget).resized.connect(
-        this.onResize,
-        this
-      );
-      this.onResize();
-    }, 100);
+      return true;
+    });
+
+    this.pWidget.resized.connect(this.onResize, this);
+    this.pWidget.disposed.connect(this.onDispose, this);
+    this.onResize();
+    this.model.set(
+      'active_terminals',
+      (this.model.get('active_terminals') || 0) + 1
+    );
+    this._wasInitialized = true;
+    this.touch();
+  }
+
+  onDispose() {
+    this._term.dispose();
+    this.pWidget.resized.disconnect(this.onResize, this);
+    this.pWidget.disposed.disconnect(this.onDispose, this);
+    this.model.set('active_terminals', this.model.get('active_terminals') - 1);
   }
 
   // DOM stuff
