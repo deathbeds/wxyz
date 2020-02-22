@@ -1,10 +1,9 @@
 import { Application, IPlugin } from '@phosphor/application';
 import { Widget } from '@phosphor/widgets';
 
-import { IJupyterWidgetRegistry, ExportData } from '@jupyter-widgets/base';
+import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '.';
-import * as widgetExports from './widgets';
 import '../style/index.css';
 
 const EXTENSION_ID = `${NAME}:plugin`;
@@ -17,7 +16,7 @@ const plugin: IPlugin<Application<Widget>, void> = {
     registry.registerWidget({
       name: NAME,
       version: VERSION,
-      exports: (widgetExports as any) as ExportData
+      exports: async () => import('./widgets') as any
     });
   }
 };
