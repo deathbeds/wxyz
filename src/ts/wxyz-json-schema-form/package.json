@@ -15,7 +15,7 @@
     "@types/react-jsonschema-form": "1.6.2",
     "@blueprintjs/core": "*",
     "@types/node": "^10.11.6",
-    "typescript": "~3.5.0",
+    "typescript": "~3.7.2",
     "@types/react-dom": "*"
   },
   "files": [
@@ -39,7 +39,7 @@
   "peerDependencies": {
     "@deathbeds/wxyz-core": "^0.2.0",
     "@blueprintjs/core": "*",
-    "typescript": "~3.5.0",
+    "typescript": "~3.7.2",
     "react": "*",
     "react-dom": "*"
   },

@@ -14,7 +14,7 @@
     "@deathbeds/wxyz-core": "^0.2.0",
     "@types/node": "^10.11.6",
     "@types/nunjucks": "^3.0.0",
-    "typescript": "~3.5.0"
+    "typescript": "~3.7.2"
   },
   "files": [
     "{lib,style}/**/*.{js,ts,svg,json,css,map}",
