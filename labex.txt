@@ -1,4 +1,4 @@
-@jupyter-widgets/jupyterlab-manager@1.0.2
+@jupyter-widgets/jupyterlab-manager@1.1.0
 bqplot@0.4.7
 ./src/ts/wxyz-core
 ./src/ts/wxyz-datagrid
