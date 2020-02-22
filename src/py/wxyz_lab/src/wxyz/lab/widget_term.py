@@ -50,7 +50,7 @@ DTS = (
 TRAIT_MAP = {
     "number": T.Float,
     "boolean": T.Bool,
-    "string[]": lambda: trait_types.TypedTuple(T.Unicode()),
+    "string[]": lambda **kwargs: trait_types.TypedTuple(T.Unicode(), **kwargs),
     "string": T.Unicode,
 }
 
@@ -61,9 +61,9 @@ def _traits_from_dts():
         for attr in re.findall(r"'(.*?)'", attrs):
             if attr in ["rows", "cols"]:
                 continue
-            traits[re.sub(r"(?<!^)(?=[A-Z])", "_", attr).lower()] = TRAIT_MAP[
-                dts_type
-            ]().tag(sync=True)
+            traits[re.sub(r"(?<!^)(?=[A-Z])", "_", attr).lower()] = TRAIT_MAP[dts_type](
+                default_value=None, allow_none=True
+            ).tag(sync=True)
     return traits
 
 

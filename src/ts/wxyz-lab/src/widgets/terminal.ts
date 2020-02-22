@@ -1,4 +1,4 @@
-import { Terminal as Xterm } from 'xterm';
+import { Terminal as Xterm, ITerminalOptions } from 'xterm';
 
 import { DOMWidgetView, DOMWidgetModel } from '@jupyter-widgets/base';
 
@@ -112,18 +112,34 @@ export class TerminalView extends DOMWidgetView {
   }
 
   setTermOption(attr: string, value: any) {
-    this._term.setOption(attr, value);
+    if (this._term.getOption(attr) !== value) {
+      this._term.setOption(attr, value);
+    }
+  }
+
+  getOptions(): ITerminalOptions {
+    const m = this.model;
+
+    const opts: ITerminalOptions = {
+      rows: m.get('rows'),
+      cols: m.get('cols'),
+      theme: m.get('theme')
+    };
+
+    for (const trait of Object.keys(TRAITS)) {
+      const value = m.get(trait);
+      if (value != null) {
+        (opts as any)[TRAITS[trait]] = value;
+      }
+    }
+    return opts;
   }
 
   render() {
     super.render();
     this.pWidget.addClass(TERMINAL_CLASS);
 
-    this._term = new Xterm({
-      rows: this.model.get('rows'),
-      cols: this.model.get('cols'),
-      theme: this.model.get('theme')
-    });
+    this._term = new Xterm(this.getOptions());
 
     if (this.pWidget.isVisible) {
       this.onInit();
@@ -139,13 +155,11 @@ export class TerminalView extends DOMWidgetView {
     }
     this._term.open(this.pWidget.node);
 
-    this.model.on('change:rows change:cols change:fit', () => {
-      if (this.model.get('fit')) {
-        this.onResize();
-      } else {
-        this._term.resize(this.model.get('cols'), this.model.get('rows'));
-      }
-    });
+    this.model.on(
+      'change:rows change:cols change:fit',
+      this.onModelResize,
+      this
+    );
 
     this.model.on('msg:custom', this.onCustomMessage, this);
     this.model.on('change:theme', this.onTheme, this);
@@ -160,6 +174,7 @@ export class TerminalView extends DOMWidgetView {
     this._term.onSelectionChange(this.onTermSelect.bind(this));
 
     this._term.onData(this.onTermData.bind(this));
+    this._term.onResize(this.onTermResize.bind(this));
 
     this._term.attachCustomKeyEventHandler(event => {
       if (event.ctrlKey && event.key === 'c' && this._term.hasSelection()) {
@@ -195,6 +210,19 @@ export class TerminalView extends DOMWidgetView {
   }
 
   // model events
+  onModelResize() {
+    if (this.model.get('fit')) {
+      this.onResize();
+      return;
+    }
+    const rows = this.model.get('rows');
+    const cols = this.model.get('cols');
+
+    if (this._term.rows !== rows || this._term.cols !== cols) {
+      this._term.resize(rows, cols);
+    }
+  }
+
   onCustomMessage(msg: any) {
     this._term.write(msg.content as string);
   }
@@ -224,5 +252,14 @@ export class TerminalView extends DOMWidgetView {
     if (this.model.get('local_echo')) {
       this._term.write(data);
     }
+  }
+
+  onTermResize({ cols, rows }: { cols: number; rows: number }) {
+    const m = this.model;
+    if (m.get('cols') === cols && m.get('rows') === rows) {
+      return;
+    }
+    m.set({ cols, rows });
+    this.touch();
   }
 }
