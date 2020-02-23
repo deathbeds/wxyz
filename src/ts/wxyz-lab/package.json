@@ -20,7 +20,8 @@
     "@types/node": "^10.11.6",
     "codemirror": "*",
     "marked": "*",
-    "typescript": "~3.5.0"
+    "typescript": "~3.7.2",
+    "xterm": "~3.13.2"
   },
   "files": [
     "{lib,style}/**/*.{js,ts,svg,json,css,map}",
@@ -49,7 +50,8 @@
     "@phosphor/application": "^1.6.0",
     "ajv": "*",
     "codemirror": "*",
-    "marked": "*"
+    "marked": "*",
+    "xterm": "*"
   },
   "repository": {
     "type": "git",
