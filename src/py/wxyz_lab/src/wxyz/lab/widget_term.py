@@ -2,6 +2,7 @@
 """
 # pylint: disable=unused-argument,no-name-in-module,import-error
 import re
+import queue
 
 from ipywidgets import trait_types
 
@@ -85,6 +86,8 @@ class Terminal(LabBase):
     local_echo = T.Bool(False).tag(sync=True)
     theme = T.Dict(default_value=DEFAULT_THEME).tag(sync=True)
     active_terminals = T.Int(0).tag(sync=True)
+    buffer = T.Instance(queue.Queue)
+    buffer_size = T.Int(allow_none=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -104,9 +107,45 @@ class Terminal(LabBase):
     def send_line(self, line):
         """ convenience wrapper around send
         """
-        self.send({"content": f"{line}\r\n"})
+        if self.active_terminals >= 1:
+            self.send({"content": f"{line}\r\n"})
+        else:
+            self._buffer_message(line)
 
     def _handle_terminal_msg(self, _, content, buffers):
         """ handler for messages
         """
         self.data(content)
+    
+    def _buffer_message(self, msg):
+        """Add message to the buffer by potentially dropping the oldest"""
+        try:
+            self.buffer.put_nowait(msg)
+        except queue.Full:
+            drop_msg = self.buffer.get_nowait()
+            self.buffer.put_nowait(msg)
+
+    @T.observe("active_terminals")
+    def _flush(self, change=None):
+        """Flush buffer queue to the terminal"""
+        while self.active_terminals > 0:
+            try:
+                msg = self.buffer.get_nowait()
+                self.send_line(msg)
+            except queue.Empty:
+                break
+
+    @T.default("buffer")
+    def _default_buffer(self):
+        return queue.Queue(maxsize=self.buffer_size)
+
+    @T.observe("buffer_size")
+    def _change_buffer_size(self, change):
+        buffer = self.buffer
+        current_size = buffer.qsize()
+        if current_size > self.buffer_size:
+            for i in range(current_size-self.buffer_size):
+                drop_msg = buffer.get_nowait()
+        buffer.maxsize = self.buffer_size
+
+
