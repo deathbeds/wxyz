@@ -1,6 +1,5 @@
 {
   "private": true,
-  "name": "WXYZ",
   "version": "0.4.0",
   "description": "experimental widgets",
   "main": "index.js",
@@ -26,14 +25,6 @@
     "tslint-react": "^4.1.0",
     "jquery": "^3.4.1",
     "fstream": "^1.0.12"
-  },
-  "resolutions": {
-    "jquery": "^3.4.1",
-    "fstream": "^1.0.12",
-    "lodash": "^4.17.13",
-    "lodash.template": "^4.5.0",
-    "lodash.mergewith": "^4.6.2",
-    "js-yaml": "^3.13.1"
   },
   "workspaces": [
     "src/ts/wxyz-*"
