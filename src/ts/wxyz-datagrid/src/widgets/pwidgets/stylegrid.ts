@@ -107,29 +107,33 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   onModelSize() {
-    // const m = this._view.model;
-    // const changed = Object.keys(m.changedAttributes());
-    // for (const size of changed) {
-    //   let v = m.get(size);
-    //   if (v == null) {
-    //     continue;
-    //   }
-    //   switch (size) {
-    //     default:
-    //       continue;
-    //     case 'row_size':
-    //       this.baseRowSize = v;
-    //       continue;
-    //     case 'row_header_size':
-    //       this.baseRowHeaderSize = v;
-    //       continue;
-    //     case 'column_size':
-    //       this.baseColumnSize = v;
-    //       continue;
-    //     case 'column_header_size':
-    //       this.baseColumnHeaderSize = v;
-    //       continue;
-    //   }
-    // }
+    const m = this._view.model;
+    const changed = Object.keys(m.changedAttributes());
+    const defaultSizes = {...this.defaultSizes};
+
+    for (const size of changed) {
+      let v = m.get(size);
+      if (v == null) {
+        continue;
+      }
+      switch (size) {
+        default:
+          continue;
+        case 'row_size':
+          defaultSizes.rowHeight = v;
+          continue;
+        case 'row_header_size':
+          defaultSizes.rowHeaderWidth = v;
+          continue;
+        case 'column_size':
+          defaultSizes.columnWidth = v;
+          continue;
+        case 'column_header_size':
+          defaultSizes.columnHeaderHeight = v;
+          continue;
+      }
+    }
+
+    this.defaultSizes = defaultSizes;
   }
 }
