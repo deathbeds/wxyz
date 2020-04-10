@@ -39,7 +39,7 @@ class Base(WXYZBase):
     _view_module = T.Unicode(module_name).tag(sync=True)
     _view_module_version = T.Unicode(module_version).tag(sync=True)
 
-    error = T.Unicode("").tag(sync=True)
+    error = T.CUnicode("").tag(sync=True)
     description = T.Unicode("An Undescribed Widget").tag(sync=True)
     icon_class = T.Unicode("jp-CircleIcon").tag(sync=True)
     closable = T.Bool(default_value=True).tag(sync=True)
