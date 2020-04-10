@@ -1,4 +1,4 @@
-import { DataGrid } from '@phosphor/datagrid';
+import { DataGrid } from '@lumino/datagrid';
 
 // TODO: fix circulare references
 import { DataGridView } from '../datagrid';

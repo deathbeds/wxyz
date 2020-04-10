@@ -1,10 +1,10 @@
-import { Message } from '@phosphor/messaging';
-import { Widget } from '@phosphor/widgets';
+import { Message } from '@lumino/messaging';
+import { Widget } from '@lumino/widgets';
 
 import { StyleGrid } from './stylegrid';
 
-import { CellRenderer, TextRenderer } from '@phosphor/datagrid';
-import { SectionList } from '@phosphor/datagrid/lib/sectionlist';
+import { CellRenderer, TextRenderer } from '@lumino/datagrid';
+import { SectionList } from '@lumino/datagrid/lib/sectionlist';
 
 const SELECT_COLOR = 'rgba(0,0,255,0.125)';
 

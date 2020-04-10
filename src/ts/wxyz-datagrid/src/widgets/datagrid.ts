@@ -1,6 +1,6 @@
 import { BoxView } from '@jupyter-widgets/controls';
 
-import { DataGrid } from '@phosphor/datagrid';
+import { DataGrid } from '@lumino/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 

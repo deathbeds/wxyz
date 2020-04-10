@@ -1,4 +1,4 @@
-.jupyter-widgets.p-DockPanel {
+.jupyter-widgets-lm-DockPanel {
   overflow: hidden;
 }
 
@@ -6,7 +6,7 @@
 .jp-LinkedOutputView
   > .jp-OutputArea
   > .jp-OutputArea-output
-  > .jupyter-widgets.p-DockPanel {
+  > .jupyter-widgets-lm-DockPanel {
   height: 100% !important;
   width: 100% !important;
   min-width: 100% !important;
@@ -16,12 +16,12 @@
 }
 
 /* slider */
-.jupyter-widgets.p-DockPanel .widget-inline-vbox .widget-readout {
+.jupyter-widgets-lm-DockPanel .widget-inline-vbox .widget-readout {
   width: auto;
   height: auto;
 }
 
-.p-DockPanel > .jupyter-widgets {
+-lm-DockPanel > .jupyter-widgets {
   margin: 0;
   overflow-y: auto;
 }
@@ -40,23 +40,23 @@
   flex-direction: column;
 }
 
-.jp-WXYZ-DataGrid .p-DataGrid {
+.jp-WXYZ-DataGrid -lm-DataGrid {
   flex: 1;
   border: 0;
 }
 
 /* style grid */
-.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-track {
+.jp-WXYZ-StyleGrid -lm-DataGrid -lm-ScrollBar-track {
   background-color: var(--jp-layout-color3);
   border: var(--jp-border-width) solid var(--jp-border-color0);
 }
 
-.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-button {
+.jp-WXYZ-StyleGrid -lm-DataGrid -lm-ScrollBar-button {
   background-color: var(--jp-layout-color2);
   border: var(--jp-border-width) solid var(--jp-border-color0);
 }
 
-.jp-WXYZ-StyleGrid .p-DataGrid .p-ScrollBar-thumb {
+.jp-WXYZ-StyleGrid -lm-DataGrid -lm-ScrollBar-thumb {
   background-color: var(--jp-layout-color2);
   border: var(--jp-border-width) solid var(--jp-border-color0);
 }

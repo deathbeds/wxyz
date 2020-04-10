@@ -1,13 +1,13 @@
-import { DockPanel, DockLayout, Widget } from '@phosphor/widgets';
+import { DockPanel, DockLayout, Widget } from '@lumino/widgets';
 import {
   JupyterPhosphorWidget,
   DOMWidgetView,
   DOMWidgetModel
 } from '@jupyter-widgets/base';
-import { Application } from '@phosphor/application';
+import { Application } from '@lumino/application';
 
-import { Message } from '@phosphor/messaging';
-import { toArray } from '@phosphor/algorithm';
+import { Message } from '@lumino/messaging';
+import { toArray } from '@lumino/algorithm';
 
 export const CSS = {
   HIDE_TABS: 'jp-WXYZ-DockBox-hide-tabs',

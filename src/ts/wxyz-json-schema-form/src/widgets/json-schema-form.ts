@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { JSONExt } from '@phosphor/coreutils';
+import { JSONExt } from '@lumino/coreutils';
 
 import { DOMWidgetView, DOMWidgetModel } from '@jupyter-widgets/base';
 
