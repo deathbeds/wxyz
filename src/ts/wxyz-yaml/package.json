@@ -17,7 +17,7 @@
     "typescript": "~3.7.2"
   },
   "files": [
-    "{lib,style}/**/*.{js,ts,svg,json,css,map}",
+    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
   "homepage": "https://github.com/deathbeds/wxyz",

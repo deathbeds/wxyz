@@ -188,9 +188,9 @@ export class SelectGrid extends StyleGrid {
   // }
 
   updateViewport(): void {
-  //   const [vc, vc1, vr, vr1] = this.viewExtent();
-  //   const m = this._view.model;
-  //   m.set({ viewport: [vc, vc1, vr, vr1] });
+    //   const [vc, vc1, vr, vr1] = this.viewExtent();
+    //   const m = this._view.model;
+    //   m.set({ viewport: [vc, vc1, vr, vr1] });
   }
 
   updateHover(evt: MouseEvent): void {
