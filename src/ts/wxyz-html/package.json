@@ -14,7 +14,7 @@
     "@jupyter-widgets/base": "3",
     "@jupyter-widgets/controls": "2",
     "@jupyter-widgets/jupyterlab-manager": "2",
-    "@deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-core": "^0.4.0",
     "@jupyterlab/rendermime": "2",
     "@lumino/application": "^1.8.4",
     "@lumino/widgets": "^1.11.1",
@@ -42,7 +42,7 @@
   "peerDependencies": {
     "@jupyter-widgets/base": "3",
     "@jupyter-widgets/controls": "2",
-    "@deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-core": "^0.4.0",
     "@jupyter-widgets/jupyterlab-manager": "2",
     "@jupyterlab/rendermime": "2",
     "@lumino/application": "^1.8.4"

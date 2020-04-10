@@ -11,7 +11,7 @@
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
-    "@deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-core": "^0.4.0",
     "@types/react-jsonschema-form": "1.6.2",
     "@blueprintjs/core": "*",
     "@types/node": "^10.11.6",
@@ -37,7 +37,7 @@
   "main": "lib/index.js",
   "name": "@deathbeds/wxyz-json-schema-form",
   "peerDependencies": {
-    "@deathbeds/wxyz-core": "^0.2.0",
+    "@deathbeds/wxyz-core": "^0.4.0",
     "@blueprintjs/core": "*",
     "typescript": "~3.7.2",
     "react": "*",

@@ -26,14 +26,14 @@
   "main": "lib/index.js",
   "name": "@deathbeds/wxyz-meta",
   "peerDependencies": {
-    "@deathbeds/wxyz-core": "^0.2.0",
-    "@deathbeds/wxyz-datagrid": "^0.2.0",
-    "@deathbeds/wxyz-html": "^0.2.0",
-    "@deathbeds/wxyz-jsonld": "^0.2.0",
-    "@deathbeds/wxyz-lab": "^0.2.0",
-    "@deathbeds/wxyz-svg": "^0.2.0",
-    "@deathbeds/wxyz-tpl-nunjucks": "^0.2.0",
-    "@deathbeds/wxyz-yaml": "^0.2.0"
+    "@deathbeds/wxyz-core": "file:../wxyz-core",
+    "@deathbeds/wxyz-datagrid": "file:../wxyz-datagrid",
+    "@deathbeds/wxyz-html": "file:../wxyz-html",
+    "@deathbeds/wxyz-jsonld": "file:../wxyz-jsonld",
+    "@deathbeds/wxyz-lab": "file:../wxyz-lab",
+    "@deathbeds/wxyz-svg": "file:../wxyz-svg",
+    "@deathbeds/wxyz-tpl-nunjucks": "file:../wxyz-nunjucks",
+    "@deathbeds/wxyz-yaml": "file:../wxyz-yaml"
   },
   "repository": {
     "type": "git",
