@@ -4,7 +4,7 @@ import { Widget } from '@lumino/widgets';
 import { StyleGrid } from './stylegrid';
 
 import { CellRenderer, TextRenderer } from '@lumino/datagrid';
-import { SectionList } from '@lumino/datagrid/lib/sectionlist';
+// import { SectionList } from '@lumino/datagrid/lib/sectionlist';
 
 const SELECT_COLOR = 'rgba(0,0,255,0.125)';
 
@@ -132,7 +132,7 @@ export class SelectGrid extends StyleGrid {
       });
     }
     this._view.touch();
-    this.repaint();
+    // this.repaint();
   }
 
   onSelect(evt: Event) {
@@ -142,7 +142,7 @@ export class SelectGrid extends StyleGrid {
     let n = [s[0], c1, s[2], r1];
     m.set({ selection: n });
     this._view.touch();
-    this.repaint();
+    // this.repaint();
   }
 
   onSelectEnd(evt: Event) {
@@ -155,7 +155,7 @@ export class SelectGrid extends StyleGrid {
     });
 
     this._view.touch();
-    this.repaint();
+    // this.repaint();
   }
 
   hoveredCell(evt: Event) {
@@ -170,27 +170,27 @@ export class SelectGrid extends StyleGrid {
     return [c1, r1];
   }
 
-  viewExtent() {
-    const { headerWidth, headerHeight, scrollX, scrollY } = this;
-    const rows: SectionList = (this as any)._rowSections;
-    const cols: SectionList = (this as any)._columnSections;
+  // viewExtent() {
+  //   const { headerWidth, headerHeight, scrollX, scrollY } = this;
+  //   const rows: SectionList = (this as any)._rowSections;
+  //   const cols: SectionList = (this as any)._columnSections;
 
-    const x = scrollX - headerWidth;
-    const y = scrollY - headerHeight;
+  //   const x = scrollX - headerWidth;
+  //   const y = scrollY - headerHeight;
 
-    const vc = cols.sectionIndex(x) + 1;
-    const vr = rows.sectionIndex(y) + 1;
+  //   const vc = cols.sectionIndex(x) + 1;
+  //   const vr = rows.sectionIndex(y) + 1;
 
-    const vc1 = cols.sectionIndex(x + this.viewportWidth);
-    const vr1 = rows.sectionIndex(y + this.viewportHeight);
+  //   const vc1 = cols.sectionIndex(x + this.viewportWidth);
+  //   const vr1 = rows.sectionIndex(y + this.viewportHeight);
 
-    return [vc, vc1, vr, vr1];
-  }
+  //   return [vc, vc1, vr, vr1];
+  // }
 
   updateViewport(): void {
-    const [vc, vc1, vr, vr1] = this.viewExtent();
-    const m = this._view.model;
-    m.set({ viewport: [vc, vc1, vr, vr1] });
+  //   const [vc, vc1, vr, vr1] = this.viewExtent();
+  //   const m = this._view.model;
+  //   m.set({ viewport: [vc, vc1, vr, vr1] });
   }
 
   updateHover(evt: MouseEvent): void {
@@ -215,12 +215,13 @@ export class SelectGrid extends StyleGrid {
   }
 
   protected onModelViewport() {
-    const m = this.view.model;
-    const [vc, vc1, vr, vr1] = this.viewExtent();
-    let [mvc, mvc1, mvr, mvr1] = m.get('viewport');
-    if (vc !== mvc || vc1 !== mvc1 || vr !== mvr || vr1 !== mvr1) {
-      this.scrollTo(mvc * this.baseColumnSize, mvr * this.baseRowSize);
-    }
+    // const m = this.view.model;
+    // const [vc, vc1, vr, vr1] = this.viewExtent();
+    // let [mvc, mvc1, mvr, mvr1] = m.get('viewport');
+    // if (vc !== mvc || vc1 !== mvc1 || vr !== mvr || vr1 !== mvr1) {
+    //   console.log('scroll');
+    //   // this.scrollTo(mvc * this.baseColumnSize, mvr * this.rowSize('foo'));
+    // }
   }
 
   protected onModelScroll() {

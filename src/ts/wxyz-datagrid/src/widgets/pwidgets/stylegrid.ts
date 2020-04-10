@@ -42,11 +42,11 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   setRenderer(rm: CellRendererModel) {
-    this.cellRenderers.set(
-      rm.get('region') || 'body',
-      rm.get('metadata') || {},
-      rm.toRenderer(() => this.setRenderer(rm))
-    );
+    // this.cellRenderers.set(
+    //   rm.get('region') || 'body',
+    //   rm.get('metadata') || {},
+    //   rm.toRenderer(() => this.setRenderer(rm))
+    // );
   }
 
   makeRenderers() {
@@ -62,15 +62,15 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   onModelCellRenderers() {
-    this.cellRenderers.clear();
-    let renderers = this.makeRenderers();
-    renderers.map(r => {
-      if (r.model) {
-        r.model.on('change', () => this.setRenderer(r.model));
-      }
-      this.cellRenderers.set(r.region, r.metadata, r.renderer);
-    });
-    this.repaint();
+    // this.cellRenderers.clear();
+    // let renderers = this.makeRenderers();
+    // renderers.map(r => {
+    //   if (r.model) {
+    //     r.model.on('change', () => this.setRenderer(r.model));
+    //   }
+    //   this.cellRenderers.set(r.region, r.metadata, r.renderer);
+    // });
+    // this.repaint();
   }
 
   onColor() {
@@ -107,29 +107,29 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   onModelSize() {
-    const m = this._view.model;
-    const changed = Object.keys(m.changedAttributes());
-    for (const size of changed) {
-      let v = m.get(size);
-      if (v == null) {
-        continue;
-      }
-      switch (size) {
-        default:
-          continue;
-        case 'row_size':
-          this.baseRowSize = v;
-          continue;
-        case 'row_header_size':
-          this.baseRowHeaderSize = v;
-          continue;
-        case 'column_size':
-          this.baseColumnSize = v;
-          continue;
-        case 'column_header_size':
-          this.baseColumnHeaderSize = v;
-          continue;
-      }
-    }
+    // const m = this._view.model;
+    // const changed = Object.keys(m.changedAttributes());
+    // for (const size of changed) {
+    //   let v = m.get(size);
+    //   if (v == null) {
+    //     continue;
+    //   }
+    //   switch (size) {
+    //     default:
+    //       continue;
+    //     case 'row_size':
+    //       this.baseRowSize = v;
+    //       continue;
+    //     case 'row_header_size':
+    //       this.baseRowHeaderSize = v;
+    //       continue;
+    //     case 'column_size':
+    //       this.baseColumnSize = v;
+    //       continue;
+    //     case 'column_header_size':
+    //       this.baseColumnHeaderSize = v;
+    //       continue;
+    //   }
+    // }
   }
 }

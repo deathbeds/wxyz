@@ -50,12 +50,12 @@ export class DataGridView extends BoxView {
   protected onValue() {
     const data = this.model.get('value');
     if (data) {
-      this._grid.model = new WXYZJSONModel(data);
-      (this._grid.model as any).jmodel = this.model;
+      this._grid.dataModel = new WXYZJSONModel(data);
+      (this._grid.dataModel as any).jmodel = this.model;
     } else {
-      this._grid.model = null;
+      this._grid.dataModel = null;
     }
-    this._grid.repaint();
+    // this._grid.repaint();
   }
 }
 

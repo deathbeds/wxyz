@@ -4,10 +4,10 @@ import { WidgetModel } from '@jupyter-widgets/base';
 export class WXYZJSONModel extends JSONModel {
   jmodel: WidgetModel;
 
-  metadata(region: DataModel.CellRegion, column: number) {
+  metadata(region: DataModel.CellRegion, row: number, column: number) {
     return {
       jmodel: this.jmodel.attributes,
-      ...super.metadata(region, column)
+      ...super.metadata(region, row, column)
     };
   }
 }
