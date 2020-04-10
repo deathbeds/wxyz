@@ -1,7 +1,5 @@
 """ some constants
 """
-# pylint: disable=invalid-name
-version_info = (0, 2, 0, "dev")
-__version__ = ".".join(map(str, version_info))
+__version__ = "0.4.0"
 module_name = "@deathbeds/wxyz-tpl-nunjucks"
-module_version = "^0.2.0"
+module_version = "^0.4.0"
