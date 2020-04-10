@@ -1,6 +1,6 @@
 import { DataGrid } from '@lumino/datagrid';
 
-// TODO: fix circulare references
+// TODO: fix circular references
 import { DataGridView } from '../datagrid';
 import { CellRendererModel } from '../models/cells';
 
@@ -42,11 +42,10 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   setRenderer(rm: CellRendererModel) {
-    // this.cellRenderers.set(
-    //   rm.get('region') || 'body',
-    //   rm.get('metadata') || {},
-    //   rm.toRenderer(() => this.setRenderer(rm))
-    // );
+    const region: string = rm.get('region') || 'body';
+    const renderers = { [region]: rm.toRenderer(() => this.setRenderer(rm)) };
+    console.log(renderers);
+    this.cellRenderers.update(renderers);
   }
 
   makeRenderers() {
@@ -62,15 +61,13 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   onModelCellRenderers() {
-    // this.cellRenderers.clear();
-    // let renderers = this.makeRenderers();
-    // renderers.map(r => {
-    //   if (r.model) {
-    //     r.model.on('change', () => this.setRenderer(r.model));
-    //   }
-    //   this.cellRenderers.set(r.region, r.metadata, r.renderer);
-    // });
-    // this.repaint();
+    let renderers = this.makeRenderers();
+    renderers.map(r => {
+      if (r.model) {
+        r.model.on('change', () => this.setRenderer(r.model));
+      }
+      this.cellRenderers.update({ [r.region]: r.renderer });
+    });
   }
 
   onColor() {
@@ -109,7 +106,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   onModelSize() {
     const m = this._view.model;
     const changed = Object.keys(m.changedAttributes());
-    const defaultSizes = {...this.defaultSizes};
+    const defaultSizes = { ...this.defaultSizes };
 
     for (const size of changed) {
       let v = m.get(size);
