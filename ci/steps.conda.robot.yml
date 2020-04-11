@@ -8,7 +8,7 @@ steps:
 
   - task: CondaEnvironment@1
     inputs:
-      createOptions: -c conda-forge -c defaults
+      createOptions: -c conda-forge
       createCustomEnvironment: true
       updateConda: false
       environmentName: wxyz-robot
@@ -39,7 +39,7 @@ steps:
         scikit-learn
         scikit-mdr
         skrebate
-        tornado<6
+        tornado
         tpot
         traittypes
         umap-learn

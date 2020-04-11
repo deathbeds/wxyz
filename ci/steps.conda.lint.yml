@@ -1,7 +1,7 @@
 steps:
   - task: CondaEnvironment@1
     inputs:
-      createOptions: -c conda-forge -c defaults
+      createOptions: -c conda-forge
       createCustomEnvironment: true
       updateConda: false
       environmentName: wxyz-lint

@@ -58,7 +58,7 @@ env_specs:
       - scikit-learn
       - scikit-mdr
       - skrebate
-      - tornado <6
+      - tornado
       - tpot
       - xgboost
       - matplotlib
