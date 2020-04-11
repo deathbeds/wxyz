@@ -1,6 +1,8 @@
 parameters:
   name: Linux
 
+dependsOn: Lint_Linux
+
 steps:
   - script: python -m _scripts._build
     displayName: Build and Test

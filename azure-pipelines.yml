@@ -34,11 +34,10 @@ jobs:
       name: MacOSX
       vmImage: macos-10.14
 
-  # TODO: reinstate
-  # - template: ci/job.nbtest.yml
-  #   parameters:
-  #     name: Windows
-  #     vmImage: vs2017-win2016
+  - template: ci/job.nbtest.yml
+    parameters:
+      name: Windows
+      vmImage: vs2017-win2016
 
   - template: ci/job.robot.yml
     parameters:
