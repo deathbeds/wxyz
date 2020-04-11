@@ -72,6 +72,14 @@
     classnames "^2.2"
     tslib "~1.10.0"
 
+"@deathbeds/jupyterlab-rjsf@^0.4.0a0":
+  version "0.4.0-a0"
+  resolved "https://registry.yarnpkg.com/@deathbeds/jupyterlab-rjsf/-/jupyterlab-rjsf-0.4.0-a0.tgz#3005c68a7d6dd9e9b1dd5661d8cce88a914f8f0c"
+  integrity sha512-eFHEALlYhQf6uYfB4DKzsJQsl32Sf3Kn5xAxqnE1nU6LTQtnjQ1orviVtoF3+LsOocv7mnxWSbJelXXUl07UKw==
+  dependencies:
+    react-codemirror2 "^6.0.0"
+    react-jsonschema-form "~1.8.1"
+
 "@evocateur/libnpmaccess@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@evocateur/libnpmaccess/-/libnpmaccess-3.1.2.tgz#ecf7f6ce6b004e9f942b098d92200be4a4b1c845"
@@ -5124,6 +5132,11 @@ rdf-canonize@^1.0.2:
     node-forge "^0.9.1"
     semver "^6.3.0"
 
+react-codemirror2@^6.0.0:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-codemirror2/-/react-codemirror2-6.0.1.tgz#7daba40795eb2a52637926b6fe0b73a6e9090723"
+  integrity sha512-rutEKVgvFhWcy/GeVA1hFbqrO89qLqgqdhUr7YhYgIzdyICdlRQv+ztuNvOFQMXrO0fLt0VkaYOdMdYdQgsSUA==
+
 react-dom@~16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
@@ -5139,7 +5152,7 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-jsonschema-form@^1.8.0:
+react-jsonschema-form@^1.8.0, react-jsonschema-form@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/react-jsonschema-form/-/react-jsonschema-form-1.8.1.tgz#9c962f29a55b3fe071d8edf2fc3430f05f1b7ed9"
   integrity sha512-aaDloxNAcGXOOOcdKOxxqEEn5oDlPUZgWcs8unXXB9vjBRgCF8rCm/wVSv1u2G5ih0j/BX6Ewd/WjI2g00lPdg==

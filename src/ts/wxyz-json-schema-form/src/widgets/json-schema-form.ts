@@ -1,24 +1,22 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { JSONExt } from '@lumino/coreutils';
 
-import { DOMWidgetView, DOMWidgetModel } from '@jupyter-widgets/base';
+import { BoxView } from '@jupyter-widgets/controls';
+
+import { RenderedMarkdown } from '@jupyterlab/rendermime';
+import * as _schemaform from '@deathbeds/jupyterlab-rjsf/lib/schemaform';
+import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 
 import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
+import { WXYZBox } from '@deathbeds/wxyz-core/lib/widgets/_base';
 import { NAME, VERSION } from '..';
 
-const h = React.createElement;
-
-const _rjsf = lazyLoader(
-  async () =>
-    await import(
-      /* webpackChunkName: "react-jsonschema-form" */ 'react-jsonschema-form'
-    )
+const _dbjrjsf = lazyLoader(
+  async () => await import('@deathbeds/jupyterlab-rjsf/lib/schemaform')
 );
 
 const FORM_CLASS = 'jp-WXYZ-JSONSchemaForm';
 
-export class JSONSchemaFormModel extends DOMWidgetModel {
+export class JSONSchemaFormModel extends WXYZBox {
   static model_name = 'JSONSchemaFormModel';
   static model_module = NAME;
   static model_module_version = VERSION;
@@ -69,14 +67,16 @@ export class JSONSchemaFormModel extends DOMWidgetModel {
   }
 }
 
-export class JSONSchemaFormView extends DOMWidgetView {
+export class JSONSchemaFormView extends BoxView {
   private _idPrefix: string;
   private _lastEmitted: any;
+  private _form: _schemaform.SchemaForm;
+  static _rendermime: IRenderMimeRegistry;
 
   render() {
     this._idPrefix = `id-wxyz-json-schema-form-${Private.nextId()}`;
     this.pWidget.addClass(FORM_CLASS);
-    _rjsf.load().then(() => {
+    _dbjrjsf.load().then(() => {
       this.m.on(
         'change:schema change:ui_schema change:value',
         this.rerender,
@@ -94,10 +94,42 @@ export class JSONSchemaFormView extends DOMWidgetView {
     return this._idPrefix;
   }
 
-  async rerender() {
-    const { m, el, onChange, idPrefix } = this;
-    const Form = _rjsf.get();
+  async rerender(): Promise<void> {
+    const { m, onChange, idPrefix } = this;
+    const { SchemaForm } = _dbjrjsf.get();
     const { formData, schema, uiSchema } = m;
+
+    if (!this._form) {
+      const { ALL_CUSTOM_UI } = await import(
+        '@deathbeds/jupyterlab-rjsf/lib/fields'
+      );
+
+      let options = {};
+
+      if (JSONSchemaFormView._rendermime) {
+        options = {
+          markdown: JSONSchemaFormView._rendermime.createRenderer(
+            'text/markdown'
+          ) as RenderedMarkdown
+        };
+      }
+
+      this._form = new SchemaForm(
+        schema,
+        {
+          liveValidate: true,
+          formData,
+          uiSchema,
+          onChange,
+          idPrefix,
+          ...ALL_CUSTOM_UI
+        },
+        options
+      );
+
+      this.pWidget.addWidget(this._form);
+      return;
+    }
 
     const changed = m.changedAttributes();
 
@@ -110,17 +142,25 @@ export class JSONSchemaFormView extends DOMWidgetView {
       return;
     }
 
-    ReactDOM.render(
-      h(Form.default, {
-        schema,
-        formData,
-        uiSchema,
-        onChange,
-        idPrefix,
-        liveValidate: true
-      }),
-      el
-    );
+    const fm = this._form.model;
+
+    console.log(changed);
+
+    for (const attr of Object.keys(changed)) {
+      switch (attr) {
+        default:
+          break;
+        case 'schema':
+          fm.schema = schema;
+          break;
+        case 'ui_schema':
+          fm.props = {...fm.props, uiSchema};
+          break;
+        case 'value':
+          fm.props = {...fm.props, formData};
+          break;
+      }
+    }
   }
 
   onChange = (evt: any, _err?: any) => {

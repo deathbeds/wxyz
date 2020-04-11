@@ -7,7 +7,8 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "react-jsonschema-form": "^1.8.0"
+    "react-jsonschema-form": "^1.8.0",
+    "@deathbeds/jupyterlab-rjsf": "^0.4.0a0"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {

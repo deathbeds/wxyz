@@ -6,7 +6,7 @@ from .base import JSONSchemaFormBase, T, W
 
 
 @W.register
-class JSONSchemaForm(W.DOMWidget, JSONSchemaFormBase):
+class JSONSchemaForm(JSONSchemaFormBase, W.Box):
     """ Show a form based on an JSON Schema (and/or UI schema)
     """
 
