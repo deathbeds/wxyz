@@ -15,6 +15,8 @@ const _dbjrjsf = lazyLoader(
 );
 
 const FORM_CLASS = 'jp-WXYZ-JSONSchemaForm';
+const INNER_CLASS = 'jp-WXYZ-JSONSchemaForm-Inner';
+
 
 export class JSONSchemaFormModel extends WXYZBox {
   static model_name = 'JSONSchemaFormModel';
@@ -126,6 +128,7 @@ export class JSONSchemaFormView extends BoxView {
         },
         options
       );
+      this._form.addClass(INNER_CLASS);
 
       this.pWidget.addWidget(this._form);
       return;
