@@ -17,7 +17,6 @@ const _dbjrjsf = lazyLoader(
 const FORM_CLASS = 'jp-WXYZ-JSONSchemaForm';
 const INNER_CLASS = 'jp-WXYZ-JSONSchemaForm-Inner';
 
-
 export class JSONSchemaFormModel extends WXYZBox {
   static model_name = 'JSONSchemaFormModel';
   static model_module = NAME;
@@ -157,10 +156,10 @@ export class JSONSchemaFormView extends BoxView {
           fm.schema = schema;
           break;
         case 'ui_schema':
-          fm.props = {...fm.props, uiSchema};
+          fm.props = { ...fm.props, uiSchema };
           break;
         case 'value':
-          fm.props = {...fm.props, formData};
+          fm.props = { ...fm.props, formData };
           break;
       }
     }
