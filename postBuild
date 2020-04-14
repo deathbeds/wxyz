@@ -9,5 +9,9 @@ set -eux
 python -m _scripts._setup
 
 jlpm bootstrap
+jlpm cache clean
+jupyter lab clean
 jupyter labextension install $(cat labex.txt) --no-build
-jupyter lab build
+jupyter labextension list
+jupyter lab build --dev-build=False --minimize=True --debug
+jupyter labextension list
