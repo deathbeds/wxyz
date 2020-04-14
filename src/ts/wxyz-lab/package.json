@@ -21,7 +21,8 @@
     "codemirror": "*",
     "marked": "*",
     "typescript": "~3.7.2",
-    "xterm": "~3.13.2"
+    "xterm": "~4.2.0",
+    "xterm-addon-fit": "~0.3.0"
   },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
@@ -51,7 +52,8 @@
     "ajv": "*",
     "codemirror": "*",
     "marked": "*",
-    "xterm": "*"
+    "xterm": "~4.2.0",
+    "xterm-addon-fit": "~0.3.0"
   },
   "repository": {
     "type": "git",
