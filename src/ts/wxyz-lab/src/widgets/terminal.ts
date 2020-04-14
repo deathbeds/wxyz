@@ -8,7 +8,7 @@ import { NAME, VERSION } from '..';
 
 import { TerminalPhosphorWidget } from './_terminal';
 
-import { fit } from 'xterm/lib/addons/fit/fit';
+import { FitAddon } from 'xterm-addon-fit';
 
 const TRAITS = {
   allow_transparency: 'allowTransparency',
@@ -96,7 +96,8 @@ export class TerminalView extends DOMWidgetView {
 
   pWidget: TerminalPhosphorWidget;
 
-  private _term: Xterm;
+  protected _term: Xterm;
+  protected _fitAddon: FitAddon;
   private _wasInitialized = false;
 
   _setElement(el: HTMLElement) {
@@ -140,6 +141,8 @@ export class TerminalView extends DOMWidgetView {
     this.pWidget.addClass(TERMINAL_CLASS);
 
     this._term = new Xterm(this.getOptions());
+    this._fitAddon = new FitAddon();
+    this._term.loadAddon(this._fitAddon);
 
     if (this.pWidget.isVisible) {
       this.onInit();
@@ -205,7 +208,7 @@ export class TerminalView extends DOMWidgetView {
   // DOM stuff
   onResize() {
     if (this.model.get('fit')) {
-      fit(this._term);
+      this._fitAddon.fit();
     }
   }
 

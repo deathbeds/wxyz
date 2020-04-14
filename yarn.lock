@@ -74,8 +74,7 @@
 
 "@deathbeds/jupyterlab-rjsf@^0.4.0a0":
   version "0.4.0-a0"
-  resolved "https://registry.yarnpkg.com/@deathbeds/jupyterlab-rjsf/-/jupyterlab-rjsf-0.4.0-a0.tgz#3005c68a7d6dd9e9b1dd5661d8cce88a914f8f0c"
-  integrity sha512-eFHEALlYhQf6uYfB4DKzsJQsl32Sf3Kn5xAxqnE1nU6LTQtnjQ1orviVtoF3+LsOocv7mnxWSbJelXXUl07UKw==
+  resolved "file:linked_packages/deathbeds-jupyterlab-rjsf-0.4.0-a0-95db425ba8403654cb6d98a50f647cccdd3f8e1b.tgz#e3ed04687fa811e48a21bc95c90d93ca50ebaa20"
   dependencies:
     react-codemirror2 "^6.0.0"
     react-jsonschema-form "~1.8.1"
@@ -6453,10 +6452,15 @@ xtend@^4.0.1, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xterm@~3.13.2:
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.13.2.tgz#987c3a7fe3d23d6c03ce0eaf06c0554c38935570"
-  integrity sha512-4utKoF16/pzH6+EkFaaay+qPCozf5RP2P0JuH6rvIGHY0CRwgU2LwbQ/24DY+TvaZ5m+kwvIUvPqIBoMZYfgOg==
+xterm-addon-fit@~0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.3.0.tgz#341710741027de9d648a9f84415a01ddfdbbe715"
+  integrity sha512-kvkiqHVrnMXgyCH9Xn0BOBJ7XaWC/4BgpSWQy3SueqximgW630t/QOankgqkvk11iTOCwWdAY9DTyQBXUMN3lw==
+
+xterm@~4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.2.0.tgz#b9980b2ae18c64ed31bcc95eace3bcecffebbbd9"
+  integrity sha512-oNfLqt+LmghLPOt5UcskP5Km1fXpTBHsTZ99nxJKY2N0MNFXBKIVXUcNNhHCa74JGZFMGhLT58A/UN3HcPXSfg==
 
 y18n@^4.0.0:
   version "4.0.0"
