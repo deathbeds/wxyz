@@ -26,7 +26,8 @@ const plugin: IPlugin<Application<Widget>, void> = {
       version: VERSION,
       exports: async () => {
         const widgetExports = import('./widgets');
-        (await widgetExports).JSONSchemaFormView._rendermime = rendermime;
+        // TODO: restore
+        // (await widgetExports).JSONSchemaFormView._rendermime = rendermime;
         return widgetExports;
       }
     });
