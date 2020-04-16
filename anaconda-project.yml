@@ -24,17 +24,12 @@ env_specs:
   default:
     inherit_from:
       - wxyz-demo
-    packages:
-      - black
-      - flake8
-      - isort
-      - nbval
-      - pylint
-      - pytest
-      - pytest-cov
-      - geckodriver
-      - robotframework
-      - robotframework-seleniumlibrary
+      - _robot
+      - _py
+      - _lint
+      - _test
+      - _build
+
   wxyz-demo:
     packages:
       - bqplot
@@ -70,10 +65,36 @@ env_specs:
     channels:
       - conda-forge
       - defaults
+
+  _lint:
+    packages:
+      - black
+      - flake8
+      - isort
+      - pylint
+
+  _py:
+    packages:
+      - python >=3.7,<3.8
+      - pip
+
   _build:
     packages:
-      - conda-build
       - conda
-      - python >=3.7,<3.8
-      - twine
+      - conda-build
+      - conda-verify
       - ripgrep
+      - twine
+
+  _test:
+    packages:
+      - nbval
+      - pytest
+      - pytest-cov
+
+  _robot:
+    packages:
+      - firefox =68
+      - geckodriver
+      - robotframework
+      - robotframework-seleniumlibrary
