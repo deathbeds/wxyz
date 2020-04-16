@@ -5,5 +5,10 @@ steps:
   - script: python -m _scripts._setup
     displayName: Setup Local Env
 
-  - script: python -m _scripts._test
-    displayName: Notebook Test
+  - ${{ if eq(parameters.name, 'Windows') }}:
+    - script: call activate wxyz-nbtest && python -m _scripts._test
+      displayName: Notebook Test
+
+  - ${{ if not(eq(parameters.name, 'Windows')) }}:
+    - script: . activate wxyz-nbtested && python -m _scripts._test
+      displayName: Notebook Test
