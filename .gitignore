@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .yarn-packages/
 *.egg-info
+*.tgz
 *.tsbuildinfo
 /lab/
 dask-worker-space/
@@ -10,4 +11,5 @@ dist/
 envs/
 lib/
 node_modules/
-Untitled*.ipynb
+untitled*
+Untitled*

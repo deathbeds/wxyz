@@ -21,10 +21,12 @@ CONDA_BUILD_ARGS = [
 
 if __name__ == "__main__":
     for pkg in PY_SRC.glob("wxyz_*"):
-        _run([PY, "setup.py", "sdist", "--dist-dir", DIST / "sdist"], cwd=str(pkg))
+        for output in ["sdist", "bdist_wheel"]:
+            _run([PY, "setup.py", output, "--dist-dir", DIST / output], cwd=str(pkg))
 
-    try:
-        _run([*CONDA_BUILD_ARGS, "--skip-existing", "."], cwd=ROOT / "recipes")
-    except:
-        for pkg in CONDA_ORDER:
-            _run([*CONDA_BUILD_ARGS, f"wxyz-{pkg}"], cwd=ROOT / "recipes")
+    if "--no-conda" not in sys.argv:
+        try:
+            _run([*CONDA_BUILD_ARGS, "--skip-existing", "."], cwd=ROOT / "recipes")
+        except:
+            for pkg in CONDA_ORDER:
+                _run([*CONDA_BUILD_ARGS, f"wxyz-{pkg}"], cwd=ROOT / "recipes")

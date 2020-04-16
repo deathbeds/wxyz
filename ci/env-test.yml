@@ -1,0 +1,48 @@
+name: wxyz-test
+
+channels:
+  - conda-forge
+
+dependencies:
+  # primary runtime dependencies
+  - python {python}
+  - jupyterlab {lab}
+  # build dependencies
+  - nodejs {nodejs}
+  # package-specific and demo dependencies (TODO: break up)
+  - bqplot
+  - cycler
+  - dask
+  - dask-ml
+  - distributed
+  - importnb
+  - ipympl
+  - ipywidgets
+  - isort
+  - jinja2
+  - jsonpointer
+  - lime
+  - lxml
+  - matplotlib
+  - numpy
+  - pandas
+  - pip
+  - pyld
+  - pylint
+  - pyyaml
+  - scikit-image
+  - scikit-learn
+  - scikit-mdr
+  - skrebate
+  - tornado
+  - tpot
+  - traittypes
+  - umap-learn
+  # lint et al
+  - black
+  - flake8
+  - isort
+  - pylint
+  # demo miscellany
+  - pip:
+    - yellowbrick

@@ -1,59 +1,28 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+      - refs/tags/v*
+
+variables:
+  PYTHONUNBUFFERED: 1
+  ATEST_RETRIES: 3
+
+  FIRST_PARTY_LABEXTENSIONS: >-
+    src/ts/wxyz-core/deathbeds-wxyz-core-0.4.0.tgz
+    src/ts/wxyz-datagrid/deathbeds-wxyz-datagrid-0.4.0.tgz
+    src/ts/wxyz-html/deathbeds-wxyz-html-0.4.0.tgz
+    src/ts/wxyz-jsonld/deathbeds-wxyz-jsonld-0.4.0.tgz
+    src/ts/wxyz-json-schema-form/deathbeds-wxyz-json-schema-form-0.4.0.tgz
+    src/ts/wxyz-lab/deathbeds-wxyz-lab-0.2.1.tgz
+    src/ts/wxyz-svg/deathbeds-wxyz-svg-0.4.0.tgz
+    src/ts/wxyz-tpl-nunjucks/deathbeds-wxyz-tpl-nunjucks-0.4.0.tgz
+    src/ts/wxyz-yaml/deathbeds-wxyz-yaml-0.4.0.tgz
+
+  THIRD_PARTY_LABEXTENSIONS: >-
+    bqplot
+    @jupyter-widgets/jupyterlab-manager
+
 jobs:
-  - template: ci/job.lint.yml
-    parameters:
-      name: Linux
-      vmImage: ubuntu-16.04
-
-  - template: ci/job.js.yml
-    parameters:
-      name: Linux
-      vmImage: ubuntu-16.04
-
-  - template: ci/job.build.yml
-    parameters:
-      name: Linux
-      vmImage: ubuntu-16.04
-
-  - template: ci/job.build.yml
-    parameters:
-      name: MacOSX
-      vmImage: macos-10.14
-
-  - template: ci/job.build.yml
-    parameters:
-      name: Windows
-      vmImage: vs2017-win2016
-
-  - template: ci/job.nbtest.yml
-    parameters:
-      name: Linux
-      vmImage: ubuntu-16.04
-
-  - template: ci/job.nbtest.yml
-    parameters:
-      name: MacOSX
-      vmImage: macos-10.14
-
-  - template: ci/job.nbtest.yml
-    parameters:
-      name: Windows
-      vmImage: vs2017-win2016
-
-  - template: ci/job.robot.yml
-    parameters:
-      name: Windows
-      vmImage: vs2017-win2016
-
-  - template: ci/job.robot.yml
-    parameters:
-      name: MacOSX
-      vmImage: macos-10.14
-
-  - template: ci/job.robot.yml
-    parameters:
-      name: Linux
-      vmImage: vs2017-win2016
-
-trigger: [master]
-
-pr: [master]
+  - template: ci/job.test.yml

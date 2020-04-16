@@ -7,14 +7,14 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm --prefer-offline && jlpm lerna bootstrap && jlpm build:meta",
-    "build": "lerna exec jlpm build",
-    "build:meta": "jlpm build --scope @deathbeds/wxyz-meta",
-    "lint": "jlpm lint:prettier && jlpm lint:ts",
+    "bootstrap": "jlpm --prefer-offline && jlpm lerna bootstrap && jlpm build",
+    "build": "jlpm build --scope @deathbeds/wxyz-meta",
+    "bundle": "lerna exec npm pack",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./src/**/*.{ts,json,md,yml,yaml,css}",
     "lint:ts": "tslint --fix src/**/*.ts",
-    "watch": "lerna exec jlpm watch",
-    "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta"
+    "lint": "jlpm lint:prettier && jlpm lint:ts",
+    "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta",
+    "watch": "lerna exec jlpm watch"
   },
   "devDependencies": {
     "lerna": "^3.19.0",

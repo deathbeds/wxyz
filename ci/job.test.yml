@@ -1,0 +1,93 @@
+parameters:
+  platforms:
+    - name: Linux
+      vmImage: ubuntu-16.04
+      activate: source activate
+    - name: MacOSX
+      vmImage: macos-10.14
+      activate: source activate
+    - name: Windows
+      vmImage: vs2017-win2016
+      activate: call activate
+  pythons:
+    - name: ThreeSix
+      spec: '>=3.6,<3.7.0a0'
+      lab: '>=2,<2.1.0a0'
+      nodejs: '>=10,<11.0.0.a0'
+      env: wxyz-test-36
+    - name: ThreeSeven
+      spec: '>=3.7,<3.8.0a0'
+      lab: '>=2.1.0,<2.2.0a0'
+      nodejs: '>=12,<13.0.0a0'
+      env: wxyz-test-37
+    - name: ThreeEight
+      spec: '>=3.8,<3.9.0a0'
+      lab: '>=2.1.0,<3.0.0a0'
+      nodejs: '>=13,<14.0.0a0'
+      env: wxyz-test-38
+  env_update: conda env update -n jupyterlab-lsp --file ci/env-test.yml --quiet
+  lab_ext: jupyter labextension install --debug --no-build $(FIRST_PARTY_LABEXTENSIONS) $(THIRD_PARTY_LABEXTENSIONS)
+  lab_build: jupyter lab build --debug --dev-build=False --minimize=True
+
+jobs:
+  - ${{ each platform in parameters.platforms }}:
+      - ${{ each python in parameters.pythons}}:
+          - job: ${{ platform.name }}${{ python.name }}
+            pool:
+              vmImage: ${{ platform.vmImage }}
+            steps:
+              - template: steps.conda.yml
+                parameters:
+                  name: ${{ platform.name }}
+
+              - script: ${{ platform.activate }} && cd ci && python env_template.py "${{ python.spec }}" "${{ python.lab }}" "${{ python.nodejs }}"
+                displayName: generate env with python, lab, and nodejs version
+
+              - script: ${{ parameters.env_update }} --name ${{ python.env }} || ${{ parameters.env_update }} --name ${{ python.env }} || ${{ parameters.env_update }} --name ${{ python.env }}
+                displayName: update conda environment with test dependencies
+
+              - script: conda info && conda list --name ${{ python.env }}
+                displayName: list conda packages and info
+
+              - script: ${{ platform.activate }} ${{ python.env }} && jlpm || jlpm || jlpm
+                displayName: install npm dependencies
+
+              - script: ${{ platform.activate }} ${{ python.env }} python -m _scripts._lint
+                displayName: check style
+
+              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._build --no-conda
+                displayName: build python distributions
+
+              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._dev_install
+                displayName: install python wheels
+
+              - script: python -m _scripts._test
+                displayName: run notebook smoke tests
+
+              - script: ${{ platform.activate }} ${{ python.env }} && jlpm build
+                displayName: build typescript
+
+              - script: ${{ platform.activate }} ${{ python.env }} && jlpm run bundle
+                displayName: build npm bundles
+
+              - script: ${{ platform.activate }} ${{ python.env }} && ${{ parameters.lab_ext }} || ${{ parameters.lab_ext }} || ${{ parameters.lab_ext }}
+                displayName: install labextensions
+
+              - script: ${{ platform.activate }} ${{ python.env }} && jupyter labextension list
+                displayName: list labextensions before build
+
+              - script: ${{ platform.activate }} ${{ python.env }} && ${{ parameters.lab_build }} || ${{ parameters.lab_build }} || ${{ parameters.lab_build }}
+                displayName: build lab
+
+              - script: ${{ platform.activate }} ${{ python.env }} && jupyter labextension list
+                displayName: list labextensions after build
+
+              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._robot
+                displayName: run browser tests
+
+              - task: PublishPipelineArtifact@0
+                displayName: publish browser test output
+                inputs:
+                  targetPath: dist/test_output/robot
+                  artifactName: Robot ${{ platform.name }}${{ python.name }} $(Build.BuildId)
+                condition: always()
