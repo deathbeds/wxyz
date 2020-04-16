@@ -38,6 +38,10 @@ dependencies:
   - tpot
   - traittypes
   - umap-learn
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
   # lint et al
   - black
   - flake8

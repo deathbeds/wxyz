@@ -88,9 +88,9 @@ env_specs:
 
   _test:
     packages:
-      - nbval
       - pytest
       - pytest-cov
+      - pytest-xdist
 
   _robot:
     packages:
