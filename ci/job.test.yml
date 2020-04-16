@@ -25,7 +25,7 @@ parameters:
       lab: '>=2.1.0,<3.0.0a0'
       nodejs: '>=13,<14.0.0a0'
       env: wxyz-test-38
-  env_update: conda env update -n jupyterlab-lsp --file ci/env-test.yml --quiet
+  env_update: conda env update --file ci/env-test.yml --quiet
   lab_ext: jupyter labextension install --debug --no-build $(FIRST_PARTY_LABEXTENSIONS) $(THIRD_PARTY_LABEXTENSIONS)
   lab_build: jupyter lab build --debug --dev-build=False --minimize=True
 
