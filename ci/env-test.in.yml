@@ -43,6 +43,11 @@ dependencies:
   - flake8
   - isort
   - pylint
+  # robot tests
+  - robotframework
+  - robotframework-seleniumlibrary
+  - geckodriver
+  - firefox =68
   # demo miscellany
   - pip:
-    - yellowbrick
+      - yellowbrick

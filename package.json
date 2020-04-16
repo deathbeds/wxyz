@@ -10,7 +10,7 @@
     "bootstrap": "jlpm --prefer-offline && jlpm lerna bootstrap && jlpm build",
     "build": "jlpm build --scope @deathbeds/wxyz-meta",
     "bundle": "lerna exec npm pack",
-    "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./src/**/*.{ts,json,md,yml,yaml,css}",
+    "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./{src,ci}/**/*.{ts,json,md,yml,yaml,css,yml}",
     "lint:ts": "tslint --fix src/**/*.ts",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "watch:meta": "jlpm watch --scope @deathbeds/wxyz-meta",
