@@ -11,7 +11,7 @@ SITE_PKGS = Path(site.getsitepackages()[0])
 
 
 DOIT_CONFIG = {
-    'backend': 'sqlite',
+    'backend': 'sqlite3',
 }
 
 

@@ -1,4 +1,5 @@
 __pycache__/
+.doit*
 .ipynb_checkpoints/
 .pytest_cache/
 .yarn-packages/
