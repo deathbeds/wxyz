@@ -67,9 +67,6 @@ jobs:
               - script: ${{ platform.activate }} ${{ python.env }} && jlpm build
                 displayName: build typescript
 
-              - script: ${{ platform.activate }} ${{ python.env }} && jlpm run bundle
-                displayName: build npm bundles
-
               - script: ${{ platform.activate }} ${{ python.env }} && ${{ parameters.lab_ext }} || ${{ parameters.lab_ext }} || ${{ parameters.lab_ext }}
                 displayName: install labextensions
 
