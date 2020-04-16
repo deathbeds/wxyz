@@ -138,6 +138,7 @@ export class JSONSchemaFormView extends BoxView {
     // don't rerender if we just emitted this change
     if (
       changed &&
+      Object.keys(changed).length === 1 &&
       changed.value &&
       JSONExt.deepEqual(formData, this._lastEmitted)
     ) {
@@ -146,30 +147,21 @@ export class JSONSchemaFormView extends BoxView {
 
     const fm = this._form.model;
 
-    let props = fm.props;
-    let propsChanged = false;
-
     for (const attr of Object.keys(changed)) {
       switch (attr) {
         case 'schema':
           fm.schema = schema;
           break;
         case 'ui_schema':
-          props = { ...props, uiSchema };
-          propsChanged = true;
+          fm.props = { ...fm.props, uiSchema };
           break;
         case 'value':
           fm.formData = formData;
-          propsChanged = true;
           break;
         default:
-          console.log('skipping update of', attr);
+          console.warn('skipping update of', attr);
           break;
       }
-    }
-
-    if (propsChanged) {
-      fm.props = props;
     }
   }
 
