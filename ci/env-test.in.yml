@@ -42,6 +42,7 @@ dependencies:
   - pytest
   - pytest-cov
   - pytest-xdist
+  - pytest-azurepipelines
   # lint et al
   - black
   - flake8
