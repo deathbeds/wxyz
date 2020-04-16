@@ -13,15 +13,12 @@ NOTEBOOKS_TO_TEST = [
 
 if sys.version_info >= (3, 8) and "importnb" in ipynb.read_bytes().decode("utf-8"):
     NOTEBOOKS_TO_TEST = [
-        i for i in NOTEBOOKS_TO_TEST if "importnb" not in ipynb.read_bytes().decode("utf-8")
+        i for i in NOTEBOOKS_TO_TEST if "importnb" not in i.read_bytes().decode("utf-8")
     ]
 
 
 @pytest.mark.parametrize("name,ipynb", [[i.name, i] for i in NOTEBOOKS_TO_TEST])
 def test_notebook(name, ipynb):
-    if sys.version_info >= (3, 8) and "importnb" in ipynb.read_bytes().decode("utf-8"):
-        return
-
     _run([PY, "-m",  "nbconvert", "--output-dir", IPYNB_HTML, "--execute", ipynb])
 
 
