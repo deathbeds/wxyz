@@ -11,7 +11,7 @@ NOTEBOOKS_TO_TEST = [
     i for i in sorted(IPYNB.rglob("*.ipynb")) if "ipynb_checkpoint" not in str(i)
 ]
 
-if sys.version_info >= (3, 8) and "importnb" in ipynb.read_bytes().decode("utf-8"):
+if sys.version_info >= (3, 8):
     NOTEBOOKS_TO_TEST = [
         i for i in NOTEBOOKS_TO_TEST if "importnb" not in i.read_bytes().decode("utf-8")
     ]
