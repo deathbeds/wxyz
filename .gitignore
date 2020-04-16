@@ -4,7 +4,6 @@ __pycache__/
 .yarn-packages/
 *.egg-info
 *.tgz
-*.tsbuildinfo
 /lab/
 dask-worker-space/
 dist/

@@ -2,7 +2,6 @@
 set -eux
 python -m _scripts._setup
 
-jlpm cache clean
 jupyter lab clean
 jlpm bootstrap
 jupyter labextension install $(cat labex.txt) --no-build

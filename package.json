@@ -7,9 +7,9 @@
   "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
   "scripts": {
-    "bootstrap": "jlpm --prefer-offline && lerna bootstrap && jlpm build",
+    "bootstrap": "jlpm cache clean && jlpm clean && jlpm --prefer-offline && lerna bootstrap && jlpm build",
     "clean": "lerna exec --parallel --stream rimraf lib *.tgz",
-    "build": "jlpm clean && jlpm build:ts && jlpm build:tgz",
+    "build": "jlpm build:ts && jlpm build:tgz",
     "build:ts": "lerna run --parallel --stream build",
     "build:tgz": "lerna exec --parallel --stream npm pack",
     "lint:prettier": "prettier --write ./*.{json,md,yml,yaml} ./{src,ci}/**/*.{ts,json,md,yml,yaml,css,yml}",
