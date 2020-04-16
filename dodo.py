@@ -5,8 +5,11 @@ import site
 
 DODO = Path(__file__)
 ROOT = DODO.parent
+CI = ROOT / "ci"
 SRC = ROOT / "src"
-PY_SETUP = [*(SRC / "py").glob("*/setup.py")]
+TS = SRC / "ts"
+PY = SRC / "py"
+PY_SETUP = [*PY.glob("*/setup.py")]
 SITE_PKGS = Path(site.getsitepackages()[0])
 
 
@@ -45,3 +48,19 @@ def task_setup():
                 ]
             ]
         )
+
+
+def task_lint():
+    yield dict(
+        basename="prettier",
+        doc="prettier",
+        file_dep=[
+            *ROOT.glob("*.yml"),
+            *ROOT.glob("*.json"),
+            *TS.rglob("*.ts"),
+            *TS.rglob("*.css"),
+            *TS.rglob("*.json"),
+            *CI.rglob("*.yml")
+        ],
+        actions=[["jlpm", "lint"]]
+    )
