@@ -52,7 +52,7 @@ jobs:
               - script: ${{ platform.activate }} ${{ python.env }} && jlpm || jlpm || jlpm
                 displayName: install npm dependencies
 
-              - script: ${{ platform.activate }} ${{ python.env }} python -m _scripts._lint
+              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._lint
                 displayName: check style
 
               - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._build --no-conda
