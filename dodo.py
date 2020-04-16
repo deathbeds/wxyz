@@ -15,13 +15,21 @@ DOIT_CONFIG = {
 }
 
 
-def task_bootstrap_py():
+def task_setup():
+    yield dict(
+        basename="js_setup",
+        doc="☕ setup",
+        file_dep=[ROOT / "yarn.lock"],
+        targets=[ROOT / "node_modules" / ".yarn-integrity"],
+        actions=[["jlpm", "--prefer-offline"], ["jlpm", "lerna", "bootstrap"]]
+    )
+
     for setup_py in PY_SETUP:
         pkg = setup_py.parent
 
         yield dict(
             basename=f"py_setup_{pkg.name}",
-            doc=f"🐍 {pkg.name}",
+            doc=f"🐍 setup {pkg.name}",
             file_dep=[setup_py, pkg / "setup.cfg"],
             targets=[SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")],
             actions=[
