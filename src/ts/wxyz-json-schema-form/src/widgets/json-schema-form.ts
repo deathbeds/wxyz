@@ -146,22 +146,30 @@ export class JSONSchemaFormView extends BoxView {
 
     const fm = this._form.model;
 
-    console.log(changed);
+    let props = fm.props;
+    let propsChanged = false;
 
     for (const attr of Object.keys(changed)) {
       switch (attr) {
-        default:
-          break;
         case 'schema':
           fm.schema = schema;
           break;
         case 'ui_schema':
-          fm.props = { ...fm.props, uiSchema };
+          props = { ...props, uiSchema };
+          propsChanged = true;
           break;
         case 'value':
-          fm.props = { ...fm.props, formData };
+          fm.formData = formData;
+          propsChanged = true;
+          break;
+        default:
+          console.log('skipping update of', attr);
           break;
       }
+    }
+
+    if (propsChanged) {
+      fm.props = props;
     }
   }
 
