@@ -10,5 +10,5 @@ steps:
       displayName: Notebook Test
 
   - ${{ if not(eq(parameters.name, 'Windows')) }}:
-    - script: . activate wxyz-nbtested && python -m _scripts._test
+    - script: . /home/vsts/.conda/bin/activate wxyz-nbtest && python -m _scripts._test
       displayName: Notebook Test
