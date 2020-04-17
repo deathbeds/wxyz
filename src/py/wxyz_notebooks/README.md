@@ -1,3 +1,3 @@
-# ipywxyz
+# wxyz_notebooks
 
-> Experimental Jupyter widgets
+> Demos for [wxyz](http://github.com/deathbeds/wxyz).

@@ -1,1 +1,2 @@
 include LICENSE.txt README.md
+recursive-include src/wxyz/notebooks *.ipynb

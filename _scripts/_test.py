@@ -1,20 +1,11 @@
 import sys
 
-from . import IPYNB, IPYNB_HTML, PY, _run
+from . import _run, PY_SRC, PY
 
-import pytest
-import multiprocessing
 
-CPU_COUNT = multiprocessing.cpu_count()
-
-NOTEBOOKS_TO_TEST = [
-    i for i in sorted(IPYNB.rglob("*.ipynb")) if "ipynb_checkpoint" not in str(i)
-]
-
-@pytest.mark.parametrize("name,ipynb", [[i.name, i] for i in NOTEBOOKS_TO_TEST])
-def test_notebook(name, ipynb):
-    _run([PY, "-m",  "nbconvert", "--output-dir", IPYNB_HTML, "--execute", ipynb])
+def notebook_tests(extra_args=[]):
+    return _run([PY, "-m", "pytest", *extra_args], cwd=PY_SRC / "wxyz_notebooks")
 
 
 if __name__ == "__main__":
-    pytest.main([__file__, "-vv", "-n", str(CPU_COUNT)])
+    sys.exit(notebook_tests(sys.argv[1:]))

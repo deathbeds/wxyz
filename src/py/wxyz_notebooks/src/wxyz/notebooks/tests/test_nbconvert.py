@@ -1,16 +1,12 @@
 import sys
-
-from . import IPYNB, IPYNB_HTML, PY, _run
-
 import pytest
-import multiprocessing
+import subprocess
 
-CPU_COUNT = multiprocessing.cpu_count()
+from .conftest import NOTEBOOKS
 
-NOTEBOOKS_TO_TEST = [
-    i for i in sorted(IPYNB.rglob("*.ipynb")) if "ipynb_checkpoint" not in str(i)
-]
 
-@pytest.mark.parametrize("name,ipynb", [[i.name, i] for i in NOTEBOOKS_TO_TEST])
-def test_notebook(name, ipynb):
-    _run([PY, "-m",  "nbconvert", "--output-dir", IPYNB_HTML, "--execute", ipynb])
+@pytest.mark.parametrize("name,ipynb", [[i.name, i] for i in NOTEBOOKS])
+def test_notebook(name, ipynb, tmp_path):
+    subprocess.check_call([
+        sys.executable, "-m",  "nbconvert", "--output-dir", tmp_path, "--execute", ipynb
+    ])
