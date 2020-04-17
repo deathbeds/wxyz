@@ -12,17 +12,16 @@ from .conftest import NOTEBOOKS
 def test_notebook(name, ipynb, tmp_path):
     """ will it nbconvert?
     """
+    args = [
+        sys.executable,
+        "-m",
+        "nbconvert",
+        "--output-dir",
+        tmp_path,
+        "--execute",
+        ipynb,
+    ]
+
     assert (
-        subprocess.call(
-            [
-                sys.executable,
-                "-m",
-                "nbconvert",
-                "--output-dir",
-                tmp_path,
-                "--execute",
-                ipynb,
-            ]
-        )
-        == 0
+        subprocess.call([*map(str, args,)]) == 0
     ), f"{name} failed to nbconvert --execute"

@@ -104,6 +104,8 @@ def task_lint():
 
 
 def _one_pydist(pkg, file_dep, output):
+    """ build a single task so we can run in the cwd
+    """
     name = f"{output}_{pkg.name}"
     args = [PY, "setup.py", output, "--dist-dir", DIST / output]
     actions = [lambda: call(args, cwd=pkg) == 0]
