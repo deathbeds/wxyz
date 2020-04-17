@@ -15,7 +15,7 @@ variables:
     src/ts/wxyz-html/deathbeds-wxyz-html-0.4.0.tgz
     src/ts/wxyz-jsonld/deathbeds-wxyz-jsonld-0.4.0.tgz
     src/ts/wxyz-json-schema-form/deathbeds-wxyz-json-schema-form-0.4.0.tgz
-    src/ts/wxyz-lab/deathbeds-wxyz-lab-0.2.1.tgz
+    src/ts/wxyz-lab/deathbeds-wxyz-lab-0.4.0.tgz
     src/ts/wxyz-svg/deathbeds-wxyz-svg-0.4.0.tgz
     src/ts/wxyz-tpl-nunjucks/deathbeds-wxyz-tpl-nunjucks-0.4.0.tgz
     src/ts/wxyz-yaml/deathbeds-wxyz-yaml-0.4.0.tgz
