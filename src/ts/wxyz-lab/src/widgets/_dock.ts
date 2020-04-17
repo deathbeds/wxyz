@@ -1,13 +1,14 @@
+import { toArray } from '@lumino/algorithm';
+import { JSONExt } from '@lumino/coreutils';
+import { Message } from '@lumino/messaging';
+import { Application } from '@lumino/application';
 import { DockPanel, DockLayout, Widget } from '@lumino/widgets';
+
 import {
   JupyterPhosphorWidget,
   DOMWidgetView,
   DOMWidgetModel
 } from '@jupyter-widgets/base';
-import { Application } from '@lumino/application';
-
-import { Message } from '@lumino/messaging';
-import { toArray } from '@lumino/algorithm';
 
 export const CSS = {
   HIDE_TABS: 'jp-WXYZ-DockBox-hide-tabs',
@@ -88,7 +89,16 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
   }
 
   async onLayoutModelChanged() {
-    let main = this.jWidgetsToArea(this._view.model.get('dock_layout'));
+    const model = this._view?.model;
+    if (model == null) {
+      return;
+    }
+    let main: DockLayout.AreaConfig;
+    try {
+      main = this.jWidgetsToArea(model.get('dock_layout'));
+    } catch {
+      return;
+    }
     this._ignoreLayoutChanges = true;
     if (main) {
       this.restoreLayout({ main });
@@ -96,15 +106,47 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     }
     setTimeout(() => {
       this._ignoreLayoutChanges = false;
+      this.onLayoutChanged();
     }, 100);
   }
 
+  onChildAdded(msg: Widget.ChildMessage) {
+    super.onChildAdded(msg);
+    this.onLayoutChanged();
+  }
+
+  onChildRemoved(msg: Widget.ChildMessage) {
+    super.onChildRemoved(msg);
+    this.onLayoutChanged();
+  }
+
   onLayoutChanged() {
-    if (!this._ignoreLayoutChanges) {
-      let layout = this.saveLayout();
-      this._view.model.set('dock_layout', this.areaToJWidgets(layout.main));
-      this._view.touch();
+    const { model } = this._view;
+    if (model == null) {
+      return;
     }
+    if (this._ignoreLayoutChanges) {
+      return;
+    }
+    const { main } = this.saveLayout();
+    if (main == null) {
+      return;
+    }
+
+    let newConfig: object;
+
+    try {
+      newConfig = this.areaToJWidgets(main);
+    } catch {
+      return;
+    }
+
+    if (JSONExt.deepEqual(newConfig as any, model.get('dock_layout'))) {
+      return;
+    }
+
+    model.set('dock_layout', newConfig);
+    this._view.touch();
   }
 
   areaToJWidgets(area: DockLayout.AreaConfig): object {
@@ -126,12 +168,8 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
 
   findJWidgetModel(pwidget: Widget): number {
     const children: DOMWidgetModel[] = this._view.model.get('children');
-    try {
-      const model = (pwidget as any)._view.model as DOMWidgetModel;
-      return children.indexOf(model);
-    } catch (err) {
-      return -1;
-    }
+    const model = (pwidget as any)._view.model as DOMWidgetModel;
+    return children.indexOf(model);
   }
 
   findPWidget(childIndex: number): Widget {
@@ -214,6 +252,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     onTitle();
     setTimeout(() => {
       this._ignoreLayoutChanges = false;
+      this.onLayoutChanged();
     }, 100);
   }
 }
