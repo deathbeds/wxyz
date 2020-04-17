@@ -4,6 +4,8 @@ import site
 import sys
 from pathlib import Path
 
+from doit.tools import result_dep
+
 DODO = Path(__file__)
 ROOT = DODO.parent
 CI = ROOT / "ci"
@@ -93,3 +95,10 @@ def task_lint():
             file_dep=files,
             actions=[cmd + files for cmd in PY_LINT_CMDS],
         )
+
+    yield dict(
+        basename="lint",
+        doc="lint all the things",
+        actions=[lambda: print("LINTY")],
+        uptodate=[result_dep(f"lint_{i}") for i in [*groups, "prettier"]],
+    )
