@@ -52,7 +52,7 @@ def task_setup():
 
 def task_lint():
     yield dict(
-        basename="prettier",
+        basename="lint_prettier",
         doc="prettier",
         file_dep=[
             *ROOT.glob("*.yml"),
