@@ -31,8 +31,7 @@ def task_setup():
     """ make all the setups
     """
     yield dict(
-        basename="js_setup",
-        doc="☕ setup",
+        name="js",
         file_dep=[ROOT / "yarn.lock"],
         targets=[ROOT / "node_modules" / ".yarn-integrity"],
         actions=[["jlpm", "--prefer-offline"], ["jlpm", "lerna", "bootstrap"]],
@@ -42,8 +41,7 @@ def task_setup():
         pkg = setup_py.parent
 
         yield dict(
-            basename=f"py_setup_{pkg.name}",
-            doc=f"🐍 setup {pkg.name}",
+            name=f"py_{pkg.name}",
             file_dep=[setup_py, pkg / "setup.cfg"],
             targets=[SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")],
             actions=[
@@ -64,9 +62,9 @@ def task_setup():
 def task_lint():
     """ make all the linters
     """
+    uptodate = dict(uptodate=[result_dep("setup")])
     yield dict(
-        basename="lint_prettier",
-        doc="☕ lint prettier",
+        name="prettier",
         file_dep=[
             *ROOT.glob("*.yml"),
             *ROOT.glob("*.json"),
@@ -79,6 +77,7 @@ def task_lint():
             *PY_SRC.rglob("*.md"),
         ],
         actions=[["jlpm", "lint"]],
+        **uptodate,
     )
 
     groups = {
@@ -89,16 +88,5 @@ def task_lint():
     groups["misc"] = [DODO]
 
     for label, files in groups.items():
-        yield dict(
-            basename=f"lint_{label}",
-            doc=f"🐍 lint {label}",
-            file_dep=files,
-            actions=[cmd + files for cmd in PY_LINT_CMDS],
-        )
-
-    yield dict(
-        basename="lint",
-        doc="lint all the things",
-        actions=[lambda: print("LINTY")],
-        uptodate=[result_dep(f"lint_{i}") for i in [*groups, "prettier"]],
-    )
+        actions = [cmd + files for cmd in PY_LINT_CMDS]
+        yield dict(name=label, file_dep=files, actions=actions, **uptodate)
