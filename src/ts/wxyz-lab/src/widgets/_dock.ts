@@ -58,7 +58,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
 
     if (hideTabs) {
       styles.push(`
-        #${this.id} .p-DockPanel-tabBar[data-orientation='horizontal'] {
+        #${this.id} .lm-DockPanel-tabBar[data-orientation='horizontal'] {
           min-height: 0;
           max-height: 0;
           border: 0;
@@ -112,12 +112,16 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
 
   onChildAdded(msg: Widget.ChildMessage) {
     super.onChildAdded(msg);
-    this.onLayoutChanged();
+    if (msg.child instanceof JupyterPhosphorWidget) {
+      this.onLayoutChanged();
+    }
   }
 
   onChildRemoved(msg: Widget.ChildMessage) {
     super.onChildRemoved(msg);
-    this.onLayoutChanged();
+    if (msg.child instanceof JupyterPhosphorWidget) {
+      this.onLayoutChanged();
+    }
   }
 
   onLayoutChanged() {
