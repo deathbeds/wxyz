@@ -1,25 +1,9 @@
 """ wxyz top-level automation
 """
-import site
-import sys
-from pathlib import Path
-from subprocess import call
-
 from doit.tools import result_dep
 
-PY = Path(sys.executable)
-
-DODO = Path(__file__)
-ROOT = DODO.parent
-DIST = ROOT / "dist"
-CI = ROOT / "ci"
-
-SRC = ROOT / "src"
-
-TS_SRC = SRC / "ts"
-PY_SRC = SRC / "py"
-PY_SETUP = [*PY_SRC.glob("*/setup.py")]
-SITE_PKGS = Path(site.getsitepackages()[0])
+from _scripts import _paths as P
+from _scripts import _util as U
 
 PY_LINT_CMDS = [
     ["isort", "-rc"],
@@ -37,27 +21,29 @@ def task_setup():
     """ make all the setups
     """
     yield dict(
-        name="js",
-        file_dep=[ROOT / "yarn.lock"],
-        targets=[ROOT / "node_modules" / ".yarn-integrity"],
+        name="ts",
+        file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
+        targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
         actions=[["jlpm", "--prefer-offline"], ["jlpm", "lerna", "bootstrap"]],
     )
 
-    for i, setup_py in enumerate(PY_SETUP):
+    for i, setup_py in enumerate(P.PY_SETUP):
         pkg = setup_py.parent
 
         uptodate = {}
 
         if i:
-            uptodate["uptodate"] = [result_dep(f"setup:py_{PY_SETUP[i-1].parent.name}")]
+            uptodate["uptodate"] = [
+                result_dep(f"setup:py_{P.PY_SETUP[i-1].parent.name}")
+            ]
 
         yield dict(
             name=f"py_{pkg.name}",
             file_dep=[setup_py, pkg / "setup.cfg"],
-            targets=[SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")],
+            targets=[P.SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")],
             actions=[
                 [
-                    PY,
+                    P.PY,
                     "-m",
                     "pip",
                     "install",
@@ -78,25 +64,26 @@ def task_lint():
     yield dict(
         name="prettier",
         file_dep=[
-            *ROOT.glob("*.yml"),
-            *ROOT.glob("*.json"),
-            *ROOT.glob("*.md"),
-            *TS_SRC.rglob("*.ts"),
-            *TS_SRC.rglob("*.css"),
-            *TS_SRC.rglob("*.json"),
-            *TS_SRC.rglob("*.yml"),
-            *TS_SRC.rglob("*.md"),
-            *PY_SRC.rglob("*.md"),
+            *P.ROOT.glob("*.yml"),
+            *P.ROOT.glob("*.json"),
+            *P.ROOT.glob("*.md"),
+            *P.TS_SRC.rglob("*.ts"),
+            *P.TS_SRC.rglob("*.css"),
+            *P.TS_SRC.rglob("*.json"),
+            *P.TS_SRC.rglob("*.yml"),
+            *P.TS_SRC.rglob("*.md"),
+            *P.PY_SRC.rglob("*.md"),
         ],
         actions=[["jlpm", "lint"]],
         **uptodate,
     )
 
     groups = {
-        i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
+        i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))]
+        for i in P.PY_SETUP
     }
 
-    groups["misc"] = [DODO]
+    groups["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py")]
 
     for label, files in groups.items():
         actions = [cmd + files for cmd in PY_LINT_CMDS]
@@ -107,8 +94,8 @@ def _one_pydist(pkg, file_dep, output):
     """ build a single task so we can run in the cwd
     """
     name = f"{output}_{pkg.name}"
-    args = [PY, "setup.py", output, "--dist-dir", DIST / output]
-    actions = [lambda: call(args, cwd=pkg) == 0]
+    args = [P.PY, "setup.py", output, "--dist-dir", P.DIST / output]
+    actions = [lambda: U.call(args, cwd=pkg) == 0]
     return dict(
         name=name, file_dep=file_dep, actions=actions, uptodate=[result_dep("lint")]
     )
@@ -117,7 +104,7 @@ def _one_pydist(pkg, file_dep, output):
 def task_pydist():
     """ build python release artifacts
     """
-    for setup_py in PY_SETUP:
+    for setup_py in P.PY_SETUP:
         pkg = setup_py.parent
         file_dep = [
             setup_py,
@@ -126,3 +113,14 @@ def task_pydist():
         ]
         for output in ["sdist", "bdist_wheel"]:
             yield _one_pydist(pkg, file_dep, output)
+
+
+def task_ts():
+    """ build typescript components
+    """
+    return dict(
+        file_dep=[P.YARN_LOCK, *P.TS_PACKAGE],
+        targets=[*P.TS_TARBALLS],
+        actions=[["jlpm", "build"]],
+        uptodate=[result_dep("lint:prettier")],
+    )
