@@ -2,6 +2,7 @@
 """
 import json
 import os
+import platform
 import re
 import site
 import sys
@@ -10,6 +11,9 @@ from pathlib import Path
 RUNNING_IN_CI = os.environ.get("RUNNING_IN_CI") is not None
 
 PY = Path(sys.executable)
+OS = platform.system()
+PY_VER = "".join(map(str, sys.version_info[:2]))
+
 
 SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent
@@ -29,6 +33,7 @@ ROBOT_OUT = TEST_OUT / "robot"
 LAB = ROOT / "lab"
 
 ATEST = ROOT / "atest"
+ATEST_OUT = ATEST / "output"
 
 CI = ROOT / "ci"
 
@@ -104,3 +109,5 @@ ALL_PRETTIER = sorted(
         *TS_SRC.rglob("*.yml"),
     ]
 )
+
+ALL_ROBOT = [*ATEST.rglob("*.robot")]

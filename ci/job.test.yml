@@ -73,18 +73,18 @@ jobs:
               - script: ${{ platform.activate }} ${{ python.env }} && doit lab:list
                 displayName: list labextensions before build
 
-              - script: ${{ platform.activate }} ${{ python.env }} && lab:build
+              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:build
                 displayName: build lab
 
               - script: ${{ platform.activate }} ${{ python.env }} && doit lab:list
                 displayName: list labextensions after build
 
-              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._robot
+              - script: ${{ platform.activate }} ${{ python.env }} && doit robot
                 displayName: run browser tests
 
               - task: PublishPipelineArtifact@0
                 displayName: publish browser test output
                 inputs:
-                  targetPath: dist/test_output/robot
+                  targetPath: atest/output
                   artifactName: Robot ${{ platform.name }}${{ python.name }} $(Build.BuildId)
                 condition: always()

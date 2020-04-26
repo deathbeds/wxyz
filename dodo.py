@@ -171,3 +171,23 @@ def task_lab():
     yield dict(
         name="list", actions=[[*jpy, "labextension", "list", *app_dir]],
     )
+
+
+def task_robot():
+    """ test in browser with robot framework
+    """
+    atest = [P.PY, "-m", "_scripts._atest"]
+
+    yield dict(
+        name="dryrun",
+        file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
+        uptodate=[result_dep("lab:build")],
+        actions=[[*atest, "--dryrun"]],
+    )
+
+    yield dict(
+        name="firefox",
+        file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
+        uptodate=[result_dep("robot:dryrun")],
+        actions=[[*atest]],
+    )
