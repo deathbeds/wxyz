@@ -170,7 +170,6 @@ def task_lab():
         name="list", actions=[[*jpy, "labextension", "list", *app_dir]],
     )
 
-
 def task_robot():
     """ test in browser with robot framework
     """

@@ -20,3 +20,13 @@ anaconda-project run doit list
 ```bash
 anaconda-project run doit
 ```
+
+### Live Development
+
+```bash
+anaconda-project run jlpm watch
+```
+
+```bash
+anaconda-project run lab --watch
+```

@@ -1,24 +1,11 @@
 name: wxyz
+
 description: experimental widgets
 
 commands:
-  setup:
-    unix: python -m _scripts._setup
-  labextension:
-    unix: python -m _scripts._labextension
-  labextension:all:
-    unix: python -m _scripts._labextension install $(cat labex.txt)
   lab:
-    unix: python -m _scripts._lab
-  lint:
-    unix: python -m _scripts._lint
-  test:
-    unix: python -m _scripts._test
-  robot:
-    unix: python -m _scripts._robot
-  build:
-    unix: python -m _scripts._build
-    env_spec: _build
+    unix: jupyter lab --no-browser --debug --app-dir $PROJECT_DIR/lab
+    windows: jupyter lab --no-browser --debug --app-dir %PROJECT_DIR%\lab
 
 env_specs:
   default:
@@ -29,6 +16,7 @@ env_specs:
       - _lint
       - _test
       - _build
+      - _doit
 
   wxyz-demo:
     packages:
@@ -38,7 +26,6 @@ env_specs:
       - dask >=0.18.2
       - dask-ml
       - distributed
-      - doit
       - importnb
       - ipympl
       - ipywidgets
@@ -65,6 +52,11 @@ env_specs:
     channels:
       - conda-forge
       - defaults
+
+  _doit:
+    packages:
+      - doit
+      - python-graphviz
 
   _lint:
     packages:
