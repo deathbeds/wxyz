@@ -93,9 +93,7 @@ def _one_pydist(pkg, file_dep, output):
     name = f"{output}_{pkg.name}"
     args = [P.PY, "setup.py", output, "--dist-dir", P.DIST / output]
     actions = [lambda: U.call(args, cwd=pkg) == 0]
-    return dict(
-        name=name, file_dep=file_dep, actions=actions, uptodate=[result_dep("lint")]
-    )
+    return dict(name=name, file_dep=file_dep, actions=actions)
 
 
 def task_pydist():
