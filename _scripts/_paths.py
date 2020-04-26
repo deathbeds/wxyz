@@ -14,9 +14,12 @@ PY = Path(sys.executable)
 OS = platform.system()
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
-
 SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent
+
+BUILD = ROOT / "build"
+OK = BUILD / "ok"
+
 SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
