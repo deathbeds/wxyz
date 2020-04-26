@@ -2,7 +2,7 @@
 
 > has nothing to do with wx
 
-[![binder-badge][]][binder] | [ROADMAP][] | [EXAMPLES][]
+[![binder-badge][]][binder] | [ROADMAP][] | [EXAMPLES][] | [CONTRIBUTING][]
 
 Try to bring more isomorphic capabilities to the Jupyter Widget stack.
 
@@ -21,3 +21,4 @@ Try to bring more isomorphic capabilities to the Jupyter Widget stack.
 [binder-badge]: https://mybinder.org/badge_logo.svg
 [roadmap]: ./ROADMAP.md
 [examples]: ./src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[contributing]: ./CONTRIBUTING.md
