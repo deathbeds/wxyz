@@ -17,12 +17,12 @@ parameters:
       env: wxyz-test-36
     - name: ThreeSeven
       spec: '>=3.7,<3.8.0a0'
-      lab: '>=2.1.0,<2.2.0a0'
+      lab: '>=2.1.1,<2.2.0a0'
       nodejs: '>=12,<13.0.0a0'
       env: wxyz-test-37
     - name: ThreeEight
       spec: '>=3.8,<3.9.0a0'
-      lab: '>=2.1.0,<3.0.0a0'
+      lab: '>=2.1.1,<3.0.0a0'
       nodejs: '>=13,<14.0.0a0'
       env: wxyz-test-38
   env_update: conda env update --file ci/env-test.yml --quiet
