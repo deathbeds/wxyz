@@ -14,17 +14,17 @@ parameters:
       spec: '>=3.6,<3.7.0a0'
       lab: '>=2,<2.1.0a0'
       nodejs: '>=10,<11.0.0.a0'
-      env: --prefix wxyz-test-36
+      env: wxyz-test-36
     - name: ThreeSeven
       spec: '>=3.7,<3.8.0a0'
       lab: '>=2.1.1,<2.2.0a0'
       nodejs: '>=12,<13.0.0a0'
-      env: --prefix wxyz-test-37
+      env: wxyz-test-37
     - name: ThreeEight
       spec: '>=3.8,<3.9.0a0'
       lab: '>=2.1.1,<3.0.0a0'
       nodejs: '>=13,<14.0.0a0'
-      env: --prefix wxyz-test-38
+      env: wxyz-test-38
   env_update: conda env update --file ci/env-test.yml --quiet
   lab_ext: jupyter labextension install --debug --no-build $(FIRST_PARTY_LABEXTENSIONS) $(THIRD_PARTY_LABEXTENSIONS)
   lab_build: jupyter lab build --debug --dev-build=False --minimize=True
@@ -43,43 +43,43 @@ jobs:
               - script: ${{ platform.activate }} && cd ci && python env_template.py "${{ python.spec }}" "${{ python.lab }}" "${{ python.nodejs }}"
                 displayName: generate env with python, lab, and nodejs version
 
-              - script: ${{ parameters.env_update }} ${{ python.env }} || ${{ parameters.env_update }} ${{ python.env }} || ${{ parameters.env_update }} ${{ python.env }}
+              - script: ${{ parameters.env_update }} --prefix ${{ python.env }} || ${{ parameters.env_update }} --prefix ${{ python.env }} || ${{ parameters.env_update }} --prefix ${{ python.env }}
                 displayName: update conda environment with test dependencies
 
-              - script: conda info && conda list ${{ python.env }}
+              - script: conda info && conda list --prefix ${{ python.env }}
                 displayName: list conda packages and info
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit setup:ts
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup:ts
                 displayName: install npm dependencies
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit pydist
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit pydist
                 displayName: build python distributions
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit setup:py_wheels
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup:py_wheels
                 displayName: install python wheels
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit lint
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lint
                 displayName: check style
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit nbtest
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit nbtest
                 displayName: run notebook smoke tests
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit ts
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit ts
                 displayName: build typescript
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:extensions
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:extensions
                 displayName: install labextensions
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:list
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:list
                 displayName: list labextensions before build
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:build
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:build
                 displayName: build lab
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:list
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:list
                 displayName: list labextensions after build
 
-              - script: ${{ platform.activate }} ${{ python.env }} && doit robot
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit robot
                 displayName: run browser tests
 
               - task: PublishPipelineArtifact@0
