@@ -70,17 +70,7 @@ def task_lint():
     uptodate = dict(uptodate=[result_dep("setup")])
     yield dict(
         name="prettier",
-        file_dep=[
-            *P.ROOT.glob("*.yml"),
-            *P.ROOT.glob("*.json"),
-            *P.ROOT.glob("*.md"),
-            *P.TS_SRC.rglob("*.ts"),
-            *P.TS_SRC.rglob("*.css"),
-            *P.TS_SRC.rglob("*.json"),
-            *P.TS_SRC.rglob("*.yml"),
-            *P.TS_SRC.rglob("*.md"),
-            *P.PY_SRC.rglob("*.md"),
-        ],
+        file_dep=P.ALL_PRETTIER,
         actions=[["jlpm", "lint"]],
         **uptodate,
     )
@@ -144,4 +134,5 @@ def task_nbtest():
             )
             == 0
         ],
+        uptodate=[result_dep("lint:prettier")],
     )

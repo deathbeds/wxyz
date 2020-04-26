@@ -84,3 +84,16 @@ ALL_IPYNB = sorted(
         if "ipynb_checkpoints" not in str(ipynb)
     ]
 )
+
+ALL_PRETTIER = sorted([
+    *CI.glob("*.yml"),
+    *PY_SRC.rglob("*.md"),
+    *ROOT.glob("*.json"),
+    *ROOT.glob("*.md"),
+    *ROOT.glob("*.yml"),
+    *TS_SRC.rglob("*.css"),
+    *TS_SRC.rglob("*.json"),
+    *TS_SRC.rglob("*.md"),
+    *TS_SRC.rglob("*.ts"),
+    *TS_SRC.rglob("*.yml"),
+])
