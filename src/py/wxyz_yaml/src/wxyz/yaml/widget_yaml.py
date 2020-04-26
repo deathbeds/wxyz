@@ -1,7 +1,7 @@
 """ Widgets for working with YAML
 """
 # pylint: disable=too-many-ancestors,no-self-use,too-few-public-methods
-# pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module,cyclic-import
 from yaml import safe_load
 
 from wxyz.core.widget_json import JSON

@@ -2,7 +2,7 @@
 """
 # pylint: disable=R0903,C0103,W0703,R0901
 from wxyz.core.base import T, W, WXYZBase
-from wxyz.html.widget_color import AlphaColor, EmptyAlphaColor
+from wxyz.html import AlphaColor, EmptyAlphaColor
 
 from ._version import module_name, module_version
 from .widget_datagrid import DataGrid

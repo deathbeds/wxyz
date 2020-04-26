@@ -1,4 +1,4 @@
-""" mostly-nonsense
+""" Notebooks for demonstrating wxyz widgets
 """
 from ._version import __version__
 
