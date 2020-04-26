@@ -61,7 +61,7 @@ jobs:
               - script: ${{ platform.activate }} ${{ python.env }} && doit lint
                 displayName: check style
 
-              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._test
+              - script: ${{ platform.activate }} ${{ python.env }} && doit nbtest
                 displayName: run notebook smoke tests
 
               - script: ${{ platform.activate }} ${{ python.env }} && jlpm build

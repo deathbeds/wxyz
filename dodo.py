@@ -131,3 +131,17 @@ def task_ts():
         actions=[["jlpm", "build"]],
         uptodate=[result_dep("lint:prettier")],
     )
+
+
+def task_nbtest():
+    """ smoke test all notebooks with nbconvert
+    """
+    return dict(
+        file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB],
+        actions=[
+            lambda: U.call(
+                [P.PY, "-m", "pytest", "-vv"], cwd=P.PY_SRC / "wxyz_notebooks"
+            )
+            == 0
+        ],
+    )

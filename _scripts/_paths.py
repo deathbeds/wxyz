@@ -17,11 +17,11 @@ SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
 DODO = ROOT / "dodo.py"
-ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *PY_SRC.rglob("*.py")])
+ALL_SRC_PY = sorted([*PY_SRC.rglob("*.py")])
+ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])
 
 
 DIST = ROOT / "dist"
-IPYNB = ROOT / "notebooks"
 IPYNB_HTML = DIST / "notebooks"
 
 TEST_OUT = DIST / "test_output"
@@ -74,3 +74,13 @@ WHEELS = [
     DIST / "bdist_wheel" / f"{pys.parent.name}-{version}-py3-none-any.whl"
     for pys, version in PY_VERSION.items()
 ]
+
+ALL_IPYNB = sorted(
+    [
+        ipynb
+        for ipynb in (PY_SRC / "wxyz_notebooks" / "src" / "wxyz" / "notebooks").rglob(
+            "*.ipynb"
+        )
+        if "ipynb_checkpoints" not in str(ipynb)
+    ]
+)
