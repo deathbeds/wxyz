@@ -9,6 +9,8 @@ variables:
   PYTHONUNBUFFERED: 1
   ATEST_RETRIES: 3
 
+  RUNNING_IN_CI: 1
+
   FIRST_PARTY_LABEXTENSIONS: >-
     src/ts/wxyz-core/deathbeds-wxyz-core-0.4.0.tgz
     src/ts/wxyz-datagrid/deathbeds-wxyz-datagrid-0.4.0.tgz

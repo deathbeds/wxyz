@@ -1,9 +1,13 @@
 """ paths, versions and other metadata for wxyz
 """
 import json
+import os
+import re
 import site
 import sys
 from pathlib import Path
+
+RUNNING_IN_CI = os.environ.get("RUNNING_IN_CI") is not None
 
 PY = Path(sys.executable)
 
@@ -29,6 +33,13 @@ ATEST = ROOT / "atest"
 CI = ROOT / "ci"
 
 PY_SETUP = [*PY_SRC.glob("*/setup.py")]
+PY_VERSION = {
+    pys: re.findall(
+        r"""__version__ = ["](.*)["]""",
+        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(),
+    )[0]
+    for pys in PY_SETUP
+}
 SITE_PKGS = Path(site.getsitepackages()[0])
 
 YARN_LOCK = ROOT / "yarn.lock"
@@ -57,4 +68,9 @@ CONDA_BUILD_ARGS = [
     "conda-forge",
     "--output-folder",
     DIST / "conda-bld",
+]
+
+WHEELS = [
+    DIST / "bdist_wheel" / f"{pys.parent.name}-{version}-py3-none-any.whl"
+    for pys, version in PY_VERSION.items()
 ]

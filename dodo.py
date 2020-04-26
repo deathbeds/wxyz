@@ -27,34 +27,41 @@ def task_setup():
         actions=[["jlpm", "--prefer-offline"], ["jlpm", "lerna", "bootstrap"]],
     )
 
-    for i, setup_py in enumerate(P.PY_SETUP):
-        pkg = setup_py.parent
-
-        uptodate = {}
-
-        if i:
-            uptodate["uptodate"] = [
-                result_dep(f"setup:py_{P.PY_SETUP[i-1].parent.name}")
-            ]
-
+    if P.RUNNING_IN_CI:
         yield dict(
-            name=f"py_{pkg.name}",
-            file_dep=[setup_py, pkg / "setup.cfg"],
-            targets=[P.SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")],
-            actions=[
-                [
-                    P.PY,
-                    "-m",
-                    "pip",
-                    "install",
-                    "-e",
-                    str(pkg),
-                    "--ignore-installed",
-                    "--no-deps",
-                ]
-            ],
-            **uptodate,
+            name="py_wheels",
+            file_dep=P.WHEELS,
+            actions=[[P.PY, "-m", "pip", "install", *P.WHEELS]],
         )
+    else:
+        for i, setup_py in enumerate(P.PY_SETUP):
+            pkg = setup_py.parent
+
+            uptodate = {}
+
+            if i:
+                uptodate["uptodate"] = [
+                    result_dep(f"setup:py_{P.PY_SETUP[i-1].parent.name}")
+                ]
+
+            yield dict(
+                name=f"py_{pkg.name}",
+                file_dep=[setup_py, pkg / "setup.cfg"],
+                targets=[P.SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")],
+                actions=[
+                    [
+                        P.PY,
+                        "-m",
+                        "pip",
+                        "install",
+                        "-e",
+                        str(pkg),
+                        "--ignore-installed",
+                        "--no-deps",
+                    ]
+                ],
+                **uptodate,
+            )
 
 
 def task_lint():

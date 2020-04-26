@@ -97,4 +97,5 @@ env_specs:
       - firefox =68
       - geckodriver
       - robotframework
+      - robotframework-lint
       - robotframework-seleniumlibrary

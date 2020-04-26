@@ -9,6 +9,7 @@ dependencies:
   - jupyterlab {lab}
   # build dependencies
   - nodejs {nodejs}
+  - doit
   # package-specific and demo dependencies (TODO: break up)
   - bqplot
   - cycler
@@ -49,10 +50,11 @@ dependencies:
   - isort
   - pylint
   # robot tests
-  - robotframework
-  - robotframework-seleniumlibrary
-  - geckodriver
   - firefox =68
+  - geckodriver
+  - robotframework
+  - robotframework-lint
+  - robotframework-seleniumlibrary
   # demo miscellany
   - pip:
       - yellowbrick

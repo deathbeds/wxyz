@@ -49,16 +49,16 @@ jobs:
               - script: conda info && conda list --name ${{ python.env }}
                 displayName: list conda packages and info
 
-              - script: ${{ platform.activate }} ${{ python.env }} && jlpm || jlpm || jlpm
+              - script: ${{ platform.activate }} ${{ python.env }} && doit setup:ts
                 displayName: install npm dependencies
 
-              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._build --no-conda
+              - script: ${{ platform.activate }} ${{ python.env }} && doit pydist
                 displayName: build python distributions
 
-              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._dev_install
+              - script: ${{ platform.activate }} ${{ python.env }} && doit setup:py_wheels
                 displayName: install python wheels
 
-              - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._lint
+              - script: ${{ platform.activate }} ${{ python.env }} && doit lint
                 displayName: check style
 
               - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._test
