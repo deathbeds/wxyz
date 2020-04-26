@@ -67,16 +67,16 @@ jobs:
               - script: ${{ platform.activate }} ${{ python.env }} && doit ts
                 displayName: build typescript
 
-              - script: ${{ platform.activate }} ${{ python.env }} && ${{ parameters.lab_ext }} || ${{ parameters.lab_ext }} || ${{ parameters.lab_ext }}
+              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:extensions
                 displayName: install labextensions
 
-              - script: ${{ platform.activate }} ${{ python.env }} && jupyter labextension list
+              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:list
                 displayName: list labextensions before build
 
-              - script: ${{ platform.activate }} ${{ python.env }} && ${{ parameters.lab_build }} || ${{ parameters.lab_build }} || ${{ parameters.lab_build }}
+              - script: ${{ platform.activate }} ${{ python.env }} && lab:build
                 displayName: build lab
 
-              - script: ${{ platform.activate }} ${{ python.env }} && jupyter labextension list
+              - script: ${{ platform.activate }} ${{ python.env }} && doit lab:list
                 displayName: list labextensions after build
 
               - script: ${{ platform.activate }} ${{ python.env }} && python -m _scripts._robot

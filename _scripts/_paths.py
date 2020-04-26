@@ -46,6 +46,11 @@ YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 TS_PACKAGE = [*TS_SRC.glob("*/package.json")]
+THIRD_PARTY_EXTENSIONS = ["bqplot@0.5.6", "@jupyter-widgets/jupyterlab-manager@2.0.0"]
+WXYZ_LAB_EXTENSIONS = [
+    tsp.parent for tsp in TS_PACKAGE if "wxyz-meta" not in tsp.parent.name
+]
+ALL_LABEXTENSIONS = [*THIRD_PARTY_EXTENSIONS, *WXYZ_LAB_EXTENSIONS]
 ALL_TS = sum(
     [
         [*(tsp.parent / "src").rglob("*.ts"), *(tsp.parent / "style").rglob("*")]

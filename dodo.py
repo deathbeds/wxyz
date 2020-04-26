@@ -136,3 +136,38 @@ def task_nbtest():
         ],
         uptodate=[result_dep("lint:prettier")],
     )
+
+
+def task_lab():
+    """ set up local jupyterlab
+    """
+    jpy = [P.PY, "-m", "jupyter"]
+    app_dir = ["--debug", "--app-dir", P.LAB]
+
+    yield dict(
+        name="extensions",
+        file_dep=[*P.TS_PACKAGE],
+        actions=[
+            [
+                *jpy,
+                "labextension",
+                "install",
+                *P.ALL_LABEXTENSIONS,
+                "--no-build",
+                *app_dir,
+            ]
+        ],
+        uptodate=[result_dep("ts")],
+    )
+
+    yield dict(
+        name="build",
+        actions=[
+            [*jpy, "lab", "build", "--dev-build=False", "--minimize=True", *app_dir]
+        ],
+        uptodate=[result_dep("lab:extensions")],
+    )
+
+    yield dict(
+        name="list", actions=[[*jpy, "labextension", "list", *app_dir]],
+    )
