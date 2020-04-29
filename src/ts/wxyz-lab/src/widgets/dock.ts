@@ -52,11 +52,13 @@ export class DockBoxView extends BoxView {
       return;
     }
 
+    const originalLayout = this.model.get('dock_layout');
+
     // handle initial child readiness for `dock_layout`
     Promise.all(this.children_views.views)
       .then(async () => {
-        if (this.model.get('dock_layout')) {
-          await (this.pWidget as any).onLayoutModelChanged();
+        if (originalLayout != null) {
+          await (this.pWidget as any).onLayoutModelChanged(originalLayout);
         }
         this._childrenInitialized = true;
       })
@@ -67,7 +69,6 @@ export class DockBoxView extends BoxView {
 
   _createElement(tagName: string) {
     this.pWidget = new JupyterPhosphorDockPanelWidget({ view: this }) as any;
-    this.pWidget.node.title = 'Shift+Click to view full screen';
     this.pWidget.node.addEventListener('click', (evt: MouseEvent) => {
       if (evt.shiftKey) {
         const anyful = screenfull as any;
