@@ -9,6 +9,7 @@ import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
 import { WXYZBox } from '@deathbeds/wxyz-core/lib/widgets/_base';
 import { NAME, VERSION } from '..';
+import { SchemaFormModel } from '@deathbeds/jupyterlab-rjsf/lib/schemaform/model';
 
 const _dbjrjsf = lazyLoader(
   async () => await import('@deathbeds/jupyterlab-rjsf/lib/schemaform')
@@ -96,41 +97,11 @@ export class JSONSchemaFormView extends BoxView {
   }
 
   async rerender(): Promise<void> {
-    const { m, onChange, idPrefix } = this;
-    const { SchemaForm } = _dbjrjsf.get();
+    const { m } = this;
     const { formData, schema, uiSchema } = m;
 
     if (!this._form) {
-      const { ALL_CUSTOM_UI } = await import(
-        '@deathbeds/jupyterlab-rjsf/lib/fields'
-      );
-
-      let options = {};
-
-      if (JSONSchemaFormView._rendermime) {
-        options = {
-          markdown: JSONSchemaFormView._rendermime.createRenderer(
-            'text/markdown'
-          ) as RenderedMarkdown
-        };
-      }
-
-      this._form = new SchemaForm(
-        schema,
-        {
-          liveValidate: true,
-          formData,
-          uiSchema,
-          onChange,
-          idPrefix,
-          ...ALL_CUSTOM_UI
-        },
-        options
-      );
-      this._form.addClass(INNER_CLASS);
-
-      this.pWidget.addWidget(this._form);
-      return;
+      return await this.initForm();
     }
 
     const changed = m.changedAttributes();
@@ -163,6 +134,42 @@ export class JSONSchemaFormView extends BoxView {
           break;
       }
     }
+  }
+
+  async initForm() {
+    const { m, onChange, idPrefix } = this;
+    const { SchemaForm } = _dbjrjsf.get();
+    const { formData, schema, uiSchema } = m;
+
+    const { ALL_CUSTOM_UI } = await import(
+      '@deathbeds/jupyterlab-rjsf/lib/fields'
+    );
+
+    let options: SchemaFormModel.IOptions = {};
+
+    if (JSONSchemaFormView._rendermime) {
+      options = {
+        markdown: JSONSchemaFormView._rendermime.createRenderer(
+          'text/markdown'
+        ) as RenderedMarkdown
+      };
+    }
+
+    this._form = new SchemaForm(
+      schema,
+      {
+        liveValidate: true,
+        formData,
+        uiSchema,
+        onChange,
+        idPrefix,
+        ...ALL_CUSTOM_UI
+      },
+      options
+    );
+    this._form.addClass(INNER_CLASS);
+
+    this.pWidget.addWidget(this._form);
   }
 
   onChange = (evt: any, _err?: any) => {
