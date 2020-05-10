@@ -1,5 +1,4 @@
 import { toArray } from '@lumino/algorithm';
-import { JSONExt } from '@lumino/coreutils';
 import { Message } from '@lumino/messaging';
 import { Application } from '@lumino/application';
 import { DockPanel, DockLayout, Widget } from '@lumino/widgets';
