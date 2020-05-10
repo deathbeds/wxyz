@@ -52,7 +52,7 @@ dependencies:
   # robot tests
   - firefox =68
   - geckodriver
-  - robotframework
+  - robotframework <3.2
   - robotframework-lint
   - robotframework-seleniumlibrary
   # demo miscellany
