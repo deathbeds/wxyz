@@ -52,11 +52,13 @@ export class DockBoxView extends BoxView {
       return;
     }
 
+    const originalLayout = this.model.get('dock_layout');
+
     // handle initial child readiness for `dock_layout`
     Promise.all(this.children_views.views)
       .then(async () => {
-        if (this.model.get('dock_layout')) {
-          await (this.pWidget as any).onLayoutModelChanged();
+        if (originalLayout != null) {
+          await (this.pWidget as any).onLayoutModelChanged(originalLayout);
         }
         this._childrenInitialized = true;
       })

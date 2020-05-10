@@ -19,7 +19,6 @@ let nextId = 0;
 
 export class JupyterPhosphorDockPanelWidget extends DockPanel {
   protected _view: DOMWidgetView;
-  private _ignoreLayoutChanges: boolean;
   private _style: HTMLStyleElement;
   private _defaultSpacing: number;
 
@@ -31,7 +30,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     this.id = this.id || `${CSS.DOCK_BOX}-${nextId++}`;
     this._view = view;
     this.layoutModified.connect(this.onLayoutChanged, this);
-    view.model.on('change:dock_layout', this.onLayoutModelChanged, this);
+    view.model.on('change:dock_layout', () => this.onLayoutModelChanged());
     view.model.on(
       'change:hide_tabs change:tab_size change:border_size',
       this.onStyleChanged,
@@ -88,68 +87,19 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
     this.onSpacing();
   }
 
-  async onLayoutModelChanged() {
-    const model = this._view?.model;
-    if (model == null) {
-      return;
-    }
-    let main: DockLayout.AreaConfig;
-    try {
-      main = this.jWidgetsToArea(model.get('dock_layout'));
-    } catch {
-      return;
-    }
-    this._ignoreLayoutChanges = true;
+  async onLayoutModelChanged(dockLayout?: any) {
+    dockLayout =
+      dockLayout != null ? dockLayout : this._view.model.get('dock_layout');
+    let main = this.jWidgetsToArea(dockLayout);
     if (main) {
       this.restoreLayout({ main });
       this.onSpacing();
     }
-    setTimeout(() => {
-      this._ignoreLayoutChanges = false;
-      this.onLayoutChanged();
-    }, 100);
-  }
-
-  onChildAdded(msg: Widget.ChildMessage) {
-    super.onChildAdded(msg);
-    if (msg.child instanceof JupyterPhosphorWidget) {
-      this.onLayoutChanged();
-    }
-  }
-
-  onChildRemoved(msg: Widget.ChildMessage) {
-    super.onChildRemoved(msg);
-    if (msg.child instanceof JupyterPhosphorWidget) {
-      this.onLayoutChanged();
-    }
   }
 
   onLayoutChanged() {
-    const { model } = this._view;
-    if (model == null) {
-      return;
-    }
-    if (this._ignoreLayoutChanges) {
-      return;
-    }
-    const { main } = this.saveLayout();
-    if (main == null) {
-      return;
-    }
-
-    let newConfig: object;
-
-    try {
-      newConfig = this.areaToJWidgets(main);
-    } catch {
-      return;
-    }
-
-    if (JSONExt.deepEqual(newConfig as any, model.get('dock_layout'))) {
-      return;
-    }
-
-    model.set('dock_layout', newConfig);
+    let layout = this.saveLayout();
+    this._view.model.set('dock_layout', this.areaToJWidgets(layout.main));
     this._view.touch();
   }
 
@@ -158,6 +108,8 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
       case 'split-area':
         return {
           ...area,
+          // normalize the sizes to avoid thrashing
+          sizes: area.sizes.map(size => Math.floor(10000 * size) / 10000),
           children: area.children.map(this.areaToJWidgets, this)
         };
       case 'tab-area':
@@ -230,7 +182,6 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
   }
 
   insertWidget(i: number, widget: Widget) {
-    this._ignoreLayoutChanges = true;
     this.addWidget(widget, { mode: 'split-right' });
 
     const view: DOMWidgetView = (widget as any)._view;
@@ -254,10 +205,6 @@ export class JupyterPhosphorDockPanelWidget extends DockPanel {
       onTitle
     );
     onTitle();
-    setTimeout(() => {
-      this._ignoreLayoutChanges = false;
-      this.onLayoutChanged();
-    }, 100);
   }
 }
 
