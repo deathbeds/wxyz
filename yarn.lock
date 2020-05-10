@@ -74,7 +74,8 @@
 
 "@deathbeds/jupyterlab-rjsf@^0.5.0a0":
   version "0.5.0-a0"
-  resolved "file:linked_packages/deathbeds-jupyterlab-rjsf-0.5.0-a0-fe2ba9fd2a5a734158a91d27effce83963176337.tgz#fbed42250f6be8b1df6728525569b543a58b58c0"
+  resolved "https://registry.yarnpkg.com/@deathbeds/jupyterlab-rjsf/-/jupyterlab-rjsf-0.5.0-a0.tgz#349e701cfc3e77850cb1ef6b377a17643a244278"
+  integrity sha512-VZNVXijrZNPLb8Cem1Sve6twG7LuS/8ZNXyBIlerNzq1nJJft9JoeZY2s8XmgVvZ4aWVxZqd6T7NtOG1j+VEtg==
   dependencies:
     "@rjsf/core" "~2.0.0"
     react-codemirror2 "^6.0.0"
@@ -192,7 +193,8 @@
 
 "@jupyter-widgets/jupyterlab-manager@2":
   version "2.0.0"
-  resolved "file:../extensions/jupyter-widgets-jupyterlab-manager-2.0.0.tgz#05ab402833df07aac1ec2c549a1d748b3c303185"
+  resolved "https://registry.yarnpkg.com/@jupyter-widgets/jupyterlab-manager/-/jupyterlab-manager-2.0.0.tgz#05ab402833df07aac1ec2c549a1d748b3c303185"
+  integrity sha512-i+qtbEe//W9RuDcJyOXyogJpfx/N0H/TS2E8UQh+/9YGaNQYjL0emlkk6NZSYlUv4ezrb+4jlFu0KbkxM9aQXQ==
   dependencies:
     "@jupyter-widgets/base" "^3.0.0"
     "@jupyter-widgets/controls" "^2.0.0"
@@ -2298,9 +2300,9 @@ code-point-at@^1.0.0:
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
 codemirror@*:
-  version "5.50.2"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.50.2.tgz#32ddfe2b50193fcf573d8141c4a31d267c92b4a3"
-  integrity sha512-PPjUsC1oXSM86lunKrw609P1oM0Wu8z9rqzjbeyBYCcx44VL41aUpccdOf1PfAZtTONlmN3sT3p2etLNYa1OGg==
+  version "5.53.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.53.2.tgz#9799121cf8c50809cca487304e9de3a74d33f428"
+  integrity sha512-wvSQKS4E+P8Fxn/AQ+tQtJnF1qH5UOlxtugFLpubEZ5jcdH2iXTVinb+Xc/4QjshuOxRm4fUsU2QPF1JJKiyXA==
 
 codemirror@~5.49.2:
   version "5.49.2"
@@ -4340,7 +4342,12 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@*, marked@^0.8.0:
+marked@*:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-1.0.0.tgz#d35784245a04871e5988a491e28867362e941693"
+  integrity sha512-Wo+L1pWTVibfrSr+TTtMuiMfNzmZWiOPeO7rZsQUY5bgsxpHesBEcIWJloWVTFnrMXnf/TL30eTFSGJddmQAng==
+
+marked@^0.8.0:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.8.2.tgz#4faad28d26ede351a7a1aaa5fec67915c869e355"
   integrity sha512-EGwzEeCcLniFX51DhTpmTom+dSA/MG/OBUDjnWtHbEnjAH180VzUeAw+oE4+Zv+CoYBWyRlYOTR0N8SO9R1PVw==
@@ -5688,9 +5695,9 @@ rxjs@^6.4.0:
     tslib "^1.9.0"
 
 safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@^5.2.0, safe-buffer@~5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.0.tgz#b74daec49b1148f88c64b68d49b1e815c1f2f519"
-  integrity sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
+  integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
 
 safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
