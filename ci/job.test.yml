@@ -49,7 +49,7 @@ jobs:
               - script: conda info && conda list --prefix ${{ python.env }}
                 displayName: list conda packages and info
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup:ts
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_ts
                 displayName: install npm dependencies
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit pydist
