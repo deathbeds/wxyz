@@ -2,6 +2,7 @@ import { toArray } from '@lumino/algorithm';
 import { Message } from '@lumino/messaging';
 import { Application } from '@lumino/application';
 import { DockPanel, DockLayout, Widget } from '@lumino/widgets';
+import { DockPanelSvg } from '@jupyterlab/ui-components';
 
 import {
   JupyterPhosphorWidget,
@@ -16,7 +17,7 @@ export const CSS = {
 
 let nextId = 0;
 
-export class JupyterPhosphorDockPanelWidget extends DockPanel {
+export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
   protected _view: DOMWidgetView;
   private _style: HTMLStyleElement;
   private _defaultSpacing: number;
