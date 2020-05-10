@@ -52,13 +52,13 @@ jobs:
               - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_ts
                 displayName: install npm dependencies
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit pydist
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit "dist_py*"
                 displayName: build python distributions
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup:py_wheels
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_py_ci
                 displayName: install python wheels
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit lint
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit "lint_*"
                 displayName: check style
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit nbtest
@@ -67,17 +67,11 @@ jobs:
               - script: ${{ platform.activate }} ./${{ python.env }} && doit ts
                 displayName: build typescript
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:extensions
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab_extensions
                 displayName: install labextensions
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:list
-                displayName: list labextensions before build
-
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:build
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab_build
                 displayName: build lab
-
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit lab:list
-                displayName: list labextensions after build
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit robot
                 displayName: run browser tests
