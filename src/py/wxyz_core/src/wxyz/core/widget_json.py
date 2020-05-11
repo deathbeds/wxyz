@@ -17,13 +17,37 @@ class JSON(Fn):
     _model_name = T.Unicode("JSONModel").tag(sync=True)
 
     value = T.Union(
-        [T.Dict(), T.List(), T.Unicode(), T.Int(), T.Float()], allow_none=True
+        [T.Dict(), T.List(), T.Unicode(), T.Int(), T.Float(), T.Bool()], allow_none=True
     ).tag(sync=True)
 
     def the_function(self, source):
         """ parse some JSON
         """
         return json.loads(source)
+
+
+@W.register
+class UnJSON(Fn):
+    """ A JSON dumping functional widget
+    """
+
+    _model_name = T.Unicode("UnJSONModel").tag(sync=True)
+
+    source = T.Union(
+        [T.Dict(), T.List(), T.Unicode(), T.Int(), T.Float(), T.Bool()], allow_none=True
+    ).tag(sync=True)
+    value = T.Unicode(allow_none=True).tag(sync=True)
+    indent = T.Int(allow_none=True).tag(sync=True)
+
+    _observed_traits = ["source", "indent"]
+
+    def the_function(self, source, indent):
+        """ dump some JSON
+        """
+        kwargs = {}
+        if indent:
+            kwargs["indent"] = True
+        return json.dumps(source, **kwargs)
 
 
 @W.register
