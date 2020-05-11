@@ -46,7 +46,7 @@ class UnJSON(Fn):
         """
         kwargs = {}
         if indent:
-            kwargs["indent"] = True
+            kwargs["indent"] = indent
         return json.dumps(source, **kwargs)
 
 
