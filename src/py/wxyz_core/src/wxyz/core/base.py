@@ -51,6 +51,7 @@ class Fn(Base):
 
     source = T.Any(allow_none=True).tag(sync=True)
     value = T.Any(allow_none=True).tag(sync=True)
+    mode = T.Enum(["both", "kernel", "client"]).tag(sync=True)
 
     _observed_traits = ["source"]
 
@@ -64,6 +65,9 @@ class Fn(Base):
     def the_observer(self, *_):
         """ Base observer that updates value and/or error
         """
+        if self.mode == "client":
+            return
+
         with self.hold_trait_notifications():
             try:
                 self.value = None

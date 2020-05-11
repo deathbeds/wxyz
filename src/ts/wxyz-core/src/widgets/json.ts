@@ -37,6 +37,12 @@ export class UnJSONModel extends FnModel<any, string, UnJSONModel.ITraits> {
     };
   }
 
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.on('change:indent', this.theSourceChanged, this);
+    return this;
+  }
+
   async theFunction(source: any) {
     const indent: number = this.get('indent');
     return indent

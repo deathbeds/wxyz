@@ -38,7 +38,6 @@ export class CompactModel extends JSONLDBase<
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
     this.on('change:context_changed', this.theSourceChanged, this);
-    this.theSourceChanged();
     return this;
   }
 
@@ -66,7 +65,6 @@ export class FlattenModel extends JSONLDBase<
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
     this.on('change:context_changed', this.theSourceChanged, this);
-    this.theSourceChanged();
     return this;
   }
 
@@ -90,7 +88,6 @@ export class FrameModel extends JSONLDBase<object, object, FrameModel.ITraits> {
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
     this.on('change:frame_changed', this.theSourceChanged, this);
-    this.theSourceChanged();
     return this;
   }
 
@@ -118,7 +115,6 @@ export class NormalizeModel extends JSONLDBase<
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
     this.on('change:format_changed', this.theSourceChanged, this);
-    this.theSourceChanged();
     return this;
   }
 

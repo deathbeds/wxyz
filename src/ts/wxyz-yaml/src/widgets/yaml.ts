@@ -28,9 +28,14 @@ export class UnYAMLModel extends UnJSONModel {
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: UnYAMLModel.model_name,
-      value: '' as any
+      _model_name: UnYAMLModel.model_name
     };
+  }
+
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.on('change:indent', this.theSourceChanged, this);
+    return this;
   }
 
   async theFunction(source: string) {
