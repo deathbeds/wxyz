@@ -51,7 +51,7 @@ class Fn(Base):
 
     source = T.Any(allow_none=True).tag(sync=True)
     value = T.Any(allow_none=True).tag(sync=True)
-    mode = T.Enum(["both", "kernel", "client"]).tag(sync=True)
+    mode = T.Enum(["both", "kernel", "client"], default_value="both").tag(sync=True)
 
     _observed_traits = ["source"]
 
