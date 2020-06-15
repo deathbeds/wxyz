@@ -2,11 +2,14 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 *.egg-info
+*.tgz
 *.tsbuildinfo
+/lab/
+build/
 dask-worker-space/
 dist/
 envs/
 lib/
 node_modules/
-Untitled*.ipynb
-/lab/
+untitled*
+Untitled*
