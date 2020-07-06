@@ -26,6 +26,9 @@ env_specs:
       - dask >=0.18.2
       - dask-ml
       - distributed
+      - fossil
+      - git
+      - gitpython
       - importnb
       - ipympl
       - ipywidgets

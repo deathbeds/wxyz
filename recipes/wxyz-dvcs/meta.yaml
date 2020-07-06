@@ -1,0 +1,35 @@
+{% set name = "wxyz-dvcs" %}
+{% set version = "0.4.0" %}
+{% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
+
+package:
+  name: '{{ name }}'
+  version: '{{ version }}'
+
+source:
+  path: ../../dist/sdist/{{ fname }}
+
+build:
+  noarch: python
+  number: 0
+  script: '{{ PYTHON }} -m pip install {{ fname }} --no-deps -vv'
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - fossil
+    - gitpython
+    - python
+    - wxyz-core
+
+test:
+  imports:
+    - wxyz.dvcs
+
+about:
+  home: https://github.com/deathbeds/wxyz
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+  summary: experimental Jupyter widgets for distributed version control

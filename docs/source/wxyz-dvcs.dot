@@ -1,0 +1,25 @@
+digraph g {
+  node[shape=rect fontname="sans-serif"]
+  edge[fontname="sans-serif" minlen=2]
+  splines=ortho
+  Repo[width=5]
+  Git
+  Fossil
+  Remote
+  User
+  Commit[width=5]
+  File
+  Head
+  Workspace
+  Tag
+  # inheritance
+  {Git Fossil} -> Repo[arrowhead=oarrow]
+  # ownership
+  Repo -> {Remote Commit Workspace Tag Head}[arrowhead=diamond headlabel="* "]
+  Commit -> User[arrowhead=diamond headlabel="1  " taillabel=owner]
+  Workspace -> Head[arrowhead=diamond headlabel="1  " taillabel=workspaces]
+  Head -> Commit[arrowhead=diamond headlabel="1  " taillabel=commit]
+  Commit -> Commit[arrowhead=diamond headlabel="1..*  " taillabel=parents]
+  Commit -> File[arrowhead=diamond headlabel="1..*  " taillabel=" files"]
+  Tag -> Commit[arrowhead=diamond headlabel="1  "]
+}
