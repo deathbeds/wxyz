@@ -17,7 +17,7 @@ class AlphaColor(W.widgets.trait_types.Color):
         """
         if RE_RGB_EH.match(value):
             return value
-        return super(AlphaColor, self).validate(obj, value)
+        return super().validate(obj, value)
 
 
 class EmptyAlphaColor(W.widgets.trait_types.Color):
@@ -29,7 +29,7 @@ class EmptyAlphaColor(W.widgets.trait_types.Color):
         """
         if value == "":
             return value
-        return super(EmptyAlphaColor, self).validate(obj, value)
+        return super().validate(obj, value)
 
 
 class AlphaColorPicker(W.ColorPicker):

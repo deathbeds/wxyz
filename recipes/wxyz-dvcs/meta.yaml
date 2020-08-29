@@ -23,6 +23,7 @@ requirements:
     - gitpython
     - python
     - wxyz-core
+    - watchgod
 
 test:
   imports:

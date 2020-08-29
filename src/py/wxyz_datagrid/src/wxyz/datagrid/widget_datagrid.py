@@ -44,7 +44,7 @@ class DataGrid(DataGridBase, W.Box):
         """ this shouldn't be needed, but we're doing _something wrong_
         """
         try:
-            super_keys = super(DataGrid, self)._repr_keys()
+            super_keys = super()._repr_keys()
             for key in super_keys:
                 if key != "value":
                     yield key

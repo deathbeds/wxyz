@@ -65,7 +65,7 @@ env_specs:
     packages:
       - black
       - flake8
-      - isort
+      - isort <5
       - pylint
 
   _py:

@@ -58,7 +58,7 @@ class Fn(Base):
     def __init__(self, *args, **kwargs):
         for i, arg in enumerate(args):
             kwargs[self._observed_traits[i]] = arg
-        super(Fn, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.observe(self.the_observer, self._observed_traits)
         self.the_observer(None)
 

@@ -32,7 +32,7 @@ class Repo(DVCSBase):
 
     _model_name = T.Unicode("RepoModel").tag(sync=True)
     _view_name = T.Unicode("RepoView").tag(sync=True)
-    path = T.Intance(Path)
+    path = T.Instance(Path)
 
 
 @W.register
