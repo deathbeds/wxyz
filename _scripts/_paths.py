@@ -94,7 +94,7 @@ ALL_IPYNB = sorted(
         for ipynb in (PY_SRC / "wxyz_notebooks" / "src" / "wxyz" / "notebooks").rglob(
             "*.ipynb"
         )
-        if "ipynb_checkpoints" not in str(ipynb)
+        if "ipynb_checkpoints" not in str(ipynb) and ipynb.parent.name != "Design"
     ]
 )
 
