@@ -88,13 +88,16 @@ WHEELS = [
     for pys, version in PY_VERSION.items()
 ]
 
+IPYNB = PY_SRC / "wxyz_notebooks" / "src" / "wxyz" / "notebooks"
+DESIGN_IPYNB = IPYNB / "Design"
+
+# this is duplicated in wxyz.notebook.tests
 ALL_IPYNB = sorted(
     [
         ipynb
-        for ipynb in (PY_SRC / "wxyz_notebooks" / "src" / "wxyz" / "notebooks").rglob(
-            "*.ipynb"
-        )
-        if "ipynb_checkpoints" not in str(ipynb) and ipynb.parent.name != "Design"
+        for ipynb in IPYNB.rglob("*.ipynb")
+        if ".ipynb_checkpoints" not in str(ipynb)
+        and str(DESIGN_IPYNB) not in str(ipynb)
     ]
 )
 
