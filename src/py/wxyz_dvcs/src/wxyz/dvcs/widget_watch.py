@@ -1,5 +1,7 @@
 """ widgets for watching files
 """
+import time
+
 # pylint: disable=no-self-use,keyword-arg-before-vararg
 from asyncio import Event
 from pathlib import Path
@@ -56,7 +58,11 @@ class Watcher(DVCSBase):
     def _changes(self, changes):
         """publish the changes. schedule to run in the loop"""
         self.changes = [
-            {"change": k.name, "path": str(Path(v).relative_to(self.path))}
+            {
+                "change": k.name,
+                "path": str(Path(v).relative_to(self.path)),
+                "time": time.time(),
+            }
             for k, v in sorted(changes)
         ]
 
