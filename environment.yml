@@ -1,8 +1,8 @@
 name: wxyz-demo
 
 channels:
-  - conda-forge
-  - defaults
+  - https://conda.anaconda.org/conda-forge
+  - nodefaults
 
 dependencies:
   - bqplot

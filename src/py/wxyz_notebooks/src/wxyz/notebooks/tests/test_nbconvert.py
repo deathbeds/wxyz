@@ -10,12 +10,13 @@ from .conftest import NOTEBOOKS
 
 @pytest.mark.parametrize("name,ipynb", [[i.name, i] for i in NOTEBOOKS])
 def test_notebook(name, ipynb, tmp_path):
-    """ will it nbconvert?
-    """
+    """will it nbconvert?"""
     args = [
         sys.executable,
         "-m",
         "nbconvert",
+        "--to",
+        "html",
         "--output-dir",
         tmp_path,
         "--execute",
@@ -23,5 +24,13 @@ def test_notebook(name, ipynb, tmp_path):
     ]
 
     assert (
-        subprocess.call([*map(str, args,)]) == 0
+        subprocess.call(
+            [
+                *map(
+                    str,
+                    args,
+                )
+            ]
+        )
+        == 0
     ), f"{name} failed to nbconvert --execute"

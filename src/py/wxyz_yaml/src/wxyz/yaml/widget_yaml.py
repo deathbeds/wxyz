@@ -11,25 +11,21 @@ from .base import T, W, YAMLBase
 
 @W.register
 class YAML(JSON, YAMLBase):
-    """ A Widget that parses YAML source into... something
-    """
+    """A Widget that parses YAML source into... something"""
 
     _model_name = T.Unicode("YAMLModel").tag(sync=True)
 
     def the_function(self, source):
-        """ "safely" load some YAML
-        """
+        """ "safely" load some YAML"""
         return safe_load(source)
 
 
 @W.register
 class UnYAML(UnJSON, YAMLBase):
-    """ A Widget that dumps... someting into YAML
-    """
+    """A Widget that dumps... someting into YAML"""
 
     _model_name = T.Unicode("UnYAMLModel").tag(sync=True)
 
     def the_function(self, source, indent):
-        """ "safely" dump some YAML
-        """
+        """ "safely" dump some YAML"""
         return safe_dump(source, indent=indent, default_flow_style=False)

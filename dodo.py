@@ -19,8 +19,7 @@ DOIT_CONFIG = {
 
 
 def task_setup_ts():
-    """ set up typescript environment
-    """
+    """set up typescript environment"""
     return dict(
         file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
         targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
@@ -32,8 +31,7 @@ EGG_LINKS = []
 
 
 def _make_py_setup(i, setup_py):
-    """ make all the setups
-    """
+    """make all the setups"""
     pkg = setup_py.parent
 
     uptodate = {}
@@ -72,8 +70,7 @@ def _make_py_setup(i, setup_py):
 if P.RUNNING_IN_CI:
 
     def task_setup_py_ci():
-        """ CI: setup python packages from wheels
-        """
+        """CI: setup python packages from wheels"""
         return dict(
             file_dep=P.WHEELS,
             targets=[P.OK / "setup_py"],
@@ -93,8 +90,7 @@ if not P.RUNNING_IN_CI:
     ]
 
     def task_setup_py_dev():
-        """ setup python packages for development
-        """
+        """setup python packages for development"""
         return dict(
             file_dep=EGG_LINKS,
             targets=[P.OK / "setup_py"],
@@ -107,8 +103,7 @@ if not P.RUNNING_IN_CI:
 
 
 def task_lint_prettier():
-    """ use prettier to format things
-    """
+    """use prettier to format things"""
 
     return dict(
         file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
@@ -142,8 +137,7 @@ def _make_linter(label, files):
 
 
 def _make_pydist(setup_py):
-    """ build python release artifacts
-    """
+    """build python release artifacts"""
     pkg = setup_py.parent
     file_dep = [
         setup_py,
@@ -152,8 +146,7 @@ def _make_pydist(setup_py):
     ]
 
     def _action(output):
-        """ build a single task so we can run in the cwd
-        """
+        """build a single task so we can run in the cwd"""
         args = [P.PY, "setup.py", output, "--dist-dir", P.DIST / output]
         return lambda: U.call(args, cwd=pkg) == 0
 
@@ -173,8 +166,7 @@ def _make_pydist(setup_py):
 
 
 def task_ts():
-    """ build typescript components
-    """
+    """build typescript components"""
     return dict(
         file_dep=[P.YARN_LOCK, *P.TS_PACKAGE, P.OK / "prettier"],
         targets=[*P.TS_TARBALLS],
@@ -183,8 +175,7 @@ def task_ts():
 
 
 def task_nbtest():
-    """ smoke test all notebooks with nbconvert
-    """
+    """smoke test all notebooks with nbconvert"""
     return dict(
         file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
         targets=[P.OK / "nbtest"],
@@ -204,8 +195,7 @@ APP_DIR = ["--debug", "--app-dir", P.LAB]
 
 
 def task_lab_extensions():
-    """ set up local jupyterlab
-    """
+    """set up local jupyterlab"""
 
     return dict(
         file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS],
@@ -226,8 +216,7 @@ def task_lab_extensions():
 
 
 def task_lab_build():
-    """ build JupyterLab web application
-    """
+    """build JupyterLab web application"""
     return dict(
         file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],
         targets=[P.OK / "lab"],
@@ -243,8 +232,7 @@ ATEST = [P.PY, "-m", "_scripts._atest"]
 
 
 def task_robot_dry_run():
-    """ dry run robot syntax
-    """
+    """dry run robot syntax"""
 
     return dict(
         file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
@@ -258,8 +246,7 @@ def task_robot_dry_run():
 
 
 def task_robot():
-    """ test in browser with robot framework
-    """
+    """test in browser with robot framework"""
 
     return dict(
         file_dep=[

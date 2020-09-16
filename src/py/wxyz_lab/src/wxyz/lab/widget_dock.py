@@ -24,8 +24,7 @@ The `widgets` list of a `tab-area` should be indices of `children`
 
 @W.register
 class DockBox(LabBase, W.Box):
-    """ A Box that renders as a DockPanel
-    """
+    """A Box that renders as a DockPanel"""
 
     _model_name = T.Unicode("DockBoxModel").tag(sync=True)
     _view_name = T.Unicode("DockBoxView").tag(sync=True)
@@ -55,8 +54,7 @@ split-bottom
 
 @W.register
 class DockPop(LabBase, W.Box):
-    """ A "box" that just adds stuff to the main JupyterLab area
-    """
+    """A "box" that just adds stuff to the main JupyterLab area"""
 
     mode = T.Enum(MODES, default_value=None, allow_none=True).tag(sync=True)
 

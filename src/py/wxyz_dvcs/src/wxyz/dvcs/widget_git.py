@@ -7,8 +7,7 @@ from .widget_repo import Repo
 
 
 class Git(Repo):
-    """ A git repository
-    """
+    """A git repository"""
 
     _model_name = T.Unicode("GitModel").tag(sync=True)
     _view_name = T.Unicode("GitView").tag(sync=True)

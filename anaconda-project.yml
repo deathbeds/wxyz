@@ -53,8 +53,8 @@ env_specs:
       - xgboost
       - yellowbrick
     channels:
-      - conda-forge
-      - defaults
+      - https://conda.anaconda.org/conda-forge
+      - nodefaults
 
   _doit:
     packages:
@@ -89,7 +89,7 @@ env_specs:
 
   _robot:
     packages:
-      - firefox =68
+      - firefox =78
       - geckodriver
       - robotframework >=3.2
       - robotframework-lint

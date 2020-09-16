@@ -1,7 +1,8 @@
 name: wxyz-test
 
 channels:
-  - conda-forge
+  - https://conda.anaconda.org/conda-forge
+  - nodefaults
 
 dependencies:
   # primary runtime dependencies
@@ -19,7 +20,7 @@ dependencies:
   - importnb
   - ipympl
   - ipywidgets
-  - isort
+  - isort <5
   - jinja2
   - jsonpointer
   - lime
@@ -39,6 +40,7 @@ dependencies:
   - tpot
   - traittypes
   - umap-learn
+  - yellowbrick
   # testing
   - pytest
   - pytest-cov
@@ -50,11 +52,8 @@ dependencies:
   - isort
   - pylint
   # robot tests
-  - firefox =68
+  - firefox =78
   - geckodriver
-  - robotframework <3.2
+  - robotframework >=3.2
   - robotframework-lint
   - robotframework-seleniumlibrary
-  # demo miscellany
-  - pip:
-      - yellowbrick

@@ -11,8 +11,7 @@ from .base import Fn, T, W
 
 @W.register
 class JSON(Fn):
-    """ A JSON parsing functional widget
-    """
+    """A JSON parsing functional widget"""
 
     _model_name = T.Unicode("JSONModel").tag(sync=True)
 
@@ -21,15 +20,13 @@ class JSON(Fn):
     ).tag(sync=True)
 
     def the_function(self, source):
-        """ parse some JSON
-        """
+        """parse some JSON"""
         return json.loads(source)
 
 
 @W.register
 class UnJSON(Fn):
-    """ A JSON dumping functional widget
-    """
+    """A JSON dumping functional widget"""
 
     _model_name = T.Unicode("UnJSONModel").tag(sync=True)
 
@@ -42,8 +39,7 @@ class UnJSON(Fn):
     _observed_traits = ["source", "indent"]
 
     def the_function(self, source, indent):
-        """ dump some JSON
-        """
+        """dump some JSON"""
         kwargs = {}
         if indent:
             kwargs["indent"] = indent
@@ -52,8 +48,7 @@ class UnJSON(Fn):
 
 @W.register
 class JSONPointer(Fn):
-    """ A JSON pointer resolver
-    """
+    """A JSON pointer resolver"""
 
     _model_name = T.Unicode("JSONPointerModel").tag(sync=True)
 
@@ -63,15 +58,13 @@ class JSONPointer(Fn):
     _observed_traits = ["source", "pointer"]
 
     def the_function(self, source, pointer):
-        """ point at some json
-        """
+        """point at some json"""
         return jsonpointer.resolve_pointer(source, pointer)
 
 
 @W.register
 class JSONSchema(Fn):
-    """ A JSON schema validator
-    """
+    """A JSON schema validator"""
 
     _model_name = T.Unicode("JSONSchemaModel").tag(sync=True)
 
@@ -82,7 +75,6 @@ class JSONSchema(Fn):
     _observed_traits = ["source", "schema"]
 
     def the_function(self, source, schema):
-        """ validate some JSON
-        """
+        """validate some JSON"""
         jsonschema.validate(source, schema)
         return source

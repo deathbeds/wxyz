@@ -22,11 +22,11 @@ dataframe_serialization = dict(
 
 @W.register
 class DataGrid(DataGridBase, W.Box):
-    """ An (overly) opinionated DataFrame-backed datagrid
-        [0.1.6]/datagrid.ts#L64
+    """An (overly) opinionated DataFrame-backed datagrid
+    [0.1.6]/datagrid.ts#L64
 
-        Used JSONModel, which expect JSON Table Schema
-        [0.1.6]/jsonmodel.ts#L21
+    Used JSONModel, which expect JSON Table Schema
+    [0.1.6]/jsonmodel.ts#L21
     """
 
     _model_name = T.Unicode("DataGridModel").tag(sync=True)
@@ -41,8 +41,7 @@ class DataGrid(DataGridBase, W.Box):
     )
 
     def _repr_keys(self):
-        """ this shouldn't be needed, but we're doing _something wrong_
-        """
+        """this shouldn't be needed, but we're doing _something wrong_"""
         try:
             super_keys = super()._repr_keys()
             for key in super_keys:

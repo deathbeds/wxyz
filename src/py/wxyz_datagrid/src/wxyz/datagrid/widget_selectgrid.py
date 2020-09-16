@@ -9,8 +9,7 @@ from .widget_stylegrid import StyleGrid
 
 @W.register
 class SelectGrid(StyleGrid):
-    """ A styled grid with selections
-    """
+    """A styled grid with selections"""
 
     _model_name = T.Unicode("SelectGridModel").tag(sync=True)
     _view_name = T.Unicode("SelectGridView").tag(sync=True)

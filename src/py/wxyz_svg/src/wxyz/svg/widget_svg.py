@@ -11,8 +11,8 @@ DEFAULT_ATTR = "inkscape:label"
 
 @W.register
 class SVGBox(SVGBase, W.Box):
-    """ An SVG Box that shows its children inside the bounding box of
-        named areas in an SVG file.
+    """An SVG Box that shows its children inside the bounding box of
+    named areas in an SVG file.
 
     """
 

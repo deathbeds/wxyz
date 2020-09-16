@@ -12,8 +12,7 @@ from . import _paths as P
 
 
 def get_stem(attempt, extra_args):
-    """ make a directory stem with the run type, python and os version
-    """
+    """make a directory stem with the run type, python and os version"""
     stem = "_".join([P.OS, P.PY_VER, str(attempt)]).replace(".", "_").lower()
 
     if "--dryrun" in extra_args:
@@ -23,8 +22,7 @@ def get_stem(attempt, extra_args):
 
 
 def atest(attempt, extra_args):
-    """ perform a single attempt of the acceptance tests
-    """
+    """perform a single attempt of the acceptance tests"""
     stem = get_stem(attempt, extra_args)
 
     if attempt != 1:
@@ -76,8 +74,7 @@ def atest(attempt, extra_args):
 
 
 def attempt_atest_with_retries(*extra_args):
-    """ retry the robot tests a number of times
-    """
+    """retry the robot tests a number of times"""
     attempt = 0
     error_count = -1
 

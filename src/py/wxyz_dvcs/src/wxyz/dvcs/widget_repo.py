@@ -9,8 +9,7 @@ from .base import DVCSBase, T, W
 
 @W.register
 class Remote(DVCSBase):
-    """ A remote
-    """
+    """A remote"""
 
     _model_name = T.Unicode("RemoteModel").tag(sync=True)
     _view_name = T.Unicode("RemoteView").tag(sync=True)
@@ -18,8 +17,7 @@ class Remote(DVCSBase):
 
 @W.register
 class User(DVCSBase):
-    """ A user
-    """
+    """A user"""
 
     email = T.Unicode().tag(sync=True)
     name = T.Unicode().tag(sync=True)
@@ -27,8 +25,7 @@ class User(DVCSBase):
 
 @W.register
 class Repo(DVCSBase):
-    """ A repo
-    """
+    """A repo"""
 
     _model_name = T.Unicode("RepoModel").tag(sync=True)
     _view_name = T.Unicode("RepoView").tag(sync=True)
@@ -37,8 +34,7 @@ class Repo(DVCSBase):
 
 @W.register
 class Workspace(DVCSBase):
-    """ A checked out repository
-    """
+    """A checked out repository"""
 
     _model_name = T.Unicode("WorkspaceModel").tag(sync=True)
     _view_name = T.Unicode("WorkspaceView").tag(sync=True)

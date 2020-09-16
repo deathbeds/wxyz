@@ -7,8 +7,7 @@ from .widget_repo import Repo
 
 
 class Fossil(Repo):
-    """ A git repository
-    """
+    """A git repository"""
 
     _model_name = T.Unicode("FossilModel").tag(sync=True)
     _view_name = T.Unicode("FossilView").tag(sync=True)

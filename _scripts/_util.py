@@ -7,8 +7,7 @@ from . import _paths as P
 
 
 def call(args, **kwargs):
-    """ wrapper for subprocess call that handles pathlib.Path arguments (for windows)
-    """
+    """wrapper for subprocess call that handles pathlib.Path arguments (for windows)"""
     if kwargs.get("cwd"):
         kwargs["cwd"] = str(kwargs["cwd"])
 
@@ -16,8 +15,7 @@ def call(args, **kwargs):
 
 
 def okit(name, remove=False):
-    """ add/remove a sentinel file
-    """
+    """add/remove a sentinel file"""
     ok_file = P.OK / name
 
     def _ok():

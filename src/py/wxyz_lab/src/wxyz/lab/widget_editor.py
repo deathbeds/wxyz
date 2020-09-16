@@ -6,8 +6,7 @@ from .base import LabBase, T, W
 
 @W.register
 class Editor(LabBase, W.Textarea):
-    """ A basic editor
-    """
+    """A basic editor"""
 
     value = T.Any().tag(sync=True)
 

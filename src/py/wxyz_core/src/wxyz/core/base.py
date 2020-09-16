@@ -8,8 +8,7 @@ from ._version import module_name, module_version
 
 
 class WXYZBase(W.Widget):
-    """ Version and front-end metadata
-    """
+    """Version and front-end metadata"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
@@ -18,8 +17,7 @@ class WXYZBase(W.Widget):
 
 
 class WXYZBox(W.Box):
-    """ Version and front-end metadata
-    """
+    """Version and front-end metadata"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
@@ -28,10 +26,10 @@ class WXYZBox(W.Box):
 
 
 class Base(WXYZBase):
-    """ Utility traitlets, primarily based around
-        - development convenience
-        - ipywidgets conventions
-        - integration with ipywxyz.DockBox, mostly phosphor Widget.label attrs
+    """Utility traitlets, primarily based around
+    - development convenience
+    - ipywidgets conventions
+    - integration with ipywxyz.DockBox, mostly phosphor Widget.label attrs
     """
 
     _model_module = T.Unicode(module_name).tag(sync=True)
@@ -46,8 +44,7 @@ class Base(WXYZBase):
 
 
 class Fn(Base):
-    """ Turns a `source` into a `value`
-    """
+    """Turns a `source` into a `value`"""
 
     source = T.Any(allow_none=True).tag(sync=True)
     value = T.Any(allow_none=True).tag(sync=True)
@@ -63,8 +60,7 @@ class Fn(Base):
         self.the_observer(None)
 
     def the_observer(self, *_):
-        """ Base observer that updates value and/or error
-        """
+        """Base observer that updates value and/or error"""
         if self.mode == "client":
             return
 

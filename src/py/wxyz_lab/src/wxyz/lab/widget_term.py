@@ -69,8 +69,7 @@ def _traits_from_dts():
 
 @W.register
 class Terminal(LabBase):
-    """ A basic terminal
-    """
+    """A basic terminal"""
 
     _model_name = T.Unicode("TerminalModel").tag(sync=True)
     _view_name = T.Unicode("TerminalView").tag(sync=True)
@@ -92,21 +91,17 @@ class Terminal(LabBase):
         self.on_msg(self._handle_terminal_msg)
 
     def on_data(self, callback, remove=False):
-        """ register a callback which will receive a message
-        """
+        """register a callback which will receive a message"""
         self._data_handlers.register_callback(callback, remove=remove)
 
     def data(self, content):
-        """ programatically call all data listeners
-        """
+        """programatically call all data listeners"""
         self._data_handlers(self, content)
 
     def send_line(self, line):
-        """ convenience wrapper around send
-        """
+        """convenience wrapper around send"""
         self.send({"content": f"{line}\r\n"})
 
     def _handle_terminal_msg(self, _, content, buffers):
-        """ handler for messages
-        """
+        """handler for messages"""
         self.data(content)

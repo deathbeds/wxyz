@@ -7,8 +7,7 @@ from .base import JSONSchemaFormBase, T, W
 
 @W.register
 class JSONSchemaForm(JSONSchemaFormBase, W.Box):
-    """ Show a form based on an JSON Schema (and/or UI schema)
-    """
+    """Show a form based on an JSON Schema (and/or UI schema)"""
 
     _model_name = T.Unicode("JSONSchemaFormModel").tag(sync=True)
     _view_name = T.Unicode("JSONSchemaFormView").tag(sync=True)

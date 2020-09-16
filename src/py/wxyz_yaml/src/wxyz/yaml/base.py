@@ -11,8 +11,7 @@ from ._version import module_name, module_version
 
 
 class YAMLBase(Base):
-    """ Module metadata for YAML
-    """
+    """Module metadata for YAML"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)

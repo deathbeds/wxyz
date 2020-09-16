@@ -11,10 +11,10 @@ from .base import DVCSBase, T
 
 
 class JupyterDefaultDirWatcher(DefaultDirWatcher):
-    """ a notebook-aware watcher
+    """a notebook-aware watcher
 
-        TODO: this will need to be revisited... we might in fact want to watch
-        more things
+    TODO: this will need to be revisited... we might in fact want to watch
+    more things
     """
 
     def should_watch_dir(self, entry):
@@ -24,9 +24,9 @@ class JupyterDefaultDirWatcher(DefaultDirWatcher):
 
 
 class Watcher(DVCSBase):
-    """ A lightweight watcher
+    """A lightweight watcher
 
-        TODO: expose more bits
+    TODO: expose more bits
     """
 
     path = T.Instance(Path, help="the root path to watch")
@@ -44,8 +44,7 @@ class Watcher(DVCSBase):
 
     @T.observe("watching", "path")
     def _on_watching(self, change):
-        """ handle starting/stopping the watcher
-        """
+        """handle starting/stopping the watcher"""
         if self._stop is not None:
             self._stop.set()
             self.changes = None
@@ -55,16 +54,14 @@ class Watcher(DVCSBase):
             IOLoop.current().add_callback(self._watch)
 
     def _changes(self, changes):
-        """ publish the changes. schedule to run in the loop
-        """
+        """publish the changes. schedule to run in the loop"""
         self.changes = [
             {"change": k.name, "path": str(Path(v).relative_to(self.path))}
             for k, v in sorted(changes)
         ]
 
     async def _watch(self):
-        """ the actual watcher. schedule to run in the loop
-        """
+        """the actual watcher. schedule to run in the loop"""
         self._stop = Event()
         async for changes in awatch(
             self.path, watcher_cls=JupyterDefaultDirWatcher, stop_event=self._stop
