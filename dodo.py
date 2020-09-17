@@ -229,7 +229,9 @@ def task_lab_build():
     args = [*JPY, "lab", "build", "--dev-build=False", *APP_DIR]
 
     # binder runs out of memory
-    if not P.RUNNING_IN_BINDER:
+    if P.RUNNING_IN_BINDER:
+        args += ["--minimize=False"]
+    else:
         args += ["--minimize=True"]
 
     return dict(
