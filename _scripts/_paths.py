@@ -8,7 +8,8 @@ import site
 import sys
 from pathlib import Path
 
-RUNNING_IN_CI = os.environ.get("RUNNING_IN_CI") is not None
+RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
+RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
 
 PY = Path(sys.executable)
 OS = platform.system()

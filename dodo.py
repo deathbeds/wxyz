@@ -1,6 +1,9 @@
 """ wxyz top-level automation
 """
 # pylint: disable=expression-not-assigned
+
+import shutil
+
 from doit.tools import result_dep
 
 from _scripts import _paths as P
@@ -128,7 +131,8 @@ LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py")]
 def _make_linter(label, files):
     def _task():
         return dict(
-            file_dep=[*files, *EGG_LINKS], actions=[cmd + files for cmd in PY_LINT_CMDS]
+            file_dep=[*files, *EGG_LINKS],
+            actions=[cmd + files for cmd in PY_LINT_CMDS if shutil.which(cmd[0])],
         )
 
     _task.__name__ = f"task_lint_py_{label}"
@@ -221,12 +225,19 @@ def task_lab_extensions():
 
 def task_lab_build():
     """build JupyterLab web application"""
+
+    args = [*JPY, "lab", "build", "--dev-build=False", *APP_DIR]
+
+    # binder runs out of memory
+    if not P.RUNNING_IN_BINDER:
+        args += ["--minimize=True"]
+
     return dict(
         file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],
         targets=[P.OK / "lab"],
         actions=[
             U.okit("lab", True),
-            [*JPY, "lab", "build", "--dev-build=False", "--minimize=True", *APP_DIR],
+            args,
             U.okit("lab"),
         ],
     )
