@@ -16,7 +16,6 @@ env_specs:
       - _lint
       - _test
       - _build
-      - _doit
 
   wxyz-demo:
     packages:
@@ -26,6 +25,7 @@ env_specs:
       - dask >=0.18.2
       - dask-ml
       - distributed
+      - doit
       - fossil
       - git
       - gitpython
@@ -55,11 +55,6 @@ env_specs:
     channels:
       - https://conda.anaconda.org/conda-forge
       - nodefaults
-
-  _doit:
-    packages:
-      - doit
-      - python-graphviz
 
   _lint:
     packages:

@@ -11,6 +11,7 @@ dependencies:
   - dask >=0.18.2
   - dask-ml
   - distributed
+  - doit
   - fossil
   - git
   - gitpython
@@ -26,6 +27,7 @@ dependencies:
   - py-xgboost
   - pyld
   - python >=3.7,<3.8
+  - python-graphviz
   - pyyaml
   - scikit-image
   - scikit-learn
