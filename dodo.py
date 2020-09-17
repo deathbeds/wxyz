@@ -199,7 +199,11 @@ def task_nbtest():
 
 
 JPY = [P.PY, "-m", "jupyter"]
-APP_DIR = ["--debug", "--app-dir", P.LAB]
+
+if P.RUNNING_IN_BINDER:
+    APP_DIR = ["--debug"]
+else:
+    APP_DIR = ["--debug", "--app-dir", P.LAB]
 
 
 def task_lab_extensions():
@@ -232,7 +236,7 @@ def task_lab_build():
     if P.RUNNING_IN_BINDER:
         args += ["--minimize=False"]
     else:
-        args += ["--minimize=True", *APP_DIR]
+        args += ["--minimize=True"]
 
     return dict(
         file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],
