@@ -3,4 +3,4 @@ set -eux
 
 export RUNNING_IN_BINDER=1
 
-doit -n4 binder
+doit -n4 binder || doit binder
