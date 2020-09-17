@@ -15,6 +15,8 @@ PY_LINT_CMDS = [
 
 DOIT_CONFIG = {
     "backend": "sqlite3",
+    "verbosity": 2,
+    "par_type": "thread",
 }
 
 
@@ -125,7 +127,9 @@ LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py")]
 
 def _make_linter(label, files):
     def _task():
-        return dict(file_dep=files, actions=[cmd + files for cmd in PY_LINT_CMDS])
+        return dict(
+            file_dep=[*files, *EGG_LINKS], actions=[cmd + files for cmd in PY_LINT_CMDS]
+        )
 
     _task.__name__ = f"task_lint_py_{label}"
     _task.__doc__ = f"format/lint {label}"
@@ -226,6 +230,11 @@ def task_lab_build():
             U.okit("lab"),
         ],
     )
+
+
+def task_binder():
+    """get to a working interactive state"""
+    return dict(file_dep=[P.OK / "lab", *EGG_LINKS], actions=[lambda: print("OK")])
 
 
 ATEST = [P.PY, "-m", "_scripts._atest"]

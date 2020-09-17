@@ -41,6 +41,7 @@ env_specs:
       - py-xgboost
       - pyld
       - python >=3.7,<3.8
+      - python-graphviz
       - pyyaml
       - scikit-image
       - scikit-learn
