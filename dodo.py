@@ -226,13 +226,13 @@ def task_lab_extensions():
 def task_lab_build():
     """build JupyterLab web application"""
 
-    args = [*JPY, "lab", "build", "--dev-build=False", *APP_DIR]
+    args = [*JPY, "lab", "build", "--dev-build=False"]
 
     # binder runs out of memory
     if P.RUNNING_IN_BINDER:
         args += ["--minimize=False"]
     else:
-        args += ["--minimize=True"]
+        args += ["--minimize=True", *APP_DIR]
 
     return dict(
         file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],

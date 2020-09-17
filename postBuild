@@ -3,4 +3,6 @@ set -eux
 
 export RUNNING_IN_BINDER=1
 
+jupyter lab clean --all
+
 doit -n4 binder || doit binder
