@@ -226,7 +226,7 @@ def task_lab_extensions():
 def task_lab_build():
     """build JupyterLab web application"""
 
-    args = [*JPY, "lab", "build", "--dev-build=False"]
+    args = [*JPY, "lab", "build", "--dev-build=False", "--debug"]
 
     # binder runs out of memory
     if P.RUNNING_IN_BINDER:
