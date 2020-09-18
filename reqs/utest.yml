@@ -1,0 +1,10 @@
+name: wxyz-utest
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - pytest-azurepipelines

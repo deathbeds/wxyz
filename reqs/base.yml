@@ -1,0 +1,14 @@
+name: wxyz-base
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - doit
+  - ipywidgets
+  - jupyterlab
+  - nodejs
+  - pip
+  - python
+  - twine
+  - importnb

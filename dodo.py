@@ -8,6 +8,7 @@ from doit.tools import result_dep
 
 from _scripts import _paths as P
 from _scripts import _util as U
+from _scripts._lock import iter_matrix, make_lock_task
 
 PY_LINT_CMDS = [
     ["isort", "-rc"],
@@ -21,6 +22,27 @@ DOIT_CONFIG = {
     "verbosity": 2,
     "par_type": "thread",
 }
+
+
+def task_lock():
+    """lock conda envs so they don't need to be solved in CI
+    This should be run semi-frequently (e.g. after merge to master).
+    Requires `conda-lock` CLI to be available
+    """
+
+    base_envs = [P.ENV.base, *P.ENV.WXYZ, P.ENV.utest, P.ENV.atest, P.ENV.lint]
+
+    for task_args in iter_matrix(P.CI_TEST_MATRIX):
+        test_envs = list(base_envs)
+        if "win-64" in task_args:
+            test_envs += [P.ENV.win]
+        else:
+            test_envs += [P.ENV.tpot, P.ENV.unix]
+
+        yield make_lock_task("test", test_envs, P.CI_TEST_MATRIX, *task_args)
+
+    for conda_platform in ["linux-64", "osx-64", "win-64"]:
+        yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
 
 
 def task_setup_ts():

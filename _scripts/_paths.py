@@ -1,5 +1,6 @@
 """ paths, versions and other metadata for wxyz
 """
+# pylint: disable=too-few-public-methods
 import json
 import os
 import platform
@@ -8,11 +9,26 @@ import site
 import sys
 from pathlib import Path
 
+try:
+    from yaml import safe_load
+except ImportError:
+    from ruamel_yaml import safe_load
+
+
 RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
 
 PY = Path(sys.executable)
 OS = platform.system()
+
+WIN = OS == "Windows"
+OSX = OS == "Darwin"
+LINUX = OS == "Linux"
+
+CONDA_PLATFORM = "win-64" if WIN else "osx-64" if OSX else "linux-64"
+
+CONDA_CMD = "conda" if WIN else "mamba"
+
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
 SCRIPTS = Path(__file__).parent
@@ -20,6 +36,28 @@ ROOT = SCRIPTS.parent
 
 BUILD = ROOT / "build"
 OK = BUILD / "ok"
+
+CI = ROOT / "ci"
+PIPELINES = ROOT / "azure-pipelines.yml"
+CI_TEST_YML = CI / "job.test.yml"
+CI_TEST_MATRIX = safe_load(CI_TEST_YML.read_text())["parameters"]
+LOCKS = CI / "locks"
+REQS = ROOT / "reqs"
+
+
+class ENV:
+    """some partial conda environment descriptions"""
+
+    atest = REQS / "atest.yml"
+    base = REQS / "base.yml"
+    lint = REQS / "lint.yml"
+    lock = REQS / "lock.yml"
+    utest = REQS / "utest.yml"
+    win = REQS / "win.yml"
+    unix = REQS / "unix.yml"
+    tpot = REQS / "tpot.yml"
+    WXYZ = REQS.glob("wxyz_*.yml")
+
 
 SRC = ROOT / "src"
 PY_SRC = SRC / "py"
@@ -39,7 +77,6 @@ LAB = ROOT / "lab"
 ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
 
-CI = ROOT / "ci"
 
 PY_SETUP = [*PY_SRC.glob("*/setup.py")]
 PY_VERSION = {
@@ -74,7 +111,7 @@ TS_TARBALLS = [
 ]
 
 
-CONDA_ORDER = ["core", "html", "lab", "datagrid", "svg", "tpl-jjinja", "yaml"]
+CONDA_ORDER = ["core", "html", "lab", "datagrid", "svg", "tpl-jinja", "yaml"]
 
 CONDA_BUILD_ARGS = [
     "conda-build",
@@ -105,6 +142,7 @@ ALL_IPYNB = sorted(
 ALL_PRETTIER = sorted(
     [
         *CI.glob("*.yml"),
+        *REQS.glob("*.yml"),
         *PY_SRC.rglob("*.md"),
         *ROOT.glob("*.json"),
         *ROOT.glob("*.md"),

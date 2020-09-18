@@ -1,0 +1,6 @@
+name: wxyz-win
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+  - https://conda.anaconda.org/anaconda
+  - https://conda.anaconda.org/msys2

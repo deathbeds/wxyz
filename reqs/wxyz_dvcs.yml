@@ -1,0 +1,10 @@
+name: wxyz-dvcs
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - fossil
+  - gitpython
+  - watchgod
+  - git

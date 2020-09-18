@@ -1,0 +1,7 @@
+name: wxyz-jsonld
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - pyld

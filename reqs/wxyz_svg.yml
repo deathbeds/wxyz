@@ -1,0 +1,7 @@
+name: wxyz-svg
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - lxml

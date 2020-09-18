@@ -1,0 +1,10 @@
+name: wxyz-lint
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - black
+  - flake8
+  - isort <5
+  - pylint
