@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -eux
 
-conda create --yes --prefix ${NB_PYTHON_PREFIX} --file ci/locks/conda.test.linux-64-3.8-2.2.lock
+time conda create --yes \
+  --prefix ${NB_PYTHON_PREFIX} \
+  --file ci/locks/conda.test.linux-64-3.8-2.2.lock
 
 export RUNNING_IN_BINDER=1
 
-doit -n4 binder || doit binder
+time doit -n4 binder || doit binder
