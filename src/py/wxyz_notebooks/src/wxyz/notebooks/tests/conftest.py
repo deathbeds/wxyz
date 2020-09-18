@@ -18,6 +18,6 @@ TEST_NOTEBOOKS = [
     if (
         "ipynb_checkpoint" not in str(ipynb)
         and str(DESIGN) not in str(ipynb)
-        and ipynb not in OS_SKIP.get(OS)
+        and ipynb not in OS_SKIP.get(OS, [])
     )
 ]
