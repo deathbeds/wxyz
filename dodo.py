@@ -30,19 +30,27 @@ def task_lock():
     Requires `conda-lock` CLI to be available
     """
 
-    base_envs = [P.ENV.base, *P.ENV.WXYZ, P.ENV.utest, P.ENV.atest, P.ENV.lint]
+    base_envs = [P.ENV.base, *P.ENV.WXYZ]
+    test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
+    binder_args = None
 
     for task_args in iter_matrix(P.CI_TEST_MATRIX):
-        test_envs = list(base_envs)
+        if "linux-64" in task_args:
+            binder_args = task_args
+        matrix_envs = list(test_envs)
         if "win-64" in task_args:
-            test_envs += [P.ENV.win]
+            matrix_envs += [P.ENV.win]
         else:
-            test_envs += [P.ENV.tpot, P.ENV.unix]
+            matrix_envs += [P.ENV.tpot, P.ENV.unix]
 
-        yield make_lock_task("test", test_envs, P.CI_TEST_MATRIX, *task_args)
+        yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
     for conda_platform in ["linux-64", "osx-64", "win-64"]:
         yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
+
+    yield make_lock_task(
+        "binder", [*base_envs, P.ENV.tpot, P.ENV.binder], {}, *binder_args
+    )
 
 
 def task_setup_ts():

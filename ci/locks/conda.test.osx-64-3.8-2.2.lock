@@ -140,6 +140,7 @@ https://conda.anaconda.org/conda-forge/osx-64/git-2.28.0-pl526hde3ca24_1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/gitdb-4.0.5-py_0.tar.bz2#94c135f9db6e89c6a848d3f7ae2cc66b
 https://conda.anaconda.org/conda-forge/osx-64/importlib-metadata-1.7.0-py38h32f6830_0.tar.bz2#82be12342b016936d9c4901be24d9c0f
 https://conda.anaconda.org/conda-forge/osx-64/jedi-0.17.2-py38h32f6830_0.tar.bz2#a04b1caa2879bd989f7f264984bba94c
+https://conda.anaconda.org/conda-forge/osx-64/keyring-21.4.0-py38h32f6830_1.tar.bz2#acfeb6a2887c054a8fb15c5a0e0386ed
 https://conda.anaconda.org/conda-forge/osx-64/kiwisolver-1.2.0-py38ha0d09dd_0.tar.bz2#e21c474722bef3d5c76da60fa9550a87
 https://conda.anaconda.org/conda-forge/osx-64/lazy-object-proxy-1.4.3-py38h64e0658_2.tar.bz2#a8957514ab39b46b13696b8262bcac34
 https://conda.anaconda.org/conda-forge/osx-64/llvmlite-0.34.0-py38h3707e27_1.tar.bz2#a3b1651c9ad7df07c48fda0993d059b6
@@ -181,7 +182,6 @@ https://conda.anaconda.org/conda-forge/osx-64/imagecodecs-2020.5.30-py38h197531b
 https://conda.anaconda.org/conda-forge/noarch/imageio-2.9.0-py_0.tar.bz2#62ad9e579278e777d4abaa8c9312b6a7
 https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-1.7.0-0.tar.bz2#3e6503b25200f60149cce699a47cf09e
 https://conda.anaconda.org/conda-forge/osx-64/jupyter_core-4.6.3-py38h32f6830_1.tar.bz2#98b8f9ebcdac7a0a56c83f8012afdfde
-https://conda.anaconda.org/conda-forge/osx-64/keyring-21.4.0-py38h32f6830_0.tar.bz2#05ac6d2b82b8f936c3658ad37a9c2d6b
 https://conda.anaconda.org/conda-forge/osx-64/pandas-1.1.2-py38h11c0d25_0.tar.bz2#bb99f4b24c5ba654177a494f303f0213
 https://conda.anaconda.org/conda-forge/osx-64/pytest-6.0.2-py38h32f6830_0.tar.bz2#739e872287384f4d733fee2fc54485db
 https://conda.anaconda.org/conda-forge/osx-64/pywavelets-1.1.1-py38h174b24a_2.tar.bz2#be07f61227a65c568d0ec82f6af64524

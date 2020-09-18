@@ -50,6 +50,7 @@ class ENV:
 
     atest = REQS / "atest.yml"
     base = REQS / "base.yml"
+    binder = REQS / "binder.yml"
     lint = REQS / "lint.yml"
     lock = REQS / "lock.yml"
     utest = REQS / "utest.yml"
