@@ -1,6 +1,6 @@
 """ environment locking for wxyz
 """
-# pylint: disable=too-many-arguments,import-outside-toplevel
+# pylint: disable=too-many-arguments,import-outside-toplevel,import-error
 
 import subprocess
 import tempfile
