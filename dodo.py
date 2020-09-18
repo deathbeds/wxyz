@@ -3,8 +3,10 @@
 # pylint: disable=expression-not-assigned
 
 import shutil
+import subprocess
+import time
 
-from doit.tools import result_dep
+from doit.tools import PythonInteractiveAction, result_dep
 
 from _scripts import _paths as P
 from _scripts import _util as U
@@ -276,6 +278,41 @@ def task_lab_build():
             args,
             U.okit("lab"),
         ],
+    )
+
+
+def task_watch():
+    """watch typescript sources, launch lab, rebuilding as files change"""
+
+    def _watch():
+        ts = subprocess.Popen(["jlpm", "watch"])
+
+        time.sleep(10)
+        lab = subprocess.Popen(
+            [*JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
+            stdin=subprocess.PIPE,
+        )
+
+        try:
+            lab.wait()
+        except KeyboardInterrupt:
+            print(
+                "attempting to stop lab, you may want to check your process monitor",
+                flush=True,
+            )
+        finally:
+            ts.terminate()
+            lab.terminate()
+            lab.communicate(b"y\n")
+            ts.wait()
+            lab.wait()
+
+        return True
+
+    return dict(
+        uptodate=[lambda: False],
+        file_dep=[P.OK / "lab"],
+        actions=[PythonInteractiveAction(_watch)],
     )
 
 

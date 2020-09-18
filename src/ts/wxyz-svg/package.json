@@ -23,7 +23,7 @@
     "@types/nunjucks": "^3.0.0",
     "@types/d3-selection": "^1.4.1",
     "d3-selection": "^1.3.0",
-    "typescript": "~3.7.2"
+    "typescript": "~4.0.2"
   },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",

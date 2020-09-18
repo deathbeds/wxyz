@@ -8,7 +8,7 @@
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
-    "typescript": "~3.7.2"
+    "typescript": "~4.0.2"
   },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
@@ -41,7 +41,7 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "watch": "jlpm build --watch"
+    "watch": "jlpm build --watch --preserveWatchOutput"
   },
   "types": "lib/index.d.ts",
   "version": "0.4.0"
