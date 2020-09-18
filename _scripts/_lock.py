@@ -7,9 +7,14 @@ import tempfile
 from pathlib import Path
 
 from doit.tools import config_changed
-from ruamel_yaml import safe_dump, safe_load
 
 from . import _paths as P
+
+try:
+    from ruamel_yaml import safe_dump, safe_load
+except ImportError:
+    from yaml import safe_dump, safe_load
+
 
 # below here could move to a separate file
 
