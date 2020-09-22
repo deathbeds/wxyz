@@ -26,6 +26,7 @@ DOIT_CONFIG = {
     "backend": "sqlite3",
     "verbosity": 2,
     "par_type": "thread",
+    "default_tasks": ["binder"],
 }
 
 
@@ -288,27 +289,33 @@ def task_watch():
     """watch typescript sources, launch lab, rebuilding as files change"""
 
     def _watch():
+        print(">>> Starting typescript watcher...", flush=True)
         ts = subprocess.Popen(["jlpm", "watch"])
 
+        print(">>> Waiting a bit to start lab watcher...", flush=True)
         time.sleep(10)
+        print(">>> Starting lab watcher...", flush=True)
         lab = subprocess.Popen(
             [*JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
             stdin=subprocess.PIPE,
         )
 
         try:
+            print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
             lab.wait()
         except KeyboardInterrupt:
             print(
-                "attempting to stop lab, you may want to check your process monitor",
+                ">>> Watch canceled by user!",
                 flush=True,
             )
         finally:
+            print(">>> Stopping watchers...", flush=True)
             ts.terminate()
             lab.terminate()
             lab.communicate(b"y\n")
             ts.wait()
             lab.wait()
+            print(">>> Stopped watchers! maybe check process monitor...", flush=True)
 
         return True
 
