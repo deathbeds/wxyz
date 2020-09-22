@@ -66,6 +66,7 @@ TS_SRC = SRC / "ts"
 DODO = ROOT / "dodo.py"
 ALL_SRC_PY = sorted([*PY_SRC.rglob("*.py")])
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])
+ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])
 
 
 DIST = ROOT / "dist"
@@ -77,7 +78,7 @@ LAB = ROOT / "lab"
 
 ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
-
+ATEST_PY = [*ATEST.rglob("*.py")]
 
 PY_SETUP = [*PY_SRC.glob("*/setup.py")]
 PY_VERSION = {
@@ -153,6 +154,7 @@ ALL_PRETTIER = sorted(
         *TS_SRC.rglob("*.md"),
         *TS_SRC.rglob("*.ts"),
         *TS_SRC.rglob("*.yml"),
+        *ALL_YAML,
     ]
 )
 

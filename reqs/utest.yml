@@ -5,6 +5,6 @@ channels:
 
 dependencies:
   - pytest
+  - pytest-azurepipelines
   - pytest-cov
   - pytest-xdist
-  - pytest-azurepipelines

@@ -161,7 +161,7 @@ LINT_GROUPS = {
     i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in P.PY_SETUP
 }
 
-LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py")]
+LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py"), *P.ATEST_PY]
 
 
 def _make_linter(label, files):

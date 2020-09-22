@@ -3,10 +3,12 @@ _foo/
 .coverage
 .doit*
 .ipynb_checkpoints/
+.pabotsuitenames
 .pytest_cache/
 .yarn-packages/
 *.egg-info
 *.tgz
+**/test-output.xml
 /lab/
 atest/output/
 build/
@@ -17,4 +19,3 @@ lib/
 node_modules/
 untitled*
 Untitled*
-**/test-output.xml

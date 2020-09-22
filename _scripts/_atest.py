@@ -8,6 +8,7 @@ import time
 from os.path import join
 
 import robot
+from pabot import pabot
 
 from . import _paths as P
 
@@ -84,8 +85,13 @@ def atest(attempt, extra_args):
         except Exception as err:
             print("Error deleting {}, hopefully harmless: {}".format(out_dir, err))
 
+    if "--dryrun" in extra_args:
+        run_robot = robot.run_cli
+    else:
+        run_robot = pabot.main
+
     try:
-        robot.run_cli(list(map(str, args)))
+        run_robot(list(map(str, args)))
         return 0
     except SystemExit as err:
         return err.code

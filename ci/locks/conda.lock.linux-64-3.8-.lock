@@ -1,5 +1,5 @@
 # platform: linux-64
-# env_hash: ef5a1ccc220135f8cc45a438582d2c71fd4d1e2a17a241812046ce550d7799d0
+# env_hash: 906f2704a490f63d494dccaeeeb21e033ad4624cf1d65459cd36c567ff56a59f
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/ca-certificates-2020.6.20-hecda079_0.tar.bz2#1b1cca86e95c416a8e7eb6062af6d503
@@ -17,7 +17,7 @@ https://conda.anaconda.org/conda-forge/linux-64/libiconv-1.16-h516909a_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/lz4-c-1.9.2-he1b5a44_3.tar.bz2#b2e54aad8640e7a877d2280d3ebfe85b
 https://conda.anaconda.org/conda-forge/linux-64/lzo-2.10-h516909a_1000.tar.bz2#bb14fcb13341b81d5eb386423b9d2bac
 https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.2-he1b5a44_1.tar.bz2#d3da4932f3d8e6b3c81fcf177d1e6eab
-https://conda.anaconda.org/conda-forge/linux-64/openssl-1.1.1g-h516909a_1.tar.bz2#6fdcd20ec22aeffa10b6102bccc47e7f
+https://conda.anaconda.org/conda-forge/linux-64/openssl-1.1.1h-h516909a_0.tar.bz2#3a99e0cb8f325dbf8f616da2d2fb6d4f
 https://conda.anaconda.org/conda-forge/linux-64/xz-5.2.5-h516909a_1.tar.bz2#33f601066901f3e1a85af3522a8113f9
 https://conda.anaconda.org/conda-forge/linux-64/yaml-0.2.5-h516909a_0.tar.bz2#03a530e925414902547cf48da7756db8
 https://conda.anaconda.org/conda-forge/linux-64/zlib-1.2.11-h516909a_1009.tar.bz2#93486907c6757170a5125198506d9cf8
@@ -34,6 +34,7 @@ https://conda.anaconda.org/conda-forge/linux-64/libarchive-3.3.3-hddc7a2b_1008.t
 https://conda.anaconda.org/conda-forge/linux-64/sqlite-3.33.0-h4cf870e_0.tar.bz2#b22603a9c94d2cda5911f7a2cd55aa95
 https://conda.anaconda.org/conda-forge/linux-64/libcurl-7.71.1-hcdd3856_6.tar.bz2#ca3ed6299c27fa27c53e1b3ad51c5328
 https://conda.anaconda.org/conda-forge/linux-64/python-3.8.5-h1103e12_8_cpython.tar.bz2#5d710d199c971c3385764ceae5eb081e
+https://conda.anaconda.org/conda-forge/noarch/cloudpickle-1.6.0-py_0.tar.bz2#76d764d8881719e305f6fa368dc2b65e
 https://conda.anaconda.org/conda-forge/noarch/idna-2.10-pyh9f0ad1d_0.tar.bz2#f95a12b4f435aae6680fe55ae2eb1b06
 https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz2#aa798d50ffd182a0f6f31478c7f434f6
 https://conda.anaconda.org/conda-forge/linux-64/python_abi-3.8-1_cp38.tar.bz2#8d05152d6fb3012b27a0e6fbcc14bea1
@@ -46,11 +47,13 @@ https://conda.anaconda.org/conda-forge/linux-64/chardet-3.0.4-py38h32f6830_1007.
 https://conda.anaconda.org/conda-forge/linux-64/conda-package-handling-1.7.0-py38h1e0a361_5.tar.bz2#b36c3678752941aba613380d59820002
 https://conda.anaconda.org/conda-forge/linux-64/markupsafe-1.1.1-py38h1e0a361_1.tar.bz2#22998906a1294fc06133e094a9ac6d72
 https://conda.anaconda.org/conda-forge/linux-64/pycosat-0.6.3-py38h1e0a361_1004.tar.bz2#a183e4cceea9f2a7795725c735abc767
+https://conda.anaconda.org/conda-forge/linux-64/pyinotify-0.9.6-py38h32f6830_1001.tar.bz2#32799cb0ae06a488b31428a305e77022
 https://conda.anaconda.org/conda-forge/linux-64/pysocks-1.7.1-py38h32f6830_1.tar.bz2#8cff813a871cc0a8053dbf716dd4fba6
 https://conda.anaconda.org/conda-forge/linux-64/pyyaml-5.3.1-py38h1e0a361_0.tar.bz2#06ea727fe1e670886d4d0cc8f8529db9
 https://conda.anaconda.org/conda-forge/linux-64/ruamel_yaml-0.15.80-py38h1e0a361_1002.tar.bz2#405145f57156c82cbd243a482752a446
 https://conda.anaconda.org/conda-forge/linux-64/brotlipy-0.7.0-py38h516909a_1000.tar.bz2#fbee1812ec81a63fd65e4a2feda53de8
 https://conda.anaconda.org/conda-forge/linux-64/cryptography-3.1-py38h766eaa4_0.tar.bz2#2fb370f6af562e92e0384062d6ebc414
+https://conda.anaconda.org/conda-forge/linux-64/doit-0.33.1-py38h32f6830_0.tar.bz2#292542d8d80ef59e363ba66548b25763
 https://conda.anaconda.org/conda-forge/linux-64/setuptools-49.6.0-py38h32f6830_1.tar.bz2#062a087866cd8acd6b736f1b876cb2ad
 https://conda.anaconda.org/conda-forge/noarch/jinja2-2.11.2-pyh9f0ad1d_0.tar.bz2#e8a5d614d1a27bdba00059ca062a0551
 https://conda.anaconda.org/conda-forge/linux-64/pyopenssl-19.1.0-py38_0.tar.bz2#276e6f9f0e49d58ce18755bce754616a

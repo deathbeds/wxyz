@@ -5,6 +5,6 @@ channels:
 
 dependencies:
   - fossil
+  - git
   - gitpython
   - watchgod
-  - git

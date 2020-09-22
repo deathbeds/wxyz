@@ -4,6 +4,7 @@ channels:
   - https://conda.anaconda.org/conda-forge
 
 dependencies:
-  - mamba
-  - conda-lock
   - conda
+  - conda-lock
+  - doit
+  - mamba

@@ -5,10 +5,10 @@ channels:
 
 dependencies:
   - doit
+  - importnb
   - ipywidgets
   - jupyterlab
   - nodejs
   - pip
   - python
   - twine
-  - importnb
