@@ -3,7 +3,7 @@
 ## Setup
 
 - Get [Miniconda for Python 3](https://repo.anaconda.com/miniconda/)
-- Create a dev environment from a [lockfile](./ci/locks)
+- Create a dev environment from a [lockfile](./ci/locks):
 
   ```bash
   conda create --prefix envs/dev --file ci/locks/conda.test.linux-64-3.8-2.2.lock
@@ -31,21 +31,19 @@ doit list
 doit
 ```
 
-> this actually runs the `binder` task
+> This actually runs the `binder` task, which is used in `postBuild` for the
+> interactive demo
 
 ### Live Development
 
-Watch typescript sources:
+To rebuild the labextension and your JupyterLab, use:
 
 ```bash
 doit watch
 ```
 
-Watch Lab:
-
-```bash
-doit lab
-```
+> When new files are created, it is usually necessary to re-start the watch command,
+> stop it with <kbd>Ctrl+C</kbd>.
 
 ## Testing
 
