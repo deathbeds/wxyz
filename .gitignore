@@ -17,3 +17,4 @@ lib/
 node_modules/
 untitled*
 Untitled*
+**/test-output.xml

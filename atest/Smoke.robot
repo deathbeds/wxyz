@@ -1,3 +1,7 @@
+*** Settings ***
+Suite Setup       Set Screenshot Directory    ${OUTPUT DIR}${/}screenshots${/}smoke
+Resource          Keywords.robot
+
 *** Test Cases ***
-Ran Robot
-    Log   Yep, ran robot
+Lab Loads
+    Capture Page Screenshot    00-smoke.png

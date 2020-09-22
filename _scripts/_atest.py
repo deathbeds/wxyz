@@ -5,6 +5,7 @@ import os
 import shutil
 import sys
 import time
+from os.path import join
 
 import robot
 
@@ -29,6 +30,23 @@ def atest(attempt, extra_args):
         previous = P.ATEST_OUT / f"{get_stem(attempt - 1, extra_args)}.robot.xml"
         if previous.exists():
             extra_args += ["--rerunfailed", str(previous)]
+
+    if "FIREFOX_BINARY" not in os.environ:
+        os.environ["FIREFOX_BINARY"] = shutil.which("firefox")
+
+        prefix = os.environ.get("CONDA_PREFIX")
+
+        if prefix:
+            app_dir = join(prefix, "bin", "FirefoxApp")
+            os.environ["FIREFOX_BINARY"] = {
+                "Windows": join(prefix, "Library", "bin", "firefox.exe"),
+                "Linux": join(app_dir, "firefox"),
+                "Darwin": join(app_dir, "Contents", "MacOS", "firefox"),
+            }[P.OS]
+
+    print("Will use firefox at", os.environ["FIREFOX_BINARY"])
+
+    assert os.path.exists(os.environ["FIREFOX_BINARY"])
 
     out_dir = P.ATEST_OUT / stem
 

@@ -342,6 +342,7 @@ def task_robot_dry_run():
         targets=[P.OK / "robot_dry_run"],
         actions=[
             U.okit("robot_dry_run", True),
+            [P.PY, "-m", "robot.tidy", "--inplace", *P.ALL_ROBOT],
             [*ATEST, "--dryrun"],
             U.okit("robot_dry_run"),
         ],
