@@ -3,7 +3,17 @@
 ## Setup
 
 - Get [Miniconda for Python 3](https://repo.anaconda.com/miniconda/)
-- Install [anaconda-project](https://anaconda.org/conda-forge/anaconda-project)
+- Create a dev environment from a [lockfile](./ci/locks)
+
+    ```bash
+    conda create --prefix envs/dev --file ci/locks/conda.test.linux-64-3.8-2.2.lock
+    ```
+
+- Activate the environment
+
+    ```bash
+    source activate envs/dev
+    ```
 
 ## Use doit
 
@@ -12,21 +22,25 @@ Local development and continuous integration are both driven by [pydoit](https:/
 ### View all doit commands
 
 ```bash
-anaconda-project run doit list
+doit list
 ```
 
 ### Run everything
 
 ```bash
-anaconda-project run doit
+doit
 ```
 
 ### Live Development
 
-```bash
-anaconda-project run jlpm watch
-```
+Watch typescript sources:
 
 ```bash
-anaconda-project run lab --watch
+doit watch
+```
+
+Watch Lab:
+
+```bash
+doit lab
 ```

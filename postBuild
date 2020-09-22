@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -eux
 
-time conda create --yes \
-  --prefix ${NB_PYTHON_PREFIX} \
-  --file ci/locks/conda.test.linux-64-3.8-2.2.lock
+export LOCKFILE=ci/locks/conda.test.linux-64-3.8-2.2.lock
+
+time conda create --yes --prefix ${NB_PYTHON_PREFIX} --file ${LOCKFILE}
 
 export RUNNING_IN_BINDER=1
 

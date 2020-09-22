@@ -1,4 +1,7 @@
 """ wxyz top-level automation
+
+    this should be executed from within an environment created from
+    the ci/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
 # pylint: disable=expression-not-assigned
 
