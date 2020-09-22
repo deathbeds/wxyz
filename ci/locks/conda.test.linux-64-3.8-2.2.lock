@@ -16,7 +16,7 @@ https://conda.anaconda.org/conda-forge/linux-64/bzip2-1.0.8-h516909a_3.tar.bz2#a
 https://conda.anaconda.org/conda-forge/linux-64/c-ares-1.16.1-h516909a_3.tar.bz2#8d0f54b0a09bb496dea3f8dae0c551e4
 https://conda.anaconda.org/conda-forge/linux-64/charls-2.1.0-he1b5a44_2.tar.bz2#49ad87923a04dd756f259d3f9ee955cf
 https://conda.anaconda.org/conda-forge/linux-64/expat-2.2.9-he1b5a44_2.tar.bz2#285f5b5ca3209d492224935affd00aab
-https://conda.anaconda.org/conda-forge/linux-64/firefox-78.2.0esr-he1b5a44_0.tar.bz2#b5fb6c5eaeecacaf4daffd240db1b072
+https://conda.anaconda.org/conda-forge/linux-64/firefox-78.3.0esr-he1b5a44_0.tar.bz2#6ca152ad004c987153dd83a25cdf67ba
 https://conda.anaconda.org/conda-forge/linux-64/geckodriver-0.27.0-he1b5a44_0.tar.bz2#99086e89f703f7da14c59e1853f8ca2b
 https://conda.anaconda.org/conda-forge/linux-64/giflib-5.2.1-h516909a_2.tar.bz2#70d777f83639cc2c05334b59a6dc9159
 https://conda.anaconda.org/conda-forge/linux-64/icu-67.1-he1b5a44_0.tar.bz2#7ced6a5e5c94726af797d2b5a2b09228
@@ -89,13 +89,13 @@ https://conda.anaconda.org/conda-forge/noarch/idna-2.10-pyh9f0ad1d_0.tar.bz2#f95
 https://conda.anaconda.org/conda-forge/noarch/iniconfig-1.0.1-pyh9f0ad1d_0.tar.bz2#b24cafcf37a962a001a237a6299f580d
 https://conda.anaconda.org/conda-forge/noarch/ipython_genutils-0.2.0-py_1.tar.bz2#5071c982548b3a20caf70462f04f5287
 https://conda.anaconda.org/conda-forge/noarch/jeepney-0.4.3-py_0.tar.bz2#0a9435149140c0e50bf18d79bd07c0ac
-https://conda.anaconda.org/conda-forge/noarch/json5-0.9.4-pyh9f0ad1d_0.tar.bz2#075494d3f4e4466f8dba14d68e100bef
+https://conda.anaconda.org/conda-forge/noarch/json5-0.9.5-pyh9f0ad1d_0.tar.bz2#10759827a94e6b14996e81fb002c0bda
 https://conda.anaconda.org/conda-forge/noarch/jsonpointer-2.0-py_0.tar.bz2#07d85c22a3beb102a48cd123df84c2a6
 https://conda.anaconda.org/conda-forge/noarch/lime-0.2.0.1-pyh9f0ad1d_0.tar.bz2#b66e5cbd62ab93000794d7bb9cb985b5
 https://conda.anaconda.org/conda-forge/noarch/locket-0.2.0-py_2.tar.bz2#709e8671651c7ec3d1ad07800339ff1d
 https://conda.anaconda.org/conda-forge/noarch/mccabe-0.6.1-py_1.tar.bz2#a326cb400c1ccd91789f3e7d02124d61
 https://conda.anaconda.org/conda-forge/noarch/more-itertools-8.5.0-py_0.tar.bz2#3a2fa1ebe4306ae3190b1ed69a55b3fd
-https://conda.anaconda.org/conda-forge/noarch/nest-asyncio-1.4.0-py_0.tar.bz2#3203f15095157b7e1238db3cf77799e5
+https://conda.anaconda.org/conda-forge/noarch/nest-asyncio-1.4.0-py_1.tar.bz2#ce02fafcc5198aa9f6af017b4ce848a6
 https://conda.anaconda.org/conda-forge/noarch/olefile-0.46-py_0.tar.bz2#8a6d3394763144710916ecf556c6287d
 https://conda.anaconda.org/conda-forge/noarch/pandocfilters-1.4.2-py_1.tar.bz2#ba6f4a308f1ea22abe1d72e72544af76
 https://conda.anaconda.org/conda-forge/noarch/parso-0.7.1-pyh9f0ad1d_0.tar.bz2#f66647d1ec805566d72ac26f62b19c01
@@ -178,7 +178,7 @@ https://conda.anaconda.org/conda-forge/noarch/black-20.8b1-py_1.tar.bz2#e555d6b7
 https://conda.anaconda.org/conda-forge/linux-64/brotlipy-0.7.0-py38h516909a_1000.tar.bz2#fbee1812ec81a63fd65e4a2feda53de8
 https://conda.anaconda.org/conda-forge/linux-64/cmarkgfm-0.4.2-py38h516909a_2.tar.bz2#ee1776a76cfa0fa7c2caff76ee505ecd
 https://conda.anaconda.org/conda-forge/linux-64/cryptography-3.1-py38h766eaa4_0.tar.bz2#2fb370f6af562e92e0384062d6ebc414
-https://conda.anaconda.org/conda-forge/noarch/dask-core-2.26.0-py_0.tar.bz2#bb02c154b4e311352d635f74e3ce3e41
+https://conda.anaconda.org/conda-forge/noarch/dask-core-2.27.0-py_0.tar.bz2#fc2af2bc6a1a471755897097094bc4d5
 https://conda.anaconda.org/conda-forge/linux-64/deap-1.3.1-py38hcb8c335_1.tar.bz2#7bb5ff7dde59b713b4a5ba7d95e41c1c
 https://conda.anaconda.org/conda-forge/linux-64/doit-0.33.1-py38h32f6830_0.tar.bz2#292542d8d80ef59e363ba66548b25763
 https://conda.anaconda.org/conda-forge/noarch/gitpython-3.1.8-py_0.tar.bz2#d2e334f84791504f98f0d014772a4d78
@@ -191,12 +191,12 @@ https://conda.anaconda.org/conda-forge/linux-64/pytest-6.0.2-py38h32f6830_0.tar.
 https://conda.anaconda.org/conda-forge/linux-64/pywavelets-1.1.1-py38hab2c0dc_2.tar.bz2#6d5f16c22aebdb59c37f4b7e745e262d
 https://conda.anaconda.org/conda-forge/linux-64/scipy-1.5.2-py38h8c5af15_0.tar.bz2#29cb9b969a3c9a6e23eb973a77799e8b
 https://conda.anaconda.org/conda-forge/linux-64/setuptools-49.6.0-py38h32f6830_1.tar.bz2#062a087866cd8acd6b736f1b876cb2ad
-https://conda.anaconda.org/conda-forge/linux-64/terminado-0.8.3-py38h32f6830_1.tar.bz2#050dd70f20541aeaece5540f19a22813
+https://conda.anaconda.org/conda-forge/linux-64/terminado-0.9.1-py38h32f6830_0.tar.bz2#967d74fb7767c3a863c4e5732d953114
 https://conda.anaconda.org/conda-forge/noarch/traittypes-0.2.1-py_1.tar.bz2#b3a93e87b88b44fc7575234fba22a770
 https://conda.anaconda.org/conda-forge/linux-64/astroid-2.4.2-py38h32f6830_0.tar.bz2#72cf51c99288a05cca0ad13951697377
 https://conda.anaconda.org/conda-forge/noarch/backports.functools_lru_cache-1.6.1-py_0.tar.bz2#d36df15eaef96549ce6231e3088fba54
-https://conda.anaconda.org/conda-forge/noarch/bleach-3.2.0-pyh9f0ad1d_0.tar.bz2#04006af86f9e03d03b91d49f28ea0454
-https://conda.anaconda.org/conda-forge/linux-64/distributed-2.26.0-py38h32f6830_0.tar.bz2#2c1dc46ac34b1ae21f11a9fb40fe3110
+https://conda.anaconda.org/conda-forge/noarch/bleach-3.2.1-pyh9f0ad1d_0.tar.bz2#d4506316b85679972c0b78d4d1c0b701
+https://conda.anaconda.org/conda-forge/linux-64/distributed-2.27.0-py38h32f6830_0.tar.bz2#a9b7e40d7b50853bf3b0ffed7a42efd2
 https://conda.anaconda.org/conda-forge/noarch/flake8-3.8.3-py_1.tar.bz2#aa903667fece7fa824b0647b2db6929e
 https://conda.anaconda.org/conda-forge/linux-64/importnb-0.6.2-py38h32f6830_0.tar.bz2#dbf4f9034339bb5fe274dbf3c43d3bb9
 https://conda.anaconda.org/conda-forge/linux-64/isort-4.3.21-py38h32f6830_1.tar.bz2#7a962de435df2743269a1cb288a88cfe
@@ -227,7 +227,7 @@ https://conda.anaconda.org/conda-forge/linux-64/scikit-image-0.17.2-py38hc5bc63f
 https://conda.anaconda.org/conda-forge/linux-64/scikit-learn-0.23.2-py38hee58b96_0.tar.bz2#c6e009b56a9bdd7729fea031da874e61
 https://conda.anaconda.org/conda-forge/noarch/urllib3-1.25.10-py_0.tar.bz2#82cde2a532177697e42a090add881db8
 https://conda.anaconda.org/conda-forge/noarch/wcwidth-0.2.5-pyh9f0ad1d_1.tar.bz2#ac581f74f00d4d9f5acec2449f310e70
-https://conda.anaconda.org/conda-forge/noarch/dask-2.26.0-py_0.tar.bz2#5a96f2717d0dc41c1a8346353b8d6d28
+https://conda.anaconda.org/conda-forge/noarch/dask-2.27.0-py_0.tar.bz2#a3b76867596dc62f74e9d3f74c157d91
 https://conda.anaconda.org/conda-forge/noarch/nbclient-0.5.0-py_0.tar.bz2#1c95e6cf38f219566e281979a3a1bd27
 https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.7-py_0.tar.bz2#32341741e1d778b2c54bb42191cf8571
 https://conda.anaconda.org/conda-forge/noarch/requests-2.24.0-pyh9f0ad1d_0.tar.bz2#786ef230ca5cf2536e9dee910fdf4f9f
@@ -238,7 +238,7 @@ https://conda.anaconda.org/conda-forge/linux-64/umap-learn-0.4.6-py38h32f6830_0.
 https://conda.anaconda.org/conda-forge/noarch/yellowbrick-1.1-pyh9f0ad1d_0.tar.bz2#bd384f6c42307722b6759972b6cdc175
 https://conda.anaconda.org/conda-forge/noarch/dask-glm-0.2.0-py_1.tar.bz2#7c9c5295a0499bf56bbf084578618af5
 https://conda.anaconda.org/conda-forge/linux-64/ipython-7.18.1-py38h1cdfbd6_0.tar.bz2#e6c0aefc70107e32644ff47aac9cbd2b
-https://conda.anaconda.org/conda-forge/linux-64/nbconvert-6.0.3-py38h32f6830_0.tar.bz2#0e4aa70f9f01b31d92c21a3b7e23cb2f
+https://conda.anaconda.org/conda-forge/linux-64/nbconvert-6.0.5-py38h32f6830_0.tar.bz2#017bce7e6523516f1dc80d08c371f657
 https://conda.anaconda.org/conda-forge/noarch/pyld-1.0.4-py_0.tar.bz2#480c455ace9049ba28b47b781f29299e
 https://conda.anaconda.org/conda-forge/noarch/requests-toolbelt-0.9.1-py_0.tar.bz2#402668adee8fcba9a9c265cdc2a88f5a
 https://conda.anaconda.org/conda-forge/noarch/robotframework-seleniumlibrary-4.5.0-pyh9f0ad1d_0.tar.bz2#032239f822b29aef45cc4579ae86d031
