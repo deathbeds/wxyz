@@ -33,7 +33,7 @@ env_specs:
       - ipympl
       - ipywidgets
       - jsonpointer
-      - jupyterlab >=2.2.6,<3.0.0a0
+      - jupyterlab >=2.2.8,<3.0.0a0
       - lime
       - matplotlib
       - nodejs >=12,<13.0.0a
