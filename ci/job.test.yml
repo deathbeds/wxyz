@@ -79,9 +79,17 @@ jobs:
               - script: ${{ platform.activate }} ./${{ python.env }} && doit robot
                 displayName: run browser tests
 
+              - task: PublishTestResults@2
+                displayName: publish browser test results
+                inputs:
+                  testResultsFiles: atest/output/*.xunit.xml
+                  testRunTitle: 'Robot ${{ platform.name }}${{ python.name }}'
+                  mergeTestResults: true
+                condition: always()
+
               - task: PublishPipelineArtifact@0
                 displayName: publish browser test output
                 inputs:
                   targetPath: atest/output
-                  artifactName: Robot ${{ platform.name }}${{ python.name }} $(Build.BuildId)
+                  artifactName: $(Build.BuildId) Robot ${{ platform.name }}${{ python.name }}
                 condition: always()
