@@ -245,7 +245,10 @@ def task_nbtest():
         targets=[P.OK / "nbtest"],
         actions=[
             U.okit("nbtest", True),
-            lambda: U.call([*P.PYM, "pytest", "-vv"], cwd=P.PY_SRC / "wxyz_notebooks")
+            lambda: U.call(
+                [*P.PYM, "pytest", "-vv", "--no-coverage-upload"],
+                cwd=P.PY_SRC / "wxyz_notebooks",
+            )
             == 0,
             U.okit("nbtest"),
         ],
@@ -292,7 +295,7 @@ def task_lab_build():
 
     return dict(
         file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],
-        targets=[P.OK / "lab"],
+        targets=[P.OK / "lab", P.LAB_INDEX],
         actions=[
             U.okit("lab", True),
             args,
@@ -373,6 +376,7 @@ def task_robot():
             *P.ALL_ROBOT,
             *P.ALL_SRC_PY,
             *P.ALL_TS,
+            P.LAB_INDEX,
             P.OK / "lab",
             P.OK / "robot_dry_run",
             P.OK / "nbtest",

@@ -122,6 +122,7 @@ TS_TARBALLS = [
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
 
+LAB_INDEX = LAB / "static" / "index.html"
 
 CONDA_ORDER = ["core", "html", "lab", "datagrid", "svg", "tpl-jinja", "yaml"]
 
