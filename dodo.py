@@ -285,7 +285,7 @@ def task_lab_extensions():
 def task_lab_build():
     """build JupyterLab web application"""
 
-    args = [*P.JPY, "lab", "build", "--dev-build=False", "--debug"]
+    args = [*P.JPY, "lab", "build", "--dev-build=False", *APP_DIR]
 
     # binder runs out of memory
     if P.RUNNING_IN_BINDER:
@@ -353,17 +353,17 @@ def task_binder():
 ATEST = [P.PY, "-m", "_scripts._atest"]
 
 
-def task_robot_dry_run():
-    """dry run robot syntax"""
+def task_robot_lint():
+    """format, then dry run robot syntax"""
 
     return dict(
         file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
-        targets=[P.OK / "robot_dry_run"],
+        targets=[P.OK / "robot_lint"],
         actions=[
             U.okit("robot_dry_run", remove=True),
-            [P.PY, "-m", "robot.tidy", "--inplace", *P.ALL_ROBOT],
+            [*P.PYM, "robot.tidy", "--inplace", *P.ALL_ROBOT],
             [*ATEST, "--dryrun"],
-            U.okit("robot_dry_run"),
+            U.okit("robot_lint"),
         ],
     )
 
@@ -379,7 +379,7 @@ def task_robot():
             P.LAB_INDEX,
             P.SCRIPTS / "_atest.py",
             P.OK / "lab",
-            P.OK / "robot_dry_run",
+            P.OK / "robot_lint",
         ],
         actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
         targets=[P.OK / "robot"],

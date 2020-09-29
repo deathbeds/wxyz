@@ -38,9 +38,9 @@ Create Lab Launch Command
     [Documentation]    Create a JupyterLab CLI shell string, escaping for traitlets
     ${WORKSPACES DIR} =    Set Variable    ${OUTPUT DIR}${/}workspaces
     ${app args} =    Set Variable    --no-browser --debug --NotebookApp.base_url\='${BASE}' --port\=${PORT} --NotebookApp.token\='${TOKEN}'
-    ${path args} =    Set Variable    --LabApp.user_settings_dir='${SETTINGS DIR.replace('\\', '\\\\')}' --LabApp.workspaces_dir\='${WORKSPACES DIR.replace('\\', '\\\\')}'
-    ${ext args} =    Set Variable    --LanguageServerManager.extra_node_roots\="['${root.replace('\\', '\\\\')}']"
-    ${cmd} =    Set Variable    jupyter-lab ${app args} ${path args} ${ext args}
+    ${path args} =    Set Variable    --LabApp.user_settings_dir\='${SETTINGS DIR.replace('\\', '\\\\')}' --LabApp.workspaces_dir\='${WORKSPACES DIR.replace('\\', '\\\\')}'
+    ${cmd} =    Set Variable
+    ...    jupyter-lab ${app args} ${path args}
     [Return]    ${cmd}
 
 Create Notebok Server Config

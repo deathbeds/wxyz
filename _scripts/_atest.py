@@ -50,7 +50,6 @@ def atest(attempt, extra_args):
     assert os.path.exists(os.environ["FIREFOX_BINARY"])
 
     out_dir = P.ATEST_OUT / stem
-    out_xml = P.ATEST_OUT / f"{stem}.robot.xml"
 
     args = [
         "--name",
@@ -75,6 +74,7 @@ def atest(attempt, extra_args):
 
     print("Robot Arguments\n", " ".join(["robot"] + list(map(str, args))))
 
+    os.environ["JUPYTERLAB_DIR"] = str(P.LAB)
     os.chdir(P.ATEST)
 
     if out_dir.exists():
@@ -95,10 +95,6 @@ def atest(attempt, extra_args):
     except SystemExit as err:
         print(run_robot.__name__, "exited with", err.code)
         return err.code
-    finally:
-        if out_xml.exists():
-            out_xml.unlink()
-        shutil.copy2(out_dir / "output.xml", out_xml)
 
 
 def attempt_atest_with_retries(*extra_args):
