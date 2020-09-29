@@ -82,3 +82,14 @@ Code style is enforced by a number of python, typescript and miscellaneous files
 ```bash
 doit lint*
 ```
+
+## Updating lockfiles
+
+The lockfiles in `ci/locks` are created in a separate environment from the main
+development environment to avoid a `conda` dependency.
+
+```bash
+conda create --prefix envs/lock --file ci/locks/conda.lock.linux-64-3.8-.lock
+source envs/lock/bin/activate
+doit lock
+```

@@ -1,3 +1,7 @@
+**/__pycache__/
+**/build/
+**/dist/
+**/lib/
+**/node_modules/
 envs/
-node_modules/
-lib/
+lab/

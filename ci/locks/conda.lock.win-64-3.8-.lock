@@ -18,7 +18,7 @@ https://conda.anaconda.org/conda-forge/win-64/krb5-1.17.1-hc04afaa_3.tar.bz2#606
 https://conda.anaconda.org/conda-forge/win-64/libsolv-0.7.15-h200bbdf_0.tar.bz2#f0c03379c8f66165d0c1d43a9000cdff
 https://conda.anaconda.org/conda-forge/win-64/libssh2-1.9.0-hb06d900_5.tar.bz2#d98a41c806a42bffd8b05a2e6f1132f1
 https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-h1006b36_2.tar.bz2#9392b3214cbdde0d9e64f83915f91d45
-https://conda.anaconda.org/conda-forge/win-64/python-3.8.5-h60c2a47_8_cpython.tar.bz2#7b232874a3463247f28e2b0c34361198
+https://conda.anaconda.org/conda-forge/win-64/python-3.8.5-h60c2a47_9_cpython.tar.bz2#7998070e63c9172a62f25bf6414c9cfa
 https://conda.anaconda.org/conda-forge/win-64/zstd-1.4.5-h1f3a1b7_2.tar.bz2#b35d995f210429648e920844701b57a9
 https://conda.anaconda.org/conda-forge/noarch/cloudpickle-1.6.0-py_0.tar.bz2#76d764d8881719e305f6fa368dc2b65e
 https://conda.anaconda.org/conda-forge/noarch/idna-2.10-pyh9f0ad1d_0.tar.bz2#f95a12b4f435aae6680fe55ae2eb1b06
@@ -29,7 +29,7 @@ https://conda.anaconda.org/conda-forge/win-64/python_abi-3.8-1_cp38.tar.bz2#18ce
 https://conda.anaconda.org/conda-forge/win-64/pywin32-227-py38hfa6e2cd_0.tar.bz2#ab74a91c8c4b210d734a44e722bf64b5
 https://conda.anaconda.org/conda-forge/noarch/six-1.15.0-pyh9f0ad1d_0.tar.bz2#1eec421f0f1f39e579e44e4a5ce646a2
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.1-pyh9f0ad1d_0.tar.bz2#ca47d0ef822fd23b7ec9771a36645e5e
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.49.0-pyh9f0ad1d_0.tar.bz2#cf2c9845ec31ada2bbca8bfea1e33fcd
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.50.0-pyh9f0ad1d_0.tar.bz2#74bb4d4b3c6447b448376719075d98de
 https://conda.anaconda.org/conda-forge/win-64/win_inet_pton-1.1.0-py38_0.tar.bz2#e7fba12ddb314b197deb6bd3fac96022
 https://conda.anaconda.org/conda-forge/win-64/wincertstore-0.2-py38_1003.tar.bz2#121788810b4fd722fea7689e5e89e552
 https://conda.anaconda.org/conda-forge/win-64/certifi-2020.6.20-py38h32f6830_0.tar.bz2#41a255ff16ca606fddde98656a8fc978
@@ -44,7 +44,7 @@ https://conda.anaconda.org/conda-forge/win-64/pysocks-1.7.1-py38h32f6830_1.tar.b
 https://conda.anaconda.org/conda-forge/win-64/pyyaml-5.3.1-py38h9de7a3e_0.tar.bz2#5a17777f8c832628ef8e4ecd96bc00bf
 https://conda.anaconda.org/conda-forge/win-64/ruamel_yaml-0.15.80-py38h1e8a9f7_1002.tar.bz2#8be15aca01895ade252e2e124ec79d1d
 https://conda.anaconda.org/conda-forge/win-64/brotlipy-0.7.0-py38hfa6e2cd_1000.tar.bz2#2bdf3af68e4733e9922fd53b49c80baf
-https://conda.anaconda.org/conda-forge/win-64/cryptography-3.1-py38hba49e27_0.tar.bz2#1927a0ab3caef0e46f10372628df4f39
+https://conda.anaconda.org/conda-forge/win-64/cryptography-3.1.1-py38hba49e27_0.tar.bz2#1fda5fa5a73801332698bcc50a281afd
 https://conda.anaconda.org/conda-forge/win-64/setuptools-49.6.0-py38h32f6830_1.tar.bz2#b3bf2ffc6cee7603276271c06bd33128
 https://conda.anaconda.org/conda-forge/noarch/jinja2-2.11.2-pyh9f0ad1d_0.tar.bz2#e8a5d614d1a27bdba00059ca062a0551
 https://conda.anaconda.org/conda-forge/win-64/pyopenssl-19.1.0-py38_0.tar.bz2#d15fe1e41378deeaeccfa23d535322ea

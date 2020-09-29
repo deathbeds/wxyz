@@ -32,8 +32,13 @@ DOIT_CONFIG = {
 
 def task_release():
     return dict(
-        file_dep=[P.OK / "robot", *P.WHEELS.values(), *P.SDISTS.values()],
-        actions=[lambda: print("OK to release")]
+        file_dep=[
+            P.OK / "robot",
+            *P.WHEELS.values(),
+            *P.SDISTS.values(),
+            P.OK / "integrity",
+        ],
+        actions=[lambda: print("OK to release")],
     )
 
 
@@ -97,9 +102,7 @@ def _make_py_setup(i, setup_py):
             targets=egg_link,
             actions=[
                 [
-                    P.PY,
-                    "-m",
-                    "pip",
+                    *P.PIP,
                     "install",
                     "-e",
                     str(pkg),
@@ -124,8 +127,8 @@ if P.RUNNING_IN_CI:
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
-                [P.PY, "-m", "pip", "install", *P.WHEELS.values()],
-                [P.PY, "-m", "pip", "freeze"],
+                [*P.PIP, "install", *P.WHEELS.values()],
+                [*P.PIP, "freeze"],
                 U.okit("setup_py"),
             ],
         )
@@ -144,7 +147,7 @@ if not P.RUNNING_IN_CI:
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
-                [P.PY, "-m", "pip", "freeze"],
+                [*P.PIP, "freeze"],
                 U.okit("setup_py"),
             ],
         )
@@ -206,7 +209,7 @@ def _make_pydist(setup_py):
             doc=f"build {pkg.name} distributions",
             file_dep=file_dep,
             actions=[_action("sdist"), _action("bdist_wheel")],
-            targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]]
+            targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]],
         )
 
     _task.__name__ = f"task_dist_py_{pkg.name}"
@@ -233,16 +236,12 @@ def task_nbtest():
         targets=[P.OK / "nbtest"],
         actions=[
             U.okit("nbtest", True),
-            lambda: U.call(
-                [P.PY, "-m", "pytest", "-vv"], cwd=P.PY_SRC / "wxyz_notebooks"
-            )
+            lambda: U.call([*P.PYM, "pytest", "-vv"], cwd=P.PY_SRC / "wxyz_notebooks")
             == 0,
             U.okit("nbtest"),
         ],
     )
 
-
-JPY = [P.PY, "-m", "jupyter"]
 
 if P.RUNNING_IN_BINDER:
     APP_DIR = ["--debug"]
@@ -259,7 +258,7 @@ def task_lab_extensions():
         actions=[
             U.okit("labextensions", True),
             [
-                *JPY,
+                *P.JPY,
                 "labextension",
                 "install",
                 *P.ALL_LABEXTENSIONS,
@@ -274,7 +273,7 @@ def task_lab_extensions():
 def task_lab_build():
     """build JupyterLab web application"""
 
-    args = [*JPY, "lab", "build", "--dev-build=False", "--debug"]
+    args = [*P.JPY, "lab", "build", "--dev-build=False", "--debug"]
 
     # binder runs out of memory
     if P.RUNNING_IN_BINDER:
@@ -304,7 +303,7 @@ def task_watch():
         time.sleep(10)
         print(">>> Starting lab watcher...", flush=True)
         lab = subprocess.Popen(
-            [*JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
+            [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
             stdin=subprocess.PIPE,
         )
 
@@ -369,10 +368,19 @@ def task_robot():
             P.OK / "robot_dry_run",
             P.OK / "nbtest",
         ],
+        actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
+        targets=[P.OK / "robot"],
+    )
+
+
+def task_integrity():
+    """check various sources of version and documentation issues"""
+    return dict(
+        file_dep=[*P.ALL_PY, *P.ALL_MD],
         actions=[
-            U.okit("robot", remove=True),
-            [*ATEST],
-            U.okit("robot")
+            U.okit("integrity", remove=True),
+            [*P.PYM, "_scripts._integrity"],
+            U.okit("integrity"),
         ],
-        targets=[P.OK / "robot"]
+        targets=[P.OK / "integrity"]
     )

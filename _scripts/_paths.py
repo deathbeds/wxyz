@@ -19,6 +19,9 @@ RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
 
 PY = Path(sys.executable)
+PYM = [PY, "-m"]
+PIP = [*PYM, "pip"]
+JPY = [*PYM, "jupyter"]
 OS = platform.system()
 
 WIN = OS == "Windows"
@@ -43,7 +46,7 @@ CI_TEST_YML = CI / "job.test.yml"
 CI_TEST_MATRIX = safe_load(CI_TEST_YML.read_text())["parameters"]
 LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
-
+RECIPES = ROOT / "recipes"
 
 class ENV:
     """some partial conda environment descriptions"""
@@ -67,7 +70,7 @@ DODO = ROOT / "dodo.py"
 ALL_SRC_PY = sorted([*PY_SRC.rglob("*.py")])
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])
 ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])
-
+ALL_MD = sorted([*ROOT.glob("*.md")])
 
 DIST = ROOT / "dist"
 IPYNB_HTML = DIST / "notebooks"
@@ -129,7 +132,9 @@ SDISTS = {
 }
 
 WHEELS = {
-    pys.parent.name: DIST / "bdist_wheel" / f"{pys.parent.name}-{version}-py3-none-any.whl"
+    pys.parent.name: DIST
+    / "bdist_wheel"
+    / f"{pys.parent.name}-{version}-py3-none-any.whl"
     for pys, version in PY_VERSION.items()
 }
 
@@ -147,20 +152,33 @@ ALL_IPYNB = sorted(
     ]
 )
 
+README = ROOT / "README.md"
+CONTRIBUTING = ROOT / "CONTRIBUTING.md"
+
+ALL_MD = sorted(
+    set(
+        [
+            *PY_SRC.rglob("*.md"),
+            *ROOT.glob("*.md"),
+            *TS_SRC.rglob("*.md"),
+            CONTRIBUTING,
+            README,
+        ]
+    )
+)
+
 ALL_PRETTIER = sorted(
     [
         *CI.glob("*.yml"),
         *REQS.glob("*.yml"),
-        *PY_SRC.rglob("*.md"),
         *ROOT.glob("*.json"),
-        *ROOT.glob("*.md"),
         *ROOT.glob("*.yml"),
         *TS_SRC.rglob("*.css"),
         *TS_SRC.rglob("*.json"),
-        *TS_SRC.rglob("*.md"),
         *TS_SRC.rglob("*.ts"),
         *TS_SRC.rglob("*.yml"),
         *ALL_YAML,
+        *ALL_MD,
     ]
 )
 
