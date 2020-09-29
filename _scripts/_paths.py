@@ -70,6 +70,9 @@ SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
 DODO = ROOT / "dodo.py"
+
+PYLINTRC = ROOT / ".pylintrc"
+
 ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
 ALL_SRC_PY = sorted([*PY_SRC.rglob("*.py")])
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])

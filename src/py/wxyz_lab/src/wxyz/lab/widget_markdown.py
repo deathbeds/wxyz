@@ -5,7 +5,6 @@ from nbconvert.filters.markdown import markdown2html_mistune
 
 from wxyz.core.base import Fn
 
-# pylint: disable=too-many-ancestors
 from .base import LabBase, T, W
 
 

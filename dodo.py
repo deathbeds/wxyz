@@ -19,7 +19,7 @@ PY_LINT_CMDS = [
     ["isort", "-rc"],
     ["black", "--quiet"],
     ["flake8", "--max-line-length", "88"],
-    ["pylint", "-sn", "-rn"],
+    ["pylint", "-sn", "-rn", f"--rcfile={P.PYLINTRC}"],
 ]
 
 DOIT_CONFIG = {

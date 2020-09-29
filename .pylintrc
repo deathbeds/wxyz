@@ -1,3 +1,2 @@
 [MESSAGES CONTROL]
-disable =
-    invalid-name
+disable = invalid-name,too-many-ancestors

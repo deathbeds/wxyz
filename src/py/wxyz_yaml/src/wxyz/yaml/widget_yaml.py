@@ -1,6 +1,6 @@
 """ Widgets for working with YAML
 """
-# pylint: disable=too-many-ancestors,no-self-use,too-few-public-methods
+# pylint: disable=no-self-use,too-few-public-methods
 # pylint: disable=no-name-in-module,cyclic-import
 from yaml import safe_dump, safe_load
 

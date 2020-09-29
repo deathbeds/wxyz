@@ -1,6 +1,6 @@
 """ Jupyter Widgets for git
 """
-# pylint: disable=too-many-ancestors,no-member
+# pylint: disable=no-member
 
 from .base import T
 from .widget_repo import Repo

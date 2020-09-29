@@ -1,6 +1,6 @@
 """ File upload/download widgets
 """
-# pylint: disable=too-many-ancestors,no-member
+# pylint: disable=no-member
 from .base import HTMLBase, T, W
 
 

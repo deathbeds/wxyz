@@ -1,6 +1,5 @@
 """ Full Screen widget
 """
-# pylint: disable=too-many-ancestors
 from .base import HTMLBase, T, W
 
 

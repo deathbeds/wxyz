@@ -1,6 +1,5 @@
 """ Text editing widgets
 """
-# pylint: disable=too-many-ancestors
 from .base import LabBase, T, W
 
 

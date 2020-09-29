@@ -1,6 +1,6 @@
 """ SVG Box widget
 """
-# pylint: disable=too-many-ancestors,unused-argument
+# pylint: disable=unused-argument
 from pathlib import Path
 
 from .base import SVGBase, T, W

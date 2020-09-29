@@ -1,6 +1,6 @@
 """ Widgets for working with JSON Schema interactively
 """
-# pylint: disable=no-self-use,redefined-builtin,too-many-ancestors
+# pylint: disable=no-self-use,redefined-builtin
 
 from .base import JSONSchemaFormBase, T, W
 

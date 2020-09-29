@@ -1,6 +1,6 @@
 """ Widgets for templating
 """
-# pylint: disable=no-self-use,too-many-ancestors
+# pylint: disable=no-self-use
 import jinja2
 
 from wxyz.core.base import Fn, T, W

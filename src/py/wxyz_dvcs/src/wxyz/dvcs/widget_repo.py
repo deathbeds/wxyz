@@ -1,6 +1,6 @@
 """ Jupyter Widgets for any DVCS
 """
-# pylint: disable=too-many-ancestors,no-member
+# pylint: disable=no-member
 
 from pathlib import Path
 
