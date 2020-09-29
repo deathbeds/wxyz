@@ -1,6 +1,6 @@
 """ Widgets for working with JSON
 """
-# pylint: disable=no-self-use
+# pylint: disable=no-self-use,too-many-ancestors
 import json
 
 import jsonpointer

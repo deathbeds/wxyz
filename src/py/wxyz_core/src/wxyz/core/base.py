@@ -1,6 +1,6 @@
 """ Reusable boilerplate for widgets
 """
-# pylint: disable=broad-except,no-member
+# pylint: disable=broad-except,no-member,too-many-ancestors
 import ipywidgets as W
 import traitlets as T
 
