@@ -123,10 +123,16 @@ CONDA_BUILD_ARGS = [
     DIST / "conda-bld",
 ]
 
-WHEELS = [
-    DIST / "bdist_wheel" / f"{pys.parent.name}-{version}-py3-none-any.whl"
+SDISTS = {
+    pys.parent.name: DIST / "sdist" / f"{pys.parent.name}-{version}.tar.gz"
     for pys, version in PY_VERSION.items()
-]
+}
+
+WHEELS = {
+    pys.parent.name: DIST / "bdist_wheel" / f"{pys.parent.name}-{version}-py3-none-any.whl"
+    for pys, version in PY_VERSION.items()
+}
+
 
 IPYNB = PY_SRC / "wxyz_notebooks" / "src" / "wxyz" / "notebooks"
 DESIGN_IPYNB = IPYNB / "Design"

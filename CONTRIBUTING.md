@@ -34,6 +34,12 @@ doit
 > This actually runs the `binder` task, which is used in `postBuild` for the
 > interactive demo
 
+### Do everything to prepare for a release
+
+```bash
+doit release
+```
+
 ### Live Development
 
 To rebuild the labextension and your JupyterLab, use:

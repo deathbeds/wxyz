@@ -30,6 +30,13 @@ DOIT_CONFIG = {
 }
 
 
+def task_release():
+    return dict(
+        file_dep=[P.OK / "robot", *P.WHEELS.values(), *P.SDISTS.values()],
+        actions=[lambda: print("OK to release")]
+    )
+
+
 def task_lock():
     """lock conda envs so they don't need to be solved in CI
     This should be run semi-frequently (e.g. after merge to master).
@@ -113,11 +120,11 @@ if P.RUNNING_IN_CI:
     def task_setup_py_ci():
         """CI: setup python packages from wheels"""
         return dict(
-            file_dep=P.WHEELS,
+            file_dep=P.WHEELS.values(),
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
-                [P.PY, "-m", "pip", "install", *P.WHEELS],
+                [P.PY, "-m", "pip", "install", *P.WHEELS.values()],
                 [P.PY, "-m", "pip", "freeze"],
                 U.okit("setup_py"),
             ],
@@ -199,6 +206,7 @@ def _make_pydist(setup_py):
             doc=f"build {pkg.name} distributions",
             file_dep=file_dep,
             actions=[_action("sdist"), _action("bdist_wheel")],
+            targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]]
         )
 
     _task.__name__ = f"task_dist_py_{pkg.name}"
@@ -341,7 +349,7 @@ def task_robot_dry_run():
         file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
         targets=[P.OK / "robot_dry_run"],
         actions=[
-            U.okit("robot_dry_run", True),
+            U.okit("robot_dry_run", remove=True),
             [P.PY, "-m", "robot.tidy", "--inplace", *P.ALL_ROBOT],
             [*ATEST, "--dryrun"],
             U.okit("robot_dry_run"),
@@ -361,5 +369,10 @@ def task_robot():
             P.OK / "robot_dry_run",
             P.OK / "nbtest",
         ],
-        actions=[[*ATEST]],
+        actions=[
+            U.okit("robot", remove=True),
+            [*ATEST],
+            U.okit("robot")
+        ],
+        targets=[P.OK / "robot"]
     )
