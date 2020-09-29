@@ -19,7 +19,7 @@ PY_LINT_CMDS = [
     ["isort", "-rc"],
     ["black", "--quiet"],
     ["flake8", "--max-line-length", "88"],
-    ["pylint"],
+    ["pylint", "-sn", "-rn"],
 ]
 
 DOIT_CONFIG = {
@@ -31,12 +31,15 @@ DOIT_CONFIG = {
 
 
 def task_release():
+    """run all tasks, except re-locking"""
     return dict(
         file_dep=[
-            P.OK / "robot",
-            *P.WHEELS.values(),
-            *P.SDISTS.values(),
+            *[P.OK / f"lint_{group}" for group in LINT_GROUPS],
+            *sorted(P.SDISTS.values()),
+            *sorted(P.WHEELS.values()),
             P.OK / "integrity",
+            P.OK / "labextensions",
+            P.OK / "robot",
         ],
         actions=[lambda: print("OK to release")],
     )
@@ -123,18 +126,18 @@ if P.RUNNING_IN_CI:
     def task_setup_py_ci():
         """CI: setup python packages from wheels"""
         return dict(
-            file_dep=P.WHEELS.values(),
+            file_dep=sorted(P.WHEELS.values()),
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
-                [*P.PIP, "install", *P.WHEELS.values()],
+                [*P.PIP, "install", *sorted(P.WHEELS.values())],
                 [*P.PIP, "freeze"],
                 U.okit("setup_py"),
             ],
         )
 
 
-if not P.RUNNING_IN_CI:
+else:
     [
         globals().update(**_make_py_setup(i, setup_py))
         for i, setup_py in enumerate(P.PY_SETUP)
@@ -176,9 +179,15 @@ LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py"), *P.ATEST_PY]
 
 def _make_linter(label, files):
     def _task():
+        ok = f"lint_{label}"
         return dict(
             file_dep=[*files, *EGG_LINKS],
-            actions=[cmd + files for cmd in PY_LINT_CMDS if shutil.which(cmd[0])],
+            actions=[
+                U.okit(ok, remove=True),
+                *[cmd + files for cmd in PY_LINT_CMDS if shutil.which(cmd[0])],
+                U.okit(ok),
+            ],
+            targets=[P.OK / ok],
         )
 
     _task.__name__ = f"task_lint_py_{label}"
@@ -382,5 +391,5 @@ def task_integrity():
             [*P.PYM, "_scripts._integrity"],
             U.okit("integrity"),
         ],
-        targets=[P.OK / "integrity"]
+        targets=[P.OK / "integrity"],
     )

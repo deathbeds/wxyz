@@ -1,7 +1,11 @@
+""" integrity checks for the wxyz repo
+"""
+# pylint: disable=redefined-outer-name
+import sys
 import tempfile
 from importlib.util import find_spec
 from pathlib import Path
-import sys
+
 import pytest
 
 from . import _paths as P
@@ -12,8 +16,9 @@ junit_family=xunit2
 """
 
 
-@pytest.fixture
-def contributing_text(scope="module"):
+@pytest.fixture(scope="module")
+def contributing_text():
+    """the text of CONTRIBUTING.md"""
     return P.CONTRIBUTING.read_text(encoding="utf-8")
 
 
@@ -28,11 +33,12 @@ def test_contributing_locks(contributing_text):
     assert found_lock == 2
 
 
-@pytest.mark.parametrize("pkg,version", [
-    [setup_py.parent.name, version]
-    for setup_py, version in P.PY_VERSION.items()
-])
+@pytest.mark.parametrize(
+    "pkg,version",
+    [[setup_py.parent.name, version] for setup_py, version in P.PY_VERSION.items()],
+)
 def test_py_versions(pkg, version):
+    """are version files consistent?"""
     setup_cfg = (P.PY_SRC / pkg / "setup.cfg").read_text()
 
     assert f"version = {version}" in setup_cfg

@@ -48,6 +48,7 @@ LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
 RECIPES = ROOT / "recipes"
 
+
 class ENV:
     """some partial conda environment descriptions"""
 
