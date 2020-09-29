@@ -48,6 +48,8 @@ LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
 RECIPES = ROOT / "recipes"
 
+ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
+
 
 class ENV:
     """some partial conda environment descriptions"""
@@ -68,6 +70,7 @@ SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
 DODO = ROOT / "dodo.py"
+ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
 ALL_SRC_PY = sorted([*PY_SRC.rglob("*.py")])
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])
 ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])

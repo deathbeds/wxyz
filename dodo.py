@@ -35,8 +35,8 @@ def task_release():
     return dict(
         file_dep=[
             *[P.OK / f"lint_{group}" for group in LINT_GROUPS],
-            *sorted(P.SDISTS.values()),
-            *sorted(P.WHEELS.values()),
+            *P.SDISTS.values(),
+            *P.WHEELS.values(),
             P.OK / "integrity",
             P.OK / "labextensions",
             P.OK / "robot",
@@ -66,7 +66,7 @@ def task_lock():
 
         yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
-    for conda_platform in ["linux-64", "osx-64", "win-64"]:
+    for conda_platform in P.ALL_CONDA_PLATFORMS:
         yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
 
     yield make_lock_task(
@@ -126,11 +126,11 @@ if P.RUNNING_IN_CI:
     def task_setup_py_ci():
         """CI: setup python packages from wheels"""
         return dict(
-            file_dep=sorted(P.WHEELS.values()),
+            file_dep=[*P.WHEELS.values()],
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
-                [*P.PIP, "install", *sorted(P.WHEELS.values())],
+                [*P.PIP, "install", *P.WHEELS.values()],
                 [*P.PIP, "freeze"],
                 U.okit("setup_py"),
             ],
@@ -385,7 +385,7 @@ def task_robot():
 def task_integrity():
     """check various sources of version and documentation issues"""
     return dict(
-        file_dep=[*P.ALL_PY, *P.ALL_MD],
+        file_dep=[*P.ALL_SRC_PY, *P.ALL_MD, *P.ALL_SETUP_CFG],
         actions=[
             U.okit("integrity", remove=True),
             [*P.PYM, "_scripts._integrity"],
