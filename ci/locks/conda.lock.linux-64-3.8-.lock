@@ -32,9 +32,12 @@ https://conda.anaconda.org/conda-forge/linux-64/zstd-1.4.5-h6597ccf_2.tar.bz2#d6
 https://conda.anaconda.org/conda-forge/linux-64/krb5-1.17.1-hfafb76e_3.tar.bz2#b9c0993124fbf5f4ccf37fd00d6a3705
 https://conda.anaconda.org/conda-forge/linux-64/libarchive-3.3.3-hddc7a2b_1008.tar.bz2#053a287e9cca3926369a5f6f21f32764
 https://conda.anaconda.org/conda-forge/linux-64/sqlite-3.33.0-h4cf870e_0.tar.bz2#b22603a9c94d2cda5911f7a2cd55aa95
-https://conda.anaconda.org/conda-forge/linux-64/libcurl-7.71.1-hcdd3856_6.tar.bz2#ca3ed6299c27fa27c53e1b3ad51c5328
+https://conda.anaconda.org/conda-forge/linux-64/libcurl-7.71.1-hcdd3856_8.tar.bz2#2c81fb9f0d82c04b08617fc73eb615af
 https://conda.anaconda.org/conda-forge/linux-64/python-3.8.5-h1103e12_9_cpython.tar.bz2#8f5c04921bbbeacce8a8a3b6f6737ccb
+https://conda.anaconda.org/conda-forge/noarch/appdirs-1.4.3-py_1.tar.bz2#79ea201c0ff86b098d3e3e3fa45505cd
+https://conda.anaconda.org/conda-forge/noarch/click-7.1.2-pyh9f0ad1d_0.tar.bz2#bd50a970ce07e660c319fdc4d730d3f1
 https://conda.anaconda.org/conda-forge/noarch/cloudpickle-1.6.0-py_0.tar.bz2#76d764d8881719e305f6fa368dc2b65e
+https://conda.anaconda.org/conda-forge/noarch/filelock-3.0.12-pyh9f0ad1d_0.tar.bz2#7544ed05bbbe9bb687bc9bcbe4d6cb46
 https://conda.anaconda.org/conda-forge/noarch/idna-2.10-pyh9f0ad1d_0.tar.bz2#f95a12b4f435aae6680fe55ae2eb1b06
 https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz2#aa798d50ffd182a0f6f31478c7f434f6
 https://conda.anaconda.org/conda-forge/linux-64/python_abi-3.8-1_cp38.tar.bz2#8d05152d6fb3012b27a0e6fbcc14bea1
@@ -60,5 +63,6 @@ https://conda.anaconda.org/conda-forge/linux-64/pyopenssl-19.1.0-py38_0.tar.bz2#
 https://conda.anaconda.org/conda-forge/noarch/urllib3-1.25.10-py_0.tar.bz2#82cde2a532177697e42a090add881db8
 https://conda.anaconda.org/conda-forge/noarch/requests-2.24.0-pyh9f0ad1d_0.tar.bz2#786ef230ca5cf2536e9dee910fdf4f9f
 https://conda.anaconda.org/conda-forge/linux-64/conda-4.8.5-py38h32f6830_1.tar.bz2#c1239d617f568e5b43830cc022e4656d
-https://conda.anaconda.org/conda-forge/noarch/conda-lock-0.6.0-py_0.tar.bz2#cec92264515acd6ff903fa8455dd67da
+https://conda.anaconda.org/conda-forge/noarch/ensureconda-1.1.0-py_0.tar.bz2#e310aac913fdb0843ccce19911ef8f34
+https://conda.anaconda.org/conda-forge/noarch/conda-lock-0.7.1-py_0.tar.bz2#72762ad415114239f57abaaafc5d8d1b
 https://conda.anaconda.org/conda-forge/linux-64/mamba-0.5.1-py38h6fd9b40_0.tar.bz2#f912250bcdf451eb97de6ef8db4f77aa

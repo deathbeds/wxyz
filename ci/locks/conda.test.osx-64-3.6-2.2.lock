@@ -61,7 +61,7 @@ https://conda.anaconda.org/conda-forge/osx-64/sqlite-3.33.0-h960bd1c_0.tar.bz2#2
 https://conda.anaconda.org/conda-forge/osx-64/fossil-2.12-h5d1790c_0.tar.bz2#c30989c3e6d5ac14b37597a27e44ffea
 https://conda.anaconda.org/conda-forge/osx-64/lcms2-2.11-h174193d_0.tar.bz2#840ff941941c2bde293bfb45076e8c30
 https://conda.anaconda.org/conda-forge/osx-64/libblas-3.8.0-17_openblas.tar.bz2#ceac2df441f5c3acae4fb1cb02ea7fb2
-https://conda.anaconda.org/conda-forge/osx-64/libcurl-7.71.1-h9bf37e3_6.tar.bz2#193ae801f5beae96d8c4f0920792c858
+https://conda.anaconda.org/conda-forge/osx-64/libcurl-7.71.1-h9bf37e3_8.tar.bz2#1a136204085b4c620fe2ed74fb1112bf
 https://conda.anaconda.org/conda-forge/osx-64/openjpeg-2.3.1-hcdae239_3.tar.bz2#26d248692ce738c419e2a1a43b0831d7
 https://conda.anaconda.org/conda-forge/osx-64/python-3.6.11-hc38f9c5_2_cpython.tar.bz2#7840b0226df9b6c7c3e6c1f9d8e4b73f
 https://conda.anaconda.org/conda-forge/noarch/apipkg-1.5-py_0.tar.bz2#4e79696efff4eae6cbcbeddbb5bbb5ee
@@ -73,7 +73,7 @@ https://conda.anaconda.org/conda-forge/osx-64/backports-1.0-py36_1.tar.bz2#10236
 https://conda.anaconda.org/conda-forge/noarch/click-7.1.2-pyh9f0ad1d_0.tar.bz2#bd50a970ce07e660c319fdc4d730d3f1
 https://conda.anaconda.org/conda-forge/noarch/cloudpickle-1.6.0-py_0.tar.bz2#76d764d8881719e305f6fa368dc2b65e
 https://conda.anaconda.org/conda-forge/noarch/colorama-0.4.3-py_0.tar.bz2#9cf68a6826504feedbfd646bc4d1ca14
-https://conda.anaconda.org/conda-forge/osx-64/curl-7.71.1-hcb81553_6.tar.bz2#6656bf43be1631e24acafd3692b9a895
+https://conda.anaconda.org/conda-forge/osx-64/curl-7.71.1-hcb81553_8.tar.bz2#82d166def6b920c17688f9ec0d766908
 https://conda.anaconda.org/conda-forge/osx-64/dataclasses-0.7-py36_0.tar.bz2#75025da9305c01fd4e0c67dd62ad4279
 https://conda.anaconda.org/conda-forge/noarch/decorator-4.4.2-py_0.tar.bz2#d2eabb9cabd212e1ec6a9463bd846243
 https://conda.anaconda.org/conda-forge/noarch/defusedxml-0.6.0-py_0.tar.bz2#37e1033daee0e2edaa5ff42584c52b21
