@@ -52,17 +52,11 @@ jobs:
               - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_ts
                 displayName: install npm dependencies
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit integrity
-                displayName: check repo integrity
-
               - script: ${{ platform.activate }} ./${{ python.env }} && doit "dist_py*"
                 displayName: build python distributions
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_py_ci
                 displayName: install python wheels
-
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit "lint_*"
-                displayName: check style
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit nbtest
                 displayName: run notebook smoke tests
