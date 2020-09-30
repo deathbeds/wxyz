@@ -1,3 +1,4 @@
 include LICENSE.txt README.md
-recursive-include src/wxyz/notebooks *.ipynb *.svg
+recursive-include src/wxyz/notebooks *.ipynb *.svg *.py
 global-exclude .ipynb_checkpoints
+global-exclude  dask-worker-space
