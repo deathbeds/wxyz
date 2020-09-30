@@ -136,7 +136,7 @@ if P.RUNNING_IN_CI:
                 [
                     *P.PIP,
                     "install",
-                    "--no-dep",
+                    "--no-deps",
                     "--ignore-installed",
                     *P.WHEELS.values(),
                 ],
