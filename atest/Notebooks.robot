@@ -33,8 +33,11 @@ Restart and Run All
     Wait Until Element Contains    ${JLAB XP LAST CODE PROMPT}    [*]:
 
 Capture All Code Cells
-    [Arguments]    ${prefix}=${EMPTY}
+    [Arguments]    ${prefix}=${EMPTY}    ${timeout}=30s
     ${cells} =    Get WebElements    ${JLAB XP CODE CELLS}
+    Lab Command    Expand All Code
     FOR    ${idx}    ${cell}    IN ENUMERATE    @{cells}
-        Capture Element Screenshot    ${JLAB XP CODE CELLS}\[${idx.__add__(1)}]    ${prefix}cell-${idx}.png
+        ${sel} =    Set Variable    ${JLAB XP CODE CELLS}\[${idx.__add__(1)}]
+        Run Keyword and Ignore Error    Wait Until Element does not contain    ${sel}    [*]:    timeout=${timeout}
+        Capture Element Screenshot    ${sel}    ${prefix}cell-${idx.__repr__().zfill(3)}.png
     END
