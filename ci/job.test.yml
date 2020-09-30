@@ -82,7 +82,7 @@ jobs:
               - task: PublishTestResults@2
                 displayName: publish browser test results
                 inputs:
-                  testResultsFiles: atest/output/*.xunit.xml
+                  testResultsFiles: atest/output/**/xunit.xml
                   testRunTitle: 'Robot ${{ platform.name }}${{ python.name }}'
                   mergeTestResults: true
                 condition: always()

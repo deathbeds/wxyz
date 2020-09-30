@@ -21,7 +21,7 @@ Setup Server and Browser
     Create Notebok Server Config    ${home}
     Initialize User Settings
     ${cmd} =    Create Lab Launch Command    ${root}
-    Set Screenshot Directory    ${OUTPUT DIR}${/}screenshots
+    Set Screenshot Directory    ${SCREENS ROOT}
     Set Global Variable    ${LAB LOG}    ${OUTPUT DIR}${/}lab.log
     Set Global Variable    ${PREVIOUS LAB LOG LENGTH}    0
     ${server} =    Start Process    ${cmd}    shell=yes    env:HOME=${home}    cwd=${home}    stdout=${LAB LOG}
@@ -50,7 +50,7 @@ Create Notebok Server Config
 
 Setup Suite For Screenshots
     [Arguments]    ${folder}
-    Set Screenshot Directory    ${OUTPUT DIR}${/}screenshots${/}${folder}
+    Set Screenshot Directory    ${SCREENS ROOT}${/}${folder}
     Set Tags    lab:${LAB VERSION}
 
 Initialize User Settings
@@ -212,14 +212,6 @@ Clean Up After Working With File
     Remove File    ${OUTPUT DIR}${/}home${/}${file}
     Reset Application State
 
-Setup Notebook
-    [Arguments]    ${file}    ${isolated}=${True}
-    Run Keyword If    ${isolated}    Set Screenshot Directory    ${OUTPUT DIR}${/}screenshots${/}notebook${/}${TEST NAME.replace(' ', '_')}
-    Copy File    examples${/}${file}    ${OUTPUT DIR}${/}home${/}${file}
-    Run Keyword If    ${isolated}    Try to Close All Tabs
-    Open ${file} in ${MENU NOTEBOOK}
-    Capture Page Screenshot    00-notebook-opened.png
-
 Open Diagnostics Panel
     Lab Command    Show Diagnostics Panel
     Wait Until Page Contains Element    ${DIAGNOSTICS PANEL}    timeout=20s
@@ -254,17 +246,11 @@ Open Context Menu Over
     Wait Until Keyword Succeeds    10 x    0.1 s    Mouse Over    ${sel}
     Wait Until Keyword Succeeds    10 x    0.1 s    Open Context Menu    ${sel}
 
-Prepare File for Editing
-    [Arguments]    ${Language}    ${Screenshots}    ${file}
-    Set Tags    language:${Language.lower()}
-    Set Screenshot Directory    ${OUTPUT DIR}${/}screenshots${/}${Screenshots}${/}${Language.lower()}
-    Try to Close All Tabs
-    Open File    ${file}
-
 Open File
-    [Arguments]    ${file}
-    Copy File    examples${/}${file}    ${OUTPUT DIR}${/}home${/}${file}
-    Open ${file} in ${MENU EDITOR}
+    [Arguments]    ${file}    ${editor}=${MENU EDITOR}
+    ${parent}    ${name} =    Split Path    ${file}
+    Copy File    ${file}    ${OUTPUT DIR}${/}home${/}${name}
+    Open ${name} in ${editor}
     Capture Page Screenshot    00-opened.png
 
 Open in Advanced Settings

@@ -47,7 +47,9 @@ def atest(attempt, extra_args):
 
     print("Will use firefox at", os.environ["FIREFOX_BINARY"])
 
-    assert os.path.exists(os.environ["FIREFOX_BINARY"])
+    assert os.path.exists(
+        os.environ["FIREFOX_BINARY"]
+    ), "No firefox found, this would not go well"
 
     out_dir = P.ATEST_OUT / stem
 
@@ -57,22 +59,21 @@ def atest(attempt, extra_args):
         "--outputdir",
         out_dir,
         "--log",
-        P.ATEST_OUT / f"{stem}.log.html",
+        out_dir / "log.html",
         "--report",
-        P.ATEST_OUT / f"{stem}.report.html",
+        out_dir / "report.html",
         "--xunit",
-        P.ATEST_OUT / f"{stem}.xunit.xml",
+        out_dir / "xunit.xml",
         "--variable",
         f"OS:{P.OS}",
         "--variable",
         f"PY:{P.PY_VER}",
+        "--variable",
+        f"WXYZ_NOTEBOOKS:{P.IPYNB}",
         "--randomize",
         "all",
         *(extra_args or []),
-        P.ATEST,
     ]
-
-    print("Robot Arguments\n", " ".join(["robot"] + list(map(str, args))))
 
     os.environ["JUPYTERLAB_DIR"] = str(P.LAB)
     os.chdir(P.ATEST)
@@ -86,11 +87,18 @@ def atest(attempt, extra_args):
 
     if "--dryrun" in extra_args:
         run_robot = robot.run_cli
+        fake_cmd = "robot"
     else:
         run_robot = pabot.main
+        fake_cmd = "pabot"
+        # pabot args must come first
+        args = ["--artifactsinsubfolders", *args]
+
+    print(f"[{fake_cmd} arguments]\n", " ".join(list(map(str, args))))
+    print(f"[{fake_cmd} test root]\n", P.ATEST)
 
     try:
-        run_robot(list(map(str, args)))
+        run_robot(list(map(str, args + [P.ATEST])))
         return 0
     except SystemExit as err:
         print(run_robot.__name__, "exited with", err.code)
