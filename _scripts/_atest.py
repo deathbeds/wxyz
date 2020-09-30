@@ -92,7 +92,7 @@ def atest(attempt, extra_args):
         run_robot = pabot.main
         fake_cmd = "pabot"
         # pabot args must come first
-        args = ["--artifactsinsubfolders", *args]
+        args = ["--artifactsinsubfolders", "--artifacts", "png,log", *args]
 
     print(f"[{fake_cmd} arguments]\n", " ".join(list(map(str, args))))
     print(f"[{fake_cmd} test root]\n", P.ATEST)

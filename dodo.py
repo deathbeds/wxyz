@@ -372,15 +372,18 @@ def task_robot():
     """test in browser with robot framework"""
 
     return dict(
-        file_dep=[
-            *P.ALL_ROBOT,
-            *P.ALL_SRC_PY,
-            *P.ALL_TS,
-            P.LAB_INDEX,
-            P.SCRIPTS / "_atest.py",
-            P.OK / "lab",
-            P.OK / "robot_lint",
-        ],
+        file_dep=sorted(
+            [
+                *P.ALL_ROBOT,
+                *P.ALL_SRC_PY,
+                *P.ALL_TS,
+                *P.ALL_IPYNB,
+                P.LAB_INDEX,
+                P.SCRIPTS / "_atest.py",
+                P.OK / "lab",
+                P.OK / "robot_lint",
+            ]
+        ),
         actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
         targets=[P.OK / "robot"],
     )

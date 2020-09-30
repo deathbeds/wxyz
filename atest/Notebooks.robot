@@ -10,7 +10,9 @@ ${SCREENS}        ${SCREENS ROOT}${/}notebooks
 Index
     Open WXYZ Notebook    index
     Restart and Run All
-    Sleep    5s
+    Wait For All Cells To Run    60s
+    Capture All Code Cells
+    Page Should Not Contain Element    ${JLAB XP STDERR}
     Capture Page Screenshot    99-fin.png
     [Teardown]    Clean up after Working with file    index.ipynb
 
@@ -27,3 +29,10 @@ Open WXYZ Notebook
 Restart and Run All
     Lab Command    Restart Kernel and Run All Cells
     Accept Default Dialog Option
+
+Capture All Code Cells
+    [Arguments]    ${prefix}=${EMPTY}
+    ${cells} =    Get WebElements    ${JLAB XP CODE CELLS}
+    FOR    ${idx}    ${cell}    IN ENUMERATE    @{cells}
+        Capture Element Screenshot    ${JLAB XP CODE CELLS}\[${idx.__add__(1)}]    ${prefix}cell-${idx}.png
+    END

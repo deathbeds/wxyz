@@ -14,6 +14,10 @@ ${JLAB XP TOP}    //div[@id='jp-top-panel']
 ${JLAB XP MENU ITEM LABEL}    //div[@class='lm-Menu-itemLabel']
 ${JLAB XP MENU LABEL}    //div[@class='lm-MenuBar-itemLabel']
 ${JLAB XP DOCK TAB}    xpath://div[contains(@class, 'lm-DockPanel-tabBar')]//li[contains(@class, 'lm-TabBar-tab')]
+${JLAB XP CODE CELLS}    xpath://*[contains(@class, 'jp-NotebookPanel-notebook')]/*[contains(@class, 'jp-CodeCell')]
+${JLAB XP LAST CODE CELL}    ${JLAB XP CODE CELLS}\[last()]
+${JLAB XP LAST CODE PROMPT}    ${JLAB XP LAST CODE CELL}//*[contains(@class, 'jp-InputArea-prompt')]
+${JLAB XP STDERR}    xpath://*[@data-mime-type="application/vnd.jupyter.stderr"]
 ${JLAB CSS VERSION}    css:.jp-About-version
 ${CSS DIALOG OK}    css:.jp-Dialog .jp-mod-accept
 ${MENU OPEN WITH}    xpath://div[contains(@class, 'lm-Menu-itemLabel')][contains(text(), "Open With")]
@@ -34,3 +38,6 @@ ${CM CURSORS}     css:.CodeMirror-cursors:not([style='visibility: hidden'])
 # settings
 ${CSS USER SETTINGS}    .jp-SettingsRawEditor-user
 ${JLAB XP CLOSE SETTINGS}    ${JLAB XP DOCK TAB}\[contains(., 'Settings')]/*[contains(@class, 'm-TabBar-tabCloseIcon')]
+${PABOT ID}       0_0_0
+${NEXT BROWSER}    ${0}
+${NEXT LAB}       ${0}

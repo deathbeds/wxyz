@@ -9,6 +9,7 @@ Library           ./Ports.py
 *** Keywords ***
 Setup Server and Browser
     ${port} =    Get Unused Port
+    Run Keyword and Ignore Error    Tag for Pabot
     Set Global Variable    ${PORT}    ${port}
     Set Global Variable    ${URL}    http://localhost:${PORT}${BASE}
     ${accel} =    Evaluate    "COMMAND" if "${OS}" == "Darwin" else "CTRL"
@@ -22,7 +23,8 @@ Setup Server and Browser
     Initialize User Settings
     ${cmd} =    Create Lab Launch Command    ${root}
     Set Screenshot Directory    ${SCREENS ROOT}
-    Set Global Variable    ${LAB LOG}    ${OUTPUT DIR}${/}lab.log
+    Set Global Variable    ${NEXT LAB}    ${NEXT LAB.__add__(1)}
+    Set Global Variable    ${LAB LOG}    ${OUTPUT DIR}${/}lab-${PABOT ID}-${NEXT LAB}.log
     Set Global Variable    ${PREVIOUS LAB LOG LENGTH}    0
     ${server} =    Start Process    ${cmd}    shell=yes    env:HOME=${home}    cwd=${home}    stdout=${LAB LOG}
     ...    stderr=STDOUT
@@ -32,6 +34,13 @@ Setup Server and Browser
     ${config} =    Evaluate    __import__("json").loads("""${script}""")
     Set Global Variable    ${PAGE CONFIG}    ${config}
     Set Global Variable    ${LAB VERSION}    ${config["appVersion"]}
+
+Tag For Pabot
+    Set Suite Variable    ${PABOT ID}
+    ...    ${CALLER_ID[:3]}_${PABOTEXECUTIONPOOLID}_${PABOTQUEUEINDEX}
+    ...    children=${True}
+    Set Tags
+    ...    pabot:${PABOT ID}
 
 Create Lab Launch Command
     [Arguments]    ${root}
@@ -66,20 +75,25 @@ Tear Down Everything
 
 Wait For Splash
     Go To    ${URL}lab?reset&token=${TOKEN}
-    Set Window Size    1024    768
+    Set Window Size    1920    1080
     Wait Until Page Contains Element    ${SPLASH}    timeout=30s
     Wait Until Page Does Not Contain Element    ${SPLASH}    timeout=10s
     Execute Javascript    window.onbeforeunload \= function (){}
+
+Wait For All Cells To Run
+    [Arguments]    ${timeout}=10s
+    Wait Until Element Does Not Contain    ${JLAB XP LAST CODE PROMPT}    [*]:    timeout=${timeout}
 
 Open JupyterLab
     Set Environment Variable    MOZ_HEADLESS    ${HEADLESS}
     ${firefox} =    Get Firefox Binary
     ${geckodriver} =    Which    geckodriver
-    ${service args} =    Create List    --log    debug
+    ${service args} =    Create List    --log    info
+    Set Global Variable    ${NEXT BROWSER}    ${NEXT BROWSER.__add__(1)}
     Create WebDriver    Firefox
     ...    executable_path=${geckodriver}
     ...    firefox_binary=${firefox}
-    ...    service_log_path=${OUTPUT DIR}${/}geckodriver.log
+    ...    service_log_path=${OUTPUT DIR}${/}geckodriver-${PABOT ID}-${NEXT BROWSER}.log
     ...    service_args=${service args}
     Wait Until Keyword Succeeds    3x    5s    Wait For Splash
 
