@@ -39,6 +39,7 @@ def task_release():
             *P.WHEELS.values(),
             P.OK / "integrity",
             P.OK / "labextensions",
+            P.OK / "nbtest",
             P.OK / "robot",
         ],
         actions=[lambda: print("OK to release")],
@@ -101,7 +102,7 @@ def _make_py_setup(i, setup_py):
     def _task():
         return dict(
             doc=f"{pkg.name} dev install",
-            file_dep=[setup_py, pkg / "setup.cfg"],
+            file_dep=[setup_py, pkg / "setup.cfg", pkg / "MANIFEST.in"],
             targets=egg_link,
             actions=[
                 [
@@ -205,6 +206,7 @@ def _make_pydist(setup_py):
     file_dep = [
         setup_py,
         pkg / "setup.cfg",
+        pkg / "MANIFEST.in",
         *sorted((pkg / "src").rglob("*.py")),
     ]
 
@@ -217,7 +219,15 @@ def _make_pydist(setup_py):
         return dict(
             doc=f"build {pkg.name} distributions",
             file_dep=file_dep,
-            actions=[_action("sdist"), _action("bdist_wheel")],
+            actions=[
+                lambda: [
+                    shutil.rmtree(pkg / sub, ignore_errors=True)
+                    for sub in ["build", f"{pkg.name}.egg-info"]
+                ]
+                and None,
+                _action("sdist"),
+                _action("bdist_wheel"),
+            ],
             targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]],
         )
 

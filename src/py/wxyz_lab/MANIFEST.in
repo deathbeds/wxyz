@@ -1,1 +1,2 @@
 include LICENSE.txt README.md
+global-exclude .ipynb_checkpoints

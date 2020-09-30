@@ -1,5 +1,7 @@
 """ integrity checks for the wxyz repo
 """
+import re
+
 # pylint: disable=redefined-outer-name
 import sys
 import tempfile
@@ -47,6 +49,23 @@ def test_py_versions(pkg, version):
         recipe = (P.RECIPES / pkg.replace("_", "-") / "meta.yaml").read_text()
 
         assert f"""{{% set version = "{version}" %}}""" in recipe
+
+
+@pytest.mark.parametrize(
+    "pkg_name,pkg_path",
+    [[setup_py.parent.name, setup_py.parent] for setup_py in P.PY_VERSION],
+)
+def test_manifest(pkg_name, pkg_path):
+    """are manifest files proper?"""
+    manifest = pkg_path / "MANIFEST.in"
+    manifest_txt = manifest.read_text()
+
+    assert re.findall(
+        r"include .*LICENSE.txt", manifest_txt
+    ), f"{pkg_name} missing license in {manifest}"
+    assert re.findall(
+        r"global-exclude\s+.ipynb_checkpoints", manifest_txt
+    ), f"{pkg_name} missing checkpoint exclude in {manifest}"
 
 
 def check_integrity():

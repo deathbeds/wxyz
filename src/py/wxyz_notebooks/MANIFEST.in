@@ -1,2 +1,3 @@
 include LICENSE.txt README.md
-recursive-include src/wxyz/notebooks *.ipynb
+recursive-include src/wxyz/notebooks *.ipynb *.svg
+global-exclude .ipynb_checkpoints
