@@ -18,6 +18,7 @@ ${JLAB XP CODE CELLS}    xpath://*[contains(@class, 'jp-NotebookPanel-notebook')
 ${JLAB XP LAST CODE CELL}    ${JLAB XP CODE CELLS}\[last()]
 ${JLAB XP LAST CODE PROMPT}    ${JLAB XP LAST CODE CELL}//*[contains(@class, 'jp-InputArea-prompt')]
 ${JLAB XP STDERR}    xpath://*[@data-mime-type="application/vnd.jupyter.stderr"]
+${JLAB XP KERNEL IDLE}    xpath://*[@data-icon="ui-components:circle-empty"]
 ${JLAB CSS VERSION}    css:.jp-About-version
 ${CSS DIALOG OK}    css:.jp-Dialog .jp-mod-accept
 ${MENU OPEN WITH}    xpath://div[contains(@class, 'lm-Menu-itemLabel')][contains(text(), "Open With")]

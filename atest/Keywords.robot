@@ -83,6 +83,7 @@ Wait For Splash
 Wait For All Cells To Run
     [Arguments]    ${timeout}=10s
     Wait Until Element Does Not Contain    ${JLAB XP LAST CODE PROMPT}    [*]:    timeout=${timeout}
+    Wait Until Element is Visible    ${JLAB XP KERNEL IDLE}    timeout=${timeout}
 
 Open JupyterLab
     Set Environment Variable    MOZ_HEADLESS    ${HEADLESS}

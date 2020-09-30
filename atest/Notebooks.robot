@@ -23,12 +23,14 @@ Open WXYZ Notebook
     ${full path} =    Normalize Path    ${path}${/}${notebook}.ipynb
     File Should Exist    ${full path}
     Open File    ${full path}    ${MENU NOTEBOOK}
-    Sleep    5s
+    Wait Until Page Contains Element    ${JLAB XP KERNEL IDLE}    timeout=30s
     Capture Page Screenshot    01-loaded.png
 
 Restart and Run All
+    Lab Command    Clear All Outputs
     Lab Command    Restart Kernel and Run All Cells
     Accept Default Dialog Option
+    Wait Until Element Contains    ${JLAB XP LAST CODE PROMPT}    [*]:
 
 Capture All Code Cells
     [Arguments]    ${prefix}=${EMPTY}
