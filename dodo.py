@@ -3,7 +3,7 @@
     this should be executed from within an environment created from
     the ci/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
-# pylint: disable=expression-not-assigned
+# pylint: disable=expression-not-assigned,W0511
 
 import shutil
 import subprocess
@@ -11,8 +11,7 @@ import time
 
 from doit.tools import PythonInteractiveAction, result_dep
 
-from _scripts import _paths as P
-from _scripts import _util as U
+from _scripts import _paths as P, _util as U
 from _scripts._lock import iter_matrix, make_lock_task
 
 PY_LINT_CMDS = [
@@ -112,7 +111,10 @@ def _make_py_setup(i, setup_py):
                     str(pkg),
                     "--ignore-installed",
                     "--no-deps",
-                ]
+                ],
+                [*P.PIP, "freeze"],
+                # TODO: needs fixed pyld
+                # [*P.PIP, "check"],
             ],
             **uptodate,
         )
@@ -131,8 +133,16 @@ if P.RUNNING_IN_CI:
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
-                [*P.PIP, "install", *P.WHEELS.values()],
+                [
+                    *P.PIP,
+                    "install",
+                    "--no-dep",
+                    "--ignore-installed",
+                    *P.WHEELS.values(),
+                ],
                 [*P.PIP, "freeze"],
+                # TODO: needs fixed pyld
+                # [*P.PIP, "check"],
                 U.okit("setup_py"),
             ],
         )

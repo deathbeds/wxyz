@@ -91,5 +91,5 @@ jobs:
                 displayName: publish browser test output
                 inputs:
                   targetPath: atest/output
-                  artifactName: $(Build.BuildId) Robot ${{ platform.name }}${{ python.name }}
+                  artifactName: $(Build.BuildId) Robot $(Agent.JobStatus) ${{ platform.name }}${{ python.name }}
                 condition: always()
