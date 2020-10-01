@@ -2,11 +2,12 @@
 """
 from ._version import __version__  # noqa
 from .repos.repo_base import Repo
+from .tools.tool_headpicker import HeadPicker
 from .trackers.tracker_base import Tracker
 from .trackers.tracker_json import JSONDictTracker
 from .widget_watch import Watcher
 
-__all__ = ["__version__", "Repo", "Watcher", "Tracker", "JSONDictTracker"]
+__all__ = ["__version__", "Repo", "Watcher", "Tracker", "JSONDictTracker", "HeadPicker"]
 
 # conditional imports
 try:
