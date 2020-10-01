@@ -6,11 +6,11 @@ import time
 from asyncio import Event
 from pathlib import Path
 
+import ipywidgets as W
+import traitlets as T
 from tornado.ioloop import IOLoop
 from watchgod import DefaultDirWatcher, awatch
 
-import traitlets as T
-import ipywidgets as W
 
 class JupyterDefaultDirWatcher(DefaultDirWatcher):
     """a notebook-aware watcher
