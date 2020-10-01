@@ -103,7 +103,7 @@ SITE_PKGS = Path(site.getsitepackages()[0])
 YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
-TS_PACKAGE = [*TS_SRC.glob("*/package.json")]
+TS_PACKAGE = sorted(TS_SRC.glob("*/package.json"))
 LABEXT_TXT = ROOT / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [

@@ -9,8 +9,8 @@ from pathlib import Path
 from tornado.ioloop import IOLoop
 from watchgod import DefaultDirWatcher, awatch
 
-from .base import DVCSBase, T
-
+import traitlets as T
+import ipywidgets as W
 
 class JupyterDefaultDirWatcher(DefaultDirWatcher):
     """a notebook-aware watcher
@@ -25,7 +25,7 @@ class JupyterDefaultDirWatcher(DefaultDirWatcher):
         return ".ipynb_checkpoints" not in str(entry)
 
 
-class Watcher(DVCSBase):
+class Watcher(W.Widget):
     """A lightweight watcher
 
     TODO: expose more bits
