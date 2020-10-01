@@ -2,10 +2,11 @@
 bqplot@0.5.6
 ./src/ts/wxyz-core
 ./src/ts/wxyz-datagrid
+./src/ts/wxyz-dvcs
 ./src/ts/wxyz-html
+./src/ts/wxyz-json-schema-form
 ./src/ts/wxyz-jsonld
 ./src/ts/wxyz-lab
 ./src/ts/wxyz-svg
 ./src/ts/wxyz-tpl-nunjucks
 ./src/ts/wxyz-yaml
-./src/ts/wxyz-json-schema-form

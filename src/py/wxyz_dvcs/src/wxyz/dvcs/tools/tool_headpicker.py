@@ -9,7 +9,7 @@ from ..repos.repo_base import Repo
 class HeadPicker(W.VBox):
     """a simple dropdown-based picker of current DVCS heads"""
 
-    # pylint: disable=no-self-use
+    # pylint: disable=no-self-use,unused-argument
 
     repo = T.Instance(Repo)
     picker = T.Instance(W.DOMWidget)

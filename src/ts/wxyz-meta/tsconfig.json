@@ -9,6 +9,7 @@
   "references": [
     { "path": "../wxyz-core" },
     { "path": "../wxyz-datagrid" },
+    { "path": "../wxyz-dvcs" },
     { "path": "../wxyz-html" },
     { "path": "../wxyz-json-schema-form" },
     { "path": "../wxyz-jsonld" },

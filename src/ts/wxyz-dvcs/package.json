@@ -6,8 +6,11 @@
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
+  "dependencies": {},
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.4.0",
+    "@types/node": "^10.11.6",
     "typescript": "~4.0.2"
   },
   "files": [
@@ -15,6 +18,9 @@
     "LICENSE.txt"
   ],
   "homepage": "https://github.com/deathbeds/wxyz",
+  "jupyterlab": {
+    "extension": "lib/plugin"
+  },
   "keywords": [
     "jupyter",
     "jupyterlab",
@@ -24,25 +30,15 @@
   ],
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-meta",
+  "name": "@deathbeds/wxyz-dvcs",
   "peerDependencies": {
-    "@deathbeds/wxyz-core": "file:../wxyz-core",
-    "@deathbeds/wxyz-datagrid": "file:../wxyz-datagrid",
-    "@deathbeds/wxyz-dvcs": "file:../wxyz-dvcs",
-    "@deathbeds/wxyz-html": "file:../wxyz-html",
-    "@deathbeds/wxyz-jsonld": "file:../wxyz-jsonld",
-    "@deathbeds/wxyz-lab": "file:../wxyz-lab",
-    "@deathbeds/wxyz-svg": "file:../wxyz-svg",
-    "@deathbeds/wxyz-tpl-nunjucks": "file:../wxyz-nunjucks",
-    "@deathbeds/wxyz-yaml": "file:../wxyz-yaml"
+    "@deathbeds/wxyz-core": "^0.4.0",
+    "@types/node": "^10.11.6",
+    "typescript": "~4.0.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/deathbeds/wxyz"
-  },
-  "scripts": {
-    "build": "tsc -b",
-    "watch": "jlpm build --watch --preserveWatchOutput"
   },
   "types": "lib/index.d.ts",
   "version": "0.4.0"
