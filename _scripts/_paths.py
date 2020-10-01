@@ -104,7 +104,14 @@ YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 TS_PACKAGE = [*TS_SRC.glob("*/package.json")]
-THIRD_PARTY_EXTENSIONS = ["bqplot@0.5.6", "@jupyter-widgets/jupyterlab-manager@2.0.0"]
+LABEXT_TXT = ROOT / "labex.txt"
+THIRD_PARTY_EXTENSIONS = sorted(
+    [
+        line.strip()
+        for line in LABEXT_TXT.read_text().strip().splitlines()
+        if line.strip() and not line.strip().startswith("#")
+    ]
+)
 WXYZ_LAB_EXTENSIONS = [
     tsp.parent for tsp in TS_PACKAGE if "wxyz-meta" not in tsp.parent.name
 ]

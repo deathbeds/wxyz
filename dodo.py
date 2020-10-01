@@ -285,7 +285,7 @@ def task_lab_extensions():
     """set up local jupyterlab"""
 
     return dict(
-        file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS],
+        file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS, P.LABEXT_TXT],
         targets=[P.OK / "labextensions"],
         actions=[
             U.okit("labextensions", True),
