@@ -39,6 +39,9 @@ ${CM CURSORS}     css:.CodeMirror-cursors:not([style='visibility: hidden'])
 # settings
 ${CSS USER SETTINGS}    .jp-SettingsRawEditor-user
 ${JLAB XP CLOSE SETTINGS}    ${JLAB XP DOCK TAB}\[contains(., 'Settings')]/*[contains(@class, 'm-TabBar-tabCloseIcon')]
+# log stuff
 ${PABOT ID}       0_0_0
 ${NEXT BROWSER}    ${0}
 ${NEXT LAB}       ${0}
+# notebooks
+${WXYZ EXAMPLES}    ${WXYZ_NOTEBOOKS}${/}Examples

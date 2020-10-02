@@ -292,3 +292,31 @@ Clean Up After Working with File and Settings
     [Arguments]    ${file}
     Clean Up After Working With File    ${file}
     Reset Plugin Settings
+
+Open WXYZ Notebook
+    [Arguments]    ${notebook}    ${path}=${WXYZ_NOTEBOOKS}
+    Set Tags    ipynb:notebook
+    ${full path} =    Normalize Path    ${path}${/}${notebook}.ipynb
+    File Should Exist    ${full path}
+    Open File    ${full path}    ${MENU NOTEBOOK}
+    Wait Until Page Contains Element    ${JLAB XP KERNEL IDLE}    timeout=30s
+    Ensure Sidebar Is Closed
+    Capture Page Screenshot    01-loaded.png
+
+Restart and Run All
+    Lab Command    Clear All Outputs
+    Lab Command    Restart Kernel and Run All Cells
+    Accept Default Dialog Option
+    Ensure Sidebar Is Closed
+    Wait Until Element Contains    ${JLAB XP LAST CODE PROMPT}    [*]:
+
+Capture All Code Cells
+    [Arguments]    ${prefix}=${EMPTY}    ${timeout}=30s
+    ${cells} =    Get WebElements    ${JLAB XP CODE CELLS}
+    Lab Command    Expand All Code
+    Ensure Sidebar Is Closed
+    FOR    ${idx}    ${cell}    IN ENUMERATE    @{cells}
+        ${sel} =    Set Variable    ${JLAB XP CODE CELLS}\[${idx.__add__(1)}]
+        Run Keyword and Ignore Error    Wait Until Element does not contain    ${sel}    [*]:    timeout=${timeout}
+        Capture Element Screenshot    ${sel}    ${prefix}cell-${idx.__repr__().zfill(3)}.png
+    END

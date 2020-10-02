@@ -396,6 +396,7 @@ def task_robot():
             [
                 *P.ALL_ROBOT,
                 *P.ALL_SRC_PY,
+                *P.ATEST_PY,
                 *P.ALL_TS,
                 *P.ALL_IPYNB,
                 P.LAB_INDEX,

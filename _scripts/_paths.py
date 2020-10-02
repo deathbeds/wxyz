@@ -74,10 +74,10 @@ DODO = ROOT / "dodo.py"
 PYLINTRC = ROOT / ".pylintrc"
 
 ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
-ALL_SRC_PY = sorted([*PY_SRC.rglob("*.py")])
+ALL_SRC_PY = sorted(PY_SRC.rglob("*.py"))
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])
 ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])
-ALL_MD = sorted([*ROOT.glob("*.md")])
+ALL_MD = sorted(ROOT.glob("*.md"))
 
 DIST = ROOT / "dist"
 IPYNB_HTML = DIST / "notebooks"
@@ -88,9 +88,9 @@ LAB = ROOT / "lab"
 
 ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
-ATEST_PY = [*ATEST.rglob("*.py")]
+ATEST_PY = sorted(ATEST.rglob("*.py"))
 
-PY_SETUP = [*PY_SRC.glob("*/setup.py")]
+PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
 PY_VERSION = {
     pys: re.findall(
         r"""__version__ = ["](.*)["]""",
@@ -116,12 +116,14 @@ WXYZ_LAB_EXTENSIONS = [
     tsp.parent for tsp in TS_PACKAGE if "wxyz-meta" not in tsp.parent.name
 ]
 ALL_LABEXTENSIONS = [*THIRD_PARTY_EXTENSIONS, *WXYZ_LAB_EXTENSIONS]
-ALL_TS = sum(
-    [
-        [*(tsp.parent / "src").rglob("*.ts"), *(tsp.parent / "style").rglob("*")]
-        for tsp in TS_PACKAGE
-    ],
-    [],
+ALL_TS = sorted(
+    sum(
+        [
+            [*(tsp.parent / "src").rglob("*.ts"), *(tsp.parent / "style").rglob("*")]
+            for tsp in TS_PACKAGE
+        ],
+        [],
+    )
 )
 TS_PACKAGE_CONTENT = {tsp: json.loads(tsp.read_text()) for tsp in TS_PACKAGE}
 TS_TARBALLS = [
@@ -161,7 +163,7 @@ DESIGN_IPYNB = IPYNB / "Design"
 ALL_IPYNB = sorted(
     [
         ipynb
-        for ipynb in IPYNB.rglob("*.ipynb")
+        for ipynb in sorted(IPYNB.rglob("*.ipynb"))
         if ".ipynb_checkpoints" not in str(ipynb)
         and str(DESIGN_IPYNB) not in str(ipynb)
     ]
@@ -183,18 +185,19 @@ ALL_MD = sorted(
 )
 
 ALL_PRETTIER = sorted(
-    [
-        *CI.glob("*.yml"),
-        *REQS.glob("*.yml"),
-        *ROOT.glob("*.json"),
-        *ROOT.glob("*.yml"),
-        *TS_SRC.rglob("*.css"),
-        *TS_SRC.rglob("*.json"),
-        *TS_SRC.rglob("*.ts"),
-        *TS_SRC.rglob("*.yml"),
-        *ALL_YAML,
-        *ALL_MD,
-    ]
+    set(
+        [
+            *CI.glob("*.yml"),
+            *ROOT.glob("*.json"),
+            *ROOT.glob("*.yml"),
+            *TS_SRC.rglob("*.css"),
+            *TS_SRC.rglob("*.json"),
+            *TS_SRC.rglob("*.ts"),
+            *TS_SRC.rglob("*.yml"),
+            *ALL_YAML,
+            *ALL_MD,
+        ]
+    )
 )
 
 ALL_ROBOT = [*ATEST.rglob("*.robot")]

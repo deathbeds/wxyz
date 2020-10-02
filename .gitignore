@@ -1,5 +1,5 @@
 __pycache__/
-_foo/
+_*_repo_/
 .coverage
 .doit*
 .ipynb_checkpoints/
