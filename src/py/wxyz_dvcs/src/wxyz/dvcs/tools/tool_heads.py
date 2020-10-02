@@ -1,4 +1,4 @@
-"""baseline tools for working with repos"""
+"""baseline tools for working with heads"""
 
 import ipywidgets as W
 import traitlets as T
@@ -6,7 +6,7 @@ import traitlets as T
 from ..repos.repo_base import Repo
 
 
-class HeadPicker(W.VBox):
+class HeadPicker(W.HBox):
     """a simple dropdown-based picker of current DVCS heads"""
 
     # pylint: disable=no-self-use,unused-argument
@@ -41,9 +41,9 @@ class HeadPicker(W.VBox):
     @T.default("picker")
     def _default_picker(self):
         """a default picker"""
-        return W.Dropdown()
+        return W.Dropdown(description="Head")
 
     @T.default("refresh_btn")
     def _default_refresh_btn(self):
         """a default refresh button"""
-        return W.Button(icon="refresh")
+        return W.Button(icon="refresh", layout=dict(max_width="3em", min_width="3em"))
