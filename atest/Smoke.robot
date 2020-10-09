@@ -1,6 +1,7 @@
 *** Settings ***
 Suite Setup       Setup Suite For Screenshots    smoke
-Resource          Keywords.robot
+Resource          _resources/keywords/Browser.robot
+Resource          _resources/keywords/Lab.robot
 
 *** Test Cases ***
 Lab Loads

@@ -1,13 +1,5 @@
 *** Variables ***
-${FIXTURES}       ${CURDIR}${/}fixtures
-${NBSERVER CONF}    jupyter_notebook_config.json
-# screenshots
-${SCREENS ROOT}    ${OUTPUT DIR}${/}screens
 ${SPLASH}         id:jupyterlab-splash
-# to help catch hard-coded paths
-${BASE}           /@est/
-# override with `python scripts/atest.py --variable HEADLESS:0`
-${HEADLESS}       1
 ${CMD PALETTE INPUT}    css:#command-palette .lm-CommandPalette-input
 ${CMD PALETTE ITEM ACTIVE}    css:#command-palette .lm-CommandPalette-item.lm-mod-active
 ${JLAB XP TOP}    //div[@id='jp-top-panel']
@@ -39,9 +31,3 @@ ${CM CURSORS}     css:.CodeMirror-cursors:not([style='visibility: hidden'])
 # settings
 ${CSS USER SETTINGS}    .jp-SettingsRawEditor-user
 ${JLAB XP CLOSE SETTINGS}    ${JLAB XP DOCK TAB}\[contains(., 'Settings')]/*[contains(@class, 'm-TabBar-tabCloseIcon')]
-# log stuff
-${PABOT ID}       0_0_0
-${NEXT BROWSER}    ${0}
-${NEXT LAB}       ${0}
-# notebooks
-${WXYZ EXAMPLES}    ${WXYZ_NOTEBOOKS}${/}Examples

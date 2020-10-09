@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation     Distributed Version Control
 Suite Setup       Setup Suite For Screenshots    notebook-dvcs
-Resource          ../Keywords.robot
+Resource          ../_resources/keywords/Browser.robot
+Resource          ../_resources/keywords/Lab.robot
+Resource          ../_resources/keywords/WXYZ.robot
 
 *** Variables ***
 ${SCREENS}        ${SCREENS ROOT}${/}notebook-dvcs
