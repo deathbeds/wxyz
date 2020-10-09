@@ -15,6 +15,7 @@ class Repo(W.Widget):
 
     # pylint: disable=no-self-use,unused-argument
     working_dir = T.Instance(Path)
+    url = T.Unicode()
     watching = T.Bool(default_value=False)
     dirty = T.Bool(default_value=False)
     changes = T.Tuple(allow_none=True)
@@ -28,6 +29,7 @@ class Repo(W.Widget):
     def __init__(self, working_dir, *args, **kwargs):
         kwargs["working_dir"] = Path(kwargs.get("working_dir", working_dir))
         super().__init__(*args, **kwargs)
+        T.dlink((self, "working_dir"), (self, "url"), lambda p: p.resolve().as_uri())
 
     @T.default("changes")
     def _default_changes(self):
@@ -66,3 +68,19 @@ class Repo(W.Widget):
         tracker = tracker_cls(**kwargs)
         self._trackers += (tracker,)
         return tracker
+
+
+class Remote(W.Widget):
+    """a remote DVCS repository"""
+
+    name = T.Unicode()
+    url = T.Unicode()
+    local = T.Instance(Repo)
+
+    async def fetch(self):
+        """fetch from the remote"""
+        raise NotImplementedError(f"{self.__class__} needs to implement fetch")
+
+    async def push(self, ref):
+        """push to the remote"""
+        raise NotImplementedError(f"{self.__class__} needs to implement fetch")

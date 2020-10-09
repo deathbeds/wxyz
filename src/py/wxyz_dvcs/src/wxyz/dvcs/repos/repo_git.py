@@ -5,7 +5,7 @@ from pathlib import Path
 import git as G
 import traitlets as T
 
-from .repo_base import Repo
+from .repo_base import Remote, Repo
 
 
 class Git(Repo):
@@ -98,3 +98,15 @@ class Git(Repo):
         self._git.head.commit = ref
         self._git.head.reset(index=True, working_tree=True)
         self._update_heads()
+
+
+class GitRemote(Remote):
+    """ a git remote """
+
+    local = T.Instance(Git)
+
+    async def fetch(self):
+        pass
+
+    async def push(self, ref):
+        pass
