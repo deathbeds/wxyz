@@ -1,6 +1,8 @@
 # platform: osx-64
 # env_hash: daab78d2932417a6ce64f00e4790e220d312cd03bc40bf0c415c5c03a56df980
+
 @EXPLICIT
+
 https://conda.anaconda.org/conda-forge/osx-64/bzip2-1.0.8-haf1e3a3_3.tar.bz2#caf888e9502062a4d17e811871b44637
 https://conda.anaconda.org/conda-forge/osx-64/c-ares-1.16.1-haf1e3a3_3.tar.bz2#3877b8f8cff6264b09904a8b470aed9c
 https://conda.anaconda.org/conda-forge/osx-64/ca-certificates-2020.6.20-hecda079_0.tar.bz2#7933a42d363f3e88f239384ff68252db
@@ -17,7 +19,7 @@ https://conda.anaconda.org/conda-forge/osx-64/libsolv-0.7.15-hab81aa3_0.tar.bz2#
 https://conda.anaconda.org/conda-forge/osx-64/lz4-c-1.9.2-hb1e8313_3.tar.bz2#7737f6db9eb5e572d22b88b667d1f3f9
 https://conda.anaconda.org/conda-forge/osx-64/ncurses-6.2-hb1e8313_1.tar.bz2#711f66ee1fd8585c28a47910ddbeaa4a
 https://conda.anaconda.org/conda-forge/osx-64/openssl-1.1.1h-haf1e3a3_0.tar.bz2#6be73e185e6a92a29571dd9a2dfb5251
-https://conda.anaconda.org/conda-forge/osx-64/tk-8.6.10-hbbe82c9_0.tar.bz2#8e94f0c9d24201d33a7fb6868d821a1b
+https://conda.anaconda.org/conda-forge/osx-64/tk-8.6.10-hb0a8c7a_1.tar.bz2#f7477bf81dcfc7b4dddc7b3790a99a0c
 https://conda.anaconda.org/conda-forge/osx-64/libedit-3.1.20191231-hed1e85f_2.tar.bz2#779da5393199c3af97bd8f12c804b749
 https://conda.anaconda.org/conda-forge/osx-64/libnghttp2-1.41.0-h7580e61_2.tar.bz2#1731a2e73e2d68d455a1b8b8de0265dc
 https://conda.anaconda.org/conda-forge/osx-64/libssh2-1.9.0-h39bdce6_5.tar.bz2#476b4daa896469326286db3a37e23190
@@ -26,9 +28,9 @@ https://conda.anaconda.org/conda-forge/osx-64/readline-8.0-h0678c8f_2.tar.bz2#8f
 https://conda.anaconda.org/conda-forge/osx-64/zstd-1.4.5-h0384e3a_2.tar.bz2#9fc03147df58a6ecd6f4013d85357283
 https://conda.anaconda.org/conda-forge/osx-64/krb5-1.17.1-h75d18d8_3.tar.bz2#a2e242f395cb1226eaf4cc8eaacf5526
 https://conda.anaconda.org/conda-forge/osx-64/libarchive-3.3.3-hf12134e_1008.tar.bz2#e1b8cf048477aa74d11109dc11c51182
-https://conda.anaconda.org/conda-forge/osx-64/sqlite-3.33.0-h960bd1c_0.tar.bz2#2258e92373f9991a586fc416ae459f17
+https://conda.anaconda.org/conda-forge/osx-64/sqlite-3.33.0-h960bd1c_1.tar.bz2#d86a1d10a189d4c000a61971110f4f55
 https://conda.anaconda.org/conda-forge/osx-64/libcurl-7.71.1-h9bf37e3_8.tar.bz2#1a136204085b4c620fe2ed74fb1112bf
-https://conda.anaconda.org/conda-forge/osx-64/python-3.8.5-h0ed32c4_9_cpython.tar.bz2#94fa65824345bf28313ab8348e34e886
+https://conda.anaconda.org/conda-forge/osx-64/python-3.8.6-hcfdab8c_0_cpython.tar.bz2#b588bdece70bffeaf2bc72277f32edd5
 https://conda.anaconda.org/conda-forge/noarch/appdirs-1.4.3-py_1.tar.bz2#79ea201c0ff86b098d3e3e3fa45505cd
 https://conda.anaconda.org/conda-forge/noarch/click-7.1.2-pyh9f0ad1d_0.tar.bz2#bd50a970ce07e660c319fdc4d730d3f1
 https://conda.anaconda.org/conda-forge/noarch/cloudpickle-1.6.0-py_0.tar.bz2#76d764d8881719e305f6fa368dc2b65e
@@ -39,8 +41,8 @@ https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz
 https://conda.anaconda.org/conda-forge/osx-64/python_abi-3.8-1_cp38.tar.bz2#5fe7757fd743e1c2d14d6170d4f53365
 https://conda.anaconda.org/conda-forge/noarch/six-1.15.0-pyh9f0ad1d_0.tar.bz2#1eec421f0f1f39e579e44e4a5ce646a2
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.1-pyh9f0ad1d_0.tar.bz2#ca47d0ef822fd23b7ec9771a36645e5e
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.50.0-pyh9f0ad1d_0.tar.bz2#74bb4d4b3c6447b448376719075d98de
-https://conda.anaconda.org/conda-forge/osx-64/certifi-2020.6.20-py38h32f6830_0.tar.bz2#fab1139b40e8dd7fea9dbbb8dbe49f96
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.50.2-pyh9f0ad1d_0.tar.bz2#ed198b205c15a7f4157aad92c60afc86
+https://conda.anaconda.org/conda-forge/osx-64/certifi-2020.6.20-py38h5347e94_2.tar.bz2#680498f04867f56a4c3fe23bedb22c8c
 https://conda.anaconda.org/conda-forge/osx-64/cffi-1.14.3-py38hc4dd44e_0.tar.bz2#6d0c626ea7132e0f210697a9165032ae
 https://conda.anaconda.org/conda-forge/osx-64/chardet-3.0.4-py38h32f6830_1007.tar.bz2#d26014bf9243b9e21bb85468d9ed7eab
 https://conda.anaconda.org/conda-forge/osx-64/conda-package-handling-1.7.0-py38h4d0b108_5.tar.bz2#d2495b73babd2690c777e668b2c2af69
@@ -52,12 +54,12 @@ https://conda.anaconda.org/conda-forge/osx-64/pyyaml-5.3.1-py38h64e0658_0.tar.bz
 https://conda.anaconda.org/conda-forge/osx-64/ruamel_yaml-0.15.80-py38h4d0b108_1002.tar.bz2#0e2407e87c43797cdfc95df34df22b00
 https://conda.anaconda.org/conda-forge/osx-64/brotlipy-0.7.0-py38h64e0658_1000.tar.bz2#df72303cfd0f559309e3d4e5a45d0ec1
 https://conda.anaconda.org/conda-forge/osx-64/cryptography-3.1.1-py38h52adbb4_0.tar.bz2#fe7c0d09736a8d62bdd38bb70159bd14
-https://conda.anaconda.org/conda-forge/osx-64/setuptools-49.6.0-py38h32f6830_1.tar.bz2#63a4c67433042e1bfec65c673ae866b4
+https://conda.anaconda.org/conda-forge/osx-64/setuptools-49.6.0-py38h5347e94_2.tar.bz2#d60492e2803bc7f3c85544532868cee1
 https://conda.anaconda.org/conda-forge/noarch/jinja2-2.11.2-pyh9f0ad1d_0.tar.bz2#e8a5d614d1a27bdba00059ca062a0551
 https://conda.anaconda.org/conda-forge/osx-64/pyopenssl-19.1.0-py38_0.tar.bz2#c79f61a3d9e170d5690a2527b1b1eb67
 https://conda.anaconda.org/conda-forge/noarch/urllib3-1.25.10-py_0.tar.bz2#82cde2a532177697e42a090add881db8
 https://conda.anaconda.org/conda-forge/noarch/requests-2.24.0-pyh9f0ad1d_0.tar.bz2#786ef230ca5cf2536e9dee910fdf4f9f
-https://conda.anaconda.org/conda-forge/osx-64/conda-4.8.5-py38h32f6830_1.tar.bz2#b45c5f85abd465923f107b6377b4aada
-https://conda.anaconda.org/conda-forge/noarch/ensureconda-1.1.0-py_0.tar.bz2#e310aac913fdb0843ccce19911ef8f34
-https://conda.anaconda.org/conda-forge/noarch/conda-lock-0.7.1-py_0.tar.bz2#72762ad415114239f57abaaafc5d8d1b
-https://conda.anaconda.org/conda-forge/osx-64/mamba-0.5.1-py38h5484782_0.tar.bz2#ba7b79ccb3196dce2fb7079442ecac9c
+https://conda.anaconda.org/conda-forge/osx-64/conda-4.8.5-py38h5347e94_2.tar.bz2#29b53f68d70b2b7275d51222f85bdf41
+https://conda.anaconda.org/conda-forge/noarch/ensureconda-1.2.1-py_0.tar.bz2#5a9e2f51daccf6b445e4d2df345033c4
+https://conda.anaconda.org/conda-forge/noarch/conda-lock-0.7.2-py_0.tar.bz2#da44fc6dc40fb329b7397bf0494b1411
+https://conda.anaconda.org/conda-forge/osx-64/mamba-0.5.3-py38hcc219c9_0.tar.bz2#000e3ee0b980e0f283ba913556900571
