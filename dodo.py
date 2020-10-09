@@ -86,14 +86,17 @@ def task_setup_ts():
 EGG_LINKS = []
 
 
-def _make_py_setup(i, setup_py):
+def _make_py_setup(setup_py):
     """make all the setups"""
     pkg = setup_py.parent
 
     uptodate = {}
 
-    if i:
-        uptodate["uptodate"] = [result_dep(f"setup_py_{P.PY_SETUP[i-1].parent.name}")]
+    uptodate["uptodate"] = [
+        result_dep(f"setup_py_{other}")
+        for other, downstreams in P.PY_DEP.items()
+        if pkg.name in downstreams
+    ]
 
     egg_link = [P.SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")]
     EGG_LINKS.extend(egg_link)
@@ -113,8 +116,7 @@ def _make_py_setup(i, setup_py):
                     "--no-deps",
                 ],
                 [*P.PIP, "freeze"],
-                # TODO: needs fixed pyld
-                # [*P.PIP, "check"],
+                [*P.PIP, "check"],
             ],
             **uptodate,
         )
@@ -141,18 +143,14 @@ if P.RUNNING_IN_CI:
                     *P.WHEELS.values(),
                 ],
                 [*P.PIP, "freeze"],
-                # TODO: needs fixed pyld
-                # [*P.PIP, "check"],
+                [*P.PIP, "check"],
                 U.okit("setup_py"),
             ],
         )
 
 
 else:
-    [
-        globals().update(**_make_py_setup(i, setup_py))
-        for i, setup_py in enumerate(P.PY_SETUP)
-    ]
+    [globals().update(**_make_py_setup(setup_py)) for setup_py in P.PY_SETUP]
 
     def task_setup_py_dev():
         """setup python packages for development"""

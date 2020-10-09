@@ -98,6 +98,15 @@ PY_VERSION = {
     )[0]
     for pys in PY_SETUP
 }
+PY_DEP = {
+    pys.parent.name: [
+        other.parent.name
+        for other in PY_SETUP
+        if pys.parent.name in (other.parent / "setup.cfg").read_text() and pys != other
+    ]
+    for pys in PY_SETUP
+}
+
 SITE_PKGS = Path(site.getsitepackages()[0])
 
 YARN_LOCK = ROOT / "yarn.lock"

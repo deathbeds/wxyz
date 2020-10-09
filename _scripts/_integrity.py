@@ -24,6 +24,13 @@ def contributing_text():
     return P.CONTRIBUTING.read_text(encoding="utf-8")
 
 
+@pytest.fixture(scope="module")
+def wxyz_notebook_cfg():
+    """the notebook setup.cfg"""
+    pys = [pys for pys in P.PY_SETUP if pys.parent.name == "wxyz_notebooks"][0]
+    return (pys.parent / "setup.cfg").read_text()
+
+
 def test_contributing_locks(contributing_text):
     """do lockfiles mentioned exist?"""
     found_lock = 0
@@ -66,6 +73,13 @@ def test_manifest(pkg_name, pkg_path):
     assert re.findall(
         r"global-exclude\s+.ipynb_checkpoints", manifest_txt
     ), f"{pkg_name} missing checkpoint exclude in {manifest}"
+
+
+@pytest.mark.parametrize("pkg_path", P.PY_SETUP)
+def test_notebook_deps(wxyz_notebook_cfg, pkg_path):
+    """does the notebook example package depend on all other packages?"""
+    pkg = pkg_path.parent.name
+    assert pkg in wxyz_notebook_cfg, f"add {pkg} to wxyz_notebook/setup.cfg!"
 
 
 def check_integrity():
