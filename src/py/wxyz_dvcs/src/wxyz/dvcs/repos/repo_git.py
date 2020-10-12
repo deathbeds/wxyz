@@ -4,8 +4,31 @@ from pathlib import Path
 
 import git as G
 import traitlets as T
+from tornado.concurrent import run_on_executor
 
 from .repo_base import Remote, Repo
+
+
+class GitRemote(Remote):
+    """ a git remote """
+
+    local = T.Instance(Repo)
+    _remote = T.Instance(G.Remote)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._remote = self.local._git.create_remote(self.name, self.url)
+
+    @run_on_executor
+    def _fetch(self):
+        self._remote.fetch()
+
+    @run_on_executor
+    def _update_heads(self):
+        return [ref.remote_head for ref in self._remote.refs]
+
+    async def push(self, ref=None):
+        raise NotImplementedError("no push for you")
 
 
 class Git(Repo):
@@ -13,6 +36,10 @@ class Git(Repo):
 
     # pylint: disable=protected-access
     _git = T.Instance(G.Repo, allow_none=True)
+
+    @property
+    def _remote_cls(self):
+        return GitRemote
 
     @T.observe("working_dir")
     def _on_path(self, change):
@@ -98,15 +125,3 @@ class Git(Repo):
         self._git.head.commit = ref
         self._git.head.reset(index=True, working_tree=True)
         self._update_heads()
-
-
-class GitRemote(Remote):
-    """ a git remote """
-
-    local = T.Instance(Git)
-
-    async def fetch(self):
-        pass
-
-    async def push(self, ref):
-        pass

@@ -1,13 +1,47 @@
 """ base DVCS repository widgets
 """
+from concurrent.futures import ThreadPoolExecutor
+
 # pylint: disable=no-member
 from pathlib import Path
 
 import ipywidgets as W
 import traitlets as T
+from tornado.ioloop import IOLoop
 
 from ..trackers.tracker_base import Tracker
 from ..widget_watch import Watcher
+
+
+class Remote(W.Widget):
+    """a remote DVCS repository"""
+
+    name = T.Unicode()
+    url = T.Unicode()
+    heads = W.trait_types.TypedTuple(T.Unicode(), default_value=tuple())
+    auto_fetch = T.Bool(True)
+
+    executor = ThreadPoolExecutor(max_workers=1)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.auto_fetch:
+            self._on_auto_fetch()
+
+    async def fetch(self):
+        """fetch from the remote"""
+        await self._fetch()
+        self.heads = await self._update_heads()
+
+    async def push(self, ref):
+        """push to the remote"""
+        await self._push(ref)
+
+    @T.observe("auto_fetch")
+    def _on_auto_fetch(self, _change=None):
+        """handle changing the auto fetch preference"""
+        if self.auto_fetch:
+            IOLoop.current().add_callback(self.fetch)
 
 
 class Repo(W.Widget):
@@ -21,6 +55,9 @@ class Repo(W.Widget):
     changes = T.Tuple(allow_none=True)
     head = T.Unicode()
     head_history = T.Tuple()
+    remotes = T.Dict(value_trait=T.Instance(Remote), default_value=tuple())
+    _remote_cls = Remote
+
     heads = W.trait_types.TypedTuple(T.Unicode(), default_value=tuple())
     _watcher = T.Instance(Watcher, allow_none=True)
     _trackers = W.trait_types.TypedTuple(T.Instance(Tracker), default_value=tuple())
@@ -69,18 +106,8 @@ class Repo(W.Widget):
         self._trackers += (tracker,)
         return tracker
 
-
-class Remote(W.Widget):
-    """a remote DVCS repository"""
-
-    name = T.Unicode()
-    url = T.Unicode()
-    local = T.Instance(Repo)
-
-    async def fetch(self):
-        """fetch from the remote"""
-        raise NotImplementedError(f"{self.__class__} needs to implement fetch")
-
-    async def push(self, ref):
-        """push to the remote"""
-        raise NotImplementedError(f"{self.__class__} needs to implement fetch")
+    def add_remote(self, name, url, **kwargs):
+        """add a new reference to a remote repository"""
+        remotes = dict(self.remotes)
+        remotes[name] = self._remote_cls(local=self, name=name, url=url, **kwargs)
+        self.remotes = remotes
