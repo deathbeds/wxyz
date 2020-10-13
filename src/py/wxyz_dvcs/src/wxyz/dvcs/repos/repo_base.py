@@ -18,7 +18,7 @@ class Remote(W.Widget):
 
     name = T.Unicode()
     url = T.Unicode()
-    heads = W.trait_types.TypedTuple(T.Unicode(), default_value=tuple())
+    heads = T.Dict(value_trait=T.Unicode(), default_value=tuple())
     auto_fetch = T.Bool(True)
 
     executor = ThreadPoolExecutor(max_workers=1)
@@ -30,8 +30,10 @@ class Remote(W.Widget):
 
     async def fetch(self):
         """fetch from the remote"""
+        self.log.error("Updating %s", self)
         await self._fetch()
         self.heads = await self._update_heads()
+        self.log.error("Completed updating %s", self.heads)
 
     async def push(self, ref):
         """push to the remote"""
@@ -47,6 +49,8 @@ class Remote(W.Widget):
 class Repo(W.Widget):
     """base class for a DVCS repo"""
 
+    executor = ThreadPoolExecutor(max_workers=1)
+
     # pylint: disable=no-self-use,unused-argument
     working_dir = T.Instance(Path)
     url = T.Unicode()
@@ -58,7 +62,7 @@ class Repo(W.Widget):
     remotes = T.Dict(value_trait=T.Instance(Remote), default_value=tuple())
     _remote_cls = Remote
 
-    heads = W.trait_types.TypedTuple(T.Unicode(), default_value=tuple())
+    heads = T.Dict(value_trait=T.Unicode(), default_value=tuple())
     _watcher = T.Instance(Watcher, allow_none=True)
     _trackers = W.trait_types.TypedTuple(T.Instance(Tracker), default_value=tuple())
     _change_link = None
@@ -108,6 +112,11 @@ class Repo(W.Widget):
 
     def add_remote(self, name, url, **kwargs):
         """add a new reference to a remote repository"""
+        self._update_remotes()
         remotes = dict(self.remotes)
-        remotes[name] = self._remote_cls(local=self, name=name, url=url, **kwargs)
+        old_remote = remotes.get(name)
+        if old_remote is None:
+            remotes[name] = self._remote_cls(local=self, name=name, url=url, **kwargs)
+        else:
+            old_remote.url = url
         self.remotes = remotes

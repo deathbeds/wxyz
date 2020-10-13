@@ -23,6 +23,14 @@ class Tracker(W.Widget):
     change_number = T.Int(0)
     __extension__ = None
 
+    @property
+    def loop(self):
+        """get the current event loop, if available"""
+        try:
+            return IOLoop.current()
+        except RuntimeError:
+            return None
+
     async def on_user_change(self):
         """react to a user changing a widget"""
         raise NotImplementedError(
@@ -37,14 +45,16 @@ class Tracker(W.Widget):
 
     def _on_user_change(self, change):
         """bridge to the ioloop for user changes"""
-        if IOLoop.current():
-            IOLoop.current().add_callback(self.on_user_change)
+        loop = self.loop
+        if loop is not None:
+            loop.add_callback(self.on_user_change)
             self.change_number += 1
 
     def _on_file_change(self, change):
         """bridge to the ioloop for file changes"""
-        if IOLoop.current():
-            IOLoop.current().add_callback(self.on_file_change)
+        loop = self.loop
+        if loop is not None:
+            loop.add_callback(self.on_file_change)
 
     @T.observe("tracked_widget")
     def _changed_tracked_widget(self, change):

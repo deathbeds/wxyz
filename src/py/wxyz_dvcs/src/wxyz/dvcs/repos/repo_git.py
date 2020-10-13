@@ -5,19 +5,31 @@ from pathlib import Path
 import git as G
 import traitlets as T
 from tornado.concurrent import run_on_executor
+from tornado.ioloop import IOLoop
+from watchgod import DefaultDirWatcher
 
+from ..widget_watch import Watcher
 from .repo_base import Remote, Repo
+
+
+class _GitRefWatcher(DefaultDirWatcher):
+    """a permissive watcher"""
+
+    def should_watch_dir(self, entry):
+        """should already be scoped"""
+        return True
 
 
 class GitRemote(Remote):
     """ a git remote """
 
     local = T.Instance(Repo)
-    _remote = T.Instance(G.Remote)
+    _remote = T.Instance(G.Remote, allow_none=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._remote = self.local._git.create_remote(self.name, self.url)
+        if self._remote is None:
+            self._remote = self.local._git.create_remote(self.name, self.url)
 
     @run_on_executor
     def _fetch(self):
@@ -25,7 +37,8 @@ class GitRemote(Remote):
 
     @run_on_executor
     def _update_heads(self):
-        return [ref.remote_head for ref in self._remote.refs]
+        heads = {ref.remote_head: str(ref.commit) for ref in self._remote.refs}
+        return heads
 
     async def push(self, ref=None):
         raise NotImplementedError("no push for you")
@@ -36,6 +49,27 @@ class Git(Repo):
 
     # pylint: disable=protected-access
     _git = T.Instance(G.Repo, allow_none=True)
+    _ref_watcher = T.Instance(Watcher, allow_none=True)
+
+    def _initialize_watcher(self):
+        """watch key folders in git"""
+        self._watcher = Watcher(
+            Path(self._git.git_dir) / "refs", _watcher_cls=_GitRefWatcher
+        )
+
+        def _schedule(change=None):
+            IOLoop.current().add_callback(self._on_ref_change, change)
+
+        self._watcher.observe(_schedule, "changes")
+
+        _schedule()
+
+    async def _on_ref_change(self, change=None):
+        """recalculate"""
+        self.log.error(change)
+        self._update_heads()
+        for remote in self.remotes.values():
+            await remote._update_heads()
 
     @property
     def _remote_cls(self):
@@ -50,6 +84,8 @@ class Git(Repo):
             if not ignore.exists():
                 ignore.write_text(".ipynb_checkpoints/")
                 self.commit("initial commit")
+
+            self._initialize_watcher()
             self._update_head_history()
 
     @T.default("head")
@@ -78,12 +114,12 @@ class Git(Repo):
                 for c in head.log()[::-1]
             ]
         except Exception as err:
-            self.log.warn(err)
+            self.log.warn("Git head update error, ignoring: %s", err)
             self.head_history = []
 
     def _update_heads(self):
         """refresh the heads"""
-        self.heads = [head.name for head in self._git.heads]
+        self.heads = {head.name: head.commit.hexsha for head in self._git.heads}
         if self.head in [None, "HEAD"] and self.heads:
             self.head = "master"
 
@@ -118,10 +154,16 @@ class Git(Repo):
         """create a commit"""
         self._git.index.commit(message)
         self._on_watching(None)
-        self._update_heads()
 
     def revert(self, ref):
         """restore to a committish"""
         self._git.head.commit = ref
         self._git.head.reset(index=True, working_tree=True)
-        self._update_heads()
+
+    def _update_remotes(self):
+        remotes = {}
+        for remote in self._git.remotes:
+            remotes[remote.name] = self._remote_cls(
+                name=remote.name, url=remote.url, _remote=remote
+            )
+        self.remotes = remotes

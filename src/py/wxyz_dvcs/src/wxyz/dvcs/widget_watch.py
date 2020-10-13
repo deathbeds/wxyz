@@ -12,7 +12,7 @@ from tornado.ioloop import IOLoop
 from watchgod import DefaultDirWatcher, awatch
 
 
-class JupyterDefaultDirWatcher(DefaultDirWatcher):
+class _JupyterWatcher(DefaultDirWatcher):
     """a notebook-aware watcher
 
     TODO: this will need to be revisited... we might in fact want to watch
@@ -35,6 +35,7 @@ class Watcher(W.Widget):
     watching = T.Bool(default_value=False, help="whether to be watching")
     changes = T.Tuple(help="the last changes that were detected", allow_none=True)
     _stop = T.Instance(Event, allow_none=True, help="the event to use for stopping")
+    _watcher_cls = T.Any(default_value=_JupyterWatcher)
 
     def __init__(self, path=None, *args, **kwargs):
         kwargs["path"] = kwargs.get("path", Path(path))
@@ -70,6 +71,6 @@ class Watcher(W.Widget):
         """the actual watcher. schedule to run in the loop"""
         self._stop = Event()
         async for changes in awatch(
-            self.path, watcher_cls=JupyterDefaultDirWatcher, stop_event=self._stop
+            self.path, watcher_cls=self._watcher_cls, stop_event=self._stop
         ):
             IOLoop.current().add_callback(self._changes, changes)

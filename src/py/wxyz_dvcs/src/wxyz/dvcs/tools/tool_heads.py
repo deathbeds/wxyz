@@ -4,6 +4,7 @@ import ipywidgets as W
 import traitlets as T
 
 from ..repos.repo_base import Repo
+from .utils import BTN_ICON_DEFAULTS
 
 
 class HeadPicker(W.HBox):
@@ -36,7 +37,15 @@ class HeadPicker(W.HBox):
             self._repo_link = None
 
         if change.new:
-            self._repo_link = T.dlink((change.new, "heads"), (self.picker, "options"))
+            self._repo_link = T.dlink(
+                (change.new, "heads"),
+                (self.picker, "options"),
+                self._format_head_options,
+            )
+
+    def _format_head_options(self, heads):
+        self.log.error("Heads %s", heads)
+        return {f"{name} [{commit[:7]}]": name for name, commit in heads.items()}
 
     @T.default("picker")
     def _default_picker(self):
@@ -46,4 +55,4 @@ class HeadPicker(W.HBox):
     @T.default("refresh_btn")
     def _default_refresh_btn(self):
         """a default refresh button"""
-        return W.Button(icon="refresh", layout=dict(max_width="3em", min_width="3em"))
+        return W.Button(icon="refresh", **BTN_ICON_DEFAULTS)
