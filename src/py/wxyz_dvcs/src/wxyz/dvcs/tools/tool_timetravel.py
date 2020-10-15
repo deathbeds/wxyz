@@ -3,6 +3,7 @@
 import ipywidgets as W
 import jinja2
 import traitlets as T
+from tornado.ioloop import IOLoop
 
 from ..repos.repo_base import Repo
 
@@ -38,12 +39,31 @@ class TimeTraveler(W.VBox):
         )
         self._dom_classes += (f"{CSS_PREFIX}-box",)
         self.commits.observe(self._on_change_commit, "value")
+        self.repo.observe(self._on_head_hash_change, "head_hash")
         self.children = [self.commits]
 
     def _on_change_commit(self, change):
         """revert to the selected commit"""
-        if change.new:
-            self.repo.revert(change.new)
+        if change.new is None:
+            return
+        self.repo.revert(change.new)
+
+    def _on_head_hash_change(self, _change=None):
+        head_hash = str(self.repo.head_hash)
+
+        if head_hash is None:
+            return
+
+        options = self._update_history_options(self.repo.head_history)
+
+        if options:
+            self.commits.options = options
+
+        if head_hash not in dict(options).values():
+            IOLoop.current().add_callback(self._on_head_hash_change)
+            return
+
+        self.commits.value = head_hash
 
     @T.default("commits")
     def _make_default_commits(self):
@@ -56,6 +76,6 @@ class TimeTraveler(W.VBox):
 
     def _update_history_options(self, history):
         """nicely format the commit history"""
-        return [(self._option_tmpl.render(**h), h["commit"]) for h in history][
+        return [(self._option_tmpl.render(**h), str(h["commit"])) for h in history][
             ::-1
         ] or DEFAULT_OPTIONS

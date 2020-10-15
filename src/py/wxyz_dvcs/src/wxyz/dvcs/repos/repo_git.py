@@ -67,9 +67,9 @@ class Git(Repo):
     async def _on_ref_change(self, _change=None):
         """recalculate key values when files in .git/refs folder change"""
         self._update_heads()
+        self._update_head_history()
         for remote in self.remotes.values():
             await remote._update_heads()
-        self._update_head_history()
 
     @property
     def _remote_cls(self):
@@ -107,7 +107,7 @@ class Git(Repo):
             self.head_hash = head.commit.hexsha
             self.head_history = [
                 {
-                    "commit": c.newhexsha,
+                    "commit": str(c.newhexsha),
                     "timestamp": c.time[0],
                     "message": c.message,
                     "author": {"name": c.actor.name, "email": c.actor.email},
