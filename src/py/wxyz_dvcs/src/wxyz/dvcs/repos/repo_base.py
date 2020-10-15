@@ -30,10 +30,8 @@ class Remote(W.Widget):
 
     async def fetch(self):
         """fetch from the remote"""
-        self.log.error("Updating %s", self)
         await self._fetch()
         self.heads = await self._update_heads()
-        self.log.error("Completed updating %s", self.heads)
 
     async def push(self, ref):
         """push to the remote"""
@@ -57,7 +55,8 @@ class Repo(W.Widget):
     watching = T.Bool(default_value=False)
     dirty = T.Bool(default_value=False)
     changes = T.Tuple(allow_none=True)
-    head = T.Unicode()
+    head = T.Unicode(help="the symbolic name of the current head")
+    head_hash = T.Unicode(help="the full hash of the current head")
     head_history = T.Tuple()
     remotes = T.Dict(value_trait=T.Instance(Remote), default_value=tuple())
     _remote_cls = Remote

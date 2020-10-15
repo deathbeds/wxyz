@@ -76,16 +76,13 @@ class Remoter(W.VBox):
                 [(f"""{head} [{ref[:7]}]""", ref) for head, ref in change.new.items()]
             )
         )
-        self.log.error(self.heads.options)
 
     @T.observe("remote")
     def _on_remote(self, change):
         """handle the current remote name changing"""
         if change.new:
             remote = self.repo.remotes[change.new]
-            self.log.error(". remote %s", remote)
             remote.observe(self._update_head_options, "heads")
-            self.log.error("Listening to %s", remote)
         else:
             self.heads.options = []
 

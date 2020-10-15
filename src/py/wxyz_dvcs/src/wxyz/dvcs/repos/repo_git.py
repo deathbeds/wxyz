@@ -47,7 +47,7 @@ class GitRemote(Remote):
 class Git(Repo):
     """A git repository widget"""
 
-    # pylint: disable=protected-access
+    # pylint: disable=protected-access,too-many-instance-attributes
     _git = T.Instance(G.Repo, allow_none=True)
     _ref_watcher = T.Instance(Watcher, allow_none=True)
 
@@ -64,12 +64,12 @@ class Git(Repo):
 
         _schedule()
 
-    async def _on_ref_change(self, change=None):
-        """recalculate"""
-        self.log.error(change)
+    async def _on_ref_change(self, _change=None):
+        """recalculate key values when files in .git/refs folder change"""
         self._update_heads()
         for remote in self.remotes.values():
             await remote._update_heads()
+        self._update_head_history()
 
     @property
     def _remote_cls(self):
@@ -104,6 +104,7 @@ class Git(Repo):
         # pylint: disable=broad-except
         try:
             head = [h for h in self._git.heads if h.name == self.head][0]
+            self.head_hash = head.commit.hexsha
             self.head_history = [
                 {
                     "commit": c.newhexsha,
@@ -114,7 +115,7 @@ class Git(Repo):
                 for c in head.log()[::-1]
             ]
         except Exception as err:
-            self.log.warn("Git head update error, ignoring: %s", err)
+            self.log.warn("Git head update error, ignoring: %s", err, exc_info=True)
             self.head_history = []
 
     def _update_heads(self):

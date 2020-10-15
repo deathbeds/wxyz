@@ -5,6 +5,7 @@ from .repos.repo_base import Repo
 from .tools.tool_commits import Committer
 from .tools.tool_heads import HeadPicker
 from .tools.tool_remotes import Remoter
+from .tools.tool_timetravel import TimeTraveler
 from .trackers.tracker_base import Tracker
 from .trackers.tracker_json import JSONDictTracker
 from .widget_watch import Watcher
@@ -16,6 +17,7 @@ __all__ = [
     "JSONDictTracker",
     "Remoter",
     "Repo",
+    "TimeTraveler",
     "Tracker",
     "Watcher",
 ]

@@ -44,7 +44,6 @@ class HeadPicker(W.HBox):
             )
 
     def _format_head_options(self, heads):
-        self.log.error("Heads %s", heads)
         return {f"{name} [{commit[:7]}]": name for name, commit in heads.items()}
 
     @T.default("picker")
