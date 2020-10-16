@@ -16,12 +16,14 @@ DEFAULT_OPTION_TMPL = """
 """.strip()
 
 
-class TimeTraveler(W.VBox):
+class TimeTraveler(W.HBox):
     """Show a selection widget"""
 
     # pylint: disable=no-self-use,unused-argument
     repo = T.Instance(Repo)
     commits = T.Instance(W.DOMWidget)
+    enabled = T.Bool(default_value=False)
+    enable_chk = T.Instance(W.DOMWidget)
     _commits_cls = W.SelectionSlider
     _option_tmpl = jinja2.Template(DEFAULT_OPTION_TMPL)
 
@@ -37,14 +39,20 @@ class TimeTraveler(W.VBox):
             (self.commits, "options"),
             self._update_history_options,
         )
+        T.dlink(
+            (self, "enabled"),
+            (self.commits.layout, "display"),
+            {True: "flex", False: "none"}.get,
+        )
+        T.link((self, "enabled"), (self.enable_chk, "value"))
         self._dom_classes += (f"{CSS_PREFIX}-box",)
         self.commits.observe(self._on_change_commit, "value")
         self.repo.observe(self._on_head_hash_change, "head_hash")
-        self.children = [self.commits]
+        self.children = [self.enable_chk, self.commits]
 
     def _on_change_commit(self, change):
         """revert to the selected commit"""
-        if change.new is None:
+        if not self.enabled or change.new is None:
             return
         self.repo.revert(change.new)
 
@@ -69,9 +77,7 @@ class TimeTraveler(W.VBox):
     def _make_default_commits(self):
         """create a default commit selector"""
         return self._commits_cls(
-            options=DEFAULT_OPTIONS,
-            description="History",
-            layout=dict(width="80%", flex="1"),
+            options=DEFAULT_OPTIONS, layout=dict(width="80%", flex="1"), rows=1
         )
 
     def _update_history_options(self, history):
@@ -79,3 +85,7 @@ class TimeTraveler(W.VBox):
         return [(self._option_tmpl.render(**h), str(h["commit"])) for h in history][
             ::-1
         ] or DEFAULT_OPTIONS
+
+    @T.default("enable_chk")
+    def _default_enable_chk(self):
+        return W.Checkbox(description="Time Travel", layout=dict(flex="0"))

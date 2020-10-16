@@ -2,9 +2,45 @@
 
 import ipywidgets as W
 import traitlets as T
+from jinja2 import Template
 
 from ..repos.repo_base import Repo
 from .utils import BTN_ICON_DEFAULTS
+
+DEFAULT_STATUS_TEMPLATE = """
+<i class="fa fa-code-fork"></i> {{ repo.head }}
+<i class="fa fa-hashtag"></i>
+<code title="{{repo.head_hash}}">{{ repo.head_hash[:7] }}</code>
+{% if repo.changes %}
+<i class="fa fa-pencil-square"></i> {{ repo.changes | count }} changes
+{% endif %}
+"""
+
+
+class HeadStatus(W.HBox):
+    """a status bar"""
+
+    # pylint: disable=fixme,no-self-use
+
+    repo = T.Instance(Repo)
+    # todo: break up more for styling
+    html = T.Instance(W.HTML, kw={})
+    template = T.Instance(Template)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.children = [self.html]
+        # todo: handle repo change
+        self.repo.observe(self._on_repo_update)
+
+    def _on_repo_update(self, _change):
+        """update the status bar"""
+        self.html.value = self.template.render(repo=self.repo)
+
+    @T.default("template")
+    def _default_template(self):
+        """make a default template"""
+        return Template(DEFAULT_STATUS_TEMPLATE)
 
 
 class HeadPicker(W.HBox):

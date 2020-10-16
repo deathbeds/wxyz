@@ -7,7 +7,6 @@ import traitlets as T
 from tornado.ioloop import IOLoop
 
 from ..repos.repo_base import Repo
-from .utils import BTN_ICON_DEFAULTS
 
 CSS_PREFIX = "jp-wxyz-dvcs-tool-remote"
 
@@ -30,9 +29,8 @@ class Remoter(W.VBox):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.children = [
-            self.remotes,
-            self.heads,
-            W.HBox([self.fetch_btn, self.merge_btn, self.push_btn]),
+            W.HBox([self.remotes, self.fetch_btn]),
+            W.HBox([self.heads, self.merge_btn, self.push_btn]),
         ]
         T.dlink((self.remotes, "value"), (self, "remote"))
         T.dlink((self.heads, "value"), (self, "head"))
@@ -40,6 +38,7 @@ class Remoter(W.VBox):
         T.dlink((self, "head"), (self.push_btn, "disabled"), lambda x: not x)
 
         self.fetch_btn.on_click(self._on_fetch_click)
+        self.merge_btn.on_click(self._on_merge_click)
 
     # handlers
     def _on_fetch_click(self, *args):
@@ -100,14 +99,14 @@ class Remoter(W.VBox):
     @T.default("fetch_btn")
     def _default_fetch_btn(self):
         """initialize the fetch widget"""
-        return W.Button(icon="cloud-download", **BTN_ICON_DEFAULTS)
+        return W.Button(description="Fetch", icon="cloud-download")
 
     @T.default("merge_btn")
     def _default_merge_btn(self):
         """initialize the merge widget"""
-        return W.Button(icon="compress", **BTN_ICON_DEFAULTS)
+        return W.Button(description="Merge", icon="compress")
 
     @T.default("push_btn")
     def _default_push_btn(self):
         """initialize the push widget"""
-        return W.Button(icon="cloud-upload", **BTN_ICON_DEFAULTS)
+        return W.Button(description="Push", icon="cloud-upload")
