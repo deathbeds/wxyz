@@ -116,12 +116,29 @@ class DictTracker(Tracker):
     def widget_from_dict(self, content):
         """update a widget from a dict"""
         with self.tracked_widget.hold_trait_notifications():
-            for trait in self.tracked_traits or self.tracked_widget.trait_names():
-                if trait in content:
-                    new_value = content[trait]
-                    old_value = getattr(self.tracked_widget, trait)
-                    if new_value != old_value:
-                        setattr(self.tracked_widget, trait, new_value)
+            for trait_name in self.tracked_traits or self.tracked_widget.trait_names():
+                self.log.error("TRAIT %s", trait_name)
+                if trait_name in content:
+                    trait = getattr(self.tracked_widget.__class__, trait_name)
+                    new_value = content[trait_name]
+                    old_value = getattr(self.tracked_widget, trait_name)
+                    from_json = trait.metadata.get("from_json")
+                    to_json = trait.metadata.get("to_json")
+                    if to_json and from_json:
+                        if new_value == to_json(old_value, self.tracked_widget):
+                            continue
+                        setattr(
+                            self.tracked_widget,
+                            trait_name,
+                            from_json(new_value, self.tracked_widget),
+                        )
+                    else:
+                        if old_value != new_value:
+                            setattr(
+                                self.tracked_widget,
+                                trait_name,
+                                new_value,
+                            )
 
 
 class ExecutorTracker(Tracker):
