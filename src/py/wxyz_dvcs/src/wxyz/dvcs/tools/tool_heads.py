@@ -51,19 +51,30 @@ class HeadPicker(W.HBox):
     repo = T.Instance(Repo)
     picker = T.Instance(W.DOMWidget)
     refresh_btn = T.Instance(W.Button)
+    checkout_btn = T.Instance(W.Button)
 
     _repo_link = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.refresh_btn.on_click(self.refresh)
-        self.children = [self.picker, self.refresh_btn]
+        self.checkout_btn.on_click(self.checkout)
+        self.picker.observe(self._update_picker_value, "options")
+        self.children = [self.picker, self.refresh_btn, self.checkout_btn]
 
     def refresh(self, *args, **kwargs):
         """refresh the heads"""
         # pylint: disable=protected-access
         if self.repo is not None:
             self.repo._update_heads()
+
+    def checkout(self, *args, **kwargs):
+        """check out a ref"""
+        self.repo.checkout(self.picker.value)
+
+    def _update_picker_value(self, *args, **kwargs):
+        """ensure the right option is selected"""
+        self.picker.value = self.repo.head
 
     @T.observe("repo")
     def _on_repo_changed(self, change):
@@ -80,7 +91,11 @@ class HeadPicker(W.HBox):
             )
 
     def _format_head_options(self, heads):
-        return {f"{name} [{commit[:7]}]": name for name, commit in heads.items()}
+        marks = {self.repo.head: "*"}
+        return {
+            f"""{marks.get(name, "")}{name} [{commit[:7]}]""": name
+            for name, commit in heads.items()
+        }
 
     @T.default("picker")
     def _default_picker(self):
@@ -91,3 +106,43 @@ class HeadPicker(W.HBox):
     def _default_refresh_btn(self):
         """a default refresh button"""
         return W.Button(icon="refresh", **BTN_ICON_DEFAULTS)
+
+    @T.default("checkout_btn")
+    def _default_checkout_btn(self):
+        """a default checkout button"""
+        return W.Button(icon="check-circle", **BTN_ICON_DEFAULTS)
+
+
+class Brancher(W.HBox):
+    """Create a new branch from the current commit"""
+
+    # pylint: disable=no-self-use,unused-argument
+
+    repo = T.Instance(Repo)
+    create_btn = T.Instance(W.Button)
+    branch_name = T.Instance(W.Text)
+
+    _repo_link = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.create_btn.on_click(self.create)
+        T.dlink(
+            (self.branch_name, "value"), (self.create_btn, "disabled"), lambda x: not x
+        )
+        self.children = [self.branch_name, self.create_btn]
+
+    def create(self, *args, **kwargs):
+        """actually create the new branch"""
+        self.repo.branch(self.branch_name.value)
+        self.branch_name.value = ""
+
+    @T.default("create_btn")
+    def _default_create_btn(self):
+        """a default create button"""
+        return W.Button(icon="plus", **BTN_ICON_DEFAULTS)
+
+    @T.default("branch_name")
+    def _default_branch_name(self):
+        """a default branch name editor"""
+        return W.Text(description="New Branch")

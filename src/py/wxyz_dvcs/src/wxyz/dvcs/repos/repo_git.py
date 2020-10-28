@@ -91,7 +91,7 @@ class Git(Repo):
     @T.default("head")
     def _default_head(self):
         """get current head"""
-        return self._git.head.name
+        return self._git.active_branch.name
 
     @T.observe("head")
     def _on_head_changed(self, change):
@@ -121,9 +121,6 @@ class Git(Repo):
     def _update_heads(self):
         """refresh the heads"""
         self.heads = {head.name: head.commit.hexsha for head in self._git.heads}
-        if self.head in [None, "HEAD"] and self.heads:
-            self.head = "master"
-
         self._update_head_history()
 
     def _on_watch_changes(self, *changes):
@@ -161,7 +158,37 @@ class Git(Repo):
         self._git.head.commit = ref
         self._git.head.reset(index=True, working_tree=True)
 
+    def branch(self, name, ref="HEAD"):
+        """create and checkout a new branch"""
+        self._git.create_head(name, ref)
+        self.checkout(name)
+
+    def checkout(self, name):
+        """checkout a named reference"""
+        head = [h for h in self._git.heads if h.name == name][0]
+        head.checkout()
+        self.head = head.name
+        self._git.head.reset(index=True, working_tree=True)
+
+    def merge(self, ref):
+        """create a merge commit on the active branch with the given ref"""
+        active = self._git.active_branch
+        active_commit = self._git.active_branch.commit
+        active_name = active.name
+        merge_base = self._git.merge_base(active, ref)
+        ref_commit = self._git.commit(ref)
+        self._git.index.merge_tree(ref_commit, base=merge_base)
+        merge_commit = self._git.index.commit(
+            f"Merged {ref} into {active_name}",
+            parent_commits=(active_commit, ref_commit),
+        )
+        self.log.error("MERGE %s", merge_commit)
+        self._git.active_branch.reference = merge_commit
+        active.checkout()
+        self._git.head.reset(index=True, working_tree=True)
+
     def _update_remotes(self):
+        """fetch some remotes"""
         remotes = {}
         for remote in self._git.remotes:
             remotes[remote.name] = self._remote_cls(

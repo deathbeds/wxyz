@@ -117,7 +117,6 @@ class DictTracker(Tracker):
         """update a widget from a dict"""
         with self.tracked_widget.hold_trait_notifications():
             for trait_name in self.tracked_traits or self.tracked_widget.trait_names():
-                self.log.error("TRAIT %s", trait_name)
                 if trait_name in content:
                     trait = getattr(self.tracked_widget.__class__, trait_name)
                     new_value = content[trait_name]

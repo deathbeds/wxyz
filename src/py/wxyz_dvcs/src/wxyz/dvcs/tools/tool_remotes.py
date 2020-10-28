@@ -48,7 +48,7 @@ class Remoter(W.VBox):
         raise NotImplementedError()
 
     def _on_merge_click(self, *args):
-        raise NotImplementedError()
+        self.repo.merge(self.heads.value)
 
     # observers
     @T.observe("repo")
