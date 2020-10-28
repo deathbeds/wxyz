@@ -116,7 +116,7 @@ def _make_py_setup(setup_py):
                     "--no-deps",
                 ],
                 [*P.PIP, "freeze"],
-                [*P.PIP, "check"],
+                # [*P.PIP, "check"],
             ],
             **uptodate,
         )
