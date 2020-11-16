@@ -83,9 +83,6 @@ def task_setup_ts():
     )
 
 
-EGG_LINKS = []
-
-
 if P.RUNNING_IN_CI:
 
     def task_setup_py_ci():
@@ -173,7 +170,7 @@ def _make_linter(label, files):
     def _task():
         ok = f"lint_{label}"
         return dict(
-            file_dep=[*files, *EGG_LINKS],
+            file_dep=[*files, P.OK / "setup_py"],
             actions=[
                 U.okit(ok, remove=True),
                 *[cmd + files for cmd in PY_LINT_CMDS if shutil.which(cmd[0])],
@@ -348,7 +345,9 @@ def task_watch():
 
 def task_binder():
     """get to a working interactive state"""
-    return dict(file_dep=[P.OK / "lab", *EGG_LINKS], actions=[lambda: print("OK")])
+    return dict(
+        file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
+    )
 
 
 ATEST = [P.PY, "-m", "_scripts._atest"]
