@@ -21,8 +21,8 @@ class Tracker(W.Widget):
     )
     path = T.Instance(Path)
     encoding = T.Unicode("utf-8")
-    user_idle_interval = T.Int(
-        100, help="milliseconds to wait before declaring the user idle"
+    user_idle_interval = T.Float(
+        0.3, help="seconds to wait before declaring the user idle"
     )
     _idle_after = None
     __extension__ = None
