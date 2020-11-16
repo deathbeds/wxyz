@@ -1,5 +1,6 @@
 """ base classes for changes on disk to widgets
 """
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -20,7 +21,10 @@ class Tracker(W.Widget):
     )
     path = T.Instance(Path)
     encoding = T.Unicode("utf-8")
-    change_number = T.Int(0)
+    user_idle_interval = T.Int(
+        100, help="milliseconds to wait before declaring the user idle"
+    )
+    _idle_after = None
     __extension__ = None
 
     @property
@@ -44,15 +48,17 @@ class Tracker(W.Widget):
         )
 
     def _on_user_change(self, change):
-        """bridge to the ioloop for user changes"""
+        """bridge to the ioloop for user changes, handle idle"""
         loop = self.loop
+        self._idle_after = time.time() + self.user_idle_interval
         if loop is not None:
             loop.add_callback(self.on_user_change)
-            self.change_number += 1
 
     def _on_file_change(self, change):
-        """bridge to the ioloop for file changes"""
+        """bridge to the ioloop for file changes (if the user isn't interacting)"""
         loop = self.loop
+        if self._idle_after and time.time() < self._idle_after:
+            return
         if loop is not None:
             loop.add_callback(self.on_file_change)
 
