@@ -106,6 +106,7 @@ PY_DEP = {
     ]
     for pys in PY_SETUP
 }
+PY_DEV_REQS = BUILD / "requirements-dev.txt"
 
 SITE_PKGS = Path(site.getsitepackages()[0])
 

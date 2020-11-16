@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import time
 
-from doit.tools import PythonInteractiveAction, result_dep
+from doit.tools import PythonInteractiveAction
 
 from _scripts import _paths as P, _util as U
 from _scripts._lock import iter_matrix, make_lock_task
@@ -86,46 +86,6 @@ def task_setup_ts():
 EGG_LINKS = []
 
 
-def _make_py_setup(setup_py):
-    """make all the setups"""
-    pkg = setup_py.parent
-
-    uptodate = {}
-
-    uptodate["uptodate"] = [
-        result_dep(f"setup_py_{other}")
-        for other, downstreams in P.PY_DEP.items()
-        if pkg.name in downstreams
-    ]
-
-    egg_link = [P.SITE_PKGS / f"{pkg.name}.egg-link".replace("_", "-")]
-    EGG_LINKS.extend(egg_link)
-
-    def _task():
-        return dict(
-            doc=f"{pkg.name} dev install",
-            file_dep=[setup_py, pkg / "setup.cfg", pkg / "MANIFEST.in"],
-            targets=egg_link,
-            actions=[
-                [
-                    *P.PIP,
-                    "install",
-                    "-e",
-                    str(pkg),
-                    "--ignore-installed",
-                    "--no-deps",
-                ],
-                [*P.PIP, "freeze"],
-                # [*P.PIP, "check"],
-            ],
-            **uptodate,
-        )
-
-    _task.__name__ = f"task_setup_py_{pkg.name}"
-
-    return {_task.__name__: _task}
-
-
 if P.RUNNING_IN_CI:
 
     def task_setup_py_ci():
@@ -150,16 +110,39 @@ if P.RUNNING_IN_CI:
 
 
 else:
-    [globals().update(**_make_py_setup(setup_py)) for setup_py in P.PY_SETUP]
 
     def task_setup_py_dev():
-        """setup python packages for development"""
-        return dict(
-            file_dep=EGG_LINKS,
+        """ensure local packages are installed and editable"""
+
+        def write_reqs_txt():
+            """write out a requirements file so everything can be installed in one go"""
+            P.PY_DEV_REQS.write_text(
+                "\n".join([f"-e {p.parent.relative_to(P.ROOT)}" for p in P.PY_SETUP])
+            )
+
+        yield dict(
+            name="reqs_txt",
+            targets=[P.PY_DEV_REQS],
+            file_dep=[*P.ALL_SETUP_CFG, *P.PY_SETUP],
+            actions=[write_reqs_txt],
+        )
+
+        yield dict(
+            name="pip",
+            file_dep=[P.PY_DEV_REQS],
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
+                [
+                    *P.PIP,
+                    "install",
+                    "--no-deps",
+                    "--ignore-installed",
+                    "-r",
+                    P.PY_DEV_REQS,
+                ],
                 [*P.PIP, "freeze"],
+                [*P.PIP, "check"],
                 U.okit("setup_py"),
             ],
         )
