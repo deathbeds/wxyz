@@ -37,8 +37,8 @@ Git I
     Input Text    ${XP PG TEXTAREA}    ${canary}
     Click Element    ${CSS ENABLE TIMETRAVEL}
     Capture Element Screenshot    ${XP PG BOX}    40-before-time-travel.png
-    Wait Until Keyword Succeeds    5x    0.25s    Drag And Drop By Offset    ${CSS SLIDER}    -500    0
-    Wait Until Keyword Succeeds    5x    0.25s    Git Box Should Not Be    ${canary}
+    Wait Until Keyword Succeeds    5x    0.5s    Drag And Drop By Offset    ${CSS SLIDER}    -500    0
+    Wait Until Keyword Succeeds    5x    0.5s    Git Box Should Not Be    ${canary}
     Capture Element Screenshot    ${XP PG BOX}    50-after-time-travel.png
     [Teardown]    Clean up after Working with file    ${GIT I}.ipynb
 
