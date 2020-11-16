@@ -50,9 +50,7 @@ RECIPES = ROOT / "recipes"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
 
-BINDER = ROOT / ".binder"
-BINDER_LOCKS = [*LOCKS.glob("conda.binder.*.lock")]
-BINDER_ENV = BINDER / "environment.yml"
+POSTBUILD = ROOT / "postBuild"
 
 
 class ENV:

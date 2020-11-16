@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -eux
-
-export RUNNING_IN_BINDER=1
-
-time doit -n4 binder || doit binder

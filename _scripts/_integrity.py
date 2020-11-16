@@ -25,6 +25,12 @@ def contributing_text():
 
 
 @pytest.fixture(scope="module")
+def postbuild():
+    """the text of postBuild"""
+    return P.POSTBUILD.read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
 def wxyz_notebook_cfg():
     """the notebook setup.cfg"""
     pys = [pys for pys in P.PY_SETUP if pys.parent.name == "wxyz_notebooks"][0]
@@ -40,6 +46,13 @@ def test_contributing_locks(contributing_text):
             found_lock += 1
 
     assert found_lock == 2
+
+
+def test_binder_locks(postbuild):
+    """is the binder lock right?"""
+    for lock in P.LOCKS.glob("conda.binder.*.lock"):
+        lock_path = str(lock.relative_to(P.ROOT).as_posix())
+        assert lock_path in postbuild
 
 
 @pytest.mark.parametrize(
