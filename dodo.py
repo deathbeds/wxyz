@@ -113,6 +113,7 @@ else:
 
         def write_reqs_txt():
             """write out a requirements file so everything can be installed in one go"""
+            P.BUILD.exists() or P.BUILD.mkdir()
             P.PY_DEV_REQS.write_text(
                 "\n".join([f"-e {p.parent.relative_to(P.ROOT)}" for p in P.PY_SETUP])
             )
@@ -340,6 +341,29 @@ def task_watch():
         uptodate=[lambda: False],
         file_dep=[P.OK / "lab"],
         actions=[PythonInteractiveAction(_watch)],
+    )
+
+
+def task_update_binder():
+    """pre-compute environment.yml for better caching on binder"""
+
+    def make_binder_env():
+        lock_lines = (
+            P.BINDER_LOCKS[0].read_text().split("@EXPLICIT")[1].strip().splitlines()
+        )
+        P.BINDER_ENV.write_text(
+            P.yaml.safe_dump(
+                dict(
+                    name="wxyz-binder",
+                    channels=["conda-forge", "nodefaults"],
+                    dependencies=lock_lines,
+                ),
+                default_flow_style=False,
+            ),
+        )
+
+    return dict(
+        file_dep=[*P.BINDER_LOCKS], targets=[P.BINDER_ENV], actions=[make_binder_env]
     )
 
 

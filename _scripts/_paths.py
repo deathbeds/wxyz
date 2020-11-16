@@ -10,9 +10,9 @@ import sys
 from pathlib import Path
 
 try:
-    from yaml import safe_load
+    import yaml
 except ImportError:
-    from ruamel_yaml import safe_load
+    import ruamel_yaml as yaml
 
 
 RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
@@ -43,12 +43,16 @@ OK = BUILD / "ok"
 CI = ROOT / "ci"
 PIPELINES = ROOT / "azure-pipelines.yml"
 CI_TEST_YML = CI / "job.test.yml"
-CI_TEST_MATRIX = safe_load(CI_TEST_YML.read_text())["parameters"]
+CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text())["parameters"]
 LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
 RECIPES = ROOT / "recipes"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
+
+BINDER = ROOT / ".binder"
+BINDER_LOCKS = [*LOCKS.glob("conda.binder.*.lock")]
+BINDER_ENV = BINDER / "environment.yml"
 
 
 class ENV:
