@@ -2,7 +2,7 @@
 
 ## Setup
 
-- Get [Miniconda for Python 3](https://repo.anaconda.com/miniconda/)
+- Get [Miniforge](https://github.com/conda-forge/miniforge/releases)
 - Create a dev environment from a [lockfile](./ci/locks):
 
   ```bash

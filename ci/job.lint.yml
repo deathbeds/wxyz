@@ -8,7 +8,6 @@ parameters:
     - name: ThreeEight
       spec: '3.8'
       lab: '2.2'
-      nodejs: '14'
       env: wxyz-test-38
   env_create: conda --file ci/env-test.yml --quiet
 

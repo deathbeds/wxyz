@@ -23,7 +23,7 @@ DEP = "dependencies"
 
 
 def make_lock_task(
-    kind_, env_files, config, platform_, python_, nodejs_=None, lab_=None
+    kind_, env_files, config, platform_, python_, lab_=None
 ):
     """generate a single dodo excursion for conda-lock"""
     lockfile = (
@@ -65,8 +65,6 @@ def make_lock_task(
 
         if python_:
             fake_deps += [f"python ={python_}.*"]
-        if nodejs_:
-            fake_deps += [f"nodejs ={nodejs_}.*"]
         if lab_:
             fake_deps += [f"jupyterlab ={lab_}.*"]
 
@@ -121,6 +119,5 @@ def iter_matrix(matrix):
             yield (
                 platform_["condaPlatform"],
                 python_["spec"],
-                python_["nodejs"],
                 python_["lab"],
             )

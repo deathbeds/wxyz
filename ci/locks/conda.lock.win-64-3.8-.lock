@@ -17,7 +17,7 @@ https://conda.anaconda.org/conda-forge/win-64/tk-8.6.10-he774522_1.tar.bz2#34a90
 https://conda.anaconda.org/conda-forge/win-64/xz-5.2.5-h62dcd97_1.tar.bz2#eabcbfedd14d7c18a514afca09ea0ebb
 https://conda.anaconda.org/conda-forge/win-64/yaml-0.2.5-he774522_0.tar.bz2#d41c34441d8bbb6d141e691ae7bccf35
 https://conda.anaconda.org/conda-forge/win-64/zlib-1.2.11-h62dcd97_1010.tar.bz2#a4cdf389c5f73e60a0ca121ff77c22a9
-https://conda.anaconda.org/conda-forge/win-64/krb5-1.17.1-hc04afaa_3.tar.bz2#606e87d88971da67f7c87b5a10fb57a8
+https://conda.anaconda.org/conda-forge/win-64/krb5-1.17.2-hbae68bd_0.tar.bz2#36781bd85367e21cda881c9a5212ea9c
 https://conda.anaconda.org/conda-forge/win-64/libsolv-0.7.16-h200bbdf_0.tar.bz2#0f1dd8c450a8c6f813f56712d6652ab1
 https://conda.anaconda.org/conda-forge/win-64/libssh2-1.9.0-hb06d900_5.tar.bz2#d98a41c806a42bffd8b05a2e6f1132f1
 https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-h1006b36_2.tar.bz2#9392b3214cbdde0d9e64f83915f91d45
@@ -35,7 +35,7 @@ https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz
 https://conda.anaconda.org/conda-forge/win-64/python_abi-3.8-1_cp38.tar.bz2#18ced0580562dca07ae039050748cc50
 https://conda.anaconda.org/conda-forge/noarch/six-1.15.0-pyh9f0ad1d_0.tar.bz2#1eec421f0f1f39e579e44e4a5ce646a2
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.2-pyhd8ed1ab_0.tar.bz2#f832c45a477c78bebd107098db465095
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.51.0-pyh9f0ad1d_0.tar.bz2#6addf2dbf38f44da871076fa58f9e815
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.52.0-pyhd3deb0d_0.tar.bz2#a90b3d07d33d8f3a65198d8671d5e2cb
 https://conda.anaconda.org/conda-forge/win-64/certifi-2020.11.8-py38haa244fe_0.tar.bz2#1e3a88f8db13d19c4d23422e2f8f0e6c
 https://conda.anaconda.org/conda-forge/win-64/cffi-1.14.3-py38h0e640b1_1.tar.bz2#0fd3a8bf420e2ad6dfc7fbfa8cbdc4ec
 https://conda.anaconda.org/conda-forge/win-64/chardet-3.0.4-py38h9bdc248_1008.tar.bz2#503ab812d4aa8f5e4e40448a22f16233
@@ -60,4 +60,4 @@ https://conda.anaconda.org/conda-forge/noarch/requests-2.25.0-pyhd3deb0d_0.tar.b
 https://conda.anaconda.org/conda-forge/win-64/conda-4.9.2-py38haa244fe_0.tar.bz2#5ff32670bfd346ac4f90b2ab490f4dff
 https://conda.anaconda.org/conda-forge/noarch/ensureconda-1.2.1-py_0.tar.bz2#5a9e2f51daccf6b445e4d2df345033c4
 https://conda.anaconda.org/conda-forge/noarch/conda-lock-0.7.2-py_0.tar.bz2#da44fc6dc40fb329b7397bf0494b1411
-https://conda.anaconda.org/conda-forge/win-64/mamba-0.7.1-py38ha5ab944_0.tar.bz2#deddafab89456c185f96276f72d7f006
+https://conda.anaconda.org/conda-forge/win-64/mamba-0.7.2-py38ha5ab944_0.tar.bz2#31cf5fb96d1ab3e744977c3cbd0d4576
