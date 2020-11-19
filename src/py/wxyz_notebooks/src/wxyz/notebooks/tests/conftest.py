@@ -1,5 +1,6 @@
 """ test configuration for wxyz_notebook
 """
+# pylint: disable=fixme
 import platform
 from pathlib import Path
 
@@ -10,7 +11,11 @@ EXAMPLES = NOTEBOOKS / "examples"
 DESIGN = NOTEBOOKS / "Design"
 OS = platform.system()
 
-OS_SKIP = {"Windows": [EXAMPLES / "TPOTWXYZ.ipynb", EXAMPLES / "SKWXYZ.ipynb"]}
+OS_SKIP = {
+    # TODO: remove
+    # previously couldn't run these example on windows
+    # "Windows": [EXAMPLES / "TPOTWXYZ.ipynb", EXAMPLES / "SKWXYZ.ipynb"]
+}
 
 TEST_NOTEBOOKS = [
     ipynb

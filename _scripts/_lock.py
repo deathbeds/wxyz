@@ -22,9 +22,7 @@ CHN = "channels"
 DEP = "dependencies"
 
 
-def make_lock_task(
-    kind_, env_files, config, platform_, python_, lab_=None
-):
+def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
     """generate a single dodo excursion for conda-lock"""
     lockfile = (
         P.LOCKS / f"conda.{kind_}.{platform_}-{python_}-{lab_ if lab_ else ''}.lock"

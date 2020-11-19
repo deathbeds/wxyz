@@ -60,7 +60,7 @@ def task_lock():
             binder_args = task_args
         matrix_envs = list(test_envs)
         if "win-64" in task_args:
-            matrix_envs += [P.ENV.win]
+            matrix_envs += [P.ENV.tpot, P.ENV.win]
         else:
             matrix_envs += [P.ENV.tpot, P.ENV.unix]
 
