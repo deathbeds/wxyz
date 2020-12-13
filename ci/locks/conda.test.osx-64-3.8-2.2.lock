@@ -1,6 +1,7 @@
 # platform: osx-64
-# env_hash: d0131be747690210252ed044d4a9c5e585271cea494702c8b6d0382f3d4e2fc3
+# env_hash: c984782161e4b37ec52e2186e1fe08ac40bab431ab242067405c86fa28fa5170
 @EXPLICIT
+https://conda.anaconda.org/conda-forge/osx-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2#96dd44c2471a638fb9cdc40aa2573d1b
 https://conda.anaconda.org/conda-forge/osx-64/bzip2-1.0.8-hc929b4f_4.tar.bz2#521b82c700a64bac7d8da27539422e91
 https://conda.anaconda.org/conda-forge/osx-64/c-ares-1.17.1-hc929b4f_0.tar.bz2#24fc0b91a6eacc6753fef90514d67ce9
 https://conda.anaconda.org/conda-forge/osx-64/ca-certificates-2020.12.5-h033912b_0.tar.bz2#4483d8ea13bd57b52e3539e741501a7d
@@ -34,6 +35,7 @@ https://conda.anaconda.org/conda-forge/osx-64/libffi-3.3-h046ec9c_2.tar.bz2#c7a1
 https://conda.anaconda.org/conda-forge/osx-64/libgfortran5-9.3.0-h7cc5361_13.tar.bz2#f9f3fc3c2e4f3deb6820a395ffb6071d
 https://conda.anaconda.org/conda-forge/osx-64/libllvm10-10.0.1-h009f743_3.tar.bz2#cc65eb0b26253d2789320bfd661852f9
 https://conda.anaconda.org/conda-forge/osx-64/libpng-1.6.37-h7cec526_2.tar.bz2#9e52521faba2b53269672628d34e1513
+https://conda.anaconda.org/conda-forge/osx-64/libxgboost-1.3.0-h046ec9c_1.tar.bz2#3677983a19a5243c82f496599e64118a
 https://conda.anaconda.org/conda-forge/osx-64/libzopfli-1.0.3-h046ec9c_0.tar.bz2#55f3f5c9bccca18d33cb3a4bcfe002d7
 https://conda.anaconda.org/conda-forge/osx-64/lz4-c-1.9.2-hb1e8313_3.tar.bz2#7737f6db9eb5e572d22b88b667d1f3f9
 https://conda.anaconda.org/conda-forge/osx-64/openssl-1.1.1i-h35c211d_0.tar.bz2#f26df9ccde4b41ff4d2b18c83c4d0fd3
@@ -226,6 +228,7 @@ https://conda.anaconda.org/conda-forge/noarch/wcwidth-0.2.5-pyh9f0ad1d_2.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/dask-2020.12.0-pyhd8ed1ab_0.tar.bz2#b10d9c6984a9aebdbd26a311b3faf906
 https://conda.anaconda.org/conda-forge/noarch/nbclient-0.5.1-py_0.tar.bz2#4efba375c50e6668cb5778e36d1f3a7e
 https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.8-pyha770c72_0.tar.bz2#e4df54860ae814be2dba503c97748173
+https://conda.anaconda.org/conda-forge/osx-64/py-xgboost-1.3.0-py38h50d1736_1.tar.bz2#8fcb69456b0887dc2a947e0ddb7e8056
 https://conda.anaconda.org/conda-forge/noarch/requests-2.25.0-pyhd3deb0d_0.tar.bz2#5b983af1f3dcd93ef20f6067d077f6fe
 https://conda.anaconda.org/conda-forge/osx-64/scikit-image-0.17.2-py38he9f00de_4.tar.bz2#72599f17cc25810a5d23a213309c3487
 https://conda.anaconda.org/conda-forge/noarch/scikit-mdr-0.4.4-py_1.tar.bz2#9ce428157b9f31e2d1f4e48b93556159
@@ -240,6 +243,7 @@ https://conda.anaconda.org/conda-forge/noarch/pyld-2.0.3-pyh9f0ad1d_0.tar.bz2#41
 https://conda.anaconda.org/conda-forge/noarch/requests-toolbelt-0.9.1-py_0.tar.bz2#402668adee8fcba9a9c265cdc2a88f5a
 https://conda.anaconda.org/conda-forge/noarch/robotframework-seleniumlibrary-4.5.0-pyh9f0ad1d_0.tar.bz2#032239f822b29aef45cc4579ae86d031
 https://conda.anaconda.org/conda-forge/noarch/update_checker-0.18.0-pyh9f0ad1d_0.tar.bz2#a8dff3f315bd2ffe9f5ac2ff0501b2ac
+https://conda.anaconda.org/conda-forge/osx-64/xgboost-1.3.0-py38h0a5c65b_1.tar.bz2#204b07ca887cd2be21dcec4fef60b1d5
 https://conda.anaconda.org/conda-forge/noarch/dask-ml-1.7.0-py_0.tar.bz2#ffc9eea86e065cd464f6a141dda50127
 https://conda.anaconda.org/conda-forge/osx-64/ipykernel-5.4.2-py38h9bb44b7_0.tar.bz2#394b6a34dbc6785393e45444eb1c0f31
 https://conda.anaconda.org/conda-forge/noarch/tpot-0.11.6.post2-pyhd3deb0d_0.tar.bz2#1e8a8315967d7adbabf20eec40057c9f

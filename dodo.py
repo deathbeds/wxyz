@@ -60,9 +60,9 @@ def task_lock():
             binder_args = task_args
         matrix_envs = list(test_envs)
         if "win-64" in task_args:
-            matrix_envs += [P.ENV.tpot, P.ENV.win]
+            matrix_envs += [P.ENV.tpot, P.ENV.tpot_win, P.ENV.win]
         else:
-            matrix_envs += [P.ENV.tpot, P.ENV.unix]
+            matrix_envs += [P.ENV.tpot, P.ENV.tpot_unix, P.ENV.unix]
 
         yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
@@ -70,7 +70,10 @@ def task_lock():
         yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
 
     yield make_lock_task(
-        "binder", [*base_envs, P.ENV.tpot, P.ENV.binder], {}, *binder_args
+        "binder",
+        [*base_envs, P.ENV.tpot, P.ENV.tpot_unix, P.ENV.binder],
+        {},
+        *binder_args,
     )
 
 

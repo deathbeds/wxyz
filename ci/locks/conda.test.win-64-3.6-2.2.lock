@@ -1,5 +1,5 @@
 # platform: win-64
-# env_hash: 332c31714fc8c3b61181efa8a5861d2753afe41ef3a4380656d83487884256dd
+# env_hash: f32b1e0afceadc082765ff4f8a95f9fea293f70c0a324f8c8a2df5e93ec5388f
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/win-64/git-2.29.2-h57928b3_1.tar.bz2#c2e4553cc9fccd5e32f4c142f7d4c7d8
 https://conda.anaconda.org/conda-forge/win-64/ca-certificates-2020.12.5-h5b45459_0.tar.bz2#f36a2988a9f57cffdc43929ba67a3a2a
@@ -232,7 +232,7 @@ https://conda.anaconda.org/conda-forge/noarch/robotframework-seleniumlibrary-4.5
 https://conda.anaconda.org/conda-forge/noarch/update_checker-0.18.0-pyh9f0ad1d_0.tar.bz2#a8dff3f315bd2ffe9f5ac2ff0501b2ac
 https://conda.anaconda.org/conda-forge/noarch/dask-ml-1.7.0-py_0.tar.bz2#ffc9eea86e065cd464f6a141dda50127
 https://conda.anaconda.org/conda-forge/win-64/ipykernel-5.4.2-py36h7b7c402_0.tar.bz2#55b7e80a31de24e5a0cf3818a8ab67a4
-https://conda.anaconda.org/conda-forge/noarch/tpot-0.11.6.post2-pyhd3deb0d_0.tar.bz2#1e8a8315967d7adbabf20eec40057c9f
+https://conda.anaconda.org/conda-forge/noarch/tpot-0.11.6.post1-pyhd3deb0d_0.tar.bz2#a6f63c8ea4b3625258291a27d35c9594
 https://conda.anaconda.org/conda-forge/win-64/twine-3.2.0-py36h9f0ad1d_1.tar.bz2#afa1a6bd9a3527a9aabef67b9dda4126
 https://conda.anaconda.org/conda-forge/win-64/notebook-6.1.5-py36ha15d459_0.tar.bz2#3850371aa7f40df3f23e3259602e9526
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-1.2.0-py_0.tar.bz2#77d654573f19a836b326fb77ffd86860
