@@ -2,6 +2,7 @@
 """
 # pylint: disable=unused-import
 import ipywidgets as W  # noqa
+import ipywidgets.widgets.trait_types as TT  # noqa
 import traitlets as T
 
 from wxyz.core.base import Base

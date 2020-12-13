@@ -1,5 +1,5 @@
 """ Jupyter Widgets for `@lumino/datagrid`
-[0.6.0]: https://github.com/jupyterlab/lumino/tree/%40lumino/datagrid%400.6.0/packages/datagrid
+[0.6.0]: https://github.com/jupyterlab/lumino/tree/master/packages/datagrid
 
 Notes:
 - a future implementation would split the grid from the data source

@@ -1,15 +1,16 @@
 """ A styled grid
 """
 # pylint: disable=R0903,C0103,W0703,R0901
-from wxyz.core.base import T, W, WXYZBase
+from wxyz.core.base import T, W
 from wxyz.html import AlphaColor, EmptyAlphaColor
 
 from ._version import module_name, module_version
+from .base import DataGridBase
 from .widget_datagrid import DataGrid
 
 
 @W.register
-class CellRenderer(WXYZBase):
+class CellRenderer(DataGridBase):
     """[0.1.6]/cellrenderer.ts#L29"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
@@ -23,25 +24,15 @@ class CellRenderer(WXYZBase):
 
 
 @W.register
-class FormatFunc(WXYZBase):
+class FormatFunc(DataGridBase):
     """[0.1.6]/textrenderer.ts#L308"""
-
-    _model_module = T.Unicode(module_name).tag(sync=True)
-    _model_module_version = T.Unicode(module_version).tag(sync=True)
-    _view_module = T.Unicode(module_name).tag(sync=True)
-    _view_module_version = T.Unicode(module_version).tag(sync=True)
 
     _model_name = T.Unicode("FormatFuncModel").tag(sync=True)
 
 
 @W.register
-class TextRenderer(CellRenderer):
+class TextRenderer(DataGridBase):
     """[0.1.6]/textrenderer.ts#L21"""
-
-    _model_module = T.Unicode(module_name).tag(sync=True)
-    _model_module_version = T.Unicode(module_version).tag(sync=True)
-    _view_module = T.Unicode(module_name).tag(sync=True)
-    _view_module_version = T.Unicode(module_version).tag(sync=True)
 
     _model_name = T.Unicode("TextRendererModel").tag(sync=True)
 

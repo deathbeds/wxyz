@@ -3,55 +3,16 @@ import { Widget } from '@lumino/widgets';
 
 import { StyleGrid } from './stylegrid';
 
-import { CellRenderer, TextRenderer } from '@lumino/datagrid';
 import { SectionList } from '@lumino/datagrid/lib/sectionlist';
-
-const SELECT_COLOR = 'rgba(0,0,255,0.125)';
-
-export const selectedFunc: CellRenderer.ConfigFunc<string> = config => {
-  let selection: number[] = null;
-  let jmodel: any;
-  try {
-    jmodel = (config.metadata as any).jmodel;
-    // this is the `attributes` of the Jupyter Widget model
-    selection = jmodel.selection;
-  } catch {
-    // whatever
-  }
-
-  if (
-    selection &&
-    config.column >= selection[0] &&
-    config.column <= selection[1] &&
-    config.row >= selection[2] &&
-    config.row <= selection[3]
-  ) {
-    let selectionColor = jmodel ? jmodel.selection_color : '';
-    return selectionColor || SELECT_COLOR;
-  }
-  return 'rgba(0,0,0,0)';
-};
 
 export class SelectGrid extends StyleGrid {
   protected _scrollLock = false;
 
   protected onBeforeAttach(msg: Message): void {
-    ['touchstart', 'touchend', 'touchmove', 'mouseup'].forEach(evt =>
+    ['touchmove', 'mouseup'].forEach(evt =>
       this.node.addEventListener(evt, this)
     );
     super.onBeforeAttach(msg);
-  }
-
-  makeRenderers() {
-    return [
-      {
-        region: 'body',
-        metadata: null,
-        renderer: new TextRenderer({ backgroundColor: selectedFunc }),
-        model: null
-      },
-      ...super.makeRenderers()
-    ];
   }
 
   scrollTo(x: number, y: number): void {
@@ -90,22 +51,9 @@ export class SelectGrid extends StyleGrid {
     switch (evt.type) {
       default:
         break;
-      case 'touchstart':
-      case 'mousedown':
-        this.onSelectStart(evt);
-        break;
-      case 'touchend':
-      case 'mouseup':
-        if (this._view.model.get('selecting')) {
-          this.onSelectEnd(evt);
-        }
-        break;
       case 'touchmove':
       case 'mousemove':
         this.updateHover(evt as MouseEvent);
-        if (this._view.model.get('selecting')) {
-          this.onSelect(evt);
-        }
         break;
       case 'wheel':
         this.updateViewport();
@@ -114,48 +62,6 @@ export class SelectGrid extends StyleGrid {
     if (this._view.model.changedAttributes()) {
       this._view.touch();
     }
-  }
-
-  onSelectStart(_: Event) {
-    let m = this._view.model;
-    const s = m.get('selection');
-    const [c, r] = this.hoveredCell(_);
-    if ((_ as MouseEvent).shiftKey) {
-      m.set({
-        selection: [s[0], c, s[2], r],
-        selecting: false
-      });
-    } else {
-      m.set({
-        selection: [c, c, r, r],
-        selecting: true
-      });
-    }
-    this._view.touch();
-    // this.repaint();
-  }
-
-  onSelect(evt: Event) {
-    let m = this._view.model;
-    let s = m.get('selection') || [0, 0, 0, 0];
-    const [c1, r1] = this.hoveredCell(evt);
-    let n = [s[0], c1, s[2], r1];
-    m.set({ selection: n });
-    this._view.touch();
-    // this.repaint();
-  }
-
-  onSelectEnd(evt: Event) {
-    const [c1, r1] = this.hoveredCell(evt);
-    const old = this._view.model.get('selection');
-
-    this._view.model.set({
-      selecting: false,
-      selection: [old[0], c1, old[2], r1]
-    });
-
-    this._view.touch();
-    // this.repaint();
   }
 
   hoveredCell(evt: Event) {
