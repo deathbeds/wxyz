@@ -204,7 +204,8 @@ Restart and Run All
     Lab Command    Restart Kernel and Run All Cells
     Accept Default Dialog Option
     Ensure Sidebar Is Closed
-    Wait Until Element Contains    ${JLAB XP LAST CODE PROMPT}    [*]:
+    Wait Until Keyword Succeeds    5x    1s
+    ...    Wait Until Element Contains    ${JLAB XP LAST CODE PROMPT}    [*]:
 
 Reset Application State
     Try to Close All Tabs
