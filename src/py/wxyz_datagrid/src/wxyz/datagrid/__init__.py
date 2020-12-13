@@ -3,6 +3,21 @@
 from ._version import __version__  # noqa
 from .widget_datagrid import DataGrid
 from .widget_selectgrid import SelectGrid
-from .widget_stylegrid import StyleGrid
+from .widget_stylegrid import (
+    CellRenderer,
+    FixedFunc,
+    FormatFunc,
+    StyleGrid,
+    TextRenderer,
+)
 
-__all__ = ["__version__", "DataGrid", "SelectGrid", "StyleGrid"]
+__all__ = [
+    "__version__",
+    "CellRenderer",
+    "DataGrid",
+    "FixedFunc",
+    "FormatFunc",
+    "SelectGrid",
+    "StyleGrid",
+    "TextRenderer",
+]

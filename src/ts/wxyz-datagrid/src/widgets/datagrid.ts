@@ -1,6 +1,6 @@
 import { BoxView } from '@jupyter-widgets/controls';
 
-import { DataGrid } from '@lumino/datagrid';
+import { BasicKeyHandler, BasicMouseHandler, DataGrid } from '@lumino/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
@@ -36,6 +36,7 @@ export class DataGridView extends BoxView {
     const createGrid = options.createGrid || this.createGrid;
     super.initialize(options);
     this._grid = createGrid();
+    this.addGridBehaviors(this._grid);
     this._grid.view = this;
     this.model.on('change:value', this.onValue, this);
     this.pWidget.addWidget(this._grid);
@@ -47,6 +48,11 @@ export class DataGridView extends BoxView {
     return new DataGrid() as DataGridView.IViewedGrid;
   }
 
+  protected addGridBehaviors(grid: DataGridView.IViewedGrid) {
+    grid.keyHandler = new BasicKeyHandler();
+    grid.mouseHandler = new BasicMouseHandler();
+  }
+
   protected onValue() {
     const data = this.model.get('value');
     if (data) {
@@ -55,7 +61,6 @@ export class DataGridView extends BoxView {
     } else {
       this._grid.dataModel = null;
     }
-    // this._grid.repaint();
   }
 }
 

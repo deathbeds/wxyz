@@ -44,7 +44,6 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   setRenderer(rm: CellRendererModel) {
     const region: string = rm.get('region') || 'body';
     const renderers = { [region]: rm.toRenderer(() => this.setRenderer(rm)) };
-    console.log(renderers);
     this.cellRenderers.update(renderers);
   }
 
@@ -62,12 +61,16 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
 
   onModelCellRenderers() {
     let renderers = this.makeRenderers();
+    (this.cellRenderers as any)._values = {};
     renderers.map(r => {
       if (r.model) {
         r.model.on('change', () => this.setRenderer(r.model));
       }
       this.cellRenderers.update({ [r.region]: r.renderer });
     });
+    if (!renderers.length) {
+      this.cellRenderers.update();
+    }
   }
 
   onColor() {
