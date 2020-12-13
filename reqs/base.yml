@@ -8,7 +8,7 @@ dependencies:
   - importnb
   - ipywidgets
   - jupyterlab
-  - nodejs >=10
+  - nodejs >=12,!=13.*,!=15.*
   - pip
   - python
   - twine
