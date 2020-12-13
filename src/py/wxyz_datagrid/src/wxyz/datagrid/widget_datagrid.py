@@ -1,5 +1,5 @@
-""" Jupyter Widgets for `@phosphor/datagrid`
-[0.1.6]: https://github.com/phosphorjs/phosphor/blob/cdb412e9dfb/packages/datagrid/src
+""" Jupyter Widgets for `@lumino/datagrid`
+[0.6.0]: https://github.com/jupyterlab/lumino/tree/%40lumino/datagrid%400.6.0/packages/datagrid
 
 Notes:
 - a future implementation would split the grid from the data source

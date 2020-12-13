@@ -3,7 +3,7 @@
 from .base import LabBase, T, W
 
 DOCK_LAYOUT_HELP = """
-An AreaConfig from `DockPanel.saveLayout` from `@phosphor/widgets`,
+An AreaConfig from `DockPanel.saveLayout` from `@lumino/widgets`,
 e.g.
 {
     "type": "split-area",

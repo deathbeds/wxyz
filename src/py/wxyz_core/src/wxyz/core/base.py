@@ -29,7 +29,7 @@ class Base(WXYZBase):
     """Utility traitlets, primarily based around
     - development convenience
     - ipywidgets conventions
-    - integration with ipywxyz.DockBox, mostly phosphor Widget.label attrs
+    - integration with wxyz.lab.DockBox, mostly lumino Widget.label attrs
     """
 
     _model_module = T.Unicode(module_name).tag(sync=True)
