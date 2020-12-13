@@ -14,7 +14,7 @@ OS = platform.system()
 OS_SKIP = {
     # TODO: remove
     # previously couldn't run these example on windows
-    # "Windows": [EXAMPLES / "TPOTWXYZ.ipynb", EXAMPLES / "SKWXYZ.ipynb"]
+    # "Windows": [EXAMPLES / "TPOTWXYZ.ipynb"]
 }
 
 TEST_NOTEBOOKS = [
