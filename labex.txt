@@ -1,11 +1,3 @@
-@jupyter-widgets/jupyterlab-manager@1.1.0
-bqplot@0.4.7
-./src/ts/wxyz-core
-./src/ts/wxyz-datagrid
-./src/ts/wxyz-html
-./src/ts/wxyz-jsonld
-./src/ts/wxyz-lab
-./src/ts/wxyz-svg
-./src/ts/wxyz-tpl-nunjucks
-./src/ts/wxyz-yaml
-./src/ts/wxyz-json-schema-form
+# third-party lab extensions for demos
+@jupyter-widgets/jupyterlab-manager@2.0.0
+bqplot@0.5.6

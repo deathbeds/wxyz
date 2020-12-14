@@ -10,8 +10,7 @@ from ._version import module_name, module_version
 
 
 class JSONLDBase(Base):
-    """ JSON-LD module metadata
-    """
+    """JSON-LD module metadata"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)

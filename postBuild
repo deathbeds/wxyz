@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
-if [[ "${NB_UID}not-on-binder" -ne "not-on-binder" ]]; then
-  if [[ "${CONDA_PREFIX}no-conda-prefix" = "no-conda-prefix" ]]; then
-    source $CONDA_DIR/bin/activate $CONDA_DIR
-  fi
-fi
-
 set -eux
-python -m _scripts._setup
 
-jlpm bootstrap
-jupyter labextension install $(cat labex.txt) --no-build
-jupyter lab build
+export LOCKFILE=ci/locks/conda.binder.linux-64-3.8-2.2.lock
+
+time mamba create --yes --prefix ${NB_PYTHON_PREFIX} --file ${LOCKFILE}
+
+export RUNNING_IN_BINDER=1
+
+time doit -n4 binder || doit binder

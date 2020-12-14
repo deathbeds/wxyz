@@ -1,4 +1,4 @@
-import { CellRenderer, TextRenderer } from '@phosphor/datagrid';
+import { CellRenderer, TextRenderer } from '@lumino/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 

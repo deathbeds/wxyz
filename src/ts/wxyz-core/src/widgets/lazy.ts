@@ -1,4 +1,4 @@
-import { PromiseDelegate } from '@phosphor/coreutils';
+import { PromiseDelegate } from '@lumino/coreutils';
 
 export function lazyLoader<T>(loader: () => Promise<T>) {
   let _lib: T;

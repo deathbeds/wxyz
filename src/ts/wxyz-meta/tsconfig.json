@@ -2,12 +2,14 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "tsBuildInfoFile": "lib/.tsbuildinfo"
   },
   "include": ["./src/**/*"],
   "references": [
     { "path": "../wxyz-core" },
     { "path": "../wxyz-datagrid" },
+    { "path": "../wxyz-dvcs" },
     { "path": "../wxyz-html" },
     { "path": "../wxyz-json-schema-form" },
     { "path": "../wxyz-jsonld" },

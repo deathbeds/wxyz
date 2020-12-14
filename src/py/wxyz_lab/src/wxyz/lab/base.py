@@ -10,8 +10,7 @@ from ._version import module_name, module_version
 
 
 class LabBase(Base):
-    """ Module metadata for Lab
-    """
+    """Module metadata for Lab"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)

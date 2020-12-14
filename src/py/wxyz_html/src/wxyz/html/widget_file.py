@@ -1,14 +1,14 @@
 """ File upload/download widgets
 """
-# pylint: disable=too-many-ancestors,no-member
+# pylint: disable=no-member
 from .base import HTMLBase, T, W
 
 
 @W.register
 class File(HTMLBase):
-    """ A file. Might be uploaded from the browser.
+    """A file. Might be uploaded from the browser.
 
-        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
     """
 
     _model_name = T.Unicode("FileModel").tag(sync=True)
@@ -25,8 +25,7 @@ class File(HTMLBase):
 
 @W.register
 class FileBox(HTMLBase, W.Box):
-    """ A box of files, which can be used to upload and download files
-    """
+    """A box of files, which can be used to upload and download files"""
 
     _model_name = T.Unicode("FileBoxModel").tag(sync=True)
     _view_name = T.Unicode("FileBoxView").tag(sync=True)

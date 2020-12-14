@@ -1,6 +1,6 @@
-import { Widget } from '@phosphor/widgets';
-import { Signal } from '@phosphor/signaling';
-import { Message } from '@phosphor/messaging';
+import { Widget } from '@lumino/widgets';
+import { Signal } from '@lumino/signaling';
+import { Message } from '@lumino/messaging';
 import { JupyterPhosphorWidget } from '@jupyter-widgets/base/lib/widget';
 
 export class TerminalPhosphorWidget extends JupyterPhosphorWidget {

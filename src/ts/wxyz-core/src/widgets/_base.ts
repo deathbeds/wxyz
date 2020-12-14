@@ -85,13 +85,16 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
       ...super.defaults(),
       source: (null as unknown) as T,
       value: (null as unknown) as U,
-      error: (null as unknown) as string
+      error: (null as unknown) as string,
+      mode: 'both'
     };
   }
 
   initialize(attributes: V, options: any) {
     super.initialize(attributes, options);
-    return this.on('change:source', this.theSourceChanged, this);
+    this.on('change:source', this.theSourceChanged, this);
+    this.theSourceChanged();
+    return this;
   }
 
   async theFunction(source: T): Promise<U> {
@@ -124,7 +127,19 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
     this.save();
   }
 
+  get theMode(): FnModel.TMode {
+    return this.get('mode');
+  }
+
+  set theMode(mode) {
+    this.set('mode', mode);
+    this.save();
+  }
+
   protected async theSourceChanged() {
+    if (this.theMode === 'kernel') {
+      return this;
+    }
     let changed = false;
     this.theError = '';
     try {
@@ -143,10 +158,12 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
 }
 
 export namespace FnModel {
+  export type TMode = 'both' | 'kernel' | 'client';
   export interface ITraits<T, U> extends Model.ITraits {
     value: T;
     source: U;
     error: string;
+    mode: TMode;
   }
 }
 

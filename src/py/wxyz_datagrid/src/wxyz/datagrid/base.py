@@ -2,6 +2,7 @@
 """
 # pylint: disable=unused-import
 import ipywidgets as W  # noqa
+import ipywidgets.widgets.trait_types as TT  # noqa
 import traitlets as T
 
 from wxyz.core.base import Base
@@ -10,8 +11,7 @@ from ._version import module_name, module_version
 
 
 class DataGridBase(Base):
-    """ Data Grid module metadata
-    """
+    """Data Grid module metadata"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)

@@ -1,0 +1,5 @@
+name: wxyz-unix
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+  - nodefaults

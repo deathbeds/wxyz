@@ -1,6 +1,6 @@
-import { DataGrid } from '@phosphor/datagrid';
+import { DataGrid } from '@lumino/datagrid';
 
-// TODO: fix circulare references
+// TODO: fix circular references
 import { DataGridView } from '../datagrid';
 import { CellRendererModel } from '../models/cells';
 
@@ -42,11 +42,9 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   setRenderer(rm: CellRendererModel) {
-    this.cellRenderers.set(
-      rm.get('region') || 'body',
-      rm.get('metadata') || {},
-      rm.toRenderer(() => this.setRenderer(rm))
-    );
+    const region: string = rm.get('region') || 'body';
+    const renderers = { [region]: rm.toRenderer(() => this.setRenderer(rm)) };
+    this.cellRenderers.update(renderers);
   }
 
   makeRenderers() {
@@ -62,15 +60,17 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   }
 
   onModelCellRenderers() {
-    this.cellRenderers.clear();
     let renderers = this.makeRenderers();
+    (this.cellRenderers as any)._values = {};
     renderers.map(r => {
       if (r.model) {
         r.model.on('change', () => this.setRenderer(r.model));
       }
-      this.cellRenderers.set(r.region, r.metadata, r.renderer);
+      this.cellRenderers.update({ [r.region]: r.renderer });
     });
-    this.repaint();
+    if (!renderers.length) {
+      this.cellRenderers.update();
+    }
   }
 
   onColor() {
@@ -109,6 +109,8 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   onModelSize() {
     const m = this._view.model;
     const changed = Object.keys(m.changedAttributes());
+    const defaultSizes = { ...this.defaultSizes };
+
     for (const size of changed) {
       let v = m.get(size);
       if (v == null) {
@@ -118,18 +120,20 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
         default:
           continue;
         case 'row_size':
-          this.baseRowSize = v;
+          defaultSizes.rowHeight = v;
           continue;
         case 'row_header_size':
-          this.baseRowHeaderSize = v;
+          defaultSizes.rowHeaderWidth = v;
           continue;
         case 'column_size':
-          this.baseColumnSize = v;
+          defaultSizes.columnWidth = v;
           continue;
         case 'column_header_size':
-          this.baseColumnHeaderSize = v;
+          defaultSizes.columnHeaderHeight = v;
           continue;
       }
     }
+
+    this.defaultSizes = defaultSizes;
   }
 }

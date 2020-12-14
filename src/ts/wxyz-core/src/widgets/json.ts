@@ -24,6 +24,37 @@ namespace JSONModel {
   export interface ITraits extends FnModel.ITraits<string, any> {}
 }
 
+export class UnJSONModel extends FnModel<any, string, UnJSONModel.ITraits> {
+  static model_name = 'UnJSONModel';
+
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: UnJSONModel.model_name,
+      source: null as any,
+      value: '' as any,
+      indent: null as any
+    };
+  }
+
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.on('change:indent', this.theSourceChanged, this);
+    return this;
+  }
+
+  async theFunction(source: any) {
+    const indent: number = this.get('indent');
+    return indent
+      ? JSON.stringify(source, null, indent)
+      : JSON.stringify(source);
+  }
+}
+
+namespace UnJSONModel {
+  export interface ITraits extends FnModel.ITraits<string, any> {}
+}
+
 export class JSONPointerModel extends FnModel<string, any, JSONModel.ITraits> {
   static model_name = 'JSONPointerModel';
 

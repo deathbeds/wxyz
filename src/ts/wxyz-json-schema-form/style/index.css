@@ -1,5 +1,35 @@
-@import './core.css';
-@import './array.css';
-@import './input.css';
-@import './errors.css';
-@import './variables.css';
+.jp-WXYZ-JSONSchemaForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.jp-WXYZ-JSONSchemaForm-Inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.jp-WXYZ-JSONSchemaForm .jp-SchemaForm {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 100%;
+  padding: var(--jp-notebook-padding);
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.jp-WXYZ-JSONSchemaForm .jp-SchemaForm > .form-group {
+  flex: 1;
+  order: 10;
+}
+
+.jp-WXYZ-JSONSchemaForm .jp-SchemaForm > .panel.panel-danger.errors {
+  padding: var(--jp-notebook-padding);
+  background-color: var(--jp-layout-color1);
+  border-top: solid 1px var(--jp-warn-color0);
+  overflow-y: auto;
+  max-height: 20rem;
+  min-height: 4em;
+  flex: 1;
+  order: 1;
+}

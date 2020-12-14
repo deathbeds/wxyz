@@ -59,7 +59,6 @@ export class TemplateModel extends FnModel<
     super.initialize(attributes, options);
     this.on('change:context', this.theContextChanged, this);
     this.theContextChanged();
-    this.theSourceChanged();
     return this;
   }
 

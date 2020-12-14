@@ -1,4 +1,4 @@
-.jupyter-widgets.p-DockPanel {
+.jupyter-widgets.lm-DockPanel {
   overflow: hidden;
 }
 
@@ -6,7 +6,7 @@
 .jp-LinkedOutputView
   > .jp-OutputArea
   > .jp-OutputArea-output
-  > .jupyter-widgets.p-DockPanel {
+  > .jupyter-widgets.lm-DockPanel {
   height: 100% !important;
   width: 100% !important;
   min-width: 100% !important;
@@ -16,12 +16,12 @@
 }
 
 /* slider */
-.jupyter-widgets.p-DockPanel .widget-inline-vbox .widget-readout {
+.jupyter-widgets.lm-DockPanel .widget-inline-vbox .widget-readout {
   width: auto;
   height: auto;
 }
 
-.p-DockPanel > .jupyter-widgets {
+.lm-DockPanel > .jupyter-widgets {
   margin: 0;
   overflow-y: auto;
 }

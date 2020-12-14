@@ -1,6 +1,6 @@
 """ SVG Box widget
 """
-# pylint: disable=too-many-ancestors,unused-argument
+# pylint: disable=unused-argument
 from pathlib import Path
 
 from .base import SVGBase, T, W
@@ -11,8 +11,8 @@ DEFAULT_ATTR = "inkscape:label"
 
 @W.register
 class SVGBox(SVGBase, W.Box):
-    """ An SVG Box that shows its children inside the bounding box of
-        named areas in an SVG file.
+    """An SVG Box that shows its children inside the bounding box of
+    named areas in an SVG file.
 
     """
 

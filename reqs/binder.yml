@@ -1,0 +1,10 @@
+name: wxyz-binder
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+  - nodefaults
+
+dependencies:
+  - jupyterhub-singleuser
+  - nbresuse
+  - nbgitpuller

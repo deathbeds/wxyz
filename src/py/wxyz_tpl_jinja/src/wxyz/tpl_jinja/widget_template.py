@@ -1,6 +1,6 @@
 """ Widgets for templating
 """
-# pylint: disable=no-self-use,too-many-ancestors
+# pylint: disable=no-self-use
 import jinja2
 
 from wxyz.core.base import Fn, T, W
@@ -10,8 +10,7 @@ from .base import JinjaBase
 
 @W.register
 class Template(Fn, JinjaBase):
-    """ Transforms text source into text output with a given context
-    """
+    """Transforms text source into text output with a given context"""
 
     _model_name = T.Unicode("TemplateModel").tag(sync=True)
 
@@ -23,12 +22,10 @@ class Template(Fn, JinjaBase):
 
     @T.observe("context")
     def _context_changed(self, *_):
-        """ handle connecting to widgets
-        """
+        """handle connecting to widgets"""
         if self.context and self.context.observe:
             self.context.observe(self.the_observer)
 
     def the_function(self, source, context):
-        """ render a source given a context
-        """
+        """render a source given a context"""
         return jinja2.Template(source).render(context)

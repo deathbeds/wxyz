@@ -28,7 +28,6 @@ export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
   initialize(attributes: any, options: any) {
     super.initialize(attributes, options);
     this.on('change:expand_context', this.theSourceChanged, this);
-    this.theSourceChanged();
     return this;
   }
 }

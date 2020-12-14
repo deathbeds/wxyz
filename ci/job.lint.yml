@@ -1,17 +1,35 @@
 parameters:
-  name: Linux
-  vmImage: ubuntu-16.04
+  platforms:
+    - name: Linux
+      vmImage: ubuntu-16.04
+      activate: source activate
+      condaPlatform: linux-64
+  pythons:
+    - name: ThreeEight
+      spec: '3.8'
+      lab: '2.2'
+      env: wxyz-test-38
+  env_create: conda --file ci/env-test.yml --quiet
 
 jobs:
-  - job: Lint_${{ parameters.name }}
-    pool:
-      vmImage: ${{ parameters.vmImage }}
+  - ${{ each platform in parameters.platforms }}:
+      - ${{ each python in parameters.pythons}}:
+          - job: Lint
+            pool:
+              vmImage: ${{ platform.vmImage }}
+            steps:
+              - template: steps.conda.yml
+                parameters:
+                  name: ${{ platform.name }}
 
-    steps:
-      - template: steps.conda.lint.yml
-        parameters:
-          name: ${{ parameters.name }}
+              - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
+                displayName: update conda environment with test dependencies
 
-      - template: steps.lint.yml
-        parameters:
-          name: ${{ parameters.name }}
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit integrity
+                displayName: check repo integrity
+
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_py_ci
+                displayName: install python wheels
+
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 "lint_*" || doit "lint_*"
+                displayName: check style

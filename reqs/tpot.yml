@@ -1,0 +1,20 @@
+name: wxyz-tpot
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - cycler
+  - dask
+  - dask-ml
+  - distributed
+  - ipympl
+  - lime
+  - matplotlib-base
+  - scikit-image
+  - scikit-learn
+  - scikit-mdr
+  - skrebate
+  - umap-learn
+  - yellowbrick
+  - tpot

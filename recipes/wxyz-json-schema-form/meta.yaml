@@ -1,5 +1,5 @@
 {% set name = "wxyz-json-schema-form" %}
-{% set version = "0.2.0" %}
+{% set version = "0.4.0" %}
 {% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
 
 package:
@@ -16,10 +16,10 @@ build:
 
 requirements:
   host:
-    - python
+    - python >=3.6
     - pip
   run:
-    - python
+    - python >=3.6
     - wxyz-core
 
 test:

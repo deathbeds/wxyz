@@ -1,6 +1,6 @@
 """ Widgets for working with JSON
 """
-# pylint: disable=no-self-use,redefined-builtin,too-many-ancestors
+# pylint: disable=no-self-use,redefined-builtin
 from pyld import jsonld
 
 from wxyz.core.base import Fn, T, W
@@ -10,8 +10,7 @@ from .base import JSONLDBase
 
 @W.register
 class Compact(Fn, JSONLDBase):
-    """ Compact a JSON document with a context
-    """
+    """Compact a JSON document with a context"""
 
     _model_name = T.Unicode("CompactModel").tag(sync=True)
 
@@ -24,15 +23,13 @@ class Compact(Fn, JSONLDBase):
     _observed_traits = ["source", "context", "expand_context"]
 
     def the_function(self, source, context, expand_context):
-        """ actually compact
-        """
+        """actually compact"""
         return jsonld.compact(source, context, dict(expandContext=expand_context))
 
 
 @W.register
 class Expand(Fn, JSONLDBase):
-    """ Expand a JSON document to a list of nodes
-    """
+    """Expand a JSON document to a list of nodes"""
 
     _model_name = T.Unicode("ExpandModel").tag(sync=True)
 
@@ -43,15 +40,13 @@ class Expand(Fn, JSONLDBase):
     _observed_traits = ["source", "expand_context"]
 
     def the_function(self, source, expand_context):
-        """ actually expand
-        """
+        """actually expand"""
         return jsonld.expand(source, dict(expandContext=expand_context))
 
 
 @W.register
 class Flatten(Fn, JSONLDBase):
-    """ Flatten a JSON document to a flat graph
-    """
+    """Flatten a JSON document to a flat graph"""
 
     _model_name = T.Unicode("FlattenModel").tag(sync=True)
 
@@ -64,15 +59,13 @@ class Flatten(Fn, JSONLDBase):
     _observed_traits = ["source", "context", "expand_context"]
 
     def the_function(self, source, context, expand_context):
-        """ actually flatten
-        """
+        """actually flatten"""
         return jsonld.flatten(source, context, dict(expandContext=expand_context))
 
 
 @W.register
 class Frame(Fn, JSONLDBase):
-    """ Frame a JSON document
-    """
+    """Frame a JSON document"""
 
     _model_name = T.Unicode("FrameModel").tag(sync=True)
 
@@ -85,15 +78,13 @@ class Frame(Fn, JSONLDBase):
     _observed_traits = ["source", "frame", "expand_context"]
 
     def the_function(self, source, frame, expand_context):
-        """ actually frame
-        """
+        """actually frame"""
         return jsonld.frame(source, frame, dict(expandContext=expand_context))
 
 
 @W.register
 class Normalize(Fn, JSONLDBase):
-    """ Normalize a JSON document
-    """
+    """Normalize a JSON document"""
 
     _model_name = T.Unicode("NormalizeModel").tag(sync=True)
 
@@ -112,8 +103,7 @@ class Normalize(Fn, JSONLDBase):
     _observed_traits = ["source", "format", "expand_context"]
 
     def the_function(self, source, format, expand_context):
-        """ actually normalize
-        """
+        """actually normalize"""
         return jsonld.normalize(
             source, dict(expandContext=expand_context, format=format)
         )

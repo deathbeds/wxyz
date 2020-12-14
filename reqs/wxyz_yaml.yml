@@ -1,0 +1,7 @@
+name: wxyz-yaml
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - pyyaml

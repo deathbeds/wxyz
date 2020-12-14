@@ -1,0 +1,8 @@
+name: wxyz-datagrid
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - pandas
+  - traittypes

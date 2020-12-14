@@ -1,0 +1,10 @@
+name: wxyz-lock
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - conda
+  - conda-lock
+  - doit
+  - mamba

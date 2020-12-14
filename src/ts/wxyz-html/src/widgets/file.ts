@@ -1,4 +1,4 @@
-import { toArray } from '@phosphor/algorithm';
+import { toArray } from '@lumino/algorithm';
 import * as widgets from '@jupyter-widgets/base';
 import * as controls from '@jupyter-widgets/controls';
 
