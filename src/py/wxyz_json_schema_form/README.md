@@ -32,13 +32,14 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz
 | `wxyz_core`             | `@deathbeds/wxyz-core`             |             `core` | `JSON`<br/>`UnJSON`<br/>                                           |
 | `wxyz_datagrid`         | `@deathbeds/wxyz-datagrid`         |         `datagrid` | `DataGrid`<br/>`SelectGrid`<br/>`StyleGrid`                        |
 | `wxyz_html`             | `@deathbeds/wxyz-html`             |             `html` | `AlphaColorPicker`<br/>`FileBox`<br/>`FullScreen`                  |
-| `wyxz_dvcs`             |                                    |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                 |
-| `wyxz_json_schema_form` | `@deathbeds/wxyz-json-schema-form` | `json_schema_form` | `JSONSchemaForm`                                                   |
-| `wyxz_jsonld`           | `@deathbeds/wxyz-jsonld`           |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`   |
-| `wyxz_lab`              | `@deathbeds/wxyz-lab`              |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal` |
-| `wyxz_svg`              | `@deathbeds/wxyz-svg`              |              `svg` | `SVGBox`                                                           |
-| `wyxz_tpl_jinja`        | `@deathbeds/wxyz-tpl-nunjucks`     |        `tpl_jinja` | `Template`                                                         |
-| `wyxz_yaml`             | `@deathbeds/wxyz-yaml`             |             `yaml` | `YAML`                                                             |
+| `wxyz_dvcs`             | `@deathbeds/wxyz-dvcs`             |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                 |
+| `wxyz_json_e`           | `@deathbeds/wxyz-json-e`           |           `json_e` | `JSONE`                                                            |
+| `wxyz_json_schema_form` | `@deathbeds/wxyz-json-schema-form` | `json_schema_form` | `JSONSchemaForm`                                                   |
+| `wxyz_jsonld`           | `@deathbeds/wxyz-jsonld`           |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`   |
+| `wxyz_lab`              | `@deathbeds/wxyz-lab`              |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal` |
+| `wxyz_svg`              | `@deathbeds/wxyz-svg`              |              `svg` | `SVGBox`                                                           |
+| `wxyz_tpl_jinja`        | `@deathbeds/wxyz-tpl-nunjucks`     |        `tpl_jinja` | `Template`                                                         |
+| `wxyz_yaml`             | `@deathbeds/wxyz-yaml`             |             `yaml` | `YAML`                                                             |
 
 ## Motivation
 

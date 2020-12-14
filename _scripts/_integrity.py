@@ -25,6 +25,12 @@ def contributing_text():
 
 
 @pytest.fixture(scope="module")
+def readme_text():
+    """the text of README.md"""
+    return P.README.read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
 def postbuild():
     """the text of postBuild"""
     return P.POSTBUILD.read_text(encoding="utf-8")
@@ -53,6 +59,24 @@ def test_binder_locks(postbuild):
     for lock in P.LOCKS.glob("conda.binder.*.lock"):
         lock_path = str(lock.relative_to(P.ROOT).as_posix())
         assert lock_path in postbuild
+
+
+@pytest.mark.parametrize(
+    "pkg",
+    [setup_py.parent.name for setup_py in P.PY_VERSION],
+)
+def test_readme_py_pkgs(pkg, readme_text):
+    """Are all of the python packages mentioned in the readme?"""
+    assert pkg in readme_text
+
+
+@pytest.mark.parametrize(
+    "pkg",
+    [P.TS_PACKAGE_CONTENT[p / "package.json"]["name"] for p in P.WXYZ_LAB_EXTENSIONS],
+)
+def test_readme_labext(pkg, readme_text):
+    """Are all of the labextensions mentioned in the readme?"""
+    assert pkg in readme_text
 
 
 @pytest.mark.parametrize(
