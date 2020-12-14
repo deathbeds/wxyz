@@ -10,7 +10,7 @@ const RE_END = /\$|(then|else|from|each\(.*\)):/;
 const T = {
   BUILT_IN: 'variable-2',
   MOD: 'variable-3',
-  EXPR: 'variable-2'
+  EXPR: 'tag'
 };
 
 function yamlEMode(config: any, parserConfig: any) {
