@@ -1,7 +1,7 @@
 {
   "author": {
     "email": "",
-    "name": "dead pixels collective"
+    "name": "wxyz contributors"
   },
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
@@ -24,7 +24,17 @@
   ],
   "homepage": "https://github.com/deathbeds/wxyz",
   "jupyterlab": {
-    "extension": "lib/plugin"
+    "extension": "lib/plugin",
+    "discovery": {
+      "server": {
+        "base": {
+          "name": "wxyz_datagrid"
+        },
+        "managers": [
+          "pip"
+        ]
+      }
+    }
   },
   "keywords": [
     "jupyter",
