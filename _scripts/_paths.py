@@ -84,9 +84,8 @@ ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])
 ALL_MD = sorted(ROOT.glob("*.md"))
 
 DIST = ROOT / "dist"
-IPYNB_HTML = DIST / "notebooks"
 
-TEST_OUT = DIST / "test_output"
+TEST_OUT = BUILD / "test_output"
 ROBOT_OUT = TEST_OUT / "robot"
 LAB = ROOT / "lab"
 
@@ -147,6 +146,7 @@ TS_TARBALLS = [
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
 
+
 LAB_INDEX = LAB / "static" / "index.html"
 
 CONDA_ORDER = ["core", "html", "lab", "datagrid", "svg", "tpl-jinja", "yaml"]
@@ -160,17 +160,17 @@ CONDA_BUILD_ARGS = [
 ]
 
 SDISTS = {
-    pys.parent.name: DIST / "sdist" / f"{pys.parent.name}-{version}.tar.gz"
+    pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
     for pys, version in PY_VERSION.items()
 }
 
 WHEELS = {
-    pys.parent.name: DIST
-    / "bdist_wheel"
-    / f"{pys.parent.name}-{version}-py3-none-any.whl"
+    pys.parent.name: DIST / f"{pys.parent.name}-{version}-py3-none-any.whl"
     for pys, version in PY_VERSION.items()
 }
 
+HASH_DEPS = sorted([*TS_TARBALLS, *SDISTS.values(), *WHEELS.values()])
+SHA256SUMS = DIST / "SHA256SUMS"
 
 IPYNB = PY_SRC / "wxyz_notebooks" / "src" / "wxyz" / "notebooks"
 DESIGN_IPYNB = IPYNB / "Design"

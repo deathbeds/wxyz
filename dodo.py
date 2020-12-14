@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import time
 from configparser import ConfigParser
+from hashlib import sha256
 
 from doit.tools import PythonInteractiveAction, config_changed
 
@@ -36,8 +37,7 @@ def task_release():
     return dict(
         file_dep=[
             *[P.OK / f"lint_{group}" for group in LINT_GROUPS],
-            *P.SDISTS.values(),
-            *P.WHEELS.values(),
+            P.SHA256SUMS,
             P.OK / "integrity",
             P.OK / "labextensions",
             P.OK / "nbtest",
@@ -208,7 +208,7 @@ def _make_pydist(setup_py):
 
     def _action(output):
         """build a single task so we can run in the cwd"""
-        args = [P.PY, "setup.py", output, "--dist-dir", P.DIST / output]
+        args = [P.PY, "setup.py", output, "--dist-dir", P.DIST]
         return lambda: U.call(args, cwd=pkg) == 0
 
     def _task():
@@ -233,6 +233,31 @@ def _make_pydist(setup_py):
 
 
 [globals().update(_make_pydist(pys)) for pys in P.PY_SETUP]
+
+
+def task_hash_dist():
+    """make a hash bundle of the dist artifacts"""
+
+    def _run_hash():
+        # mimic sha256sum CLI
+        if P.SHA256SUMS.exists():
+            P.SHA256SUMS.unlink()
+
+        lines = []
+
+        for p in P.HASH_DEPS:
+            if p.parent != P.DIST:
+                tgt = P.DIST / p.name
+                if tgt.exists():
+                    tgt.unlink()
+                shutil.copy2(p, tgt)
+            lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
+
+        output = "\n".join(lines)
+        print(output)
+        P.SHA256SUMS.write_text(output)
+
+    return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
 def task_ts():
@@ -479,7 +504,13 @@ def task_robot():
 def task_integrity():
     """check various sources of version and documentation issues"""
     return dict(
-        file_dep=[*P.ALL_SRC_PY, *P.ALL_MD, *P.ALL_SETUP_CFG, P.POSTBUILD],
+        file_dep=[
+            *P.ALL_SRC_PY,
+            *P.ALL_MD,
+            *P.ALL_SETUP_CFG,
+            P.POSTBUILD,
+            P.SCRIPTS / "_integrity.py",
+        ],
         actions=[
             U.okit("integrity", remove=True),
             [*P.PYM, "_scripts._integrity"],

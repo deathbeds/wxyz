@@ -33,3 +33,13 @@ jobs:
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 "lint_*" || doit "lint_*"
                 displayName: check style
+
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit hash_dist
+                displayName: build dists
+
+              - task: PublishPipelineArtifact@0
+                displayName: publish artifacts for distribution
+                inputs:
+                  targetPath: dist
+                  artifactName: Dist $(Build.BuildId)
+                condition: always()
