@@ -67,8 +67,6 @@ class ENV:
     win = REQS / "win.yml"
     unix = REQS / "unix.yml"
     tpot = REQS / "tpot.yml"
-    tpot_unix = REQS / "tpot_unix.yml"
-    tpot_win = REQS / "tpot_win.yml"
     WXYZ = REQS.glob("wxyz_*.yml")
 
 

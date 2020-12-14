@@ -1,5 +1,7 @@
+name: wxyz-json-e
+
 channels:
   - https://conda.anaconda.org/conda-forge
 
 dependencies:
-  - xgboost
+  - json-e >=4.3,<5

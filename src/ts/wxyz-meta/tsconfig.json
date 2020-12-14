@@ -12,6 +12,7 @@
     { "path": "../wxyz-dvcs" },
     { "path": "../wxyz-html" },
     { "path": "../wxyz-json-schema-form" },
+    { "path": "../wxyz-json-e" },
     { "path": "../wxyz-jsonld" },
     { "path": "../wxyz-lab" },
     { "path": "../wxyz-svg" },

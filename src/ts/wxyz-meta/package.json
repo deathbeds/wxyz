@@ -30,6 +30,8 @@
     "@deathbeds/wxyz-datagrid": "file:../wxyz-datagrid",
     "@deathbeds/wxyz-dvcs": "file:../wxyz-dvcs",
     "@deathbeds/wxyz-html": "file:../wxyz-html",
+    "@deathbeds/wxyz-json-schema-form": "file:../wxyz-json-schema-form",
+    "@deathbeds/wxyz-json-e": "file:../wxyz-json-e",
     "@deathbeds/wxyz-jsonld": "file:../wxyz-jsonld",
     "@deathbeds/wxyz-lab": "file:../wxyz-lab",
     "@deathbeds/wxyz-svg": "file:../wxyz-svg",
