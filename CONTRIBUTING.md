@@ -61,14 +61,14 @@ the [notebook index](src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb).
 Each notebook should:
 
 - have a descriptive name
-- demonstrate the value provided by the widget in question as simply as possible
-- provide a higher-level confection of wxyz widgets, usually a DockBox
-- be imported into the notebook, unless it has very taxing, less-portable dependencies
+- demonstrate the value provided by the widgets in question as simply as possible
+- provide a higher-level confection of `wxyz` widgets, usually a DockBox
+- be imported into the index, unless it has very taxing, less-portable dependencies
 
 ### Robot Framework Testing
 
 Where appropriate, individual components should be tested with Robot Framework
-tests. Ideal tests include thoroughly excercising the demo notebooks.
+tests. Ideal tests include thoroughly excercising the demo notebooks as a user would.
 
 ```bash
 doit robot

@@ -1,5 +1,0 @@
-channels:
-  - https://conda.anaconda.org/conda-forge
-
-dependencies:
-  - tpot <0.11.6.post2

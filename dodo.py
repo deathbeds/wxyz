@@ -5,11 +5,13 @@
 """
 # pylint: disable=expression-not-assigned,W0511
 
+import json
 import shutil
 import subprocess
 import time
+from configparser import ConfigParser
 
-from doit.tools import PythonInteractiveAction
+from doit.tools import PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P, _util as U
 from _scripts._lock import iter_matrix, make_lock_task
@@ -60,9 +62,9 @@ def task_lock():
             binder_args = task_args
         matrix_envs = list(test_envs)
         if "win-64" in task_args:
-            matrix_envs += [P.ENV.tpot, P.ENV.tpot_win, P.ENV.win]
+            matrix_envs += [P.ENV.tpot, P.ENV.win]
         else:
-            matrix_envs += [P.ENV.tpot, P.ENV.tpot_unix, P.ENV.unix]
+            matrix_envs += [P.ENV.tpot, P.ENV.unix]
 
         yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
@@ -71,7 +73,7 @@ def task_lock():
 
     yield make_lock_task(
         "binder",
-        [*base_envs, P.ENV.tpot, P.ENV.tpot_unix, P.ENV.binder],
+        [*base_envs, P.ENV.tpot, P.ENV.binder],
         {},
         *binder_args,
     )
@@ -199,6 +201,8 @@ def _make_pydist(setup_py):
         setup_py,
         pkg / "setup.cfg",
         pkg / "MANIFEST.in",
+        pkg / "LICENSE.txt",
+        pkg / "README.md",
         *sorted((pkg / "src").rglob("*.py")),
     ]
 
@@ -234,7 +238,13 @@ def _make_pydist(setup_py):
 def task_ts():
     """build typescript components"""
     return dict(
-        file_dep=[P.YARN_LOCK, *P.TS_PACKAGE, P.OK / "prettier"],
+        file_dep=[
+            P.YARN_LOCK,
+            *P.TS_PACKAGE,
+            P.OK / "prettier",
+            *P.TS_READMES,
+            *P.TS_LICENSES,
+        ],
         targets=[*P.TS_TARBALLS],
         actions=[["jlpm", "build"]],
     )
@@ -304,6 +314,78 @@ def task_lab_build():
             U.okit("lab"),
         ],
     )
+
+
+def _make_py_readme(setup_py):
+    pkg = setup_py.parent
+    setup_cfg = pkg / "setup.cfg"
+
+    readme = pkg / "README.md"
+    license_ = pkg / "LICENSE.txt"
+
+    def _write():
+        license_.write_text(P.LICENSE.read_text())
+        parser = ConfigParser()
+        parser.read(setup_cfg)
+        context = {s: dict(parser[s]) for s in parser.sections()}
+
+        for package_json in P.TS_PACKAGE_CONTENT.values():
+            lab = package_json.get("jupyterlab")
+            if lab is None:
+                continue
+            if pkg.name == lab["discovery"]["server"]["base"]["name"]:
+                context["js_pkg"] = package_json
+                break
+
+        readme.write_text(
+            "\n\n".join(
+                [P.PY_README_TMPL.render(**context), "---", P.README.read_text()]
+            ).strip()
+        )
+
+    return dict(
+        name=pkg.name,
+        uptodate=[config_changed(P.PY_README_TXT)],
+        actions=[_write],
+        file_dep=[P.README, setup_cfg],
+        targets=[readme, license_],
+    )
+
+
+def _make_ts_readme(package_json):
+    pkg = package_json.parent
+
+    readme = pkg / "README.md"
+    license_ = pkg / "LICENSE.txt"
+
+    def _write():
+        license_.write_text(P.LICENSE.read_text())
+        context = json.loads(package_json.read_text(encoding="utf-8"))
+        readme.write_text(
+            "\n\n".join(
+                [P.TS_README_TMPL.render(**context), "---", P.README.read_text()]
+            ).strip()
+        )
+
+    return dict(
+        name=pkg.name,
+        uptodate=[config_changed(P.TS_README_TXT)],
+        actions=[_write],
+        file_dep=[P.README, package_json],
+        targets=[readme, license_],
+    )
+
+
+def task_docs():
+    """make the docs right"""
+
+    for setup_py in P.PY_SETUP:
+        yield _make_py_readme(setup_py)
+
+    for package_json in P.TS_PACKAGE:
+        if package_json.parent.name == "wxyz-meta":
+            continue
+        yield _make_ts_readme(package_json)
 
 
 def task_watch():

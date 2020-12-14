@@ -5,7 +5,11 @@ import { TextareaModel } from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '..';
 
+import { Mode } from '@jupyterlab/codemirror';
+
 const EDITOR_CLASS = 'jp-WXYZ-Editor';
+
+const WATCHED_OPTIONS = ['mode', 'theme'];
 
 export class EditorModel extends TextareaModel {
   static model_name = 'EditorModel';
@@ -25,7 +29,9 @@ export class EditorModel extends TextareaModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       description: 'An Editor',
-      icon_class: 'jp-EditIcon'
+      icon_class: 'jp-EditIcon',
+      mode: null,
+      theme: null
     };
   }
 }
@@ -41,11 +47,38 @@ export class EditorView extends DOMWidgetView {
       this.model.set('value', this._editor.getValue());
       this.touch();
     });
+
     this.model.on('change:value', this.value_changed, this);
+
+    const watchers = WATCHED_OPTIONS.map(opt => {
+      const watcher = this.optionWatcher(opt);
+      this.model.on(`change:${opt}`, watcher);
+      return watcher;
+    });
+
     setTimeout(() => {
       this._editor.refresh();
       this.value_changed();
+      watchers.map(fn => fn());
     }, 1);
+  }
+
+  optionWatcher(attr: string) {
+    return async () => {
+      const value = this.model.get(attr);
+      switch (attr) {
+        case 'theme':
+          import(`codemirror/theme/${value}.css`).catch(console.warn);
+          break;
+        case 'mode':
+          Mode.ensure(value).catch(console.warn);
+          break;
+        default:
+          break;
+      }
+      this._editor.setOption(attr, value);
+      this._editor.refresh();
+    };
   }
 
   value_changed() {

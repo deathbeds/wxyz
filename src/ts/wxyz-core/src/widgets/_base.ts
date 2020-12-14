@@ -5,6 +5,8 @@ import {
 } from '@jupyter-widgets/base';
 import { BoxModel } from '@jupyter-widgets/controls';
 
+import { JSONExt } from '@lumino/coreutils';
+
 import { NAME, VERSION } from '..';
 
 export class WXYZ extends WidgetModel {
@@ -144,7 +146,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
     this.theError = '';
     try {
       let value = await this.theFunction(this.theSource);
-      if (value !== this.theValue) {
+      if (!JSONExt.deepEqual(value as any, this.theValue as any)) {
         this.theValue = value;
         changed = true;
       }

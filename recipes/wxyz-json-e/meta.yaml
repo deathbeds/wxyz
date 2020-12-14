@@ -1,0 +1,34 @@
+{% set name = "wxyz-json-e" %}
+{% set version = "0.4.0" %}
+{% set fname = name.replace("-", "_") ~ "-" ~ version ~ ".tar.gz" %}
+
+package:
+  name: '{{ name }}'
+  version: '{{ version }}'
+
+source:
+  path: ../../dist/sdist/{{ fname }}
+
+build:
+  noarch: python
+  number: 0
+  script: '{{ PYTHON }} -m pip install {{ fname }} --no-deps -vv'
+
+requirements:
+  host:
+    - python >=3.6
+    - pip
+  run:
+    - python >=3.6
+    - wxyz-core
+    - json-e >=4.3,<5
+
+test:
+  imports:
+    - wxyz.json_e
+
+about:
+  home: https://github.com/deathbeds/wxyz
+  license: BSD-3-Clause
+  license_file: {{ RECIPE_DIR }}/../../LICENSE.txt
+  summary: experimental Jupyter widgets

@@ -9,6 +9,8 @@ import site
 import sys
 from pathlib import Path
 
+import jinja2
+
 try:
     import yaml
 except ImportError:
@@ -65,8 +67,6 @@ class ENV:
     win = REQS / "win.yml"
     unix = REQS / "unix.yml"
     tpot = REQS / "tpot.yml"
-    tpot_unix = REQS / "tpot_unix.yml"
-    tpot_win = REQS / "tpot_win.yml"
     WXYZ = REQS.glob("wxyz_*.yml")
 
 
@@ -118,6 +118,8 @@ YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 TS_PACKAGE = sorted(TS_SRC.glob("*/package.json"))
+TS_READMES = sorted(TS_SRC.glob("*/README.md"))
+TS_LICENSES = sorted(TS_SRC.glob("*/LICENSE.txt"))
 LABEXT_TXT = ROOT / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [
@@ -185,6 +187,7 @@ ALL_IPYNB = sorted(
 
 README = ROOT / "README.md"
 CONTRIBUTING = ROOT / "CONTRIBUTING.md"
+LICENSE = ROOT / "LICENSE.txt"
 
 ALL_MD = sorted(
     set(
@@ -215,3 +218,49 @@ ALL_PRETTIER = sorted(
 )
 
 ALL_ROBOT = [*ATEST.rglob("*.robot")]
+
+PY_README_TXT = """
+# `{{ metadata.name }}`
+
+> {{ metadata.description }}
+
+## Installation
+
+> Prerequisites:
+> - `python {{ options.python_requires }}`
+> - `nodejs >=10`
+> - `jupyterlab >=2,<3`
+```bash
+pip install {{ metadata.name }}
+{%- if js_pkg %}
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+{%- for dep in js_pkg.devDependencies -%}
+{% if "@deathbeds" in dep %} {{ dep }}{% endif %}
+{%- endfor %} {{ name }}
+{% endif %}```
+"""
+
+PY_README_TMPL = jinja2.Template(PY_README_TXT)
+
+TS_README_TXT = """
+# `{{ name }}`
+
+> {{ description }}
+
+## Installation
+
+> Prerequisites:
+> - `python >=3.6`
+> - `nodejs >=10`
+> - `jupyterlab >=2,<3`
+
+```bash
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+{%- for dep in devDependencies -%}
+{% if "@deathbeds" in dep %} {{ dep }}{% endif %}
+{%- endfor %} {{ name }}
+pip install {{ jupyterlab.discovery.server.base.name }}
+```
+"""
+
+TS_README_TMPL = jinja2.Template(TS_README_TXT)
