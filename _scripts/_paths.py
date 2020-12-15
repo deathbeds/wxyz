@@ -264,3 +264,17 @@ pip install {{ jupyterlab.discovery.server.base.name }}
 """
 
 TS_README_TMPL = jinja2.Template(TS_README_TXT)
+
+
+PY_LINT_CMDS = [
+    [lambda files: [["isort", "-rc", *files], ["black", "--quiet", *files]]],
+    ["flake8", "--max-line-length", "88"],
+    ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
+]
+
+
+LINT_GROUPS = {
+    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
+}
+
+LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY]

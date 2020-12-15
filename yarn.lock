@@ -74,6 +74,8 @@
 
 "@deathbeds/jupyterlab-rjsf@^0.6.0a0":
   version "0.6.0-a0"
+  resolved "https://registry.yarnpkg.com/@deathbeds/jupyterlab-rjsf/-/jupyterlab-rjsf-0.6.0-a0.tgz#f74a71311cee4a8b3bef8203337b9ca8ac9d3fb8"
+  integrity sha512-+4Is9EG3GiFV+/3lI/oFOmfDTWBsYoyDbR+Ub8u7Uiph78xGz4XMOJZUS7w2AvWadpbv/H8AW/ZLuV95cDGGoQ==
   dependencies:
     "@rjsf/core" "~2.4.0"
     react-codemirror2 "^7.2.1"

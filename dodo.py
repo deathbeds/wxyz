@@ -17,13 +17,6 @@ from doit.tools import PythonInteractiveAction, config_changed
 from _scripts import _paths as P, _util as U
 from _scripts._lock import iter_matrix, make_lock_task
 
-PY_LINT_CMDS = [
-    ["isort", "-rc"],
-    ["black", "--quiet"],
-    ["flake8", "--max-line-length", "88"],
-    ["pylint", "-sn", "-rn", f"--rcfile={P.PYLINTRC}"],
-]
-
 DOIT_CONFIG = {
     "backend": "sqlite3",
     "verbosity": 2,
@@ -36,7 +29,7 @@ def task_release():
     """run all tasks, except re-locking"""
     return dict(
         file_dep=[
-            *[P.OK / f"lint_{group}" for group in LINT_GROUPS],
+            *[P.OK / f"lint_{group}" for group in P.LINT_GROUPS],
             P.SHA256SUMS,
             P.OK / "integrity",
             P.OK / "labextensions",
@@ -154,7 +147,15 @@ else:
 def task_lint_prettier():
     """use prettier to format things"""
 
-    return dict(
+    yield dict(
+        name="core",
+        uptodate=[config_changed(P.README.read_text())],
+        actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
+        targets=[P.README],
+    )
+
+    yield dict(
+        name="rest",
         file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
         targets=[P.OK / "prettier"],
         actions=[
@@ -165,21 +166,22 @@ def task_lint_prettier():
     )
 
 
-LINT_GROUPS = {
-    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in P.PY_SETUP
-}
-
-LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py"), *P.ATEST_PY]
-
-
 def _make_linter(label, files):
     def _task():
+        # pylint: disable=not-callable
         ok = f"lint_{label}"
         return dict(
             file_dep=[*files, P.OK / "setup_py"],
             actions=[
                 U.okit(ok, remove=True),
-                *[cmd + files for cmd in PY_LINT_CMDS if shutil.which(cmd[0])],
+                *sum(
+                    [
+                        cmd[0](files) if callable(cmd[0]) else [cmd + files]
+                        for cmd in P.PY_LINT_CMDS
+                        if callable(cmd[0]) or shutil.which(cmd[0])
+                    ],
+                    [],
+                ),
                 U.okit(ok),
             ],
             targets=[P.OK / ok],
@@ -191,7 +193,7 @@ def _make_linter(label, files):
     return {_task.__name__: _task}
 
 
-[globals().update(_make_linter(label, files)) for label, files in LINT_GROUPS.items()]
+[globals().update(_make_linter(label, files)) for label, files in P.LINT_GROUPS.items()]
 
 
 def _make_pydist(setup_py):
