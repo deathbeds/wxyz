@@ -12,7 +12,7 @@ export class FooModel extends widgets.DOMWidgetModel {
   static view_module_version = VERSION;
 
   static serializers = {
-    ...WXYZ.serializers
+    ...WXYZ.serializers,
   };
 
   defaults() {
@@ -23,7 +23,7 @@ export class FooModel extends widgets.DOMWidgetModel {
       _model_module: NAME,
       _model_module_version: VERSION,
       _view_module: NAME,
-      _view_module_version: VERSION
+      _view_module_version: VERSION,
     };
   }
 }

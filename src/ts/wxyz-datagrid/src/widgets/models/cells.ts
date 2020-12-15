@@ -31,7 +31,7 @@ export class FixedFuncModel extends FormatFuncModel {
   toFormatFunc() {
     return TextRenderer.formatFixed({
       digits: this.get('digits'),
-      missing: this.get('missing')
+      missing: this.get('missing'),
     });
   }
 }
@@ -41,7 +41,7 @@ export class TextRendererModel extends CellRendererModel {
 
   static serializers = {
     ...CellRendererModel.serializers,
-    format_func: { deserialize }
+    format_func: { deserialize },
   };
 
   toRenderer(onChildChanged?: IChildChangedFunc): TextRenderer {
@@ -60,7 +60,7 @@ export class TextRendererModel extends CellRendererModel {
       format: formatFunc ? formatFunc.toFormatFunc() : null,
       horizontalAlignment: () => this.get('horizontal_alignment'),
       verticalAlignment: () => this.get('vertical_alignment'),
-      font: () => this.get('font')
+      font: () => this.get('font'),
     });
   }
 }

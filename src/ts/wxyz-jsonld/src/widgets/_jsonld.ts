@@ -13,7 +13,7 @@ export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
   defaults() {
     return {
       ...super.defaults(),
-      expand_context: null as jsonld.IContext
+      expand_context: null as jsonld.IContext,
     };
   }
 

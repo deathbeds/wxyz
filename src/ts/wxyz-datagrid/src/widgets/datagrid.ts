@@ -8,7 +8,7 @@ import { WXYZBox } from '@deathbeds/wxyz-core/lib/widgets/_base';
 import { WXYZJSONModel } from './pmodels/jsonmodel';
 
 const CSS = {
-  DATA_GRID: 'jp-WXYZ-DataGrid'
+  DATA_GRID: 'jp-WXYZ-DataGrid',
 };
 
 export class DataGridModel extends WXYZBox {
@@ -17,14 +17,14 @@ export class DataGridModel extends WXYZBox {
 
   static serializers = {
     ...WXYZBox.serializers,
-    cell_renderers: { deserialize }
+    cell_renderers: { deserialize },
   };
 
   defaults() {
     return {
       ...super.defaults(),
       _model_name: DataGridModel.model_name,
-      _view_name: DataGridModel.view_name
+      _view_name: DataGridModel.view_name,
     };
   }
 }

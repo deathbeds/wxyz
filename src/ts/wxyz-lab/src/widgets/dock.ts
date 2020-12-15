@@ -9,7 +9,7 @@ import { NAME, VERSION } from '..';
 
 import {
   JupyterPhosphorDockPanelWidget,
-  JupyterLabPhosphorDockPanelWidget
+  JupyterLabPhosphorDockPanelWidget,
 } from './_dock';
 
 export class DockBoxModel extends BoxModel {
@@ -22,7 +22,7 @@ export class DockBoxModel extends BoxModel {
 
   static serializers = {
     ...BoxModel.serializers,
-    dock_layout: { deserialize }
+    dock_layout: { deserialize },
   };
 
   defaults() {
@@ -37,7 +37,7 @@ export class DockBoxModel extends BoxModel {
       dock_layout: null as DockLayout.AreaConfig,
       tab_size: null,
       border: null,
-      hide_tabs: null
+      hide_tabs: null,
     };
   }
 }
@@ -62,7 +62,7 @@ export class DockBoxView extends BoxView {
         }
         this._childrenInitialized = true;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }

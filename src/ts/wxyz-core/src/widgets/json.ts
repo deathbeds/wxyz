@@ -11,7 +11,7 @@ export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
     return {
       ...super.defaults(),
       _model_name: JSONModel.model_name,
-      value: null as any
+      value: null as any,
     };
   }
 
@@ -33,7 +33,7 @@ export class UnJSONModel extends FnModel<any, string, UnJSONModel.ITraits> {
       _model_name: UnJSONModel.model_name,
       source: null as any,
       value: '' as any,
-      indent: null as any
+      indent: null as any,
     };
   }
 
@@ -63,7 +63,7 @@ export class JSONPointerModel extends FnModel<string, any, JSONModel.ITraits> {
       ...super.defaults(),
       _model_name: JSONPointerModel.model_name,
       value: null as any,
-      context: null as any
+      context: null as any,
     };
   }
 
@@ -90,7 +90,7 @@ export class JSONSchemaModel extends FnModel<
       ...super.defaults(),
       _model_name: JSONSchemaModel.model_name,
       value: null as any,
-      context: null as any
+      context: null as any,
     };
   }
 

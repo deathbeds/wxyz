@@ -10,12 +10,12 @@ const RE_END = /\$|(then|else|from|each\(.*\)):/;
 const T = {
   BUILT_IN: 'variable-2',
   MOD: 'variable-3',
-  EXPR: 'tag'
+  EXPR: 'tag',
 };
 
 function yamlEMode(config: any, parserConfig: any) {
   const yamlEOverlay = {
-    token: function(stream: any, _state: any) {
+    token: function (stream: any, _state: any) {
       if (stream.match(RE_OP0)) {
         return T.MOD;
       }
@@ -31,7 +31,7 @@ function yamlEMode(config: any, parserConfig: any) {
         }
       }
       return null;
-    }
+    },
   };
 
   return CodeMirror.overlayMode(

@@ -10,7 +10,7 @@ export class JSONEModel extends JSONModel {
       ...super.defaults(),
       _model_name: JSONEModel.model_name,
       value: {} as any,
-      context: {} as any
+      context: {} as any,
     };
   }
 

@@ -37,7 +37,7 @@ const TRAITS = {
   tab_stop_width: 'tabStopWidth',
   term_name: 'termName',
   use_flow_control: 'useFlowControl',
-  visual_bell: 'visualBell'
+  visual_bell: 'visualBell',
 } as { [key: string]: string };
 
 const TERMINAL_CLASS = 'jp-WXYZ-Terminal';
@@ -85,8 +85,8 @@ export class TerminalModel extends DOMWidgetModel {
         background: '#000',
         cursor: '#fff',
         cursorAccent: '#000',
-        selection: 'rgba(255, 255, 255, 0.3)'
-      }
+        selection: 'rgba(255, 255, 255, 0.3)',
+      },
     };
   }
 }
@@ -108,7 +108,7 @@ export class TerminalView extends DOMWidgetView {
     this.el = this.$el[0];
     this.pWidget = new TerminalPhosphorWidget({
       node: el,
-      view: this
+      view: this,
     });
   }
 
@@ -124,7 +124,7 @@ export class TerminalView extends DOMWidgetView {
     const opts: ITerminalOptions = {
       rows: m.get('rows'),
       cols: m.get('cols'),
-      theme: m.get('theme')
+      theme: m.get('theme'),
     };
 
     for (const trait of Object.keys(TRAITS)) {
@@ -179,7 +179,7 @@ export class TerminalView extends DOMWidgetView {
     this._term.onData(this.onTermData.bind(this));
     this._term.onResize(this.onTermResize.bind(this));
 
-    this._term.attachCustomKeyEventHandler(event => {
+    this._term.attachCustomKeyEventHandler((event) => {
       if (event.ctrlKey && event.key === 'c' && this._term.hasSelection()) {
         return false;
       }

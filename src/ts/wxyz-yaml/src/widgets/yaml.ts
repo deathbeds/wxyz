@@ -12,7 +12,7 @@ export class YAMLModel extends JSONModel {
     return {
       ...super.defaults(),
       _model_name: YAMLModel.model_name,
-      value: {} as any
+      value: {} as any,
     };
   }
 
@@ -28,7 +28,7 @@ export class UnYAMLModel extends UnJSONModel {
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: UnYAMLModel.model_name
+      _model_name: UnYAMLModel.model_name,
     };
   }
 

@@ -46,7 +46,7 @@ export class CompactModel extends JSONLDBase<
     const context = this.get('context') as jsonld.IContext;
     const { compact } = getJSONLD() || (await loadJSONLD());
     return await compact(source, context, {
-      ...(expandContext ? { expandContext } : {})
+      ...(expandContext ? { expandContext } : {}),
     });
   }
 }
@@ -73,7 +73,7 @@ export class FlattenModel extends JSONLDBase<
     const context = this.get('context') as jsonld.IContext;
     const { flatten } = getJSONLD() || (await loadJSONLD());
     return await flatten(source, context, {
-      ...(expandContext ? { expandContext } : {})
+      ...(expandContext ? { expandContext } : {}),
     });
   }
 }
@@ -96,7 +96,7 @@ export class FrameModel extends JSONLDBase<object, object, FrameModel.ITraits> {
     const frameContext = this.get('frame') as jsonld.IContext;
     const { frame } = getJSONLD() || (await loadJSONLD());
     return await frame(source, frameContext, {
-      ...(expandContext ? { expandContext } : {})
+      ...(expandContext ? { expandContext } : {}),
     });
   }
 }
@@ -124,7 +124,7 @@ export class NormalizeModel extends JSONLDBase<
     const { normalize } = getJSONLD() || (await loadJSONLD());
     return await normalize(source, {
       ...(expandContext ? { expandContext } : {}),
-      ...(format ? { format } : {})
+      ...(format ? { format } : {}),
     });
   }
 }

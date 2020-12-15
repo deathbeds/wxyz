@@ -20,9 +20,9 @@ const plugin: IPlugin<Application<Widget>, void> = {
         const widgetExports = await import('./widgets');
         (widgetExports.DockPopView as any)['app'] = app;
         return widgetExports;
-      }
+      },
     });
-  }
+  },
 };
 
 export default plugin;

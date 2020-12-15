@@ -2,7 +2,7 @@ import CodeMirror from 'codemirror';
 
 import {
   DOMWidgetView,
-  unpack_models as deserialize
+  unpack_models as deserialize,
 } from '@jupyter-widgets/base';
 import { TextareaModel } from '@jupyter-widgets/controls';
 
@@ -36,7 +36,7 @@ export class EditorConfigModel extends WXYZ {
       _model_module: NAME,
       _model_module_version: VERSION,
       theme: null as any,
-      mode: null as any
+      mode: null as any,
     };
   }
 
@@ -59,7 +59,7 @@ export class EditorModel extends TextareaModel {
 
   static serializers = {
     ...TextareaModel.serializers,
-    config: { deserialize }
+    config: { deserialize },
   };
 
   defaults() {
@@ -72,7 +72,7 @@ export class EditorModel extends TextareaModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       description: 'An Editor',
-      icon_class: 'jp-EditIcon'
+      icon_class: 'jp-EditIcon',
     };
   }
 }

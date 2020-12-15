@@ -1,6 +1,6 @@
 import {
   WidgetModel,
-  unpack_models as deserialize
+  unpack_models as deserialize,
 } from '@jupyter-widgets/base';
 
 import { FnModel } from '@deathbeds/wxyz-core/lib/widgets/_base';
@@ -24,7 +24,7 @@ export class TemplateModel extends FnModel<
     return {
       ...super.defaults(),
       _model_name: TemplateModel.model_name,
-      context: null as WidgetModel
+      context: null as WidgetModel,
     };
   }
 

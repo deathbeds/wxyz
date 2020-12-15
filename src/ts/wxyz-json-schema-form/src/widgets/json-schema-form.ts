@@ -38,7 +38,7 @@ export class JSONSchemaFormModel extends WXYZBox {
       value: {} as any,
       schema: {} as any,
       ui_schema: {} as any,
-      errors: []
+      errors: [],
     };
   }
 
@@ -151,7 +151,7 @@ export class JSONSchemaFormView extends BoxView {
       options = {
         markdown: JSONSchemaFormView._rendermime.createRenderer(
           'text/markdown'
-        ) as RenderedMarkdown
+        ) as RenderedMarkdown,
       };
     }
 
@@ -163,7 +163,7 @@ export class JSONSchemaFormView extends BoxView {
         uiSchema,
         onChange,
         idPrefix,
-        ...ALL_CUSTOM_UI
+        ...ALL_CUSTOM_UI,
       },
       options
     );
