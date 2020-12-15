@@ -7,7 +7,7 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "jsonpointer": "^4.0.0"
+    "jsonpointer": "^4.1.0"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {

@@ -7,7 +7,7 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "js-yaml": "^3.12.1"
+    "js-yaml": "^3.14.1"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {

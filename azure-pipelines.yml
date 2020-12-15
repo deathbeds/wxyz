@@ -23,7 +23,6 @@ variables:
     src/ts/wxyz-yaml/deathbeds-wxyz-yaml-0.4.0.tgz
 
   THIRD_PARTY_LABEXTENSIONS: >-
-    bqplot
     @jupyter-widgets/jupyterlab-manager
 
 jobs:
