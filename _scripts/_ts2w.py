@@ -14,13 +14,14 @@ from yaml import safe_dump
 HERE = Path(__file__).parent
 ROOT = HERE.parent
 JLPM = shutil.which("jlpm")
+ENC = dict(encoding="utf-8")
 
 RE_PY_TRAITS = re.compile(
     r"""(# BEGIN SCHEMAGEN:TRAITS (.*?)\n(.*)# END SCHEMAGEN:TRAITS)""",
     flags=re.M | re.S,
 )
 RE_TS_PROPERTIES = re.compile(
-    r"""// BEGIN SCHEMAGEN:PROPERTIES (.*?)\n(.*)// END SCHEMAGEN:PROPERTIES""",
+    r"""(// BEGIN SCHEMAGEN:PROPERTIES (.*?)\n(.*)// END SCHEMAGEN:PROPERTIES)""",
     flags=re.M | re.S,
 )
 
@@ -92,7 +93,7 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
 
 def update_py(schema, path):
     """update a python file chunk from a schema"""
-    txt = path.read_text()
+    txt = path.read_text(**ENC)
 
     for match in re.findall(RE_PY_TRAITS, txt):
         old, dfn = match[:2]
@@ -113,20 +114,28 @@ def update_py(schema, path):
         )
         txt = txt.replace(old, new)
 
-    path.write_text(txt)
+    path.write_text(txt, **ENC)
     subprocess.check_call(["black", str(path)])
 
 
 def update_ts(schema, path):
     """update a typescript file from schema"""
-    txt = path.read_text()
-    dfn, old = re.findall(RE_TS_PROPERTIES, txt)[0]
+    txt = path.read_text(**ENC)
 
-    root = schema["definitions"][dfn]
+    for match in re.findall(RE_TS_PROPERTIES, txt):
+        print(match[1])
+        old, dfn = match[:2]
+        root = schema["definitions"][dfn]
 
-    new = ", ".join([f"'{p}'" for p in root["properties"].keys()]) + "\n"
+        str_props = ", ".join([f"'{p}'" for p in root["properties"].keys()])
+        new = (
+            f"""// BEGIN SCHEMAGEN:PROPERTIES {dfn}\n"""
+            f"""  {str_props}\n"""
+            f"""  // END SCHEMAGEN:PROPERTIES\n"""
+        )
+        txt = txt.replace(old, new)
 
-    path.write_text(txt.replace(old, new))
+    path.write_text(txt, **ENC)
     subprocess.check_call([JLPM, "prettier", "--write", str(path)])
 
 
