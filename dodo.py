@@ -197,6 +197,21 @@ def _make_linter(label, files):
 [globals().update(_make_linter(label, files)) for label, files in P.LINT_GROUPS.items()]
 
 
+def _make_schema(source, targets):
+    return dict(
+        name=source.stem,
+        file_dep=[source, P.SCRIPTS / "_ts2w.py", P.YARN_INTEGRITY],
+        actions=[[*P.PYM, "_scripts._ts2w", source, *targets]],
+        targets=targets,
+    )
+
+
+def task_schema():
+    """update code files from schema"""
+    for source, targets in P.SCHEMA_WIDGETS.items():
+        yield _make_schema(source, targets)
+
+
 def _make_pydist(setup_py):
     """build python release artifacts"""
     pkg = setup_py.parent

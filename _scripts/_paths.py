@@ -48,7 +48,6 @@ CI_TEST_YML = CI / "job.test.yml"
 CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text())["parameters"]
 LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
-RECIPES = ROOT / "recipes"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
 
@@ -148,16 +147,6 @@ TS_TARBALLS = [
 
 
 LAB_INDEX = LAB / "static" / "index.html"
-
-CONDA_ORDER = ["core", "html", "lab", "datagrid", "svg", "tpl-jinja", "yaml"]
-
-CONDA_BUILD_ARGS = [
-    "conda-build",
-    "-c",
-    "conda-forge",
-    "--output-folder",
-    DIST / "conda-bld",
-]
 
 SDISTS = {
     pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
@@ -278,3 +267,11 @@ LINT_GROUPS = {
 }
 
 LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY]
+
+SCHEMA_WIDGETS = {
+    TS_SRC
+    / "wxyz-lab/src/widgets/_cm_options.ts": [
+        TS_SRC / "wxyz-lab/src/widgets/editor.ts",
+        PY_SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
+    ]
+}

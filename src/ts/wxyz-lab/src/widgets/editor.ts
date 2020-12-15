@@ -17,7 +17,41 @@ interface IHasChanged {
 
 const EDITOR_CLASS = 'jp-WXYZ-Editor';
 
-const WATCHED_OPTIONS = ['mode', 'theme'];
+const WATCHED_OPTIONS = [
+  // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration
+  'autofocus',
+  'cursorBlinkRate',
+  'cursorHeight',
+  'dragDrop',
+  'electricChars',
+  'firstLineNumber',
+  'fixedGutter',
+  'flattenSpans',
+  'foldGutter',
+  'historyEventDelay',
+  'indentUnit',
+  'indentWithTabs',
+  'keyMap',
+  'lineNumbers',
+  'lineWrapping',
+  'maxHighlightLength',
+  'mode',
+  'placeholder',
+  'pollInterval',
+  'readOnly',
+  'rtlMoveVisually',
+  'scrollbarStyle',
+  'showCursorWhenSelecting',
+  'smartIndent',
+  'tabSize',
+  'tabindex',
+  'theme',
+  'undoDepth',
+  'viewportMargin',
+  'workDelay',
+  'workTime',
+  // END SCHEMAGEN:PROPERTIES
+];
 const WATCHED_EVENTS = WATCHED_OPTIONS.reduce((m, o) => `${m} change:${o}`, '');
 
 /** A CodeMirror options for "simple" options
@@ -35,8 +69,6 @@ export class EditorConfigModel extends WXYZ {
       _model_name: EditorConfigModel.model_name,
       _model_module: NAME,
       _model_module_version: VERSION,
-      theme: null as any,
-      mode: null as any,
     };
   }
 
@@ -130,19 +162,20 @@ export class EditorView extends DOMWidgetView {
       if (WATCHED_OPTIONS.indexOf(opt) === -1) {
         continue;
       }
+      const value = changed[opt];
       switch (opt) {
         case 'theme':
-          if (changed[opt]) {
-            import(`codemirror/theme/${changed[opt]}.css`).catch(console.warn);
+          if (value) {
+            import(`codemirror/theme/${value}.css`).catch(console.warn);
           }
           break;
         case 'mode':
-          Mode.ensure(changed[opt]).catch(console.warn);
+          Mode.ensure(value).catch(console.warn);
           break;
         default:
           break;
       }
-      this._editor.setOption(opt, changed[opt]);
+      this._editor.setOption(opt, value);
     }
 
     this._editor.refresh();
