@@ -78,14 +78,17 @@ export class JSONSchemaFormView extends BoxView {
   render() {
     this._idPrefix = `id-wxyz-json-schema-form-${Private.nextId()}`;
     this.pWidget.addClass(FORM_CLASS);
-    _dbjrjsf.load().then(() => {
-      this.m.on(
-        'change:schema change:ui_schema change:value',
-        this.rerender,
-        this
-      );
-      this.rerender();
-    });
+    _dbjrjsf
+      .load()
+      .then(() => {
+        this.m.on(
+          'change:schema change:ui_schema change:value',
+          this.rerender,
+          this
+        );
+        this.rerender().catch(console.warn);
+      })
+      .catch(console.warn);
   }
 
   get m() {

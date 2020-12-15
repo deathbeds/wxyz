@@ -1,4 +1,5 @@
 import { JSONModel } from '@deathbeds/wxyz-core/lib/widgets/json';
+import { TObject } from '@deathbeds/wxyz-core/src/widgets/_base';
 import { JSONExt } from '@lumino/coreutils';
 import jsone from 'json-e';
 
@@ -14,7 +15,7 @@ export class JSONEModel extends JSONModel {
     };
   }
 
-  async theFunction(source: Object) {
+  async theFunction(source: TObject) {
     const context = this.theContext;
     const result = jsone(source, context);
     return result;

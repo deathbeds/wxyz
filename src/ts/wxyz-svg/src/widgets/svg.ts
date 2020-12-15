@@ -1,4 +1,6 @@
 // porting https://github.com/openseat/ipylayoutwidgets/blob/master/ipylayoutwidgets/static/ipylayoutwidgets/js/SVGLayoutBoxView.js
+/* eslint consistent-this: "off" */
+/* eslint @typescript-eslint/no-this-alias: "off" */
 
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
@@ -222,9 +224,11 @@ export class SVGBoxView extends BoxView {
 
       if (!area) {
         _(item.views).forIn(function (childPromise) {
-          childPromise.then((child: any) => {
-            d3.select(child.el).style('display', 'none');
-          });
+          childPromise
+            .then((child: any) => {
+              d3.select(child.el).style('display', 'none');
+            })
+            .catch(console.warn);
         });
         return;
       }
@@ -237,17 +241,19 @@ export class SVGBoxView extends BoxView {
       });
 
       _(item.views).forIn(function (child) {
-        child.then(function (child: any) {
-          d3.select(child.el)
-            .style('position', 'absolute')
-            .style('display', null)
-            .style('opacity', 1.0)
-            .style('top', `${bb.top - el_bb.top}px`)
-            .style('left', `${bb.left - el_bb.left}px`)
-            .style('width', `${bb.width}px`)
-            .style('height', `${bb.height}px`);
-          child.touch();
-        });
+        child
+          .then(function (child: any) {
+            d3.select(child.el)
+              .style('position', 'absolute')
+              .style('display', null)
+              .style('opacity', 1.0)
+              .style('top', `${bb.top - el_bb.top}px`)
+              .style('left', `${bb.left - el_bb.left}px`)
+              .style('width', `${bb.width}px`)
+              .style('height', `${bb.height}px`);
+            child.touch();
+          })
+          .catch(console.warn);
       });
     });
   }

@@ -1,27 +1,31 @@
 declare module 'jsonpointer' {
-  export interface JSONPointer {
+  export interface IJSONPointer {
     /**
      * Looks up a JSON pointer in an object
      */
-    get(object: Object, pointer: string): any;
+    get(object: Record<string, unknown>, pointer: string): any;
 
     /**
      * Set a value for a JSON pointer on object
      */
-    set(object: Object, pointer: string, value: any): void;
+    set(object: Record<string, unknown>, pointer: string, value: any): void;
   }
   /**
    * Looks up a JSON pointer in an object
    */
-  export function get(object: Object, pointer: string): any;
+  export function get(object: Record<string, unknown>, pointer: string): any;
 
   /**
    * Set a value for a JSON pointer on object
    */
-  export function set(object: Object, pointer: string, value: any): void;
+  export function set(
+    object: Record<string, unknown>,
+    pointer: string,
+    value: any
+  ): void;
 
   /**
    *  Builds a JSONPointer instance from a pointer value.
    */
-  export function compile(pointer: string): JSONPointer;
+  export function compile(pointer: string): IJSONPointer;
 }

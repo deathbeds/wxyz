@@ -170,7 +170,7 @@ export class FileBoxView extends controls.BoxView {
     evt.preventDefault();
     this.pWidget.removeClass(CSS.FILE_BOX_OVER);
     this._input.files = evt.dataTransfer.files;
-    this.onInputChange();
+    this.onInputChange().catch(console.warn);
   }
 
   protected makeInput() {

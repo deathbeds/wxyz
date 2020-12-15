@@ -1,6 +1,7 @@
-import { FnModel } from './_base';
-import * as jsonpointer from 'jsonpointer';
+import jsonpointer from 'jsonpointer';
 import Ajv from 'ajv';
+
+import { FnModel, TObject } from './_base';
 
 const _ajv = new Ajv();
 
@@ -74,13 +75,13 @@ export class JSONPointerModel extends FnModel<string, any, JSONModel.ITraits> {
 
 namespace JSONPointerModel {
   export interface ITraits extends FnModel.ITraits<string, any> {
-    context: Object;
+    context: TObject;
   }
 }
 
 export class JSONSchemaModel extends FnModel<
-  object,
-  object,
+  TObject,
+  TObject,
   JSONSchema.ITraits
 > {
   static model_name = 'JSONSchemaModel';
@@ -94,9 +95,9 @@ export class JSONSchemaModel extends FnModel<
     };
   }
 
-  async theFunction(source: object) {
+  async theFunction(source: TObject) {
     const validate = _ajv.compile(this.get('schema'));
-    validate(source);
+    await validate(source);
     if (validate.errors) {
       throw Error(validate.errors.join(''));
     }
@@ -105,7 +106,7 @@ export class JSONSchemaModel extends FnModel<
 }
 
 namespace JSONSchema {
-  export interface ITraits extends FnModel.ITraits<object, object> {
-    schema: Object;
+  export interface ITraits extends FnModel.ITraits<TObject, TObject> {
+    schema: TObject;
   }
 }

@@ -1,28 +1,30 @@
+import { TObject } from '@deathbeds/wxyz-core/src/widgets/_base';
+
 declare module 'jsonld' {
-  export function compact<T = object>(
+  export function compact<T = TObject>(
     doc: any,
     context: IContext,
     options: ICompactOptions
   ): Promise<T>;
 
-  export function expand<T = object>(
+  export function expand<T = TObject>(
     doc: any,
     options: IExpandOptions
   ): Promise<T[]>;
 
-  export function flatten<T = object>(
+  export function flatten<T = TObject>(
     doc: any,
     context: IContext,
     options: IExpandOptions
   ): Promise<T>;
 
-  export function frame<T = object>(
+  export function frame<T = TObject>(
     doc: any,
     frame: IContext,
     options: IExpandOptions
   ): Promise<T>;
 
-  export function normalize<T = object | string>(
+  export function normalize<T = TObject | string>(
     doc: any,
     options: INormalizeOptions
   ): Promise<T>;

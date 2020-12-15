@@ -71,12 +71,16 @@ export class TemplateModel extends FnModel<
     if (context instanceof WidgetModel) {
       context.on('change', this.theSourceChanged, this);
     }
-    this.theSourceChanged();
+    this.theSourceChanged().catch(console.warn);
   }
 }
 
 export namespace TemplateModel {
-  export type TContext = WidgetModel | object | Array<any> | null;
+  export type TContext =
+    | WidgetModel
+    | Record<string, unknown>
+    | Array<any>
+    | null;
   export interface ITraits extends FnModel.ITraits<string, string> {
     context: TContext;
   }

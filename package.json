@@ -13,19 +13,26 @@
     "build:ts": "lerna run --parallel --stream build",
     "build:tgz": "lerna exec --parallel --stream npm pack",
     "lint:prettier": "prettier --list-different --write ./*.{json,md,yml,yaml} ./{src,ci,requirements}/**/*.{ts,json,md,yml,yaml,css,yml}",
-    "lint:ts": "tslint --fix src/**/*.ts",
+    "lint:ts": "eslint --config .eslintrc.js --ext .js,.jsx,.ts,.tsx --fix src/ts/*/src",
     "lint": "jlpm lint:prettier && jlpm lint:ts",
     "watch": "lerna run --parallel --stream watch"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "tabWidth": 2
   },
   "devDependencies": {
     "lerna": "^3.19.0",
     "jquery": "^3.4.1",
     "prettier": "^2.2.1",
-    "ts-json-schema-generator": "^0.80.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "tslint-react": "^4.1.0",
-    "tslint": "^5.20.1",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
     "fstream": "^1.0.12"
   },
   "workspaces": [

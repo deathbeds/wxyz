@@ -9,6 +9,8 @@ import { JSONExt } from '@lumino/coreutils';
 
 import { NAME, VERSION } from '..';
 
+export type TObject = Record<string, unknown>;
+
 export class WXYZ extends WidgetModel {
   static model_module = NAME;
   static model_module_version = VERSION;
@@ -95,7 +97,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
   initialize(attributes: V, options: any) {
     super.initialize(attributes, options);
     this.on('change:source', this.theSourceChanged, this);
-    this.theSourceChanged();
+    this.theSourceChanged().catch(console.warn);
     return this;
   }
 

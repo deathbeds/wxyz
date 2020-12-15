@@ -103,7 +103,8 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
     this._view.touch();
   }
 
-  areaToJWidgets(area: DockLayout.AreaConfig): object {
+  /* TODO: a better typing */
+  areaToJWidgets(area: DockLayout.AreaConfig): any {
     switch (area.type) {
       case 'split-area':
         return {

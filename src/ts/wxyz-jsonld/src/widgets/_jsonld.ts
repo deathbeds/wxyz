@@ -1,7 +1,6 @@
 import * as jsonld from 'jsonld';
 
-import { FnModel } from '@deathbeds/wxyz-core/lib/widgets/_base';
-import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
+import { FnModel, TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
   T,
@@ -33,19 +32,8 @@ export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
 }
 
 export namespace JSONLDBase {
-  export interface ITraits<T = object, U = object>
+  export interface ITraits<T = TObject, U = TObject>
     extends FnModel.ITraits<T, U> {
     expandContext: jsonld.IContext;
-  }
-
-  const _jsonld = lazyLoader(
-    async () => await import(/* webpackChunkName: "jsonld" */ 'jsonld')
-  );
-
-  export function getJSONLD() {
-    return _jsonld.get();
-  }
-  export function loadJSONLD() {
-    return _jsonld.load();
   }
 }

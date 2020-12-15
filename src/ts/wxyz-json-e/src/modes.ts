@@ -1,3 +1,4 @@
+/* eslint no-constant-condition: "off" */
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/yaml/yaml';
 
