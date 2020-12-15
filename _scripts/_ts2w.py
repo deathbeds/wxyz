@@ -74,7 +74,7 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
         )
 
     if add_help and prop.get("description"):
-        kwargs += [f"""help='''{prop["description"]}'''  # noqa: E501\n"""]
+        kwargs += [f"""help='''{prop["description"]}'''"""]
 
     arg_str = ", ".join(args)
     kwarg_str = ", ".join(kwargs)
