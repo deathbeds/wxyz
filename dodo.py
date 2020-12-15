@@ -150,6 +150,7 @@ def task_lint_prettier():
     yield dict(
         name="core",
         uptodate=[config_changed(P.README.read_text())],
+        file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
         actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
         targets=[P.README],
     )
@@ -373,7 +374,10 @@ def _make_py_readme(setup_py):
     return dict(
         name=pkg.name,
         uptodate=[config_changed(P.PY_README_TXT)],
-        actions=[_write],
+        actions=[
+            _write,
+            ["jlpm", "prettier", "--write", "--list-different", readme],
+        ],
         file_dep=[P.README, setup_cfg],
         targets=[readme, license_],
     )
@@ -397,7 +401,10 @@ def _make_ts_readme(package_json):
     return dict(
         name=pkg.name,
         uptodate=[config_changed(P.TS_README_TXT)],
-        actions=[_write],
+        actions=[
+            _write,
+            ["jlpm", "prettier", "--write", "--list-different", readme],
+        ],
         file_dep=[P.README, package_json],
         targets=[readme, license_],
     )
