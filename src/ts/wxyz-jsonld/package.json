@@ -11,6 +11,7 @@
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
+    "@types/jsonld": "^1.5.1",
     "@jupyter-widgets/base": "3",
     "@jupyter-widgets/controls": "2",
     "@jupyter-widgets/jupyterlab-manager": "2",

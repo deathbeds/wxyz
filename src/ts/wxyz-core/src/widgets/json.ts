@@ -21,7 +21,7 @@ export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
   }
 }
 
-namespace JSONModel {
+export namespace JSONModel {
   export interface ITraits extends FnModel.ITraits<string, any> {}
 }
 

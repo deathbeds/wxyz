@@ -1,5 +1,5 @@
-// this is a name-only import
 import * as jsonld from 'jsonld';
+import { Context, Frame, JsonLdArray } from 'jsonld/jsonld-spec';
 
 import { JSONLDBase } from './_jsonld';
 
@@ -7,7 +7,7 @@ import { TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 export class ExpandModel extends JSONLDBase<
   TObject,
-  TObject[],
+  JsonLdArray,
   ExpandModel.ITraits
 > {
   static model_name = 'ExpandModel';
@@ -42,10 +42,10 @@ export class CompactModel extends JSONLDBase<
 
   async theFunction(source: TObject) {
     const expandContext = this.theExpandContext;
-    const context = this.get('context') as jsonld.IContext;
-    return await jsonld.compact(source, context, {
+    const context = this.get('context') as Context;
+    return (await jsonld.compact(source, context, {
       ...(expandContext ? { expandContext } : {}),
-    });
+    })) as TObject;
   }
 }
 
@@ -68,10 +68,10 @@ export class FlattenModel extends JSONLDBase<
 
   async theFunction(source: TObject) {
     const expandContext = this.theExpandContext;
-    const context = this.get('context') as jsonld.IContext;
-    return await jsonld.flatten(source, context, {
+    const context = this.get('context') as Context;
+    return (await jsonld.flatten(source, context, {
       ...(expandContext ? { expandContext } : {}),
-    });
+    })) as TObject;
   }
 }
 
@@ -93,11 +93,9 @@ export class FrameModel extends JSONLDBase<
   }
 
   async theFunction(source: TObject) {
-    const expandContext = this.theExpandContext;
-    const frameContext = this.get('frame') as jsonld.IContext;
-    return await jsonld.frame(source, frameContext, {
-      ...(expandContext ? { expandContext } : {}),
-    });
+    const frame = this.get('frame') as Frame;
+    const framed = await jsonld.frame(source, frame);
+    return framed as TObject;
   }
 }
 
@@ -129,7 +127,7 @@ export class NormalizeModel extends JSONLDBase<
 }
 
 export namespace ExpandModel {
-  export interface ITraits<V = TObject, W = TObject[]>
+  export interface ITraits<V = TObject, W = JsonLdArray>
     extends JSONLDBase.ITraits<V, W> {
     expand_context: TObject;
   }
@@ -138,21 +136,21 @@ export namespace ExpandModel {
 export namespace CompactModel {
   export interface ITraits<V = TObject, W = TObject>
     extends JSONLDBase.ITraits<V, W> {
-    context: jsonld.IContext;
+    context: Context;
   }
 }
 
 export namespace FlattenModel {
   export interface ITraits<V = TObject, W = TObject>
     extends JSONLDBase.ITraits<V, W> {
-    context: jsonld.IContext;
+    context: Context;
   }
 }
 
 export namespace FrameModel {
   export interface ITraits<V = TObject, W = TObject>
     extends JSONLDBase.ITraits<V, W> {
-    frame: jsonld.IContext;
+    frame: Context;
   }
 }
 

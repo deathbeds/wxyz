@@ -1,9 +1,8 @@
-import { JSONModel } from '@deathbeds/wxyz-core/lib/widgets/json';
-import { TObject } from '@deathbeds/wxyz-core/src/widgets/_base';
+import { FnModel, TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
 import { JSONExt } from '@lumino/coreutils';
 import jsone from 'json-e';
 
-export class JSONEModel extends JSONModel {
+export class JSONEModel extends FnModel<TObject, any, JSONEModel.ITraits> {
   static model_name = 'JSONEModel';
 
   defaults() {
@@ -38,4 +37,8 @@ export class JSONEModel extends JSONModel {
     this.on('change:context', this.theSourceChanged, this);
     return this;
   }
+}
+
+export namespace JSONEModel {
+  export interface ITraits extends FnModel.ITraits<TObject, TObject> {}
 }
