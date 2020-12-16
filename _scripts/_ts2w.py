@@ -70,7 +70,8 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
             trait = "Union"
             args += ["[T.Float(), T.Int()]"]
     elif ptype == "array":
-        trait = "Tuple"
+        trait = "Union"
+        args += ["[T.Tuple(), T.Enum([None])]"]
     else:
         print(
             prop_name,
