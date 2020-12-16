@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror';
 
+import { Platform } from '@lumino/domutils';
 import {
   DOMWidgetView,
   unpack_models as deserialize,
@@ -139,7 +140,7 @@ export class EditorView extends DOMWidgetView {
   }
 
   handle_keys = (event: KeyboardEvent) => {
-    if (event.ctrlKey) {
+    if (Platform.accelKey(event)) {
       if (event.key === 'z') {
         if (event.shiftKey) {
           this._editor.getDoc().redo();
