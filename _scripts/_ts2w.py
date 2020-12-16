@@ -10,6 +10,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 from typing import List
 
+from bs4.dammit import UnicodeDammit
 from yaml import safe_dump
 
 HERE = Path(__file__).parent
@@ -76,7 +77,8 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
         )
 
     if add_help and prop.get("description"):
-        kwargs += [f"""help='''{prop["description"]}'''"""]
+        dammit = UnicodeDammit(prop["description"])
+        kwargs += [f"""help='''{dammit.unicode_markup}'''"""]
 
     arg_str = ", ".join(args)
     kwarg_str = ", ".join(kwargs)
@@ -124,7 +126,6 @@ def update_ts(schema, path):
     txt = path.read_text(**ENC)
 
     for match in re.findall(RE_TS_PROPERTIES, txt):
-        print(match[1])
         old, dfn = match[:2]
         root = schema["definitions"][dfn]
 

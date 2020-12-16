@@ -513,7 +513,7 @@ def task_robot_lint():
     """format, then dry run robot syntax"""
 
     return dict(
-        file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
+        file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
         targets=[P.OK / "robot_lint"],
         actions=[
             U.okit("robot_dry_run", remove=True),
