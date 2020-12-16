@@ -1,6 +1,7 @@
-import { FnModel } from './_base';
-import * as jsonpointer from 'jsonpointer';
+import jsonpointer from 'jsonpointer';
 import Ajv from 'ajv';
+
+import { FnModel, TObject } from './_base';
 
 const _ajv = new Ajv();
 
@@ -11,7 +12,7 @@ export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
     return {
       ...super.defaults(),
       _model_name: JSONModel.model_name,
-      value: null as any
+      value: null as any,
     };
   }
 
@@ -20,7 +21,7 @@ export class JSONModel extends FnModel<string, any, JSONModel.ITraits> {
   }
 }
 
-namespace JSONModel {
+export namespace JSONModel {
   export interface ITraits extends FnModel.ITraits<string, any> {}
 }
 
@@ -33,7 +34,7 @@ export class UnJSONModel extends FnModel<any, string, UnJSONModel.ITraits> {
       _model_name: UnJSONModel.model_name,
       source: null as any,
       value: '' as any,
-      indent: null as any
+      indent: null as any,
     };
   }
 
@@ -63,7 +64,7 @@ export class JSONPointerModel extends FnModel<string, any, JSONModel.ITraits> {
       ...super.defaults(),
       _model_name: JSONPointerModel.model_name,
       value: null as any,
-      context: null as any
+      context: null as any,
     };
   }
 
@@ -74,13 +75,13 @@ export class JSONPointerModel extends FnModel<string, any, JSONModel.ITraits> {
 
 namespace JSONPointerModel {
   export interface ITraits extends FnModel.ITraits<string, any> {
-    context: Object;
+    context: TObject;
   }
 }
 
 export class JSONSchemaModel extends FnModel<
-  object,
-  object,
+  TObject,
+  TObject,
   JSONSchema.ITraits
 > {
   static model_name = 'JSONSchemaModel';
@@ -90,13 +91,13 @@ export class JSONSchemaModel extends FnModel<
       ...super.defaults(),
       _model_name: JSONSchemaModel.model_name,
       value: null as any,
-      context: null as any
+      context: null as any,
     };
   }
 
-  async theFunction(source: object) {
+  async theFunction(source: TObject) {
     const validate = _ajv.compile(this.get('schema'));
-    validate(source);
+    await validate(source);
     if (validate.errors) {
       throw Error(validate.errors.join(''));
     }
@@ -105,7 +106,7 @@ export class JSONSchemaModel extends FnModel<
 }
 
 namespace JSONSchema {
-  export interface ITraits extends FnModel.ITraits<object, object> {
-    schema: Object;
+  export interface ITraits extends FnModel.ITraits<TObject, TObject> {
+    schema: TObject;
   }
 }

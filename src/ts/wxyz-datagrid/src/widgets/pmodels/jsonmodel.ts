@@ -7,7 +7,7 @@ export class WXYZJSONModel extends JSONModel {
   metadata(region: DataModel.CellRegion, row: number, column: number) {
     return {
       jmodel: this.jmodel?.attributes,
-      ...super.metadata(region, row, column)
+      ...super.metadata(region, row, column),
     };
   }
 }

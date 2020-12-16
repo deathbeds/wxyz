@@ -89,11 +89,6 @@ def test_py_versions(pkg, version):
 
     assert f"version = {version}" in setup_cfg
 
-    if "notebooks" not in pkg:
-        recipe = (P.RECIPES / pkg.replace("_", "-") / "meta.yaml").read_text()
-
-        assert f"""{{% set version = "{version}" %}}""" in recipe
-
 
 @pytest.mark.parametrize(
     "pkg_name,pkg_path",

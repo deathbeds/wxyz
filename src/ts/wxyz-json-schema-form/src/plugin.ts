@@ -29,9 +29,9 @@ const plugin: IPlugin<Application<Widget>, void> = {
         // TODO: restore
         // (await widgetExports).JSONSchemaFormView._rendermime = rendermime;
         return widgetExports;
-      }
+      },
     });
-  }
+  },
 };
 
 export default plugin;

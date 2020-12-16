@@ -1,13 +1,15 @@
 import {
   WidgetModel,
   DOMWidgetModel,
-  ISerializers
+  ISerializers,
 } from '@jupyter-widgets/base';
 import { BoxModel } from '@jupyter-widgets/controls';
 
 import { JSONExt } from '@lumino/coreutils';
 
 import { NAME, VERSION } from '..';
+
+export type TObject = Record<string, unknown>;
 
 export class WXYZ extends WidgetModel {
   static model_module = NAME;
@@ -21,7 +23,7 @@ export class WXYZ extends WidgetModel {
       _model_module: NAME,
       _model_module_version: VERSION,
       _view_module: NAME,
-      _view_module_version: VERSION
+      _view_module_version: VERSION,
     };
   }
 }
@@ -38,7 +40,7 @@ export class WXYZBox extends BoxModel {
       _model_module: NAME,
       _model_module_version: VERSION,
       _view_module: NAME,
-      _view_module_version: VERSION
+      _view_module_version: VERSION,
     };
   }
 }
@@ -60,7 +62,7 @@ export class Model<T> extends DOMWidgetModel {
       _view_module_version: VERSION,
       icon_class: 'jp-CircleIcon',
       description: 'An Undescribed Widget',
-      closable: true
+      closable: true,
     };
   }
 }
@@ -88,14 +90,14 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
       source: (null as unknown) as T,
       value: (null as unknown) as U,
       error: (null as unknown) as string,
-      mode: 'both'
+      mode: 'both',
     };
   }
 
   initialize(attributes: V, options: any) {
     super.initialize(attributes, options);
     this.on('change:source', this.theSourceChanged, this);
-    this.theSourceChanged();
+    this.theSourceChanged().catch(console.warn);
     return this;
   }
 
@@ -193,7 +195,7 @@ export async function createModel(
       model_module_version: '*',
       view_module: _module,
       view_name: view,
-      view_module_version: '*'
+      view_module_version: '*',
     },
     args
   );

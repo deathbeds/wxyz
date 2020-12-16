@@ -13,7 +13,7 @@ export class MarkdownModel extends FnModel<
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: MarkdownModel.model_name
+      _model_name: MarkdownModel.model_name,
     };
   }
 

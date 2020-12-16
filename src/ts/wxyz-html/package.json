@@ -7,7 +7,7 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "screenfull": "^4.0.1"
+    "screenfull": "^5.0.2"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {

@@ -1,4 +1,6 @@
 // porting https://github.com/openseat/ipylayoutwidgets/blob/master/ipylayoutwidgets/static/ipylayoutwidgets/js/SVGLayoutBoxView.js
+/* eslint consistent-this: "off" */
+/* eslint @typescript-eslint/no-this-alias: "off" */
 
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
@@ -10,7 +12,7 @@ import _ from 'lodash';
 
 const CSS = {
   SVG: 'jp-WXYZ-SVG',
-  LAYOUT: 'jp-WXYZ-SVG-Layout'
+  LAYOUT: 'jp-WXYZ-SVG-Layout',
 };
 
 export class SVGBoxModel extends BoxModel {
@@ -30,7 +32,7 @@ export class SVGBoxModel extends BoxModel {
       _view_name: SVGBoxModel.view_name,
       _view_module: NAME,
       _view_module_version: VERSION,
-      svg: '<svg></svg>'
+      svg: '<svg></svg>',
     };
   }
 }
@@ -88,7 +90,7 @@ export class SVGBoxView extends BoxView {
     const layout = this._d3.selectAll(CSS.LAYOUT).data([1]);
     layout.remove();
     this._zoom = null;
-    layout.enter().call(function() {
+    layout.enter().call(function () {
       const xml = view._parser.parseFromString(view._lastSVG, 'image/svg+xml');
       const importedNode = document.importNode(xml.documentElement, true);
       const newLayout = view._d3
@@ -98,7 +100,7 @@ export class SVGBoxView extends BoxView {
       // find all of the `svg:g`s that are groups
       const children = layout.selectAll('g').filter(
         // tslint:disable
-        function() {
+        function () {
           return (
             (this as any).parentNode === newLayout.node() &&
             d3.select(this).attr(`:${areaAttr}`) != null
@@ -110,7 +112,7 @@ export class SVGBoxView extends BoxView {
         .append('g')
         .attr('id', `${CSS.LAYOUT}-ROOT-${view.cid}`);
 
-      children.each(function() {
+      children.each(function () {
         // tslint:disable
         root.node().appendChild(this as any);
         // tslint:enable
@@ -118,7 +120,7 @@ export class SVGBoxView extends BoxView {
 
       view._original = {
         height: parseInt(newLayout.attr('height'), 10),
-        width: parseInt(newLayout.attr('width'), 10)
+        width: parseInt(newLayout.attr('width'), 10),
       };
 
       layout.attr('width', el.clientWidth).attr('height', el.clientHeight);
@@ -148,7 +150,7 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      this._zoom = d3Zoom.zoom().on('zoom', function() {
+      this._zoom = d3Zoom.zoom().on('zoom', function () {
         const attr = layout.attr('transform', d3.event.transform);
         view.resize();
         return attr;
@@ -182,14 +184,14 @@ export class SVGBoxView extends BoxView {
       .select(`#${CSS.LAYOUT}-ROOT-${view.cid}`)
       .attr('transform', `scale(${scale})`);
     const area = layout.selectAll('g');
-    const named: any = area.filter(function() {
+    const named: any = area.filter(function () {
       // tslint:disable
       const label = d3.select(this).attr(`:${areaAttr}`);
       // tslint:enable
       return label && visibleAreas.find((re: any) => label.match(re));
     });
 
-    area.each(function() {
+    area.each(function () {
       // tslint:disable
       const area = this;
       // tslint:enable
@@ -209,7 +211,7 @@ export class SVGBoxView extends BoxView {
     const el_bb = view.el.getBoundingClientRect();
     const childModels: DOMWidgetModel[] = view.model.get('children');
 
-    _(areaWidgets).forIn(function(idx, label) {
+    _(areaWidgets).forIn(function (idx, label) {
       const item = childModels[idx];
       let labelRegExp = view.patternToRegexp(label);
       if (!labelRegExp) {
@@ -221,33 +223,37 @@ export class SVGBoxView extends BoxView {
       const bb = area && area.getBoundingClientRect();
 
       if (!area) {
-        _(item.views).forIn(function(childPromise) {
-          childPromise.then((child: any) => {
-            d3.select(child.el).style('display', 'none');
-          });
+        _(item.views).forIn(function (childPromise) {
+          childPromise
+            .then((child: any) => {
+              d3.select(child.el).style('display', 'none');
+            })
+            .catch(console.warn);
         });
         return;
       }
 
-      ['width', 'height'].map(function(attr) {
+      ['width', 'height'].map(function (attr) {
         if (!item.has(attr)) {
           return;
         }
         item.set(attr, bb[attr]);
       });
 
-      _(item.views).forIn(function(child) {
-        child.then(function(child: any) {
-          d3.select(child.el)
-            .style('position', 'absolute')
-            .style('display', null)
-            .style('opacity', 1.0)
-            .style('top', `${bb.top - el_bb.top}px`)
-            .style('left', `${bb.left - el_bb.left}px`)
-            .style('width', `${bb.width}px`)
-            .style('height', `${bb.height}px`);
-          child.touch();
-        });
+      _(item.views).forIn(function (child) {
+        child
+          .then(function (child: any) {
+            d3.select(child.el)
+              .style('position', 'absolute')
+              .style('display', null)
+              .style('opacity', 1.0)
+              .style('top', `${bb.top - el_bb.top}px`)
+              .style('left', `${bb.left - el_bb.left}px`)
+              .style('width', `${bb.width}px`)
+              .style('height', `${bb.height}px`);
+            child.touch();
+          })
+          .catch(console.warn);
       });
     });
   }

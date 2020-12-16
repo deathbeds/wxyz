@@ -16,9 +16,9 @@ const plugin: IPlugin<Application<Widget>, void> = {
     registry.registerWidget({
       name: NAME,
       version: VERSION,
-      exports: async () => import('./widgets')
+      exports: async () => import('./widgets'),
     });
-  }
+  },
 };
 
 export default plugin;

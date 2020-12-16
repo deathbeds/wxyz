@@ -4,6 +4,7 @@ channels:
   - https://conda.anaconda.org/conda-forge
 
 dependencies:
+  - bs4
   - doit
   - importnb
   - ipywidgets

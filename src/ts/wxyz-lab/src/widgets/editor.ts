@@ -1,15 +1,85 @@
 import CodeMirror from 'codemirror';
 
-import { DOMWidgetView } from '@jupyter-widgets/base';
+import {
+  DOMWidgetView,
+  unpack_models as deserialize,
+} from '@jupyter-widgets/base';
 import { TextareaModel } from '@jupyter-widgets/controls';
 
+import { WXYZ } from '@deathbeds/wxyz-core/lib/widgets/_base';
 import { NAME, VERSION } from '..';
 
 import { Mode } from '@jupyterlab/codemirror';
 
+interface IHasChanged {
+  changed: { [key: string]: any };
+}
+
 const EDITOR_CLASS = 'jp-WXYZ-Editor';
 
-const WATCHED_OPTIONS = ['mode', 'theme'];
+const WATCHED_OPTIONS = [
+  // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration
+  'autofocus',
+  'cursorBlinkRate',
+  'cursorHeight',
+  'dragDrop',
+  'electricChars',
+  'firstLineNumber',
+  'fixedGutter',
+  'flattenSpans',
+  'foldGutter',
+  'historyEventDelay',
+  'indentUnit',
+  'indentWithTabs',
+  'keyMap',
+  'lineNumbers',
+  'lineWrapping',
+  'maxHighlightLength',
+  'mode',
+  'placeholder',
+  'pollInterval',
+  'readOnly',
+  'rtlMoveVisually',
+  'scrollbarStyle',
+  'showCursorWhenSelecting',
+  'smartIndent',
+  'tabSize',
+  'tabindex',
+  'theme',
+  'undoDepth',
+  'viewportMargin',
+  'workDelay',
+  'workTime',
+  // END SCHEMAGEN:PROPERTIES
+];
+const WATCHED_EVENTS = WATCHED_OPTIONS.reduce((m, o) => `${m} change:${o}`, '');
+
+/** A CodeMirror options for "simple" options
+ *
+ * TODO: generate a JSON schema and kernel widget class
+ */
+export class EditorConfigModel extends WXYZ {
+  static model_module = NAME;
+  static model_module_version = VERSION;
+  static model_name = 'EditorConfigModel';
+
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: EditorConfigModel.model_name,
+      _model_module: NAME,
+      _model_module_version: VERSION,
+    };
+  }
+
+  to_codemirror() {
+    const opts = {} as any;
+    for (const opt of WATCHED_OPTIONS) {
+      opts[opt] = this.get(opt);
+    }
+    return opts;
+  }
+}
 
 export class EditorModel extends TextareaModel {
   static model_name = 'EditorModel';
@@ -18,6 +88,11 @@ export class EditorModel extends TextareaModel {
   static view_name = 'EditorView';
   static view_module = NAME;
   static view_module_version = VERSION;
+
+  static serializers = {
+    ...TextareaModel.serializers,
+    config: { deserialize },
+  };
 
   defaults() {
     return {
@@ -30,8 +105,6 @@ export class EditorModel extends TextareaModel {
       _view_module_version: VERSION,
       description: 'An Editor',
       icon_class: 'jp-EditIcon',
-      mode: null,
-      theme: null
     };
   }
 }
@@ -49,26 +122,52 @@ export class EditorView extends DOMWidgetView {
     });
 
     this.model.on('change:value', this.value_changed, this);
-
-    const watchers = WATCHED_OPTIONS.map(opt => {
-      const watcher = this.optionWatcher(opt);
-      this.model.on(`change:${opt}`, watcher);
-      return watcher;
-    });
+    this.model.on('change:config', this.config_changed, this);
 
     setTimeout(() => {
       this._editor.refresh();
       this.value_changed();
-      watchers.map(fn => fn());
+      const config = this.model.get('config') as EditorConfigModel;
+      if (config != null) {
+        this.some_config_changed({ changed: config.to_codemirror() });
+      }
     }, 1);
+
+    this.config_changed();
   }
 
-  optionWatcher(attr: string) {
-    return async () => {
-      const value = this.model.get(attr);
-      switch (attr) {
+  config_changed() {
+    let previous = (this.model.previousAttributes() as any)
+      .options as EditorConfigModel;
+
+    if (previous != null) {
+      previous.off(WATCHED_EVENTS, this.some_config_changed, this);
+    }
+
+    const opts = this.model.get('config') as EditorConfigModel;
+
+    if (opts != null) {
+      opts.on(WATCHED_EVENTS, this.some_config_changed, this);
+    }
+  }
+
+  some_config_changed(change?: IHasChanged) {
+    const changed = change?.changed;
+
+    if (!changed) {
+      return;
+    }
+
+    for (const opt of Object.keys(changed)) {
+      if (WATCHED_OPTIONS.indexOf(opt) === -1) {
+        continue;
+      }
+      const value = changed[opt];
+      switch (opt) {
         case 'theme':
-          import(`codemirror/theme/${value}.css`).catch(console.warn);
+          if (value) {
+            import(`codemirror/theme/${value}.css`).catch(console.warn);
+          }
           break;
         case 'mode':
           Mode.ensure(value).catch(console.warn);
@@ -76,9 +175,10 @@ export class EditorView extends DOMWidgetView {
         default:
           break;
       }
-      this._editor.setOption(attr, value);
-      this._editor.refresh();
-    };
+      this._editor.setOption(opt, value);
+    }
+
+    this._editor.refresh();
   }
 
   value_changed() {

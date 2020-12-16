@@ -7,7 +7,7 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "nunjucks": "^3.1.7"
+    "nunjucks": "^3.2.2"
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {

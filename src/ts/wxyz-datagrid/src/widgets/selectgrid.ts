@@ -7,7 +7,7 @@ import { JSONExt } from '@lumino/coreutils';
 import { toArray } from '@lumino/algorithm';
 
 const CSS = {
-  SELECT_GRID: 'jp-WXYZ-SelectGrid'
+  SELECT_GRID: 'jp-WXYZ-SelectGrid',
 };
 
 export type TSelection = [number, number, number, number];
@@ -18,7 +18,7 @@ export class SelectGridModel extends DataGridModel {
 
   static serializers = {
     ...DataGridModel.serializers,
-    selection: { deserialize }
+    selection: { deserialize },
   };
 
   protected createGrid() {
@@ -29,7 +29,7 @@ export class SelectGridModel extends DataGridModel {
     return {
       ...super.defaults(),
       _model_name: SelectGridModel.model_name,
-      _view_name: SelectGridModel.view_name
+      _view_name: SelectGridModel.view_name,
     };
   }
 }
@@ -89,7 +89,7 @@ export class SelectGridView extends DataGridView {
         r2,
         cursorColumn: Math.min(c1, c2),
         cursorRow: Math.min(r1, r2),
-        clear: 'none'
+        clear: 'none',
       });
     }
 

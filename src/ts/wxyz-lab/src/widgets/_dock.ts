@@ -7,12 +7,12 @@ import { DockPanelSvg } from '@jupyterlab/ui-components';
 import {
   JupyterPhosphorWidget,
   DOMWidgetView,
-  DOMWidgetModel
+  DOMWidgetModel,
 } from '@jupyter-widgets/base';
 
 export const CSS = {
   HIDE_TABS: 'jp-WXYZ-DockBox-hide-tabs',
-  DOCK_BOX: 'jp-WXYZ-DockBox'
+  DOCK_BOX: 'jp-WXYZ-DockBox',
 };
 
 let nextId = 0;
@@ -103,19 +103,20 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
     this._view.touch();
   }
 
-  areaToJWidgets(area: DockLayout.AreaConfig): object {
+  /* TODO: a better typing */
+  areaToJWidgets(area: DockLayout.AreaConfig): any {
     switch (area.type) {
       case 'split-area':
         return {
           ...area,
           // normalize the sizes to avoid thrashing
-          sizes: area.sizes.map(size => Math.floor(10000 * size) / 10000),
-          children: area.children.map(this.areaToJWidgets, this)
+          sizes: area.sizes.map((size) => Math.floor(10000 * size) / 10000),
+          children: area.children.map(this.areaToJWidgets, this),
         };
       case 'tab-area':
         return {
           ...area,
-          widgets: area.widgets.map(this.findJWidgetModel, this)
+          widgets: area.widgets.map(this.findJWidgetModel, this),
         };
       default:
         break;
@@ -152,12 +153,12 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
       case 'split-area':
         return {
           ...area,
-          children: area.children.map(this.jWidgetsToArea, this)
+          children: area.children.map(this.jWidgetsToArea, this),
         };
       case 'tab-area':
         return {
           ...area,
-          widgets: json.widgets.map(this.findPWidget, this)
+          widgets: json.widgets.map(this.findPWidget, this),
         };
       default:
         break;
@@ -194,7 +195,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
         icon_class,
         closable,
         _view_name,
-        _model_name
+        _model_name,
       } = view.model.attributes;
       widget.title.label = description || _view_name || _model_name;
       widget.title.iconClass = `jp-Icon-16 ${icon_class || 'jp-CircleIcon'}`;

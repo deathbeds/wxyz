@@ -3,7 +3,7 @@ import { DataGridModel, DataGridView } from './datagrid';
 import { StyleGrid } from './pwidgets/stylegrid';
 
 const CSS = {
-  STYLE_GRID: 'jp-WXYZ-StyleGrid'
+  STYLE_GRID: 'jp-WXYZ-StyleGrid',
 };
 
 export class StyleGridModel extends DataGridModel {
@@ -12,14 +12,14 @@ export class StyleGridModel extends DataGridModel {
 
   static serializers = {
     ...DataGridModel.serializers,
-    selection: { deserialize }
+    selection: { deserialize },
   };
 
   defaults() {
     return {
       ...super.defaults(),
       _model_name: StyleGridModel.model_name,
-      _view_name: StyleGridModel.view_name
+      _view_name: StyleGridModel.view_name,
     };
   }
 }

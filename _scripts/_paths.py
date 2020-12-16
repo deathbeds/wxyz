@@ -5,6 +5,7 @@ import json
 import os
 import platform
 import re
+import shutil
 import site
 import sys
 from pathlib import Path
@@ -33,6 +34,7 @@ LINUX = OS == "Linux"
 CONDA_PLATFORM = "win-64" if WIN else "osx-64" if OSX else "linux-64"
 
 CONDA_CMD = "conda" if WIN else "mamba"
+JLPM = shutil.which("jlpm")
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
@@ -48,7 +50,6 @@ CI_TEST_YML = CI / "job.test.yml"
 CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text())["parameters"]
 LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
-RECIPES = ROOT / "recipes"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
 
@@ -148,16 +149,6 @@ TS_TARBALLS = [
 
 
 LAB_INDEX = LAB / "static" / "index.html"
-
-CONDA_ORDER = ["core", "html", "lab", "datagrid", "svg", "tpl-jinja", "yaml"]
-
-CONDA_BUILD_ARGS = [
-    "conda-build",
-    "-c",
-    "conda-forge",
-    "--output-folder",
-    DIST / "conda-bld",
-]
 
 SDISTS = {
     pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
@@ -264,3 +255,26 @@ pip install {{ jupyterlab.discovery.server.base.name }}
 """
 
 TS_README_TMPL = jinja2.Template(TS_README_TXT)
+
+
+PY_LINT_CMDS = [
+    [lambda files: [["isort", "-rc", *files], ["black", "--quiet", *files]]],
+    ["flake8", "--max-line-length", "88"],
+    ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
+]
+
+
+LINT_GROUPS = {
+    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
+}
+
+LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY]
+
+SCHEMA = BUILD / "schema"
+SCHEMA_WIDGETS = {
+    TS_SRC
+    / "wxyz-lab/src/widgets/_cm_options.ts": [
+        TS_SRC / "wxyz-lab/src/widgets/editor.ts",
+        PY_SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
+    ]
+}

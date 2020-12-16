@@ -9,7 +9,7 @@ export class SelectGrid extends StyleGrid {
   protected _scrollLock = false;
 
   protected onBeforeAttach(msg: Message): void {
-    ['touchmove', 'mouseup'].forEach(evt =>
+    ['touchmove', 'mouseup'].forEach((evt) =>
       this.node.addEventListener(evt, this)
     );
     super.onBeforeAttach(msg);
@@ -34,7 +34,7 @@ export class SelectGrid extends StyleGrid {
       scroll_x: nx,
       scroll_y: ny,
       max_x: nmx,
-      max_y: nmy
+      max_y: nmy,
     });
     this.updateViewport();
     this._view.touch();
@@ -104,7 +104,7 @@ export class SelectGrid extends StyleGrid {
     const [c, r] = this.hoveredCell(evt);
     m.set({
       hover_row: r,
-      hover_column: c
+      hover_column: c,
     });
   }
 

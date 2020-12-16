@@ -22,7 +22,7 @@ export class FullscreenModel extends BoxModel {
       _model_module_version: VERSION,
       _view_name: FullscreenModel.view_name,
       _view_module: NAME,
-      _view_module_version: VERSION
+      _view_module_version: VERSION,
     };
   }
 }
@@ -39,7 +39,7 @@ export class FullscreenView extends BoxView {
         if (anyful && anyful.enabled) {
           anyful.request(this.el);
         }
-      }
+      },
     };
   }
 }

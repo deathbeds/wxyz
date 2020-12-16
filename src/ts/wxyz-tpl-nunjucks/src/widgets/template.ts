@@ -1,6 +1,6 @@
 import {
   WidgetModel,
-  unpack_models as deserialize
+  unpack_models as deserialize,
 } from '@jupyter-widgets/base';
 
 import { FnModel } from '@deathbeds/wxyz-core/lib/widgets/_base';
@@ -24,7 +24,7 @@ export class TemplateModel extends FnModel<
     return {
       ...super.defaults(),
       _model_name: TemplateModel.model_name,
-      context: null as WidgetModel
+      context: null as WidgetModel,
     };
   }
 
@@ -71,12 +71,16 @@ export class TemplateModel extends FnModel<
     if (context instanceof WidgetModel) {
       context.on('change', this.theSourceChanged, this);
     }
-    this.theSourceChanged();
+    this.theSourceChanged().catch(console.warn);
   }
 }
 
 export namespace TemplateModel {
-  export type TContext = WidgetModel | object | Array<any> | null;
+  export type TContext =
+    | WidgetModel
+    | Record<string, unknown>
+    | Array<any>
+    | null;
   export interface ITraits extends FnModel.ITraits<string, string> {
     context: TContext;
   }

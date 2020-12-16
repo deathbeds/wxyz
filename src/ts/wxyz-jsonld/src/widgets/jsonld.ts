@@ -1,13 +1,13 @@
-// this is a name-only import
 import * as jsonld from 'jsonld';
+import { Context, Frame, JsonLdArray } from 'jsonld/jsonld-spec';
 
 import { JSONLDBase } from './_jsonld';
 
-const { getJSONLD, loadJSONLD } = JSONLDBase;
+import { TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 export class ExpandModel extends JSONLDBase<
-  object,
-  object[],
+  TObject,
+  JsonLdArray,
   ExpandModel.ITraits
 > {
   static model_name = 'ExpandModel';
@@ -16,17 +16,16 @@ export class ExpandModel extends JSONLDBase<
     return { ...super.defaults(), _model_name: ExpandModel.model_name };
   }
 
-  async theFunction(source: object) {
+  async theFunction(source: TObject) {
     const context = this.theExpandContext;
     const opts = context ? { expandContext: context } : {};
-    const { expand } = getJSONLD() || (await loadJSONLD());
-    return await expand(source, opts);
+    return await jsonld.expand(source, opts);
   }
 }
 
 export class CompactModel extends JSONLDBase<
-  object,
-  object,
+  TObject,
+  TObject,
   CompactModel.ITraits
 > {
   static model_name = 'CompactModel';
@@ -41,19 +40,18 @@ export class CompactModel extends JSONLDBase<
     return this;
   }
 
-  async theFunction(source: object) {
+  async theFunction(source: TObject) {
     const expandContext = this.theExpandContext;
-    const context = this.get('context') as jsonld.IContext;
-    const { compact } = getJSONLD() || (await loadJSONLD());
-    return await compact(source, context, {
-      ...(expandContext ? { expandContext } : {})
-    });
+    const context = this.get('context') as Context;
+    return (await jsonld.compact(source, context, {
+      ...(expandContext ? { expandContext } : {}),
+    })) as TObject;
   }
 }
 
 export class FlattenModel extends JSONLDBase<
-  object,
-  object,
+  TObject,
+  TObject,
   FlattenModel.ITraits
 > {
   static model_name = 'FlattenModel';
@@ -68,17 +66,20 @@ export class FlattenModel extends JSONLDBase<
     return this;
   }
 
-  async theFunction(source: object) {
+  async theFunction(source: TObject) {
     const expandContext = this.theExpandContext;
-    const context = this.get('context') as jsonld.IContext;
-    const { flatten } = getJSONLD() || (await loadJSONLD());
-    return await flatten(source, context, {
-      ...(expandContext ? { expandContext } : {})
-    });
+    const context = this.get('context') as Context;
+    return (await jsonld.flatten(source, context, {
+      ...(expandContext ? { expandContext } : {}),
+    })) as TObject;
   }
 }
 
-export class FrameModel extends JSONLDBase<object, object, FrameModel.ITraits> {
+export class FrameModel extends JSONLDBase<
+  TObject,
+  TObject,
+  FrameModel.ITraits
+> {
   static model_name = 'FrameModel';
 
   defaults() {
@@ -91,19 +92,16 @@ export class FrameModel extends JSONLDBase<object, object, FrameModel.ITraits> {
     return this;
   }
 
-  async theFunction(source: object) {
-    const expandContext = this.theExpandContext;
-    const frameContext = this.get('frame') as jsonld.IContext;
-    const { frame } = getJSONLD() || (await loadJSONLD());
-    return await frame(source, frameContext, {
-      ...(expandContext ? { expandContext } : {})
-    });
+  async theFunction(source: TObject) {
+    const frame = this.get('frame') as Frame;
+    const framed = await jsonld.frame(source, frame);
+    return framed as TObject;
   }
 }
 
 export class NormalizeModel extends JSONLDBase<
-  object,
-  object | string,
+  TObject,
+  TObject | string,
   NormalizeModel.ITraits
 > {
   static model_name = 'NormalizeModel';
@@ -118,47 +116,46 @@ export class NormalizeModel extends JSONLDBase<
     return this;
   }
 
-  async theFunction(source: object) {
+  async theFunction(source: TObject) {
     const expandContext = this.theExpandContext;
     const format = this.get('format');
-    const { normalize } = getJSONLD() || (await loadJSONLD());
-    return await normalize(source, {
+    return await jsonld.normalize(source, {
       ...(expandContext ? { expandContext } : {}),
-      ...(format ? { format } : {})
+      ...(format ? { format } : {}),
     });
   }
 }
 
 export namespace ExpandModel {
-  export interface ITraits<V = object, W = object[]>
+  export interface ITraits<V = TObject, W = JsonLdArray>
     extends JSONLDBase.ITraits<V, W> {
-    expand_context: object;
+    expand_context: TObject;
   }
 }
 
 export namespace CompactModel {
-  export interface ITraits<V = object, W = object>
+  export interface ITraits<V = TObject, W = TObject>
     extends JSONLDBase.ITraits<V, W> {
-    context: jsonld.IContext;
+    context: Context;
   }
 }
 
 export namespace FlattenModel {
-  export interface ITraits<V = object, W = object>
+  export interface ITraits<V = TObject, W = TObject>
     extends JSONLDBase.ITraits<V, W> {
-    context: jsonld.IContext;
+    context: Context;
   }
 }
 
 export namespace FrameModel {
-  export interface ITraits<V = object, W = object>
+  export interface ITraits<V = TObject, W = TObject>
     extends JSONLDBase.ITraits<V, W> {
-    frame: jsonld.IContext;
+    frame: Context;
   }
 }
 
 export namespace NormalizeModel {
-  export interface ITraits<V = object, W = object | string>
+  export interface ITraits<V = TObject, W = TObject | string>
     extends JSONLDBase.ITraits<V, W> {
     format: string;
   }

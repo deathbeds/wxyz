@@ -6,13 +6,13 @@ import { NAME, VERSION } from '..';
 import {
   WXYZ,
   WXYZBox,
-  createModel
+  createModel,
 } from '@deathbeds/wxyz-core/lib/widgets/_base';
 
 const CSS = {
   FILE_BOX: 'jp-WXYZ-FileBox',
   FILE_BOX_OVER: 'jp-WXYZ-FileBox-dragover',
-  FILE_BOX_TARGET: 'jp-WXYZ-FileBox-DragTarget'
+  FILE_BOX_TARGET: 'jp-WXYZ-FileBox-DragTarget',
 };
 
 export class FileModel extends widgets.DOMWidgetModel {
@@ -28,8 +28,8 @@ export class FileModel extends widgets.DOMWidgetModel {
     value: {
       serialize: (value: ArrayBuffer) => {
         return new DataView((value ? value : new ArrayBuffer(0)).slice(0));
-      }
-    }
+      },
+    },
   };
 
   defaults() {
@@ -45,7 +45,7 @@ export class FileModel extends widgets.DOMWidgetModel {
       mime_type: 'text/plain',
       last_modified: +new Date(),
       size: 0,
-      value: null
+      value: null,
     };
   }
 
@@ -106,7 +106,7 @@ export class FileBoxModel extends WXYZBox {
     return {
       ...super.defaults(),
       _model_name: FileBoxModel.model_name,
-      _view_name: FileBoxModel.view_name
+      _view_name: FileBoxModel.view_name,
     };
   }
 
@@ -132,7 +132,7 @@ export class FileBoxView extends controls.BoxView {
       dragleave: 'onDragLeave',
       dragend: 'onDragLeave',
       dragexit: 'onDragLeave',
-      drop: 'onDrop'
+      drop: 'onDrop',
     };
   }
 
@@ -170,7 +170,7 @@ export class FileBoxView extends controls.BoxView {
     evt.preventDefault();
     this.pWidget.removeClass(CSS.FILE_BOX_OVER);
     this._input.files = evt.dataTransfer.files;
-    this.onInputChange();
+    this.onInputChange().catch(console.warn);
   }
 
   protected makeInput() {
@@ -188,7 +188,7 @@ export class FileBoxView extends controls.BoxView {
 
   async onInputChange() {
     const children = await Promise.all(
-      toArray(this._input.files).map(async file => {
+      toArray(this._input.files).map(async (file) => {
         const { name, type, size, lastModified } = file;
         const child: FileModel = await createModel(
           this.model.widget_manager,
@@ -199,7 +199,7 @@ export class FileBoxView extends controls.BoxView {
             last_modified: lastModified,
             mime_type: type,
             name,
-            size
+            size,
           }
         );
         child.file = file;

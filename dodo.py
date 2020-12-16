@@ -17,13 +17,6 @@ from doit.tools import PythonInteractiveAction, config_changed
 from _scripts import _paths as P, _util as U
 from _scripts._lock import iter_matrix, make_lock_task
 
-PY_LINT_CMDS = [
-    ["isort", "-rc"],
-    ["black", "--quiet"],
-    ["flake8", "--max-line-length", "88"],
-    ["pylint", "-sn", "-rn", f"--rcfile={P.PYLINTRC}"],
-]
-
 DOIT_CONFIG = {
     "backend": "sqlite3",
     "verbosity": 2,
@@ -36,7 +29,7 @@ def task_release():
     """run all tasks, except re-locking"""
     return dict(
         file_dep=[
-            *[P.OK / f"lint_{group}" for group in LINT_GROUPS],
+            *[P.OK / f"lint_{group}" for group in P.LINT_GROUPS],
             P.SHA256SUMS,
             P.OK / "integrity",
             P.OK / "labextensions",
@@ -154,7 +147,16 @@ else:
 def task_lint_prettier():
     """use prettier to format things"""
 
-    return dict(
+    yield dict(
+        name="core",
+        uptodate=[config_changed(P.README.read_text())],
+        file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
+        actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
+        targets=[P.README],
+    )
+
+    yield dict(
+        name="rest",
         file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
         targets=[P.OK / "prettier"],
         actions=[
@@ -165,21 +167,22 @@ def task_lint_prettier():
     )
 
 
-LINT_GROUPS = {
-    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in P.PY_SETUP
-}
-
-LINT_GROUPS["misc"] = [P.DODO, *P.SCRIPTS.glob("*.py"), *P.ATEST_PY]
-
-
 def _make_linter(label, files):
     def _task():
+        # pylint: disable=not-callable
         ok = f"lint_{label}"
         return dict(
             file_dep=[*files, P.OK / "setup_py"],
             actions=[
                 U.okit(ok, remove=True),
-                *[cmd + files for cmd in PY_LINT_CMDS if shutil.which(cmd[0])],
+                *sum(
+                    [
+                        cmd[0](files) if callable(cmd[0]) else [cmd + files]
+                        for cmd in P.PY_LINT_CMDS
+                        if callable(cmd[0]) or shutil.which(cmd[0])
+                    ],
+                    [],
+                ),
                 U.okit(ok),
             ],
             targets=[P.OK / ok],
@@ -191,7 +194,43 @@ def _make_linter(label, files):
     return {_task.__name__: _task}
 
 
-[globals().update(_make_linter(label, files)) for label, files in LINT_GROUPS.items()]
+[globals().update(_make_linter(label, files)) for label, files in P.LINT_GROUPS.items()]
+
+
+def _make_schema(source, targets):
+    schema = P.SCHEMA / f"{source.stem}.schema.json"
+
+    yield dict(
+        name=schema.name,
+        file_dep=[source, P.YARN_INTEGRITY],
+        actions=[
+            lambda: [P.SCHEMA.exists() or P.SCHEMA.mkdir(parents=True), None][-1],
+            [
+                P.JLPM,
+                "--silent",
+                "ts-json-schema-generator",
+                "--path",
+                source,
+                "--out",
+                schema,
+            ],
+        ],
+        targets=[schema],
+    )
+    for target in targets:
+        yield dict(
+            name=target.name,
+            file_dep=[schema, P.SCRIPTS / "_ts2w.py", P.YARN_INTEGRITY],
+            actions=[[*P.PYM, "_scripts._ts2w", schema, target]],
+            targets=[target],
+        )
+
+
+def task_schema():
+    """update code files from schema"""
+    for source, targets in P.SCHEMA_WIDGETS.items():
+        for task in _make_schema(source, targets):
+            yield task
 
 
 def _make_pydist(setup_py):
@@ -371,7 +410,10 @@ def _make_py_readme(setup_py):
     return dict(
         name=pkg.name,
         uptodate=[config_changed(P.PY_README_TXT)],
-        actions=[_write],
+        actions=[
+            _write,
+            ["jlpm", "prettier", "--write", "--list-different", readme],
+        ],
         file_dep=[P.README, setup_cfg],
         targets=[readme, license_],
     )
@@ -395,7 +437,10 @@ def _make_ts_readme(package_json):
     return dict(
         name=pkg.name,
         uptodate=[config_changed(P.TS_README_TXT)],
-        actions=[_write],
+        actions=[
+            _write,
+            ["jlpm", "prettier", "--write", "--list-different", readme],
+        ],
         file_dep=[P.README, package_json],
         targets=[readme, license_],
     )
@@ -468,7 +513,7 @@ def task_robot_lint():
     """format, then dry run robot syntax"""
 
     return dict(
-        file_dep=[*P.ALL_ROBOT, *P.ALL_SRC_PY, *P.ALL_TS],
+        file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
         targets=[P.OK / "robot_lint"],
         actions=[
             U.okit("robot_dry_run", remove=True),

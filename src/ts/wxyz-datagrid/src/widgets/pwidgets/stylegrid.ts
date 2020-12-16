@@ -8,7 +8,7 @@ const SIZES = [
   'row_size',
   'column_size',
   'row_header_size',
-  'column_header_size'
+  'column_header_size',
 ];
 
 const COLORS = [
@@ -16,7 +16,7 @@ const COLORS = [
   'background_color',
   'grid_line_color',
   'header_background_color',
-  'header_grid_line_color'
+  'header_grid_line_color',
 ];
 
 export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
@@ -34,8 +34,8 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   protected onSetView() {
     const m = this.view.model;
     m.on('change:cell_renderers', this.onModelCellRenderers, this);
-    m.on(SIZES.map(t => `change:${t}`).join(' '), this.onModelSize, this);
-    m.on(COLORS.map(t => `change:${t}`).join(' '), this.onColor, this);
+    m.on(SIZES.map((t) => `change:${t}`).join(' '), this.onModelSize, this);
+    m.on(COLORS.map((t) => `change:${t}`).join(' '), this.onColor, this);
     this.onModelCellRenderers();
     this.onModelSize();
     this.onColor();
@@ -49,12 +49,12 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
 
   makeRenderers() {
     let rms: CellRendererModel[] = this._view.model.get('cell_renderers');
-    return rms.map(rm => {
+    return rms.map((rm) => {
       return {
         region: rm.get('region') || 'body',
         metadata: rm.get('metadata') || {},
         renderer: rm.toRenderer(() => this.setRenderer(rm)),
-        model: rm
+        model: rm,
       };
     });
   }
@@ -62,7 +62,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   onModelCellRenderers() {
     let renderers = this.makeRenderers();
     (this.cellRenderers as any)._values = {};
-    renderers.map(r => {
+    renderers.map((r) => {
       if (r.model) {
         r.model.on('change', () => this.setRenderer(r.model));
       }

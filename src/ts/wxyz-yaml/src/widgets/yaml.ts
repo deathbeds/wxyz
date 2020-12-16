@@ -8,15 +8,15 @@ const _yaml = lazyLoader(
 export class YAMLModel extends JSONModel {
   static model_name = 'YAMLModel';
 
-  defaults() {
+  defaults(): any {
     return {
       ...super.defaults(),
       _model_name: YAMLModel.model_name,
-      value: {} as any
+      value: {} as any,
     };
   }
 
-  async theFunction(source: string) {
+  async theFunction(source: string): Promise<any> {
     const { safeLoad } = _yaml.get() || (await _yaml.load());
     return safeLoad(source);
   }
@@ -25,10 +25,10 @@ export class YAMLModel extends JSONModel {
 export class UnYAMLModel extends UnJSONModel {
   static model_name = 'UnYAMLModel';
 
-  defaults() {
+  defaults(): any {
     return {
       ...super.defaults(),
-      _model_name: UnYAMLModel.model_name
+      _model_name: UnYAMLModel.model_name,
     };
   }
 
