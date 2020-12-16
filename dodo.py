@@ -198,18 +198,39 @@ def _make_linter(label, files):
 
 
 def _make_schema(source, targets):
-    return dict(
-        name=source.stem,
-        file_dep=[source, P.SCRIPTS / "_ts2w.py", P.YARN_INTEGRITY],
-        actions=[[*P.PYM, "_scripts._ts2w", source, *targets]],
-        targets=targets,
+    schema = P.SCHEMA / f"{source.stem}.schema.json"
+
+    yield dict(
+        name=schema.name,
+        file_dep=[source, P.YARN_INTEGRITY],
+        actions=[
+            lambda: [P.SCHEMA.exists() or P.SCHEMA.mkdir(parents=True), None][-1],
+            [
+                P.JLPM,
+                "--silent",
+                "ts-json-schema-generator",
+                "--path",
+                source,
+                "--out",
+                schema,
+            ],
+        ],
+        targets=[schema],
     )
+    for target in targets:
+        yield dict(
+            name=target.name,
+            file_dep=[schema, P.SCRIPTS / "_ts2w.py", P.YARN_INTEGRITY],
+            actions=[[*P.PYM, "_scripts._ts2w", schema, target]],
+            targets=[target],
+        )
 
 
 def task_schema():
     """update code files from schema"""
     for source, targets in P.SCHEMA_WIDGETS.items():
-        yield _make_schema(source, targets)
+        for task in _make_schema(source, targets):
+            yield task
 
 
 def _make_pydist(setup_py):

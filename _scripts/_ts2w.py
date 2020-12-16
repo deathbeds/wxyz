@@ -8,6 +8,7 @@ import subprocess
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
+from typing import List
 
 from yaml import safe_dump
 
@@ -139,21 +140,11 @@ def update_ts(schema, path):
     subprocess.check_call([JLPM, "prettier", "--write", str(path)])
 
 
-def ts_to_widget(source, targets):
+def ts_to_widget(schema_path: Path, target_paths: List[Path]):
     """generate widget files"""
-    schema = json.loads(
-        subprocess.check_output(
-            [
-                JLPM,
-                "--silent",
-                "ts-json-schema-generator",
-                "--path",
-                str(source),
-            ],
-        ).decode("utf-8")
-    )
+    schema = json.loads(schema_path.read_text(**ENC))
 
-    for path in targets:
+    for path in target_paths:
         if path.suffix == ".py":
             update_py(schema, path)
         elif path.suffix == ".ts":
@@ -164,8 +155,8 @@ def ts_to_widget(source, targets):
 
 def parser():
     """parse command line arguments"""
-    p = ArgumentParser("make widget boilerplate from JSON schema")
-    p.add_argument("source", help="the .ts source")
+    p = ArgumentParser("update widget boilerplate from JSON schema")
+    p.add_argument("schema", help="the JSON Schema source")
     p.add_argument("targets", nargs="+", help="the .ts or .py files to update")
     return p
 
@@ -174,7 +165,7 @@ def main():
     """main CLI entrypoint"""
     args = parser().parse_args()
     return ts_to_widget(
-        source=Path(args.source), targets=[Path(t) for t in args.targets]
+        schema_path=Path(args.schema), target_paths=[Path(t) for t in args.targets]
     )
 
 

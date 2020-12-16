@@ -5,6 +5,7 @@ import json
 import os
 import platform
 import re
+import shutil
 import site
 import sys
 from pathlib import Path
@@ -33,6 +34,7 @@ LINUX = OS == "Linux"
 CONDA_PLATFORM = "win-64" if WIN else "osx-64" if OSX else "linux-64"
 
 CONDA_CMD = "conda" if WIN else "mamba"
+JLPM = shutil.which("jlpm")
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
@@ -268,6 +270,7 @@ LINT_GROUPS = {
 
 LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY]
 
+SCHEMA = BUILD / "schema"
 SCHEMA_WIDGETS = {
     TS_SRC
     / "wxyz-lab/src/widgets/_cm_options.ts": [
