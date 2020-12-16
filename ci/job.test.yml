@@ -43,6 +43,15 @@ jobs:
               - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
                 displayName: update conda environment with test dependencies
 
+              - task: Cache@2
+                inputs:
+                  key: 'yarn | "$(Agent.OS)" | yarn.lock'
+                  restoreKeys: |
+                    yarn | "$(Agent.OS)"
+                    yarn
+                  path: .yarn-packages
+                displayName: cache yarn packages
+
               - script: conda info && conda list --prefix ${{ python.env }}
                 displayName: list conda packages and info
 

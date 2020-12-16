@@ -34,6 +34,7 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
     trait = "Any"
     args = []
     kwargs = []
+    tags = []
 
     ptype = prop.get("type")
     any_of = prop.get("anyOf")
@@ -68,6 +69,8 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
         else:
             trait = "Union"
             args += ["[T.Float(), T.Int()]"]
+    elif ptype == "array":
+        trait = "Tuple"
     else:
         print(
             prop_name,
@@ -80,16 +83,16 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
         dammit = UnicodeDammit(prop["description"])
         kwargs += [f"""help='''{dammit.unicode_markup}'''"""]
 
+    if add_tag:
+        # might need more tags
+        tags += ["sync=True"]
+        kwargs += ["allow_none=True", "default_value=None"]
+
     arg_str = ", ".join(args)
     kwarg_str = ", ".join(kwargs)
     all_args = [a for a in [arg_str, kwarg_str] if a]
     all_arg_str = ", ".join(all_args)
-
-    tag_str = ""
-
-    if add_tag:
-        # might need more tags
-        tag_str = ".tag(sync=True)"
+    tag_str = f""".tag({", ".join(tags)})""" if tags else ""
 
     return f"""T.{trait}({all_arg_str}){tag_str}"""
 

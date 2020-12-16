@@ -28,6 +28,7 @@ const WATCHED_OPTIONS = [
   'fixedGutter',
   'flattenSpans',
   'foldGutter',
+  'gutters',
   'historyEventDelay',
   'indentUnit',
   'indentWithTabs',
@@ -131,10 +132,25 @@ export class EditorView extends DOMWidgetView {
       if (config != null) {
         this.some_config_changed({ changed: config.to_codemirror() });
       }
+      this.pWidget.node.addEventListener('keyup', this.handle_keys);
     }, 1);
 
     this.config_changed();
   }
+
+  handle_keys = (event: KeyboardEvent) => {
+    if (event.ctrlKey) {
+      if (event.key === 'z') {
+        if (event.shiftKey) {
+          this._editor.getDoc().redo();
+        } else {
+          this._editor.getDoc().undo();
+        }
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+  };
 
   config_changed() {
     let previous = (this.model.previousAttributes() as any)
@@ -159,10 +175,10 @@ export class EditorView extends DOMWidgetView {
     }
 
     for (const opt of Object.keys(changed)) {
-      if (WATCHED_OPTIONS.indexOf(opt) === -1) {
+      const value = changed[opt];
+      if (value == null || WATCHED_OPTIONS.indexOf(opt) === -1) {
         continue;
       }
-      const value = changed[opt];
       switch (opt) {
         case 'theme':
           if (value) {
