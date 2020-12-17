@@ -36,7 +36,7 @@ jobs:
             pool:
               vmImage: ${{ platform.vmImage }}
             variables:
-              - name: CONDA_PKGS_DIR
+              - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
             steps:
               - template: steps.conda.yml
