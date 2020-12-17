@@ -1,3 +1,4 @@
+.conda-packages/
 **/__pycache__/
 **/.pytest_cache/
 **/build/
