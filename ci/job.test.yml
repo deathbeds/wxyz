@@ -29,16 +29,15 @@ parameters:
   lab_ext: jupyter labextension install --debug --no-build $(FIRST_PARTY_LABEXTENSIONS) $(THIRD_PARTY_LABEXTENSIONS)
   lab_build: jupyter lab build --debug --dev-build=False --minimize=True
 
-variables:
-  - name: CONDA_PKGS_DIR
-    value: ./conda-pkgs
-
 jobs:
   - ${{ each platform in parameters.platforms }}:
       - ${{ each python in parameters.pythons}}:
           - job: ${{ platform.name }}${{ python.name }}
             pool:
               vmImage: ${{ platform.vmImage }}
+            variables:
+              - name: CONDA_PKGS_DIR
+                value: ~/conda-pkgs
             steps:
               - template: steps.conda.yml
                 parameters:
