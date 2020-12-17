@@ -11,6 +11,10 @@ parameters:
       env: wxyz-test-38
   env_create: conda --file ci/env-test.yml --quiet
 
+variables:
+  - name: CONDA_PKGS_DIR
+    value: ~/conda-pkgs
+
 jobs:
   - ${{ each platform in parameters.platforms }}:
       - ${{ each python in parameters.pythons}}:
@@ -21,6 +25,15 @@ jobs:
               - template: steps.conda.yml
                 parameters:
                   name: ${{ platform.name }}
+
+              - task: Cache@2
+                inputs:
+                  key: 'conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  path: ~/.conda-pkgs
+                  restoreKeys: |
+                    conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
+                    conda | "$(Agent.OS)" | "${{ python.spec }}"
+                displayName: cache conda packages
 
               - script: mamba create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
                 displayName: update conda environment with test dependencies
