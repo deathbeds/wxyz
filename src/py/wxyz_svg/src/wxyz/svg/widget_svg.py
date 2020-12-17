@@ -27,7 +27,6 @@ class SVGBox(SVGBase, W.Box):
     area_attr = T.Unicode(
         DEFAULT_ATTR, help="namespaced XML attribute on SVG `g`s " "with unique values"
     ).tag(sync=True)
-    area_offsets = T.Dict(help="svg `g` offets").tag(sync=True)
 
     area_widgets = T.Dict(
         help="a dictionary of child indices keyed by unique values of "
@@ -37,6 +36,10 @@ class SVGBox(SVGBase, W.Box):
     visible_areas = T.Tuple(
         [None],
         help="a list of `area_attrs`s of SVG `g`s to show. " "Accepts [None] for all",
+    ).tag(sync=True)
+
+    zoom_lock = T.Bool(
+        False, help="Make children non-interactive for better pan/zoom"
     ).tag(sync=True)
 
     @T.observe("svg_file")
