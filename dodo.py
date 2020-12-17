@@ -322,7 +322,7 @@ def task_nbtest():
         actions=[
             U.okit("nbtest", True),
             lambda: U.call(
-                [*P.PYM, "pytest", "-vv", "--no-coverage-upload"],
+                [*P.PYM, "pytest", "-vv", "-n", "auto", "--no-coverage-upload"],
                 cwd=P.PY_SRC / "wxyz_notebooks",
             )
             == 0,
