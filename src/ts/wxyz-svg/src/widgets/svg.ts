@@ -169,6 +169,9 @@ export class SVGBoxView extends BoxView {
       layout.call(this._zoom);
     }
     const el = this.el.parentNode;
+    if (!el) {
+      return;
+    }
     const doc = document.documentElement;
     const aspectRatio = this._original.width / this._original.height;
     const areaWidgets = view.model.get('area_widgets');
