@@ -52,7 +52,7 @@ jobs:
                     conda | "$(Agent.OS)" | "${{ python.spec }}"
                 displayName: cache conda packages
 
-              - script: mamba create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
+              - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
                 displayName: update conda environment with test dependencies
 
               - task: Cache@2
