@@ -28,7 +28,7 @@ jobs:
               - task: Cache@2
                 inputs:
                   key: 'conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
-                  path: $(Agent.BuildDirectory)/conda-packages/
+                  path: $(Agent.BuildDirectory)/.conda-packages/
                   restoreKeys: |
                     conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
                     conda | "$(Agent.OS)" | "${{ python.spec }}"
