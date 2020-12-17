@@ -61,15 +61,15 @@ const WATCHED_EVENTS = WATCHED_OPTIONS.reduce((m, o) => `${m} change:${o}`, '');
  *
  */
 
-export class ModeInfoModel extends WXYZ {
+export class EditorModeInfoModel extends WXYZ {
   static model_module = NAME;
   static model_module_version = VERSION;
-  static model_name = 'ModeInfoModel';
+  static model_name = 'EditorModeInfoModel';
 
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: ModeInfoModel.model_name,
+      _model_name: EditorModeInfoModel.model_name,
       _model_module: NAME,
       _model_module_version: VERSION,
       modes: [] as Record<string, unknown>[],

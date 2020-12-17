@@ -4,9 +4,10 @@ from .base import LabBase, T, W, module_name, module_version
 
 
 @W.register
-class ModeInfo(W.Widget):
+class EditorModeInfo(W.Widget):
     """codemirror modes known to the frontend"""
-    _model_name = T.Unicode("ModeInfoModel").tag(sync=True)
+
+    _model_name = T.Unicode("EditorModeInfoModel").tag(sync=True)
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
     modes = T.Tuple().tag(sync=True)
@@ -20,7 +21,6 @@ class EditorConfig(W.Widget):
     _model_name = T.Unicode("EditorConfigModel").tag(sync=True)
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
-
 
     # the part between these comments will be rewritten
     # BEGIN SCHEMAGEN:TRAITS IEditorConfiguration
