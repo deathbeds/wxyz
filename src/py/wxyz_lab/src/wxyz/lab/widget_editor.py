@@ -4,6 +4,15 @@ from .base import LabBase, T, W, module_name, module_version
 
 
 @W.register
+class ModeInfo(W.Widget):
+    """codemirror modes known to the frontend"""
+    _model_name = T.Unicode("ModeInfoModel").tag(sync=True)
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+    modes = T.Tuple().tag(sync=True)
+
+
+@W.register
 class EditorConfig(W.Widget):
     """JSON-compatible CodeMirror configuration options."""
 
@@ -12,6 +21,8 @@ class EditorConfig(W.Widget):
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
 
+
+    # the part between these comments will be rewritten
     # BEGIN SCHEMAGEN:TRAITS IEditorConfiguration
     autofocus = T.Bool(
         help="""Can be used to make CodeMirror focus itself on initialization. Defaults to off. When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused, or it has an autofocus attribute and no other element is focused.""",
@@ -206,3 +217,6 @@ class Editor(LabBase, W.Textarea):
     config = W.trait_types.InstanceDict(EditorConfig).tag(
         sync=True, **W.widget_serialization
     )
+
+    scroll_y = T.Int(0).tag(sync=True)
+    scroll_x = T.Int(0).tag(sync=True)
