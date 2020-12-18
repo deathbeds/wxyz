@@ -6,6 +6,7 @@ channels:
 dependencies:
   - cycler
   - dask
+  - dask-labextension
   - dask-ml
   - distributed
   - ipympl
@@ -15,6 +16,6 @@ dependencies:
   - scikit-learn
   - scikit-mdr
   - skrebate
+  - tpot
   - umap-learn
   - yellowbrick
-  - tpot
