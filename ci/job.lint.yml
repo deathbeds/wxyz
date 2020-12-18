@@ -28,11 +28,11 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'conda | ${{ paramters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
                   path: $(Agent.BuildDirectory)/.conda-packages/
                   restoreKeys: |
-                    conda | ${{ paramters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
-                    conda | ${{ paramters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
                 displayName: cache conda packages
 
               - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
@@ -43,10 +43,10 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'yarn | ${{ paramters.cache_epoch }} | "$(Agent.OS)" | yarn.lock'
+                  key: 'yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | yarn.lock'
                   restoreKeys: |
-                    yarn | ${{ paramters.cache_epoch }} | "$(Agent.OS)"
-                    yarn | ${{ paramters.cache_epoch }}
+                    yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)"
+                    yarn | ${{ parameters.cache_epoch }}
                   path: .yarn-packages
                 displayName: cache yarn packages
 
