@@ -13,6 +13,7 @@ const CSS = {
   SVG: 'jp-WXYZ-SVG',
   LAYOUT: 'jp-WXYZ-SVG-Layout',
   ZOOM_LOCK: 'jp-WXYZ-SVG-zoom-lock',
+  ZOOMER: 'jp-WXYZ-SVG-Zoom',
 };
 
 export class SVGBoxModel extends BoxModel {
@@ -48,6 +49,7 @@ export class SVGBoxView extends BoxView {
   private _d3: d3.Selection<any, any, any, any>;
   private _lastSVG: string;
   private _original: TDims;
+  private _zoomer: SVGGElement;
 
   initialize(options: any) {
     this._d3 = d3
@@ -91,6 +93,13 @@ export class SVGBoxView extends BoxView {
     this.resize();
   }
 
+  addZoom(xml: string) {
+    const withZoom = xml
+      .replace(/(<svg(.|\n)*?>)/g, `$1\n<g class="${CSS.ZOOMER}">`)
+      .replace('</svg>', '</g>\n</svg>');
+    return withZoom;
+  }
+
   loadSVG(): void {
     const view = this;
     const el = this.el.parentNode;
@@ -101,11 +110,17 @@ export class SVGBoxView extends BoxView {
     layout.remove();
     this._zoom = null;
     layout.enter().call(function () {
-      const xml = view._parser.parseFromString(view._lastSVG, 'image/svg+xml');
+      const xml = view._parser.parseFromString(
+        view.addZoom(view._lastSVG),
+        'image/svg+xml'
+      );
+
       const importedNode = document.importNode(xml.documentElement, true);
       const newLayout = view._d3
         .insert(() => importedNode, ':first-child')
         .classed(CSS.LAYOUT, true);
+
+      view._zoomer = newLayout.select(`.${CSS.ZOOMER}`).node() as SVGGElement;
 
       // find all of the `svg:g`s that are groups
       const children = layout.selectAll('g').filter(
@@ -161,7 +176,7 @@ export class SVGBoxView extends BoxView {
     const view = this;
     if (!this._zoom) {
       this._zoom = d3Zoom.zoom().on('zoom', function (evt) {
-        const attr = layout.attr('transform', evt.transform);
+        const attr = d3.select(view._zoomer).attr('transform', evt.transform);
         view.resize();
         return attr;
       });
