@@ -38,6 +38,9 @@ jobs:
             variables:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
+              # skip some things
+              - name: TESTING_IN_CI
+                value: '1'
             steps:
               - template: steps.conda.yml
                 parameters:

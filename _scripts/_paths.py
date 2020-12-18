@@ -20,6 +20,7 @@ except ImportError:
 
 RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
+TESTING_IN_CI = bool(json.loads(os.environ.get("TESTING_IN_CI", "false")))
 
 PY = Path(sys.executable)
 PYM = [PY, "-m"]

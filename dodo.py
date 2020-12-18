@@ -144,27 +144,29 @@ else:
         )
 
 
-def task_lint_prettier():
-    """use prettier to format things"""
+if not P.TESTING_IN_CI:
 
-    yield dict(
-        name="core",
-        uptodate=[config_changed(P.README.read_text())],
-        file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
-        actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
-        targets=[P.README],
-    )
+    def task_lint_prettier():
+        """use prettier to format things"""
 
-    yield dict(
-        name="rest",
-        file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
-        targets=[P.OK / "prettier"],
-        actions=[
-            U.okit("prettier", remove=True),
-            ["jlpm", "lint"],
-            U.okit("prettier"),
-        ],
-    )
+        yield dict(
+            name="core",
+            uptodate=[config_changed(P.README.read_text())],
+            file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
+            actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
+            targets=[P.README],
+        )
+
+        yield dict(
+            name="rest",
+            file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
+            targets=[P.OK / "prettier"],
+            actions=[
+                U.okit("prettier", remove=True),
+                ["jlpm", "lint"],
+                U.okit("prettier"),
+            ],
+        )
 
 
 def _make_linter(label, files):
@@ -194,7 +196,11 @@ def _make_linter(label, files):
     return {_task.__name__: _task}
 
 
-[globals().update(_make_linter(label, files)) for label, files in P.LINT_GROUPS.items()]
+if not P.TESTING_IN_CI:
+    [
+        globals().update(_make_linter(label, files))
+        for label, files in P.LINT_GROUPS.items()
+    ]
 
 
 def _make_schema(source, targets):
@@ -301,14 +307,19 @@ def task_hash_dist():
 
 def task_ts():
     """build typescript components"""
+
+    file_dep = [
+        P.YARN_LOCK,
+        *P.TS_PACKAGE,
+        *P.TS_READMES,
+        *P.TS_LICENSES,
+    ]
+
+    if not P.TESTING_IN_CI:
+        file_dep += [P.OK / "prettier"]
+
     return dict(
-        file_dep=[
-            P.YARN_LOCK,
-            *P.TS_PACKAGE,
-            P.OK / "prettier",
-            *P.TS_READMES,
-            *P.TS_LICENSES,
-        ],
+        file_dep=file_dep,
         targets=[*P.TS_TARBALLS],
         actions=[["jlpm", "build"]],
     )
@@ -446,16 +457,18 @@ def _make_ts_readme(package_json):
     )
 
 
-def task_docs():
-    """make the docs right"""
+if not P.TESTING_IN_CI:
 
-    for setup_py in P.PY_SETUP:
-        yield _make_py_readme(setup_py)
+    def task_docs():
+        """make the docs right"""
 
-    for package_json in P.TS_PACKAGE:
-        if package_json.parent.name == "wxyz-meta":
-            continue
-        yield _make_ts_readme(package_json)
+        for setup_py in P.PY_SETUP:
+            yield _make_py_readme(setup_py)
+
+        for package_json in P.TS_PACKAGE:
+            if package_json.parent.name == "wxyz-meta":
+                continue
+            yield _make_ts_readme(package_json)
 
 
 def task_watch():
