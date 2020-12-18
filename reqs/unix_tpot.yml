@@ -1,0 +1,7 @@
+name: wxyz-unix-tpot
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - pytorch-cpu

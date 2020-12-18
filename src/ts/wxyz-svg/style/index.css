@@ -1,0 +1,6 @@
+.jp-WXYZ-SVG-zoom-lock .jupyter-widgets,
+.jp-WXYZ-SVG-zoom-lock svg g {
+  pointer-events: none;
+  opacity: 0.75 !important;
+  outline: dashed 1px var(--jp-brand-color2);
+}

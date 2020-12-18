@@ -33,7 +33,7 @@ LINUX = OS == "Linux"
 
 CONDA_PLATFORM = "win-64" if WIN else "osx-64" if OSX else "linux-64"
 
-CONDA_CMD = "conda" if WIN else "mamba"
+CONDA_CMD = "mamba" if not WIN and shutil.which("mamba") else "conda"
 JLPM = shutil.which("jlpm")
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
@@ -68,6 +68,8 @@ class ENV:
     win = REQS / "win.yml"
     unix = REQS / "unix.yml"
     tpot = REQS / "tpot.yml"
+    unix_tpot = REQS / "unix_tpot.yml"
+    win_tpot = REQS / "win_tpot.yml"
     WXYZ = REQS.glob("wxyz_*.yml")
 
 

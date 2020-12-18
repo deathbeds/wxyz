@@ -6,8 +6,7 @@ type TJSONUnsafeOption =
   | 'onDragEvent'
   | 'onKeyEvent'
   | 'lint'
-  | 'value'
-  | 'gutters';
+  | 'value';
 
 type TJSONSafeConfig = Omit<CodeMirror.EditorConfiguration, TJSONUnsafeOption>;
 

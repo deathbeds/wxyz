@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror';
 
+import { Platform } from '@lumino/domutils';
 import {
   DOMWidgetView,
   unpack_models as deserialize,
@@ -18,6 +19,7 @@ interface IHasChanged {
 const EDITOR_CLASS = 'jp-WXYZ-Editor';
 
 const WATCHED_OPTIONS = [
+  // the part between these comments will be rewritten
   // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration
   'autofocus',
   'cursorBlinkRate',
@@ -28,6 +30,7 @@ const WATCHED_OPTIONS = [
   'fixedGutter',
   'flattenSpans',
   'foldGutter',
+  'gutters',
   'historyEventDelay',
   'indentUnit',
   'indentWithTabs',
@@ -54,9 +57,33 @@ const WATCHED_OPTIONS = [
 ];
 const WATCHED_EVENTS = WATCHED_OPTIONS.reduce((m, o) => `${m} change:${o}`, '');
 
-/** A CodeMirror options for "simple" options
+/**
  *
- * TODO: generate a JSON schema and kernel widget class
+ */
+
+export class EditorModeInfoModel extends WXYZ {
+  static model_module = NAME;
+  static model_module_version = VERSION;
+  static model_name = 'EditorModeInfoModel';
+
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: EditorModeInfoModel.model_name,
+      _model_module: NAME,
+      _model_module_version: VERSION,
+      modes: [] as Record<string, unknown>[],
+    };
+  }
+
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    this.set('modes', Mode.getModeInfo());
+    this.save_changes();
+  }
+}
+
+/** A CodeMirror options for "simple" options (e.g. JSON-compatible)
  */
 export class EditorConfigModel extends WXYZ {
   static model_module = NAME;
@@ -94,6 +121,9 @@ export class EditorModel extends TextareaModel {
     config: { deserialize },
   };
 
+  /* the cid of the active scroller */
+  scroller: string;
+
   defaults() {
     return {
       ...super.defaults(),
@@ -110,7 +140,8 @@ export class EditorModel extends TextareaModel {
 }
 
 export class EditorView extends DOMWidgetView {
-  private _editor: CodeMirror.Editor = null as any;
+  protected _editor: CodeMirror.Editor = null as any;
+  model: EditorModel;
 
   render() {
     super.render();
@@ -118,11 +149,17 @@ export class EditorView extends DOMWidgetView {
     this._editor = CodeMirror(this.el);
     this._editor.on('change', () => {
       this.model.set('value', this._editor.getValue());
-      this.touch();
     });
+
+    this._editor.on('scroll', this.on_editor_scroll);
 
     this.model.on('change:value', this.value_changed, this);
     this.model.on('change:config', this.config_changed, this);
+    this.model.on(
+      'change:scroll_x change:scroll_y',
+      this.on_scroll_change,
+      this
+    );
 
     setTimeout(() => {
       this._editor.refresh();
@@ -131,11 +168,27 @@ export class EditorView extends DOMWidgetView {
       if (config != null) {
         this.some_config_changed({ changed: config.to_codemirror() });
       }
+      this.pWidget.node.addEventListener('keyup', this.handle_keys);
     }, 1);
 
     this.config_changed();
   }
 
+  handle_keys = (event: KeyboardEvent) => {
+    if (Platform.accelKey(event)) {
+      if (event.key === 'z') {
+        if (event.shiftKey) {
+          this._editor.getDoc().redo();
+        } else {
+          this._editor.getDoc().undo();
+        }
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+  };
+
+  // config
   config_changed() {
     let previous = (this.model.previousAttributes() as any)
       .options as EditorConfigModel;
@@ -144,10 +197,24 @@ export class EditorView extends DOMWidgetView {
       previous.off(WATCHED_EVENTS, this.some_config_changed, this);
     }
 
-    const opts = this.model.get('config') as EditorConfigModel;
+    const config = this.model.get('config') as EditorConfigModel;
 
-    if (opts != null) {
-      opts.on(WATCHED_EVENTS, this.some_config_changed, this);
+    if (config != null) {
+      const init = {} as Record<string, unknown>;
+      for (const opt of WATCHED_OPTIONS) {
+        const val = config.get(opt);
+        if (val == null) {
+          const editor_val = this._editor.getOption(opt);
+          if (editor_val != null) {
+            init[opt] = editor_val;
+          }
+        }
+      }
+      if (Object.keys(init)) {
+        config.set(init);
+        config.save_changes();
+      }
+      config.on(WATCHED_EVENTS, this.some_config_changed, this);
     }
   }
 
@@ -159,13 +226,13 @@ export class EditorView extends DOMWidgetView {
     }
 
     for (const opt of Object.keys(changed)) {
-      if (WATCHED_OPTIONS.indexOf(opt) === -1) {
+      const value = changed[opt];
+      if (value == null || WATCHED_OPTIONS.indexOf(opt) === -1) {
         continue;
       }
-      const value = changed[opt];
       switch (opt) {
         case 'theme':
-          if (value) {
+          if (value && value != 'default') {
             import(`codemirror/theme/${value}.css`).catch(console.warn);
           }
           break;
@@ -181,6 +248,7 @@ export class EditorView extends DOMWidgetView {
     this._editor.refresh();
   }
 
+  // value
   value_changed() {
     if (this._editor.getValue() !== this.model.get('value')) {
       let value = this.model.get('value');
@@ -188,6 +256,39 @@ export class EditorView extends DOMWidgetView {
         value = JSON.stringify(value, null, 2);
       }
       this._editor.setValue(value);
+      this.on_editor_scroll();
     }
   }
+
+  get center() {
+    const s = this._editor.getScrollInfo();
+    const pos = this._editor.coordsChar(s, 'local');
+    const center = { scroll_x: pos.ch, scroll_y: pos.line };
+    return center;
+  }
+
+  // scroll
+  on_scroll_change() {
+    const scroll = this._editor.getScrollInfo();
+    const x = this.model.get('scroll_x');
+    const y = this.model.get('scroll_y');
+    if (Math.round(scroll.left) === x && Math.round(scroll.top) === y) {
+      return;
+    }
+    this._editor.scrollTo(x, y);
+  }
+
+  on_editor_scroll = () => {
+    const scroll = this._editor.getScrollInfo();
+    const x = this.model.get('scroll_x');
+    const y = this.model.get('scroll_y');
+    if (Math.round(scroll.left) === x && Math.round(scroll.top) === y) {
+      return;
+    }
+    this.model.set({
+      scroll_x: Math.round(scroll.left),
+      scroll_y: Math.round(scroll.top),
+    });
+    this.touch();
+  };
 }

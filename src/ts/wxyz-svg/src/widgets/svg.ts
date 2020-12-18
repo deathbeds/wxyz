@@ -7,12 +7,12 @@ import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
-// import * as d3Drag from 'd3-drag';
 import _ from 'lodash';
 
 const CSS = {
   SVG: 'jp-WXYZ-SVG',
   LAYOUT: 'jp-WXYZ-SVG-Layout',
+  ZOOM_LOCK: 'jp-WXYZ-SVG-zoom-lock',
 };
 
 export class SVGBoxModel extends BoxModel {
@@ -33,6 +33,7 @@ export class SVGBoxModel extends BoxModel {
       _view_module: NAME,
       _view_module_version: VERSION,
       svg: '<svg></svg>',
+      zoom_lock: false,
     };
   }
 }
@@ -56,9 +57,18 @@ export class SVGBoxView extends BoxView {
     d3.select(window).on('', _.bind(this.update, this));
     this.pWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
+    this.model.on('change:zoom_lock', this.zoomLock, this);
     super.initialize(options);
     this.update(options);
     setTimeout(() => this.resize(), 11);
+  }
+
+  zoomLock() {
+    if (this.model.get('zoom_lock')) {
+      this.pWidget.addClass(CSS.ZOOM_LOCK);
+    } else {
+      this.pWidget.removeClass(CSS.ZOOM_LOCK);
+    }
   }
 
   update(options: any) {
@@ -150,8 +160,8 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      this._zoom = d3Zoom.zoom().on('zoom', function () {
-        const attr = layout.attr('transform', d3.event.transform);
+      this._zoom = d3Zoom.zoom().on('zoom', function (evt) {
+        const attr = layout.attr('transform', evt.transform);
         view.resize();
         return attr;
       });
@@ -159,6 +169,9 @@ export class SVGBoxView extends BoxView {
       layout.call(this._zoom);
     }
     const el = this.el.parentNode;
+    if (!el) {
+      return;
+    }
     const doc = document.documentElement;
     const aspectRatio = this._original.width / this._original.height;
     const areaWidgets = view.model.get('area_widgets');

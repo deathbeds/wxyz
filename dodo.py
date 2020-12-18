@@ -55,9 +55,9 @@ def task_lock():
             binder_args = task_args
         matrix_envs = list(test_envs)
         if "win-64" in task_args:
-            matrix_envs += [P.ENV.tpot, P.ENV.win]
+            matrix_envs += [P.ENV.tpot, P.ENV.win, P.ENV.win_tpot]
         else:
-            matrix_envs += [P.ENV.tpot, P.ENV.unix]
+            matrix_envs += [P.ENV.tpot, P.ENV.unix, P.ENV.unix_tpot]
 
         yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
@@ -66,7 +66,7 @@ def task_lock():
 
     yield make_lock_task(
         "binder",
-        [*base_envs, P.ENV.tpot, P.ENV.binder],
+        [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
         {},
         *binder_args,
     )
@@ -322,7 +322,7 @@ def task_nbtest():
         actions=[
             U.okit("nbtest", True),
             lambda: U.call(
-                [*P.PYM, "pytest", "-vv", "--no-coverage-upload"],
+                [*P.PYM, "pytest", "-vv", "-n", "auto", "--no-coverage-upload"],
                 cwd=P.PY_SRC / "wxyz_notebooks",
             )
             == 0,
