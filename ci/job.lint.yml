@@ -66,6 +66,6 @@ jobs:
                   artifactName: Dist $(Build.BuildId)
                 condition: always()
 
-              - bash: find ./.conda-packages/ -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+              - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                 condition: always()
                 displayName: prepare for conda cache
