@@ -47,6 +47,28 @@ While many create _pixels on the page_, some are focused around configurably
 transforming the [traitlets][] of one widget to another, in the _kernel_, the
 _browser_ or _both_.
 
+## Alternatives
+
+If you don't like `wxyz`, that's fine! There are a number of related tools that
+might be better suited to your needs.
+
+- [formulas]
+  - a python-side re-implementation of an excel/libreoffice reactive functional
+    programming model
+- [ipyevents]
+  - fine-grained DOM event control
+- [ipylab]
+  - a number of similar utilites as parts of `wxyz.lab`, and nice
+    support for commands, and additional `lumino` primitives, e.g. `SplitPanel`
+- [ipyregulartable]
+  - a high-performance datagrid solution, supporting pandas `MultiIndex`-type
+    data
+- [jupyter-starters]
+  - wizard-style project templates, driven by simple configuration, JSON schema
+    or notebooks
+- [jupyterlab-tour]
+  - a pleasant "guided tour"
+
 [binder-badge]: https://mybinder.org/badge_logo.svg
 [binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
 [build-badge]: https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=master
@@ -54,7 +76,13 @@ _browser_ or _both_.
 [changelog]: https://github.com/deathbeds/wxyz/blob/master/CHANGELOG.md
 [contributing]: https://github.com/deathbeds/wxyz/blob/master/CONTRIBUTING.md
 [examples]: https://github.com/deathbeds/wxyz/blob/master/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[formulas]: https://pypi.org/project/formulas/
+[ipyevents]: https://github.com/mwcraig/ipyevents
+[ipylab]: https://github.com/jtpio/ipylab
+[ipyregulartable]: https://github.com/jpmorganchase/ipyregulartable
 [ipywidgets]: https://github.com/jupyter-widgets/ipywidgets
+[jupyter-starters]: https://pypi.org/project/jupyter-starters/
+[jupyterlab-tour]: https://github.com/fcollonval/jupyterlab-tour
 [jupyterlab]: https://github.com/jupyterlab/jupyterlab
 [this repo]: https://github.com/deathbeds/wxyz
 [traitlets]: https://github.com/ipython/traitlets
