@@ -2,13 +2,23 @@
 /* eslint consistent-this: "off" */
 /* eslint @typescript-eslint/no-this-alias: "off" */
 
-import { Debouncer } from '@lumino/polling';
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';
+
+type TDims = {
+  height: number;
+  width: number;
+};
+
+type TZoom = {
+  x: number;
+  y: number;
+  k: number;
+};
 
 const CSS = {
   SVG: 'jp-WXYZ-SVG',
@@ -38,25 +48,28 @@ export class SVGBoxModel extends BoxModel {
       zoom_lock: false,
     };
   }
+
+  private _lastZoom: TZoom;
+
+  saveZoom(zoom: TZoom) {
+    const { x, y, k } = this._lastZoom || {};
+    if (this._lastZoom && x === zoom.x && y === zoom.y && k == zoom.k) {
+      return false;
+    }
+    this.set({ zoom_x: zoom.x, zoom_y: zoom.y, zoom_k: zoom.k });
+    this.save_changes();
+    this._lastZoom = zoom;
+    return true;
+  }
 }
 
-type TDims = {
-  height: number;
-  width: number;
-};
-
-type TZoom = {
-  x: number;
-  y: number;
-  k: number;
-};
-
 export class SVGBoxView extends BoxView {
+  model: SVGBoxModel;
   private _parser = new DOMParser();
   private _d3: d3.Selection<any, any, any, any>;
   private _lastSVG: string;
   private _original: TDims;
-  private _zoomer: SVGGElement;
+  private _zoomer: d3.Selection<any, any, any, any>;
 
   initialize(options: any) {
     this._d3 = d3
@@ -86,7 +99,7 @@ export class SVGBoxView extends BoxView {
   }
 
   onZoom() {
-    d3.select(this._zoomer).call(
+    this._zoomer.call(
       this._zoom.transform,
       d3Zoom.zoomIdentity
         .translate(this.model.get('zoom_x'), this.model.get('zoom_y'))
@@ -141,7 +154,7 @@ export class SVGBoxView extends BoxView {
         .insert(() => importedNode, ':first-child')
         .classed(CSS.LAYOUT, true);
 
-      view._zoomer = newLayout.select(`.${CSS.ZOOMER}`).node() as SVGGElement;
+      view._zoomer = newLayout.select(`.${CSS.ZOOMER}`);
 
       // find all of the `svg:g`s that are groups
       const children = layout.selectAll('g').filter(
@@ -187,20 +200,6 @@ export class SVGBoxView extends BoxView {
   }
 
   private _zoom: d3Zoom.ZoomBehavior<any, any>;
-  private _lastZoom: TZoom;
-
-  saveZoom() {
-    if (this._lastZoom == null) {
-      return;
-    }
-    const { x, y, k } = this._lastZoom;
-    this.model.set({
-      zoom_x: x,
-      zoom_y: y,
-      zoom_k: k,
-    });
-    this.touch();
-  }
 
   resize(): void {
     if (!this._original) {
@@ -210,13 +209,9 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      const debouncedZoom = new Debouncer(() => this.saveZoom(), 50);
       this._zoom = d3Zoom.zoom().on('zoom', function ({ transform }) {
-        const attr = d3.select(view._zoomer).attr('transform', transform);
-        view.resize();
-        view._lastZoom = transform;
-        debouncedZoom.invoke().catch(console.warn);
-        return attr;
+        view._zoomer.attr('transform', transform);
+        view.model.saveZoom(transform);
       });
 
       layout.call(this._zoom);
