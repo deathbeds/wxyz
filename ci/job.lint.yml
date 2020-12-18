@@ -38,9 +38,6 @@ jobs:
               - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
                 displayName: update conda environment with test dependencies
 
-              - script: conda clean -yaf
-                displayName: clean up after conda
-
               - task: Cache@2
                 inputs:
                   key: 'yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | yarn.lock'
@@ -68,3 +65,7 @@ jobs:
                   targetPath: dist
                   artifactName: Dist $(Build.BuildId)
                 condition: always()
+
+              - bash: find ./.conda-packages/ -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                condition: always()
+                displayName: prepare for conda cache
