@@ -10,7 +10,7 @@ https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-1_gnu.tar.bz2#
 https://conda.anaconda.org/conda-forge/linux-64/libgcc-ng-9.3.0-h5dbcf3e_17.tar.bz2#fc9f5adabc4d55cd4b491332adc413e0
 https://conda.anaconda.org/conda-forge/linux-64/bzip2-1.0.8-h7f98852_4.tar.bz2#a1fd65c7ccbf10880423d82bca54eb54
 https://conda.anaconda.org/conda-forge/linux-64/c-ares-1.17.1-h36c2ea0_0.tar.bz2#1aa683618a2df66800d568409d6841d1
-https://conda.anaconda.org/conda-forge/linux-64/icu-67.1-he1b5a44_0.tar.bz2#7ced6a5e5c94726af797d2b5a2b09228
+https://conda.anaconda.org/conda-forge/linux-64/icu-68.1-h58526e2_0.tar.bz2#fc7a4271dc2a7f4fd78cd63695baf7c3
 https://conda.anaconda.org/conda-forge/linux-64/libev-4.33-h516909a_1.tar.bz2#6f8720dff19e17ce5d48cfe7f3d2f0a3
 https://conda.anaconda.org/conda-forge/linux-64/libffi-3.3-h58526e2_2.tar.bz2#665369991d8dd290ac5ee92fce3e6bf5
 https://conda.anaconda.org/conda-forge/linux-64/libiconv-1.16-h516909a_0.tar.bz2#5c0f338a513a2943c659ae619fca9211
@@ -26,7 +26,7 @@ https://conda.anaconda.org/conda-forge/linux-64/libedit-3.1.20191231-he28a2e2_2.
 https://conda.anaconda.org/conda-forge/linux-64/libnghttp2-1.41.0-h8cfc5f6_2.tar.bz2#726ca0fed4bde95b056ef26df1efaf60
 https://conda.anaconda.org/conda-forge/linux-64/libsolv-0.7.16-h8b12597_0.tar.bz2#5b013b52b597c1738314c2c89a0f3a97
 https://conda.anaconda.org/conda-forge/linux-64/libssh2-1.9.0-hab1572f_5.tar.bz2#18aaa1bd2238ae2b5e89591046973123
-https://conda.anaconda.org/conda-forge/linux-64/libxml2-2.9.10-h68273f3_2.tar.bz2#0315cae0468a1e17f1e7fad5b13d53f8
+https://conda.anaconda.org/conda-forge/linux-64/libxml2-2.9.10-h72842e0_3.tar.bz2#5ed2c4742d5f1141783f484fe8974ccf
 https://conda.anaconda.org/conda-forge/linux-64/readline-8.0-he28a2e2_2.tar.bz2#4d0ae8d473f863696088f76800ef9d38
 https://conda.anaconda.org/conda-forge/linux-64/reproc-cpp-14.2.1-h58526e2_0.tar.bz2#d1d5d63dafc7b2e484d02823606db5d9
 https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.10-hed695b0_1.tar.bz2#7ef837cd455bd0f19f49b8b62d4cb568

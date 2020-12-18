@@ -6,7 +6,7 @@ https://conda.anaconda.org/conda-forge/noarch/nomkl-1.0-h5ca1d4c_0.tar.bz2#9a668
 https://conda.anaconda.org/conda-forge/win-64/ca-certificates-2020.12.5-h5b45459_0.tar.bz2#f36a2988a9f57cffdc43929ba67a3a2a
 https://conda.anaconda.org/conda-forge/noarch/llvm-meta-5.0.0-0.tar.bz2#213b5b5ad34008147a824460e50a691c
 https://conda.anaconda.org/conda-forge/win-64/msys2-conda-epoch-20160418-1.tar.bz2#b0309b72560df66f71a9d5e34a5efdfa
-https://conda.anaconda.org/conda-forge/win-64/pandoc-2.11.2-h8ffe710_0.tar.bz2#c851ffee6cf05f784fab5d2f3faee63c
+https://conda.anaconda.org/conda-forge/win-64/pandoc-2.11.3-h8ffe710_0.tar.bz2#f9585ec2b2f2abfa3840a0fe3cf8ece0
 https://conda.anaconda.org/conda-forge/win-64/vs2015_runtime-14.16.27012-h30e32a0_2.tar.bz2#37a0bcc72c5e97f5602dca37eb3f8314
 https://conda.anaconda.org/conda-forge/win-64/winpty-0.4.3-4.tar.bz2#1cee351bf20b830d991dbe0bc8cd7dfe
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gmp-6.1.0-2.tar.bz2#53a1c73e1e3d185516d7e3af177596d9
@@ -43,7 +43,7 @@ https://conda.anaconda.org/conda-forge/win-64/zlib-1.2.11-h62dcd97_1010.tar.bz2#
 https://conda.anaconda.org/conda-forge/win-64/fossil-2.13-h092b53a_0.tar.bz2#be275bcc9d687bf031a23775fe3f096a
 https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.tar.bz2#9f473a344e18668e99a93f7e21a54b69
 https://conda.anaconda.org/conda-forge/win-64/libpng-1.6.37-ha81a0f5_2.tar.bz2#cc8f11542031225ef813cbc7b60713fc
-https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-h1006b36_2.tar.bz2#9392b3214cbdde0d9e64f83915f91d45
+https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-hf5bbc77_3.tar.bz2#4d2f9377b960b9f1425e91e13a30126c
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gcc-libgfortran-5.3.0-6.tar.bz2#066552ac6b907ec6d72c0ddab29050dc
 https://conda.anaconda.org/conda-forge/win-64/python-3.7.9-h7840368_0_cpython.tar.bz2#5ca79ee9f34ec56ec44388bc7d209e7e
 https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.3-h0e60522_3.tar.bz2#3f14354fbaa50a70595d6d1a54292996
@@ -75,7 +75,7 @@ https://conda.anaconda.org/conda-forge/noarch/json5-0.9.5-pyh9f0ad1d_0.tar.bz2#1
 https://conda.anaconda.org/conda-forge/noarch/jsonpointer-2.0-py_0.tar.bz2#07d85c22a3beb102a48cd123df84c2a6
 https://conda.anaconda.org/conda-forge/win-64/libopenblas-0.3.12-pthreads_h1662909_1.tar.bz2#ce3f8e7ba2d789688878d8b7dfc2a08a
 https://conda.anaconda.org/conda-forge/win-64/libtiff-4.1.0-hc10be44_6.tar.bz2#a9dcdf2d500c7ae524a58d4249a0197a
-https://conda.anaconda.org/conda-forge/win-64/libxslt-1.1.33-h65864e5_1.tar.bz2#f0fa7593f000e94b224a73439f931be5
+https://conda.anaconda.org/conda-forge/win-64/libxslt-1.1.33-h65864e5_2.tar.bz2#129a6bde176b51eaa52541e28fa52d5c
 https://conda.anaconda.org/conda-forge/noarch/lime-0.2.0.1-pyh9f0ad1d_0.tar.bz2#b66e5cbd62ab93000794d7bb9cb985b5
 https://conda.anaconda.org/conda-forge/noarch/locket-0.2.0-py_2.tar.bz2#709e8671651c7ec3d1ad07800339ff1d
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gcc-libs-5.3.0-7.tar.bz2#fe759119b8b3bfa720b8762c6fdc35de
@@ -134,7 +134,7 @@ https://conda.anaconda.org/conda-forge/win-64/llvmlite-0.35.0-py37habb0c8c_0.tar
 https://conda.anaconda.org/conda-forge/win-64/lxml-4.6.2-py37hd07aab1_0.tar.bz2#65ecdf1236e2b7c19f8c094db2acfd34
 https://conda.anaconda.org/conda-forge/win-64/markupsafe-1.1.1-py37h0013d47_2.tar.bz2#64d8ab6d9e0694854e56ac2ae5171c78
 https://conda.anaconda.org/conda-forge/win-64/mistune-0.8.4-py37hcc03f2d_1002.tar.bz2#68f4f038551b4f6119361d43994b7531
-https://conda.anaconda.org/conda-forge/win-64/msgpack-python-1.0.1-py37h8c56517_0.tar.bz2#89e6f15dacdece48fc1c7aee4ed072cd
+https://conda.anaconda.org/conda-forge/win-64/msgpack-python-1.0.2-py37h8c56517_0.tar.bz2#138639864cc4c59a6912b0094ae534c0
 https://conda.anaconda.org/conda-forge/win-64/multidict-5.1.0-py37hcc03f2d_0.tar.bz2#b4bbac89c3e632d08fa1f1a8a00da990
 https://conda.anaconda.org/conda-forge/noarch/multipledispatch-0.6.0-py_0.tar.bz2#1073dc92c8f247d94ac14dd79ca0bbec
 https://conda.anaconda.org/conda-forge/win-64/mypy_extensions-0.4.3-py37hc8dfbb8_2.tar.bz2#9483ac6dcc014a8573f10c3978a12dd7
