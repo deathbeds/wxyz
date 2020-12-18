@@ -1,2 +1,5 @@
 # third-party lab extensions for demos
 @jupyter-widgets/jupyterlab-manager@2.0.0
+@jupyterlab/server-proxy
+@jupyterlab/toc
+dask-labextension
