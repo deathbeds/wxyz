@@ -2,5 +2,10 @@
 .jp-WXYZ-SVG-zoom-lock svg g {
   pointer-events: none;
   opacity: 0.75 !important;
-  outline: dashed 1px var(--jp-brand-color2);
+  outline: dotted 1px var(--jp-brand-color2);
+}
+
+.jp-WXYZ-SVG svg {
+  width: 100%;
+  height: 100%;
 }

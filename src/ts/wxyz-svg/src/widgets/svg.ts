@@ -2,6 +2,7 @@
 /* eslint consistent-this: "off" */
 /* eslint @typescript-eslint/no-this-alias: "off" */
 
+import { Debouncer } from '@lumino/polling';
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
@@ -44,6 +45,12 @@ type TDims = {
   width: number;
 };
 
+type TZoom = {
+  x: number;
+  y: number;
+  k: number;
+};
+
 export class SVGBoxView extends BoxView {
   private _parser = new DOMParser();
   private _d3: d3.Selection<any, any, any, any>;
@@ -60,6 +67,11 @@ export class SVGBoxView extends BoxView {
     this.pWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
     this.model.on('change:zoom_lock', this.zoomLock, this);
+    this.model.on(
+      'change:zoom_x change:zoom_y change:zoom_k',
+      this.onZoom,
+      this
+    );
     super.initialize(options);
     this.update(options);
     setTimeout(() => this.resize(), 11);
@@ -71,6 +83,15 @@ export class SVGBoxView extends BoxView {
     } else {
       this.pWidget.removeClass(CSS.ZOOM_LOCK);
     }
+  }
+
+  onZoom() {
+    d3.select(this._zoomer).call(
+      this._zoom.transform,
+      d3Zoom.zoomIdentity
+        .translate(this.model.get('zoom_x'), this.model.get('zoom_y'))
+        .scale(this.model.get('zoom_k'))
+    );
   }
 
   update(options: any) {
@@ -166,6 +187,20 @@ export class SVGBoxView extends BoxView {
   }
 
   private _zoom: d3Zoom.ZoomBehavior<any, any>;
+  private _lastZoom: TZoom;
+
+  saveZoom() {
+    if (this._lastZoom == null) {
+      return;
+    }
+    const { x, y, k } = this._lastZoom;
+    this.model.set({
+      zoom_x: x,
+      zoom_y: y,
+      zoom_k: k,
+    });
+    this.touch();
+  }
 
   resize(): void {
     if (!this._original) {
@@ -175,9 +210,12 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      this._zoom = d3Zoom.zoom().on('zoom', function (evt) {
-        const attr = d3.select(view._zoomer).attr('transform', evt.transform);
+      const debouncedZoom = new Debouncer(() => this.saveZoom(), 50);
+      this._zoom = d3Zoom.zoom().on('zoom', function ({ transform }) {
+        const attr = d3.select(view._zoomer).attr('transform', transform);
         view.resize();
+        view._lastZoom = transform;
+        debouncedZoom.invoke().catch(console.warn);
         return attr;
       });
 
