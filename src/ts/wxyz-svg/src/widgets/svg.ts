@@ -2,12 +2,14 @@
 /* eslint consistent-this: "off" */
 /* eslint @typescript-eslint/no-this-alias: "off" */
 
+import { Widget } from '@lumino/widgets';
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';
+import { JupyterPhosphorPanelWidget } from '@jupyter-widgets/base';
 
 type TDims = {
   height: number;
@@ -63,6 +65,13 @@ export class SVGBoxModel extends BoxModel {
   }
 }
 
+class SVGPanelWidget extends JupyterPhosphorPanelWidget {
+  onResize(msg: Widget.ResizeMessage) {
+    super.onResize(msg);
+    (this as any)._view.resize();
+  }
+}
+
 export class SVGBoxView extends BoxView {
   model: SVGBoxModel;
   private _parser = new DOMParser();
@@ -70,6 +79,11 @@ export class SVGBoxView extends BoxView {
   private _lastSVG: string;
   private _original: TDims;
   private _zoomer: d3.Selection<any, any, any, any>;
+
+  _createElement(tagname: string) {
+    this.pWidget = new SVGPanelWidget({ view: this });
+    return this.pWidget.node;
+  }
 
   initialize(options: any) {
     this._d3 = d3
