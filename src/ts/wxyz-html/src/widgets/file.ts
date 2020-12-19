@@ -1,6 +1,8 @@
 import { toArray } from '@lumino/algorithm';
+import { Debouncer } from '@lumino/polling';
 import * as widgets from '@jupyter-widgets/base';
 import * as controls from '@jupyter-widgets/controls';
+import { JSONExt } from '@lumino/coreutils';
 
 import { NAME, VERSION } from '..';
 import {
@@ -57,6 +59,69 @@ export class FileModel extends widgets.DOMWidgetModel {
       this.save_changes();
     };
     reader.readAsArrayBuffer(file);
+  }
+}
+
+export class JSONFileModel extends FileModel {
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: JSONFileModel.model_name,
+      name: 'Untitled.json',
+      mime_type: 'application/json',
+      last_modified: +new Date(),
+      size: 2,
+      value: '{}',
+    };
+  }
+
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    const debouncedJson = new Debouncer(this._on_json, 1000);
+    const debouncedBytes = new Debouncer(this._on_bytes, 1000);
+    this.on('change:json', () => debouncedJson.invoke(), this);
+    this.on('change:value', () => debouncedBytes.invoke(), this);
+  }
+
+  _on_json() {
+    const json = this.get('json');
+    const value = str2ab(JSON.stringify(json, null, 2));
+    if (value && value !== this.get('value')) {
+      setTimeout(() => {
+        this.set({ value });
+        this.save_changes();
+      }, 100);
+    }
+  }
+
+  _on_bytes() {
+    let value = this.get('value') as string | ArrayBuffer | DataView;
+    let json_str: string;
+    let buffer: ArrayBuffer;
+
+    if (value instanceof ArrayBuffer) {
+      buffer = value;
+    } else if (value instanceof DataView) {
+      buffer = value.buffer;
+    } else {
+      json_str = value;
+    }
+
+    if (buffer != null) {
+      json_str = String.fromCharCode.apply(null, new Uint8Array(buffer));
+    }
+
+    const json = JSON.parse(json_str);
+
+    const old_json = this.get('json');
+
+    if (json && !JSONExt.deepEqual(json, old_json)) {
+      console.log('overwriting old json');
+      setTimeout(() => {
+        this.set({ json });
+        this.save_changes();
+      }, 100);
+    }
   }
 }
 
@@ -216,4 +281,17 @@ export class FileBoxView extends controls.BoxView {
     i.multiple = m.multiple;
     i.accept = m.accept;
   }
+}
+
+// function ab2str(buf: ArrayBuffer) {
+//   return String.fromCharCode.apply(null, new Uint16Array(buf));
+// }
+
+function str2ab(str: string) {
+  let buf = new ArrayBuffer(str.length); // 2 bytes for each char
+  let bufView = new Uint8Array(buf);
+  for (let i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
 }

@@ -1,6 +1,8 @@
 """ File upload/download widgets
 """
 # pylint: disable=no-member
+import json
+
 from .base import HTMLBase, T, W
 
 
@@ -21,6 +23,62 @@ class File(HTMLBase):
     last_modified = T.Int(help="Timestamp of last file modification").tag(sync=True)
     size = T.Int(help="The size of the file in bytes").tag(sync=True)
     mime_type = T.Unicode(help="The file's MIME type.").tag(sync=True)
+
+    def proxy(self, klass, **kwargs):
+        """Generate a Proxy file object, given a File-compatible class"""
+        traits = ["name", "mime_type", "size", "last_modified", "value"]
+        for trait in traits:
+            if trait not in kwargs:
+                kwargs[trait] = getattr(self, trait)
+
+        klass_file = klass(**kwargs)
+
+        with klass_file.hold_trait_notifications():
+            with self.hold_trait_notifications():
+                for trait in traits:
+                    T.link((self, trait), (klass_file, trait))
+
+        return klass_file
+
+
+@W.register
+class JSONFile(File):
+    """A JSON file"""
+
+    _model_name = T.Unicode("JSONFileModel").tag(sync=True)
+
+    json = T.Union(
+        [T.Dict(), T.List(), T.Unicode(), T.Int(), T.Float(), T.Bool()], allow_none=True
+    ).tag(sync=True)
+
+    def __init__(self, *args, **kwargs):
+        if "json" in kwargs and "value" not in kwargs:
+            try:
+                kwargs["value"] = json.dumps(
+                    kwargs["json"], indent=2, sort_keys=True
+                ).encode("utf-8")
+            except json.JSONDecodeError:
+                pass
+        elif "value" in kwargs and "json" not in kwargs:
+            try:
+                kwargs["json"] = json.loads(kwargs["value"].decode(encoding="utf-8"))
+            except json.JSONDecodeError:
+                pass
+        super().__init__(*args, **kwargs)
+
+        with self.hold_trait_notifications():
+            self.observe(self._on_bytes, "value")
+            self.observe(self._on_json, "json")
+
+    def _on_bytes(self, change):
+        self.json = json.loads(change.new.decode(encoding="utf-8"))
+
+    def _on_json(self, change):
+        value = json.dumps(change.new, sort_keys=True, indent=2).encode("utf-8")
+        size = len(value)
+        if value is not None and value != self.value:
+            with self.hold_trait_notifications():
+                self.value, self.size = value, size
 
 
 @W.register

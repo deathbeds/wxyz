@@ -28,7 +28,7 @@ parameters:
   env_create: conda --file ci/env-test.yml --quiet
   lab_ext: jupyter labextension install --debug --no-build $(FIRST_PARTY_LABEXTENSIONS) $(THIRD_PARTY_LABEXTENSIONS)
   lab_build: jupyter lab build --debug --dev-build=False --minimize=True
-  cache_epoch: '0'
+  cache_epoch: '1'
 
 jobs:
   - ${{ each platform in parameters.platforms }}:
@@ -110,10 +110,15 @@ jobs:
                   artifactName: $(Build.BuildId) Robot $(Agent.JobStatus) ${{ platform.name }}${{ python.name }}
                 condition: always()
 
-              - ${{ if or(eq(platform.name, 'Linux'), eq(platform.name, 'MacOSX')) }}:
+              - ${{ if eq(platform.name, 'Linux') }}:
                   - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                     condition: always()
-                    displayName: prepare for conda cache (unix)
+                    displayName: prepare for conda cache (linux)
+
+              - ${{ if eq(platform.name, 'MacOSX') }}:
+                  - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                    condition: always()
+                    displayName: prepare for conda cache (osx)
 
               - ${{ if eq(platform.name, 'Windows') }}:
                   - script: cd $(Agent.BuildDirectory) && bash -c "find .conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;"

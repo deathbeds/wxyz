@@ -10,7 +10,7 @@ parameters:
       lab: '2.2'
       env: wxyz-test-38
   env_create: conda --file ci/env-test.yml --quiet
-  cache_epoch: '0'
+  cache_epoch: '1'
 
 jobs:
   - ${{ each platform in parameters.platforms }}:
