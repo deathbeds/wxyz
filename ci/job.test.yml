@@ -113,14 +113,14 @@ jobs:
               - ${{ if eq(platform.name, 'Linux') }}:
                   - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                     condition: always()
-                    displayName: prepare for conda cache (linux)
+                    displayName: clean conda cache (linux)
 
               - ${{ if eq(platform.name, 'MacOSX') }}:
                   - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                     condition: always()
-                    displayName: prepare for conda cache (osx)
+                    displayName: clean conda cache (osx)
 
               - ${{ if eq(platform.name, 'Windows') }}:
                   - script: cd $(Agent.BuildDirectory) && bash -c "find .conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;"
                     condition: always()
-                    displayName: prepare for conda cache (win)
+                    displayName: clean conda cache (win)
