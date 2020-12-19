@@ -12,7 +12,7 @@ ${SCREENS}        ${SCREENS ROOT}${/}notebook-index
 Index
     Open WXYZ Notebook    index
     Restart and Run All
-    Wait For All Cells To Run    60s
+    Wait For All Cells To Run    120s
     Capture All Code Cells
     Page Should Not Contain Element    ${JLAB XP STDERR}
     Capture Page Screenshot    99-fin.png
