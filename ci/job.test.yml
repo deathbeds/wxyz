@@ -116,6 +116,6 @@ jobs:
                     displayName: prepare for conda cache
 
               - ${{ if eq(parameters.name, 'Windows') }}:
-                  - bash: find `cygpath $(Agent.BuildDirectory)`/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                  - script: cd $(Agent.BuildDirectory) && bash -c "find .conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;"
                     condition: always()
                     displayName: prepare for conda cache
