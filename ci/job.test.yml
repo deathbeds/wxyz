@@ -110,12 +110,12 @@ jobs:
                   artifactName: $(Build.BuildId) Robot $(Agent.JobStatus) ${{ platform.name }}${{ python.name }}
                 condition: always()
 
-              - ${{ if not(eq(parameters.name, 'Windows')) }}:
+              - ${{ if or(eq(platform.name, 'Linux'), eq(platform.name, 'MacOSX')) }}:
                   - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                     condition: always()
                     displayName: prepare for conda cache (unix)
 
-              - ${{ if eq(parameters.name, 'Windows') }}:
+              - ${{ if eq(platform.name, 'Windows') }}:
                   - script: cd $(Agent.BuildDirectory) && bash -c "find .conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;"
                     condition: always()
                     displayName: prepare for conda cache (win)
