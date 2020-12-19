@@ -113,9 +113,9 @@ jobs:
               - ${{ if not(eq(parameters.name, 'Windows')) }}:
                   - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                     condition: always()
-                    displayName: prepare for conda cache
+                    displayName: prepare for conda cache (unix)
 
               - ${{ if eq(parameters.name, 'Windows') }}:
                   - script: cd $(Agent.BuildDirectory) && bash -c "find .conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;"
                     condition: always()
-                    displayName: prepare for conda cache
+                    displayName: prepare for conda cache (win)
