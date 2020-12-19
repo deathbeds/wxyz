@@ -2,17 +2,31 @@
 /* eslint consistent-this: "off" */
 /* eslint @typescript-eslint/no-this-alias: "off" */
 
+import { Widget } from '@lumino/widgets';
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { NAME, VERSION } from '..';
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';
+import { JupyterPhosphorPanelWidget } from '@jupyter-widgets/base';
+
+type TDims = {
+  height: number;
+  width: number;
+};
+
+type TZoom = {
+  x: number;
+  y: number;
+  k: number;
+};
 
 const CSS = {
   SVG: 'jp-WXYZ-SVG',
   LAYOUT: 'jp-WXYZ-SVG-Layout',
   ZOOM_LOCK: 'jp-WXYZ-SVG-zoom-lock',
+  ZOOMER: 'jp-WXYZ-SVG-Zoom',
 };
 
 export class SVGBoxModel extends BoxModel {
@@ -36,18 +50,40 @@ export class SVGBoxModel extends BoxModel {
       zoom_lock: false,
     };
   }
+
+  private _lastZoom: TZoom;
+
+  saveZoom(zoom: TZoom) {
+    const { x, y, k } = this._lastZoom || {};
+    if (this._lastZoom && x === zoom.x && y === zoom.y && k == zoom.k) {
+      return false;
+    }
+    this.set({ zoom_x: zoom.x, zoom_y: zoom.y, zoom_k: zoom.k });
+    this.save_changes();
+    this._lastZoom = zoom;
+    return true;
+  }
 }
 
-type TDims = {
-  height: number;
-  width: number;
-};
+class SVGPanelWidget extends JupyterPhosphorPanelWidget {
+  onResize(msg: Widget.ResizeMessage) {
+    super.onResize(msg);
+    (this as any)._view.resize();
+  }
+}
 
 export class SVGBoxView extends BoxView {
+  model: SVGBoxModel;
   private _parser = new DOMParser();
   private _d3: d3.Selection<any, any, any, any>;
   private _lastSVG: string;
   private _original: TDims;
+  private _zoomer: d3.Selection<any, any, any, any>;
+
+  _createElement(tagname: string) {
+    this.pWidget = new SVGPanelWidget({ view: this });
+    return this.pWidget.node;
+  }
 
   initialize(options: any) {
     this._d3 = d3
@@ -58,6 +94,11 @@ export class SVGBoxView extends BoxView {
     this.pWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
     this.model.on('change:zoom_lock', this.zoomLock, this);
+    this.model.on(
+      'change:zoom_x change:zoom_y change:zoom_k',
+      this.onZoom,
+      this
+    );
     super.initialize(options);
     this.update(options);
     setTimeout(() => this.resize(), 11);
@@ -69,6 +110,16 @@ export class SVGBoxView extends BoxView {
     } else {
       this.pWidget.removeClass(CSS.ZOOM_LOCK);
     }
+  }
+
+  onZoom() {
+    this._zoomer &&
+      this._zoomer.call(
+        this._zoom.transform,
+        d3Zoom.zoomIdentity
+          .translate(this.model.get('zoom_x'), this.model.get('zoom_y'))
+          .scale(this.model.get('zoom_k'))
+      );
   }
 
   update(options: any) {
@@ -91,6 +142,13 @@ export class SVGBoxView extends BoxView {
     this.resize();
   }
 
+  addZoom(xml: string) {
+    const withZoom = xml
+      .replace(/(<svg(.|\n)*?>)/g, `$1\n<g class="${CSS.ZOOMER}">`)
+      .replace('</svg>', '</g>\n</svg>');
+    return withZoom;
+  }
+
   loadSVG(): void {
     const view = this;
     const el = this.el.parentNode;
@@ -101,11 +159,17 @@ export class SVGBoxView extends BoxView {
     layout.remove();
     this._zoom = null;
     layout.enter().call(function () {
-      const xml = view._parser.parseFromString(view._lastSVG, 'image/svg+xml');
+      const xml = view._parser.parseFromString(
+        view.addZoom(view._lastSVG),
+        'image/svg+xml'
+      );
+
       const importedNode = document.importNode(xml.documentElement, true);
       const newLayout = view._d3
         .insert(() => importedNode, ':first-child')
         .classed(CSS.LAYOUT, true);
+
+      view._zoomer = newLayout.select(`.${CSS.ZOOMER}`);
 
       // find all of the `svg:g`s that are groups
       const children = layout.selectAll('g').filter(
@@ -160,10 +224,9 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      this._zoom = d3Zoom.zoom().on('zoom', function (evt) {
-        const attr = layout.attr('transform', evt.transform);
-        view.resize();
-        return attr;
+      this._zoom = d3Zoom.zoom().on('zoom', function ({ transform }) {
+        view._zoomer.attr('transform', transform);
+        view.model.saveZoom(transform);
       });
 
       layout.call(this._zoom);

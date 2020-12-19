@@ -28,6 +28,7 @@ parameters:
   env_create: conda --file ci/env-test.yml --quiet
   lab_ext: jupyter labextension install --debug --no-build $(FIRST_PARTY_LABEXTENSIONS) $(THIRD_PARTY_LABEXTENSIONS)
   lab_build: jupyter lab build --debug --dev-build=False --minimize=True
+  cache_epoch: '2'
 
 jobs:
   - ${{ each platform in parameters.platforms }}:
@@ -38,6 +39,9 @@ jobs:
             variables:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
+              # skip some things
+              - name: TESTING_IN_CI
+                value: '1'
             steps:
               - template: steps.conda.yml
                 parameters:
@@ -45,11 +49,11 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
                   path: $(Agent.BuildDirectory)/.conda-packages/
                   restoreKeys: |
-                    conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
-                    conda | "$(Agent.OS)" | "${{ python.spec }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
                 displayName: cache conda packages
 
               - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
@@ -57,10 +61,10 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'yarn | "$(Agent.OS)" | yarn.lock'
+                  key: 'yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | yarn.lock'
                   restoreKeys: |
-                    yarn | "$(Agent.OS)"
-                    yarn
+                    yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)"
+                    yarn | ${{ parameters.cache_epoch }}
                   path: .yarn-packages
                 displayName: cache yarn packages
 
@@ -105,3 +109,13 @@ jobs:
                   targetPath: atest/output
                   artifactName: $(Build.BuildId) Robot $(Agent.JobStatus) ${{ platform.name }}${{ python.name }}
                 condition: always()
+
+              - ${{ if eq(platform.name, 'Linux') }}:
+                  - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                    condition: always()
+                    displayName: clean conda cache (linux)
+
+              - ${{ if eq(platform.name, 'MacOSX') }}:
+                  - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                    condition: always()
+                    displayName: clean conda cache (osx)

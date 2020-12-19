@@ -2,7 +2,7 @@
 """
 from ._version import __version__  # noqa
 from .widget_color import AlphaColor, AlphaColorPicker, EmptyAlphaColor
-from .widget_file import File, FileBox
+from .widget_file import File, FileBox, JSONFile, TextFile
 from .widget_fullscreen import Fullscreen
 
 __all__ = [
@@ -13,4 +13,6 @@ __all__ = [
     "File",
     "FileBox",
     "Fullscreen",
+    "JSONFile",
+    "TextFile",
 ]

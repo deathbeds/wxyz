@@ -13,7 +13,7 @@ import * as dvcs from '@deathbeds/wxyz-dvcs';
 const DEBUG = false;
 
 if (DEBUG) {
-  console.log(
+  console.warn(
     core,
     datagrid,
     dvcs,

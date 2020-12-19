@@ -6,7 +6,7 @@ https://conda.anaconda.org/conda-forge/noarch/nomkl-1.0-h5ca1d4c_0.tar.bz2#9a668
 https://conda.anaconda.org/conda-forge/win-64/ca-certificates-2020.12.5-h5b45459_0.tar.bz2#f36a2988a9f57cffdc43929ba67a3a2a
 https://conda.anaconda.org/conda-forge/noarch/llvm-meta-5.0.0-0.tar.bz2#213b5b5ad34008147a824460e50a691c
 https://conda.anaconda.org/conda-forge/win-64/msys2-conda-epoch-20160418-1.tar.bz2#b0309b72560df66f71a9d5e34a5efdfa
-https://conda.anaconda.org/conda-forge/win-64/pandoc-2.11.2-h8ffe710_0.tar.bz2#c851ffee6cf05f784fab5d2f3faee63c
+https://conda.anaconda.org/conda-forge/win-64/pandoc-2.11.3-h8ffe710_0.tar.bz2#f9585ec2b2f2abfa3840a0fe3cf8ece0
 https://conda.anaconda.org/conda-forge/win-64/vs2015_runtime-14.16.27012-h30e32a0_2.tar.bz2#37a0bcc72c5e97f5602dca37eb3f8314
 https://conda.anaconda.org/conda-forge/win-64/winpty-0.4.3-4.tar.bz2#1cee351bf20b830d991dbe0bc8cd7dfe
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gmp-6.1.0-2.tar.bz2#53a1c73e1e3d185516d7e3af177596d9
@@ -67,7 +67,7 @@ https://conda.anaconda.org/conda-forge/noarch/json5-0.9.5-pyh9f0ad1d_0.tar.bz2#1
 https://conda.anaconda.org/conda-forge/noarch/jsonpointer-2.0-py_0.tar.bz2#07d85c22a3beb102a48cd123df84c2a6
 https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.tar.bz2#9f473a344e18668e99a93f7e21a54b69
 https://conda.anaconda.org/conda-forge/win-64/libpng-1.6.37-ha81a0f5_2.tar.bz2#cc8f11542031225ef813cbc7b60713fc
-https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-h1006b36_2.tar.bz2#9392b3214cbdde0d9e64f83915f91d45
+https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-hf5bbc77_3.tar.bz2#4d2f9377b960b9f1425e91e13a30126c
 https://conda.anaconda.org/conda-forge/noarch/lime-0.2.0.1-pyh9f0ad1d_0.tar.bz2#b66e5cbd62ab93000794d7bb9cb985b5
 https://conda.anaconda.org/conda-forge/win-64/locket-0.2.0-py36_1.tar.bz2#b5505689504bd0ffdc2961d5c479751b
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gcc-libgfortran-5.3.0-6.tar.bz2#066552ac6b907ec6d72c0ddab29050dc
@@ -126,12 +126,12 @@ https://conda.anaconda.org/conda-forge/win-64/kiwisolver-1.3.1-py36he95197e_0.ta
 https://conda.anaconda.org/conda-forge/win-64/lazy-object-proxy-1.4.3-py36h779f372_2.tar.bz2#543787addd63e478a7810bad41d024a5
 https://conda.anaconda.org/conda-forge/win-64/libopenblas-0.3.12-pthreads_h1662909_1.tar.bz2#ce3f8e7ba2d789688878d8b7dfc2a08a
 https://conda.anaconda.org/conda-forge/win-64/libtiff-4.1.0-hc10be44_6.tar.bz2#a9dcdf2d500c7ae524a58d4249a0197a
-https://conda.anaconda.org/conda-forge/win-64/libxslt-1.1.33-h65864e5_1.tar.bz2#f0fa7593f000e94b224a73439f931be5
+https://conda.anaconda.org/conda-forge/win-64/libxslt-1.1.33-h65864e5_2.tar.bz2#129a6bde176b51eaa52541e28fa52d5c
 https://conda.anaconda.org/conda-forge/win-64/llvmlite-0.35.0-py36haecd60e_0.tar.bz2#df5aef229d52a9bb11b25d07b6067c33
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gcc-libs-5.3.0-7.tar.bz2#fe759119b8b3bfa720b8762c6fdc35de
 https://conda.anaconda.org/conda-forge/win-64/markupsafe-1.1.1-py36hc753bc4_2.tar.bz2#9e36106ae933f25f38ba10f0d4c45572
 https://conda.anaconda.org/conda-forge/win-64/mistune-0.8.4-py36h779f372_1002.tar.bz2#0d10ecf686c4bd79b45897dbd8bedd8b
-https://conda.anaconda.org/conda-forge/win-64/msgpack-python-1.0.1-py36he95197e_0.tar.bz2#6f6c80bd1b09aa138963f147cc5ced3e
+https://conda.anaconda.org/conda-forge/win-64/msgpack-python-1.0.2-py36he95197e_0.tar.bz2#e277c8f9410a1e7967e871cc05bffdf0
 https://conda.anaconda.org/conda-forge/win-64/multidict-5.1.0-py36h68aa20f_0.tar.bz2#f16ebc9b0fba8de83872015bd491c338
 https://conda.anaconda.org/conda-forge/noarch/multipledispatch-0.6.0-py_0.tar.bz2#1073dc92c8f247d94ac14dd79ca0bbec
 https://conda.anaconda.org/conda-forge/win-64/mypy_extensions-0.4.3-py36ha15d459_2.tar.bz2#bdda6444b3e8513cc530caa0a1ff0c7e

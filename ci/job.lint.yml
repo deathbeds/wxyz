@@ -10,6 +10,7 @@ parameters:
       lab: '2.2'
       env: wxyz-test-38
   env_create: conda --file ci/env-test.yml --quiet
+  cache_epoch: '1'
 
 jobs:
   - ${{ each platform in parameters.platforms }}:
@@ -27,11 +28,11 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
                   path: $(Agent.BuildDirectory)/.conda-packages/
                   restoreKeys: |
-                    conda | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
-                    conda | "$(Agent.OS)" | "${{ python.spec }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
                 displayName: cache conda packages
 
               - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.test.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
@@ -39,23 +40,23 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'yarn | "$(Agent.OS)" | yarn.lock'
+                  key: 'yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | yarn.lock'
                   restoreKeys: |
-                    yarn | "$(Agent.OS)"
-                    yarn
+                    yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)"
+                    yarn | ${{ parameters.cache_epoch }}
                   path: .yarn-packages
                 displayName: cache yarn packages
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit integrity
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 integrity
                 displayName: check repo integrity
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit setup_py_ci
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 setup_py_ci
                 displayName: install python wheels
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 "lint_*" || doit "lint_*"
                 displayName: check style
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit hash_dist
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 hash_dist
                 displayName: build dists
 
               - task: PublishPipelineArtifact@0
@@ -64,3 +65,7 @@ jobs:
                   targetPath: dist
                   artifactName: Dist $(Build.BuildId)
                 condition: always()
+
+              - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                condition: always()
+                displayName: clean conda cache

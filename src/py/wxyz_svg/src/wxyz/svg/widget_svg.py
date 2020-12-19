@@ -38,6 +38,10 @@ class SVGBox(SVGBase, W.Box):
         help="a list of `area_attrs`s of SVG `g`s to show. " "Accepts [None] for all",
     ).tag(sync=True)
 
+    zoom_x = T.Float().tag(sync=True)
+    zoom_y = T.Float().tag(sync=True)
+    zoom_k = T.Float().tag(sync=True)
+
     zoom_lock = T.Bool(
         False, help="Make children non-interactive for better pan/zoom"
     ).tag(sync=True)
