@@ -62,7 +62,6 @@ export class FileModel extends widgets.DOMWidgetModel {
   }
 }
 
-
 export class TextFileModel extends FileModel {
   defaults() {
     return {
@@ -123,7 +122,6 @@ export class TextFileModel extends FileModel {
     }
   }
 }
-
 
 export class JSONFileModel extends FileModel {
   defaults() {

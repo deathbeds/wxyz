@@ -14,4 +14,5 @@ __all__ = [
     "FileBox",
     "Fullscreen",
     "JSONFile",
+    "TextFile",
 ]

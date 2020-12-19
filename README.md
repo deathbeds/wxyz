@@ -8,19 +8,19 @@
 
 ## Install and Use
 
-| `pip install W`         | `jupyter labextension install X`   |      `from wxyz.Y` | `import Z`                                                                        |
-| :---------------------- | :--------------------------------- | -----------------: | :-------------------------------------------------------------------------------- |
-| `wxyz_core`             | `@deathbeds/wxyz-core`             |             `core` | `JSON`<br/>`UnJSON`<br/>                                                          |
-| `wxyz_datagrid`         | `@deathbeds/wxyz-datagrid`         |         `datagrid` | `DataGrid`<br/>`SelectGrid`<br/>`StyleGrid`                                       |
-| `wxyz_html`             | `@deathbeds/wxyz-html`             |             `html` | `AlphaColorPicker`<br/>`FileBox`<br/>`FullScreen`                                 |
-| `wxyz_dvcs`             | `@deathbeds/wxyz-dvcs`             |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                |
-| `wxyz_json_e`           | `@deathbeds/wxyz-json-e`           |           `json_e` | `JSONE`                                                                           |
-| `wxyz_json_schema_form` | `@deathbeds/wxyz-json-schema-form` | `json_schema_form` | `JSONSchemaForm`                                                                  |
-| `wxyz_jsonld`           | `@deathbeds/wxyz-jsonld`           |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`                  |
-| `wxyz_lab`              | `@deathbeds/wxyz-lab`              |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal`<br/>`ModeInfo` |
-| `wxyz_svg`              | `@deathbeds/wxyz-svg`              |              `svg` | `SVGBox`                                                                          |
-| `wxyz_tpl_jinja`        | `@deathbeds/wxyz-tpl-nunjucks`     |        `tpl_jinja` | `Template`                                                                        |
-| `wxyz_yaml`             | `@deathbeds/wxyz-yaml`             |             `yaml` | `YAML`                                                                            |
+| `pip install W`         | `jupyter labextension install X`   |      `from wxyz.Y` | `import Z`                                                                                 |
+| :---------------------- | :--------------------------------- | -----------------: | :----------------------------------------------------------------------------------------- |
+| `wxyz_core`             | `@deathbeds/wxyz-core`             |             `core` | `JSON`<br/>`UnJSON`<br/>                                                                   |
+| `wxyz_datagrid`         | `@deathbeds/wxyz-datagrid`         |         `datagrid` | `DataGrid`<br/>`SelectGrid`<br/>`StyleGrid`                                                |
+| `wxyz_html`             | `@deathbeds/wxyz-html`             |             `html` | `AlphaColorPicker`<br/>`File`<br/>`FileBox`<br/>`FullScreen`<br/>`JSONFile`<br/>`TextFile` |
+| `wxyz_dvcs`             | `@deathbeds/wxyz-dvcs`             |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                         |
+| `wxyz_json_e`           | `@deathbeds/wxyz-json-e`           |           `json_e` | `JSONE`                                                                                    |
+| `wxyz_json_schema_form` | `@deathbeds/wxyz-json-schema-form` | `json_schema_form` | `JSONSchemaForm`                                                                           |
+| `wxyz_jsonld`           | `@deathbeds/wxyz-jsonld`           |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`                           |
+| `wxyz_lab`              | `@deathbeds/wxyz-lab`              |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal`<br/>`ModeInfo`          |
+| `wxyz_svg`              | `@deathbeds/wxyz-svg`              |              `svg` | `SVGBox`                                                                                   |
+| `wxyz_tpl_jinja`        | `@deathbeds/wxyz-tpl-nunjucks`     |        `tpl_jinja` | `Template`                                                                                 |
+| `wxyz_yaml`             | `@deathbeds/wxyz-yaml`             |             `yaml` | `YAML`                                                                                     |
 
 ## Motivation
 
@@ -36,21 +36,21 @@ If you don't like `wxyz`, that's fine! There are a number of related tools that
 might be better suited to your needs.
 
 - [formulas]
-  - a python-side re-implementation of an excel/libreoffice reactive functional
+  - a python-side re-implementation of an Excel/LibreOffice reactive functional
     programming model
 - [ipyevents]
   - fine-grained DOM event control
 - [ipylab]
   - a number of similar utilites as parts of `wxyz.lab`, and nice
-    support for commands, and additional `lumino` primitives, e.g. `SplitPanel`
+    support for commands, and additional [lumino][] primitives, e.g. `SplitPanel`
 - [ipyregulartable]
   - a high-performance datagrid solution, supporting pandas `MultiIndex`-type
     data
 - [jupyter-starters]
-  - wizard-style project templates, driven by simple configuration, JSON schema
+  - wizard-style project templates, driven by simple configuration, JSON Schema
     or notebooks
 - [jupyterlab-tour]
-  - a pleasant "guided tour"
+  - a pleasant "guided tour" of JupyterLab via CSS selectors and JSON Schema
 
 [binder-badge]: https://mybinder.org/badge_logo.svg
 [binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
@@ -67,6 +67,7 @@ might be better suited to your needs.
 [jupyter-starters]: https://pypi.org/project/jupyter-starters/
 [jupyterlab-tour]: https://github.com/fcollonval/jupyterlab-tour
 [jupyterlab]: https://github.com/jupyterlab/jupyterlab
+[lumino]: https://github.com/jupyterlab/lumino
 [this repo]: https://github.com/deathbeds/wxyz
 [traitlets]: https://github.com/ipython/traitlets
 [widgets]: https://jupyter.org/widgets
