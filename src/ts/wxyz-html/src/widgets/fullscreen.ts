@@ -1,5 +1,7 @@
 import screenfull from 'screenfull';
 
+import { Platform } from '@lumino/domutils';
+
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '..';
@@ -34,10 +36,12 @@ export class FullscreenView extends BoxView {
   }
   events() {
     return {
-      click: () => {
-        const anyful = screenfull as any;
-        if (anyful && anyful.enabled) {
-          anyful.request(this.el);
+      click: async (evt: any) => {
+        const mouseEvent = evt as MouseEvent;
+        if (Platform.accelKey(mouseEvent) && mouseEvent.shiftKey) {
+          if (screenfull && screenfull.isEnabled) {
+            await screenfull.request(this.el);
+          }
         }
       },
     };

@@ -113,12 +113,13 @@ export class SVGBoxView extends BoxView {
   }
 
   onZoom() {
-    this._zoomer.call(
-      this._zoom.transform,
-      d3Zoom.zoomIdentity
-        .translate(this.model.get('zoom_x'), this.model.get('zoom_y'))
-        .scale(this.model.get('zoom_k'))
-    );
+    this._zoomer &&
+      this._zoomer.call(
+        this._zoom.transform,
+        d3Zoom.zoomIdentity
+          .translate(this.model.get('zoom_x'), this.model.get('zoom_y'))
+          .scale(this.model.get('zoom_k'))
+      );
   }
 
   update(options: any) {

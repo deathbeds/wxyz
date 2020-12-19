@@ -1,4 +1,5 @@
 import screenfull from 'screenfull';
+import { Platform } from '@lumino/domutils';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
@@ -69,11 +70,10 @@ export class DockBoxView extends BoxView {
 
   _createElement(tagName: string) {
     this.pWidget = new JupyterPhosphorDockPanelWidget({ view: this }) as any;
-    this.pWidget.node.addEventListener('click', (evt: MouseEvent) => {
-      if (evt.shiftKey) {
-        const anyful = screenfull as any;
-        if (anyful && anyful.enabled) {
-          anyful.toggle(this.pWidget.node);
+    this.pWidget.node.addEventListener('click', async (evt: MouseEvent) => {
+      if (Platform.accelKey(evt) && evt.shiftKey) {
+        if (screenfull && screenfull.isEnabled) {
+          await screenfull.request(this.el);
         }
       }
     });
