@@ -62,6 +62,69 @@ export class FileModel extends widgets.DOMWidgetModel {
   }
 }
 
+
+export class TextFileModel extends FileModel {
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: TextFileModel.model_name,
+      name: 'untitled.txt',
+      mime_type: 'text/plain',
+      last_modified: +new Date(),
+      size: 0,
+      value: '',
+    };
+  }
+
+  initialize(attributes: any, options: any) {
+    super.initialize(attributes, options);
+    const debouncedText = new Debouncer(this._on_text, 1000);
+    const debouncedBytes = new Debouncer(this._on_bytes, 1000);
+    this.on('change:text', () => debouncedText.invoke(), this);
+    this.on('change:value', () => debouncedBytes.invoke(), this);
+  }
+
+  _on_text() {
+    const text = this.get('text');
+    const value = str2ab(text);
+    if (value && value !== this.get('value')) {
+      setTimeout(() => {
+        this.set({ value });
+        this.save_changes();
+      }, 100);
+    }
+  }
+
+  _on_bytes() {
+    let value = this.get('value') as string | ArrayBuffer | DataView;
+    let text: string;
+    let buffer: ArrayBuffer;
+
+    if (value instanceof ArrayBuffer) {
+      buffer = value;
+    } else if (value instanceof DataView) {
+      buffer = value.buffer;
+    } else {
+      text = value;
+    }
+
+    if (buffer != null) {
+      text = String.fromCharCode.apply(null, new Uint8Array(buffer));
+    }
+
+    const old_text = this.get('text');
+
+    if (text && text !== old_text) {
+      console.log('overwriting old json');
+      setTimeout(() => {
+        this.set({ text });
+        this.save_changes();
+      }, 100);
+    }
+  }
+}
+
+
 export class JSONFileModel extends FileModel {
   defaults() {
     return {

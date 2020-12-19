@@ -42,6 +42,39 @@ class File(HTMLBase):
 
 
 @W.register
+class TextFile(File):
+    """A Text file"""
+
+    _model_name = T.Unicode("TextFileModel").tag(sync=True)
+
+    text = T.Unicode().tag(sync=True)
+    encoding = T.Unicode("utf-8")
+
+    def __init__(self, *args, **kwargs):
+        if "encoding" not in kwargs:
+            kwargs["encoding"] = "utf-8"
+        if "text" in kwargs and "value" not in kwargs:
+            kwargs["value"] = kwargs["text"].decode(kwargs["encoding"])
+        elif "value" in kwargs and "json" not in kwargs:
+            kwargs["text"] = kwargs["value"].decode(encoding=kwargs["encoding"])
+        super().__init__(*args, **kwargs)
+
+        with self.hold_trait_notifications():
+            self.observe(self._on_bytes, "value")
+            self.observe(self._on_text, "text")
+
+    def _on_bytes(self, change):
+        self.text = change.new.decode(encoding=self.encoding)
+
+    def _on_text(self, change):
+        value = change.new.encode(self.encoding)
+        size = len(value)
+        if value is not None and value != self.value:
+            with self.hold_trait_notifications():
+                self.value, self.size = value, size
+
+
+@W.register
 class JSONFile(File):
     """A JSON file"""
 
