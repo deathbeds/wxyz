@@ -261,7 +261,13 @@ TS_README_TMPL = jinja2.Template(TS_README_TXT)
 
 
 PY_LINT_CMDS = [
-    [lambda files: [["isort", "-rc", *files], ["black", "--quiet", *files]]],
+    [
+        lambda files: [
+            ["isort", "--quiet", "--ac", *files],
+            ["black", "--quiet", *files],
+            ["git", "diff", "--color-words", "--", *files],
+        ]
+    ],
     ["flake8", "--max-line-length", "88"],
     ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
 ]
