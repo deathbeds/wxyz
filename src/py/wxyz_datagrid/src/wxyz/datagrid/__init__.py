@@ -7,6 +7,7 @@ from .widget_stylegrid import (
     CellRenderer,
     FixedFunc,
     FormatFunc,
+    GridStyle,
     StyleGrid,
     TextRenderer,
 )
@@ -17,6 +18,7 @@ __all__ = [
     "DataGrid",
     "FixedFunc",
     "FormatFunc",
+    "GridStyle",
     "SelectGrid",
     "StyleGrid",
     "TextRenderer",

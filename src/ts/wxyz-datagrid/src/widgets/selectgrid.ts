@@ -1,10 +1,10 @@
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 import { BasicSelectionModel } from '@lumino/datagrid';
-import { DataGridModel, DataGridView } from './datagrid';
 import { SelectGrid } from './pwidgets/selectgrid';
 import { JSONExt } from '@lumino/coreutils';
 
 import { toArray } from '@lumino/algorithm';
+import { StyleGridModel, StyleGridView } from './stylegrid';
 
 const CSS = {
   SELECT_GRID: 'jp-WXYZ-SelectGrid',
@@ -12,12 +12,12 @@ const CSS = {
 
 export type TSelection = [number, number, number, number];
 
-export class SelectGridModel extends DataGridModel {
+export class SelectGridModel extends StyleGridModel {
   static model_name = 'SelectGridModel';
   static view_name = 'SelectGridView';
 
   static serializers = {
-    ...DataGridModel.serializers,
+    ...StyleGridModel.serializers,
     selection: { deserialize },
   };
 
@@ -34,7 +34,9 @@ export class SelectGridModel extends DataGridModel {
   }
 }
 
-export class SelectGridView extends DataGridView {
+export class SelectGridView extends StyleGridView {
+  model: SelectGridModel;
+
   protected isUpdatingSelections = false;
 
   createGrid() {

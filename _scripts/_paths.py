@@ -279,5 +279,10 @@ SCHEMA_WIDGETS = {
     / "wxyz-lab/src/widgets/_cm_options.ts": [
         TS_SRC / "wxyz-lab/src/widgets/editor.ts",
         PY_SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
-    ]
+    ],
+    TS_SRC
+    / "wxyz-datagrid/src/widgets/_datagrid_styles.ts": [
+        TS_SRC / "wxyz-datagrid/src/widgets/pwidgets/stylegrid.ts",
+        PY_SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
+    ],
 }

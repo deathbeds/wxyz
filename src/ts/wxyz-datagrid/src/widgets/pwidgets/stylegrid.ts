@@ -1,8 +1,13 @@
 import { DataGrid } from '@lumino/datagrid';
+import { GridStyleModel } from '..';
 
 // TODO: fix circular references
 import { DataGridView } from '../datagrid';
 import { CellRendererModel } from '../models/cells';
+
+interface IHasChanged {
+  changed: { [key: string]: any };
+}
 
 const SIZES = [
   'row_size',
@@ -11,13 +16,31 @@ const SIZES = [
   'column_header_size',
 ];
 
-const COLORS = [
-  'void_color',
-  'background_color',
-  'grid_line_color',
-  'header_background_color',
-  'header_grid_line_color',
+const WATCHED_STYLES = [
+  // the part between these comments will be rewritten
+  // BEGIN SCHEMAGEN:PROPERTIES IDataGridStyles
+  'backgroundColor',
+  'columnBackgroundColor',
+  'cursorBorderColor',
+  'cursorFillColor',
+  'gridLineColor',
+  'headerBackgroundColor',
+  'headerGridLineColor',
+  'headerHorizontalGridLineColor',
+  'headerSelectionBorderColor',
+  'headerSelectionFillColor',
+  'headerVerticalGridLineColor',
+  'horizontalGridLineColor',
+  'rowBackgroundColor',
+  'scrollShadow',
+  'selectionBorderColor',
+  'selectionFillColor',
+  'verticalGridLineColor',
+  'voidColor',
+  // END SCHEMAGEN:PROPERTIES
 ];
+
+const STYLE_EVENTS = WATCHED_STYLES.reduce((m, o) => `${m} change:${o}`, '');
 
 export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   protected _view: DataGridView;
@@ -31,14 +54,97 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     this.onSetView();
   }
 
+  styleFunctor(values: string[]) {
+    const len = values.length;
+    return (i: number) => {
+      return i < len ? values[i] : values[i % len];
+    };
+  }
+
+  someStyleChanged(change?: IHasChanged) {
+    const changed = change?.changed;
+
+    let style = {} as any;
+
+    if (!changed) {
+      return;
+    }
+
+    for (const opt of Object.keys(changed)) {
+      const value = changed[opt];
+      if (value == null || WATCHED_STYLES.indexOf(opt) === -1) {
+        continue;
+      }
+      switch (opt) {
+        case 'rowBackgroundColor':
+        case 'columnBackgroundColor':
+          style[opt] = this.styleFunctor(value);
+          break;
+        default:
+          style[opt] = value;
+          break;
+      }
+    }
+
+    this.style = { ...this.style, ...style };
+  }
+
   protected onSetView() {
     const m = this.view.model;
     m.on('change:cell_renderers', this.onModelCellRenderers, this);
+    m.on('change:grid_style', this.onGridStyle, this);
     m.on(SIZES.map((t) => `change:${t}`).join(' '), this.onModelSize, this);
-    m.on(COLORS.map((t) => `change:${t}`).join(' '), this.onColor, this);
+
     this.onModelCellRenderers();
     this.onModelSize();
-    this.onColor();
+    setTimeout(() => {
+      this.onGridStyle()
+        .then(() => this.someStyleChanged())
+        .catch(console.warn);
+    }, 100);
+  }
+
+  async onGridStyle() {
+    let previous = (this.view.model.previousAttributes() as any).style;
+
+    if (previous != null) {
+      try {
+        previous.off(WATCHED_STYLES, this.someStyleChanged, this);
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+
+    let style = this.view.model.get('grid_style') as GridStyleModel;
+
+    if (typeof style === 'string') {
+      const promise = this.view.model.widget_manager.get_model(style as any);
+      try {
+        style = (await promise) as any;
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+
+    if (style != null) {
+      const init = {} as Record<string, unknown>;
+      for (const opt of WATCHED_STYLES) {
+        const val = style.get(opt);
+        if (val == null) {
+          const editor_val = (this.style as any)[opt];
+          if (editor_val != null) {
+            init[opt] = editor_val;
+          }
+        }
+      }
+      console.log('init', init);
+      if (Object.keys(init)) {
+        style.set(init);
+        style.save_changes();
+      }
+      console.log('watching style', STYLE_EVENTS);
+      style.on(STYLE_EVENTS, this.someStyleChanged, this);
+    }
   }
 
   setRenderer(rm: CellRendererModel) {
@@ -70,39 +176,6 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     });
     if (!renderers.length) {
       this.cellRenderers.update();
-    }
-  }
-
-  onColor() {
-    const m = this._view.model;
-    const changed = Object.keys(m.changedAttributes());
-    let style = {} as any;
-    for (const color of changed) {
-      let v = m.get(color);
-      if (v == null) {
-        continue;
-      }
-
-      switch (color) {
-        default:
-          continue;
-        case 'void_color':
-          style.voidColor = v;
-          break;
-        case 'background_color':
-          style.backgroundColor = v;
-          break;
-        case 'grid_line_color':
-          style.gridLineColor = v;
-          break;
-        case 'header_background_color':
-          style.headerBackgroundColor = v;
-          break;
-        case 'header_grid_line_color':
-          style.headerGridLineColor = v;
-          break;
-      }
-      this.style = { ...this.style, ...style };
     }
   }
 
