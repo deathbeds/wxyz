@@ -40,6 +40,7 @@ export class StyleGridModel extends DataGridModel {
       _model_name: StyleGridModel.model_name,
       _view_name: StyleGridModel.view_name,
       grid_style: null as GridStyleModel,
+      header_visibility: 'all',
     };
   }
 }

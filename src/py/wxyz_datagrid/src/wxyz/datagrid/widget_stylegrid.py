@@ -31,7 +31,7 @@ class FormatFunc(DataGridBase):
 
 
 @W.register
-class TextRenderer(DataGridBase):
+class TextRenderer(CellRenderer):
     """[0.1.6]/textrenderer.ts#L21"""
 
     _model_name = T.Unicode("TextRendererModel").tag(sync=True)
@@ -187,6 +187,10 @@ class StyleGrid(DataGrid):
     column_size = T.Int().tag(sync=True)
     row_header_size = T.Int().tag(sync=True)
     column_header_size = T.Int().tag(sync=True)
+
+    header_visibility = T.Enum(
+        ["all", "row", "column", "none"], default_value="all"
+    ).tag(sync=True)
 
     grid_style = W.trait_types.InstanceDict(GridStyle).tag(
         sync=True, **W.widget_serialization

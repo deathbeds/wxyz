@@ -76,6 +76,8 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
         continue;
       }
       switch (opt) {
+        // the upstream looks like:
+        //    rowBackgroundColor?: (index: number) => string;
         case 'rowBackgroundColor':
         case 'columnBackgroundColor':
           style[opt] = this.styleFunctor(value);
@@ -93,6 +95,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     const m = this.view.model;
     m.on('change:cell_renderers', this.onModelCellRenderers, this);
     m.on('change:grid_style', this.onGridStyle, this);
+    m.on('change:header_visibility', this.onHeaderVisibility, this);
     m.on(SIZES.map((t) => `change:${t}`).join(' '), this.onModelSize, this);
 
     this.onModelCellRenderers();
@@ -206,5 +209,9 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     }
 
     this.defaultSizes = defaultSizes;
+  }
+
+  onHeaderVisibility() {
+    this.headerVisibility = this.view.model.get('header_visibility');
   }
 }
