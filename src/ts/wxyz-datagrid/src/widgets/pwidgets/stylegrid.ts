@@ -181,7 +181,6 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
 
   onModelCellRenderers() {
     let renderers = this.makeRenderers();
-    console.log('renderers before', renderers);
     (this.cellRenderers as any)._values = {};
     renderers.map((r) => {
       if (r.model) {
@@ -192,7 +191,6 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     if (!renderers.length) {
       this.cellRenderers.update();
     }
-    console.warn('renderers after', renderers);
   }
 
   onModelSize() {
