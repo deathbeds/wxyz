@@ -137,12 +137,10 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
           }
         }
       }
-      console.log('init', init);
       if (Object.keys(init)) {
         style.set(init);
         style.save_changes();
       }
-      console.log('watching style', STYLE_EVENTS);
       style.on(STYLE_EVENTS, this.someStyleChanged, this);
     }
   }
