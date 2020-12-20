@@ -210,7 +210,7 @@ def _make_schema(source, targets):
         name=schema.name,
         file_dep=[source, P.YARN_INTEGRITY],
         actions=[
-            lambda: [P.SCHEMA.exists() or P.SCHEMA.mkdir(parents=True), None][-1],
+            lambda: [P.SCHEMA.mkdir(parents=True, exist_ok=True), None][-1],
             [
                 P.JLPM,
                 "--silent",

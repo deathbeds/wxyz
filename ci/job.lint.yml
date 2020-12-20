@@ -47,17 +47,14 @@ jobs:
                   path: .yarn-packages
                 displayName: cache yarn packages
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 integrity
-                displayName: check repo integrity
-
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 setup_py_ci
-                displayName: install python wheels
-
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 "lint_*" || doit "lint_*"
                 displayName: check style
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 hash_dist
                 displayName: build dists
+
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 integrity
+                displayName: check repo integrity
 
               - task: PublishPipelineArtifact@0
                 displayName: publish artifacts for distribution
