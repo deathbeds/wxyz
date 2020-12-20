@@ -42,6 +42,8 @@ const WATCHED_STYLES = [
 
 const STYLE_EVENTS = WATCHED_STYLES.reduce((m, o) => `${m} change:${o}`, '');
 
+const DEFAULT_COLOR = 'rgba(0,0,0,0.0)';
+
 export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   protected _view: DataGridView;
 
@@ -57,7 +59,10 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
   styleFunctor(values: string[]) {
     const len = values.length;
     return (i: number) => {
-      return i < len ? values[i] : values[i % len];
+      if (len == 0) {
+        return DEFAULT_COLOR;
+      }
+      return (i < len ? values[i] : values[i % len]) || DEFAULT_COLOR;
     };
   }
 
@@ -72,7 +77,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
 
     for (const opt of Object.keys(changed)) {
       const value = changed[opt];
-      if (value == null || WATCHED_STYLES.indexOf(opt) === -1) {
+      if (WATCHED_STYLES.indexOf(opt) === -1) {
         continue;
       }
       switch (opt) {
@@ -80,7 +85,11 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
         //    rowBackgroundColor?: (index: number) => string;
         case 'rowBackgroundColor':
         case 'columnBackgroundColor':
-          style[opt] = this.styleFunctor(value);
+          if (value) {
+            style[opt] = this.styleFunctor(value);
+          } else {
+            style[opt] = null;
+          }
           break;
         default:
           style[opt] = value;
@@ -102,7 +111,11 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     this.onModelSize();
     setTimeout(() => {
       this.onGridStyle()
-        .then(() => this.someStyleChanged())
+        .then(() => {
+          this.someStyleChanged({
+            changed: this.view.model.get('grid_style').attributes,
+          });
+        })
         .catch(console.warn);
     }, 100);
   }
@@ -168,6 +181,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
 
   onModelCellRenderers() {
     let renderers = this.makeRenderers();
+    console.log('renderers before', renderers);
     (this.cellRenderers as any)._values = {};
     renderers.map((r) => {
       if (r.model) {
@@ -178,6 +192,7 @@ export class StyleGrid extends DataGrid implements DataGridView.IViewedGrid {
     if (!renderers.length) {
       this.cellRenderers.update();
     }
+    console.warn('renderers after', renderers);
   }
 
   onModelSize() {
