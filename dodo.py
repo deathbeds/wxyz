@@ -487,6 +487,7 @@ if not P.TESTING_IN_CI:
                 doc="build the HTML site",
                 actions=[["sphinx-build", "-b", "dirhtml", "docs", "build/docs"]],
                 file_dep=[
+                    P.DOCS_CONF_PY,
                     *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
                     P.OK / "setup_py",

@@ -1,0 +1,10 @@
+:root {
+    --wxyz-light-code: rgba(0, 0, 0, 0.9);
+}
+
+div:not(.prompt) > .highlight pre {
+  background-color: var(--wxyz-light-code) !important;
+  padding: 1em !important;
+}
+
+.nbinput .prompt, .nboutput .prompt { display: none; }

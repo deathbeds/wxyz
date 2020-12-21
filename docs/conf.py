@@ -5,7 +5,8 @@ import os
 import pathlib
 import sys
 from subprocess import check_call
-
+import recommonmark
+from recommonmark.transform import AutoStructify
 import nbsphinx
 
 HERE = pathlib.Path(__file__).parent
@@ -16,6 +17,7 @@ nbsphinx.RST_TEMPLATE = nbsphinx.RST_TEMPLATE.replace(
     """{% block input -%}""" """{% if not cell.metadata.get("hide_input", False) -%}""",
 ).replace("""{% endblock input %}""", """{%- endif -%}{%- endblock input %}""")
 
+nbsphinx_prompt_width = 0
 
 # -- Project information -----------------------------------------------------
 project = "WXYZ"
@@ -45,7 +47,13 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx_copybutton",
     "sphinx_autodoc_typehints",
+    "sphinx_sitemap"
 ]
+
+# -- Sitemap -------------------------------------------------------------
+html_baseurl = os.environ.get("SITEMAP_URL_BASE", "http://127.0.0.1:8080/")
+sitemap_locales = [None]
+sitemap_url_scheme = "{link}"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -71,7 +79,7 @@ language = "en"
 exclude_patterns = [".ipynb_checkpoints", "**/.ipynb_checkpoints", "**/~.*"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = "monokai"
+pygments_style = "native"
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -91,6 +99,7 @@ html_theme = "pydata_sphinx_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+html_css_files = ['custom.css']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -230,3 +239,9 @@ html_context = {
 # set_type_checking_flag = True
 # always_document_param_types = True
 # typehints_document_rtype = True
+
+
+
+# -- Auto-convert markdown pages to demo -------------------------------------
+def setup(app):
+    app.add_transform(AutoStructify)
