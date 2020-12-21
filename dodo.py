@@ -72,6 +72,13 @@ def task_lock():
         *binder_args,
     )
 
+    yield make_lock_task(
+        "docs",
+        [*test_envs, P.ENV.lint, P.ENV.docs],
+        {},
+        *binder_args,
+    )
+
 
 def task_setup_ts():
     """set up typescript environment"""
@@ -473,6 +480,56 @@ if not P.TESTING_IN_CI:
             if package_json.parent.name == "wxyz-meta":
                 continue
             yield _make_ts_readme(package_json)
+
+        if shutil.which("sphinx-build"):
+            yield dict(
+                name="sphinx",
+                doc="build the HTML site",
+                actions=[["sphinx-build", "-b", "dirhtml", "docs", "build/docs"]],
+                file_dep=[
+                    *P.ALL_SRC_PY,
+                    *P.ALL_SETUP_CFG,
+                    P.OK / "setup_py",
+                    P.OK / "robot",
+                ],
+                targets=[P.DOCS_BUILDINFO],
+            )
+
+
+def _make_spell(path):
+    rel = path.relative_to(P.DOCS_OUT)
+    spell_key = "spell_" + str(rel.as_posix()).replace("/", "_").replace(".", "/")
+    args = ["hunspell", "-d", P.SPELL_LANGS, "-p", P.DICTIONARY, "-l", "-H", path]
+
+    def _spell():
+        misspelled = [
+            line.strip()
+            for line in subprocess.check_output(args).decode("utf-8").splitlines()
+            if line.strip()
+        ]
+
+        if misspelled:
+            print(">> misspelled words in ", path)
+            print("\n".join(sorted(set(misspelled))))
+            return False
+
+        return True
+
+    return dict(
+        name=spell_key,
+        file_dep=[path, P.DICTIONARY, P.README],
+        actions=[U.okit(spell_key, remove=True), _spell, U.okit(spell_key)],
+        targets=[P.OK / spell_key],
+    )
+
+
+if shutil.which("hunspell"):
+
+    def task_spell():
+        """check spelling of built HTML site"""
+        if shutil.which("hunspell"):
+            for path in P.ALL_SPELL_DOCS:
+                yield _make_spell(path)
 
 
 def task_watch():

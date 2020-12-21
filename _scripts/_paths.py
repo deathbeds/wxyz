@@ -54,7 +54,7 @@ REQS = ROOT / "reqs"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
 
-POSTBUILD = ROOT / "postBuild"
+POSTBUILD = ROOT / ".binder" / "postBuild"
 
 
 class ENV:
@@ -63,6 +63,7 @@ class ENV:
     atest = REQS / "atest.yml"
     base = REQS / "base.yml"
     binder = REQS / "binder.yml"
+    docs = REQS / "docs.yml"
     lint = REQS / "lint.yml"
     lock = REQS / "lock.yml"
     utest = REQS / "utest.yml"
@@ -77,6 +78,7 @@ class ENV:
 SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
+DOCS = ROOT / "docs"
 DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"
@@ -90,6 +92,19 @@ ALL_MD = sorted(ROOT.glob("*.md"))
 DIST = ROOT / "dist"
 
 TEST_OUT = BUILD / "test_output"
+DOCS_OUT = BUILD / "docs"
+DOCS_BUILDINFO = BUILD / ".buildinfo"
+ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
+NO_SPELL = sorted(
+    [
+        *(DOCS_OUT / "_static").rglob("*.html"),
+        *(DOCS_OUT / "genindex").rglob("*.html"),
+        *(DOCS_OUT / "search").rglob("*.html"),
+    ]
+)
+ALL_SPELL_DOCS = [p for p in ALL_DOC_HTML if p not in NO_SPELL]
+SPELL_LANGS = "en-GB,en_US"
+DICTIONARY = DOCS / "dictionary.txt"
 ROBOT_OUT = TEST_OUT / "robot"
 LAB = ROOT / "lab"
 
@@ -123,7 +138,7 @@ ROOT_PACKAGE = ROOT / "package.json"
 TS_PACKAGE = sorted(TS_SRC.glob("*/package.json"))
 TS_READMES = sorted(TS_SRC.glob("*/README.md"))
 TS_LICENSES = sorted(TS_SRC.glob("*/LICENSE.txt"))
-LABEXT_TXT = ROOT / "labex.txt"
+LABEXT_TXT = ROOT / ".binder" / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [
         line.strip()

@@ -58,7 +58,7 @@ might be better suited to your needs.
 - [ipyevents]
   - fine-grained DOM event control
 - [ipylab]
-  - a number of similar utilites as parts of `wxyz.lab`, and nice
+  - a number of similar utilities as parts of `wxyz.lab`, and nice
     support for commands, and additional [lumino][] primitives, e.g. `SplitPanel`
 - [ipyregulartable]
   - a high-performance datagrid solution, supporting pandas `MultiIndex`-type
