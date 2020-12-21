@@ -30,7 +30,7 @@ pip install wxyz_lab
 | `pip install W`         | `jupyter labextension install X`   |      `from wxyz.Y` | `import Z`                                                                                 |
 | :---------------------- | :--------------------------------- | -----------------: | :----------------------------------------------------------------------------------------- |
 | `wxyz_core`             | `@deathbeds/wxyz-core`             |             `core` | `JSON`<br/>`UnJSON`<br/>                                                                   |
-| `wxyz_datagrid`         | `@deathbeds/wxyz-datagrid`         |         `datagrid` | `DataGrid`<br/>`SelectGrid`<br/>`StyleGrid`                                                |
+| `wxyz_datagrid`         | `@deathbeds/wxyz-datagrid`         |         `datagrid` | `DataGrid`<br/>`GridStyle`<br/>`SelectGrid`<br/>`StyleGrid`                                |
 | `wxyz_html`             | `@deathbeds/wxyz-html`             |             `html` | `AlphaColorPicker`<br/>`File`<br/>`FileBox`<br/>`FullScreen`<br/>`JSONFile`<br/>`TextFile` |
 | `wxyz_dvcs`             | `@deathbeds/wxyz-dvcs`             |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                         |
 | `wxyz_json_e`           | `@deathbeds/wxyz-json-e`           |           `json_e` | `JSONE`                                                                                    |

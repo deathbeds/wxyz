@@ -33,6 +33,7 @@ export class DataGridView extends BoxView {
   protected _grid: DataGridView.IViewedGrid;
 
   initialize(options: DataGridView.IOptions) {
+    super.initialize(options);
     const createGrid = options.createGrid || this.createGrid;
     super.initialize(options);
     this._grid = createGrid();

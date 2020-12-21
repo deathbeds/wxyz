@@ -31,7 +31,7 @@ class FormatFunc(DataGridBase):
 
 
 @W.register
-class TextRenderer(DataGridBase):
+class TextRenderer(CellRenderer):
     """[0.1.6]/textrenderer.ts#L21"""
 
     _model_name = T.Unicode("TextRendererModel").tag(sync=True)
@@ -58,10 +58,127 @@ class FixedFunc(FormatFunc):
 
 
 @W.register
+class GridStyle(W.Widget):
+    """JSON-compatible Lumino DataGrid styles."""
+
+    # pylint: disable=C0301
+    _model_name = T.Unicode("GridStyleModel").tag(sync=True)
+    _model_module = T.Unicode(module_name).tag(sync=True)
+    _model_module_version = T.Unicode(module_version).tag(sync=True)
+
+    # the part between these comments will be rewritten
+    # BEGIN SCHEMAGEN:TRAITS IDataGridStyles
+    backgroundColor = T.Unicode(
+        help="""The background color for the body cells.
+
+This color is layered on top of the `voidColor`.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    columnBackgroundColor = T.Union(
+        [T.Tuple(), T.Enum([None])], allow_none=True, default_value=None
+    ).tag(sync=True)
+    cursorBorderColor = T.Unicode(
+        help="""The border color for the cursor.""", allow_none=True, default_value=None
+    ).tag(sync=True)
+    cursorFillColor = T.Unicode(
+        help="""The fill color for the cursor.""", allow_none=True, default_value=None
+    ).tag(sync=True)
+    gridLineColor = T.Unicode(
+        help="""The color for the grid lines of the body cells.
+
+The grid lines are draw on top of the cell contents.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    headerBackgroundColor = T.Unicode(
+        help="""The background color for the header cells.
+
+This color is layered on top of the `voidColor`.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    headerGridLineColor = T.Unicode(
+        help="""The color for the grid lines of the header cells.
+
+The grid lines are draw on top of the cell contents.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    headerHorizontalGridLineColor = T.Unicode(
+        help="""The color for the horizontal grid lines of the header cells.
+
+This overrides the `headerGridLineColor` option.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    headerSelectionBorderColor = T.Unicode(
+        help="""The border color for a header selection.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    headerSelectionFillColor = T.Unicode(
+        help="""The fill color for a header selection.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    headerVerticalGridLineColor = T.Unicode(
+        help="""The color for the vertical grid lines of the header cells.
+
+This overrides the `headerGridLineColor` option.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    horizontalGridLineColor = T.Unicode(
+        help="""The color for the horizontal grid lines of the body cells.
+
+This overrides the `gridLineColor` option.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    rowBackgroundColor = T.Union(
+        [T.Tuple(), T.Enum([None])],
+        help="""Realized as a functor, a single value will affect all rows, while any other value will be return modulo the position.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    scrollShadow = T.Dict(
+        help="""The drop shadow effect when the grid is scrolled.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    selectionBorderColor = T.Unicode(
+        help="""The border color for a selection.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    selectionFillColor = T.Unicode(
+        help="""The fill color for a selection.""", allow_none=True, default_value=None
+    ).tag(sync=True)
+    verticalGridLineColor = T.Unicode(
+        help="""The color for the vertical grid lines of the body cells.
+
+This overrides the `gridLineColor` option.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    voidColor = T.Unicode(
+        help="""The void color for the data grid.
+
+This is the base fill color for the entire data grid.""",
+        allow_none=True,
+        default_value=None,
+    ).tag(sync=True)
+    # END SCHEMAGEN:TRAITS
+
+
+@W.register
 class StyleGrid(DataGrid):
     """A styled grid
     [0.1.6]/datagrid.ts#L64
     """
+
+    # pylint: disable=no-member
 
     _model_name = T.Unicode("StyleGridModel").tag(sync=True)
     _view_name = T.Unicode("StyleGridView").tag(sync=True)
@@ -71,11 +188,13 @@ class StyleGrid(DataGrid):
     row_header_size = T.Int().tag(sync=True)
     column_header_size = T.Int().tag(sync=True)
 
-    void_color = AlphaColor("#F3F3F3").tag(sync=True)
-    background_color = AlphaColor("#FFFFFF").tag(sync=True)
-    grid_line_color = AlphaColor("rgba(20, 20, 20, 0.15)").tag(sync=True)
-    header_background_color = AlphaColor("#F3F3F3").tag(sync=True)
-    header_grid_line_color = AlphaColor("rgba(20, 20, 20, 0.25)").tag(sync=True)
+    header_visibility = T.Enum(
+        ["all", "row", "column", "none"], default_value="all"
+    ).tag(sync=True)
+
+    grid_style = W.trait_types.InstanceDict(GridStyle).tag(
+        sync=True, **W.widget_serialization
+    )
 
     cell_renderers = T.List(T.Instance(CellRenderer)).tag(
         sync=True, **W.widget_serialization

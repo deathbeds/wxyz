@@ -6,5 +6,5 @@ channels:
 dependencies:
   - black
   - flake8
-  - isort <5
+  - isort
   - pylint

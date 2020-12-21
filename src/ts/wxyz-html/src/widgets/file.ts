@@ -114,7 +114,6 @@ export class TextFileModel extends FileModel {
     const old_text = this.get('text');
 
     if (text && text !== old_text) {
-      console.log('overwriting old json');
       setTimeout(() => {
         this.set({ text });
         this.save_changes();
@@ -177,7 +176,6 @@ export class JSONFileModel extends FileModel {
     const old_json = this.get('json');
 
     if (json && !JSONExt.deepEqual(json, old_json)) {
-      console.log('overwriting old json');
       setTimeout(() => {
         this.set({ json });
         this.save_changes();

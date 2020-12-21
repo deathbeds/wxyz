@@ -14,7 +14,8 @@ from hashlib import sha256
 
 from doit.tools import PythonInteractiveAction, config_changed
 
-from _scripts import _paths as P, _util as U
+from _scripts import _paths as P
+from _scripts import _util as U
 from _scripts._lock import iter_matrix, make_lock_task
 
 DOIT_CONFIG = {
@@ -77,7 +78,10 @@ def task_setup_ts():
     return dict(
         file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
         targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
-        actions=[["jlpm", "--prefer-offline"], ["jlpm", "lerna", "bootstrap"]],
+        actions=[
+            ["jlpm", "--prefer-offline", "--ignore-optional"],
+            ["jlpm", "lerna", "bootstrap"],
+        ],
     )
 
 
@@ -210,7 +214,7 @@ def _make_schema(source, targets):
         name=schema.name,
         file_dep=[source, P.YARN_INTEGRITY],
         actions=[
-            lambda: [P.SCHEMA.exists() or P.SCHEMA.mkdir(parents=True), None][-1],
+            lambda: [P.SCHEMA.mkdir(parents=True, exist_ok=True), None][-1],
             [
                 P.JLPM,
                 "--silent",
