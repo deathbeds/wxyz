@@ -1,5 +1,5 @@
 :root {
-    --wxyz-light-code: rgba(0, 0, 0, 0.9);
+  --wxyz-light-code: rgba(0, 0, 0, 0.9);
 }
 
 div:not(.prompt) > .highlight pre {
@@ -7,4 +7,16 @@ div:not(.prompt) > .highlight pre {
   padding: 1em !important;
 }
 
-.nbinput .prompt, .nboutput .prompt { display: none; }
+.nbinput .prompt,
+.nboutput .prompt {
+  display: none;
+}
+
+@media (min-width: 768px) {
+    .bd-sidebar, .bd-toc {
+        max-width:  20em;
+    }
+    .container-xl {
+        max-width: unset !important;
+    }
+}

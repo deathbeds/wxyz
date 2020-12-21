@@ -490,8 +490,7 @@ if not P.TESTING_IN_CI:
                     P.DOCS_CONF_PY,
                     *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
-                    P.OK / "setup_py",
-                    P.OK / "robot",
+                    P.OK / "setup_py"
                 ],
                 targets=[P.DOCS_BUILDINFO],
             )

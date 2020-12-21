@@ -6,13 +6,14 @@ channels:
 dependencies:
   - hunspell
   - hunspell-en
-  - nomkl
   - nbsphinx
+  - nomkl
   - pydata-sphinx-theme
   - pytest-check-links
   - python-graphviz
   - recommonmark
   - requests_cache
+  - sphinx-autobuild
   - sphinx-autodoc-typehints
   - sphinx-copybutton
   - sphinx-markdown-tables
