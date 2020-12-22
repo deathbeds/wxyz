@@ -12,7 +12,11 @@ import time
 from configparser import ConfigParser
 from hashlib import sha256
 
-import ipywidgets
+try:
+    import ipywidgets
+except ImportError:
+    pass
+
 from doit.tools import PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P
@@ -31,7 +35,13 @@ def task_release():
     """run all tasks, except re-locking"""
     return dict(
         file_dep=[
-            *[P.OK / f"lint_{group}" for group in P.LINT_GROUPS],
+            *sum(
+                [
+                    [P.OK / f"lint_{group}_1_pylint", P.OK / f"lint_{group}_1_flake8"]
+                    for group in P.LINT_GROUPS
+                ],
+                [],
+            ),
             P.SHA256SUMS,
             P.OK / "integrity",
             P.OK / "labextensions",
@@ -75,7 +85,7 @@ def task_lock():
 
     yield make_lock_task(
         "docs",
-        [*test_envs, P.ENV.lint, P.ENV.unix_tpot, P.ENV.docs],
+        [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
         {},
         *binder_args,
     )
@@ -666,20 +676,22 @@ ATEST = [P.PY, "-m", "_scripts._atest"]
 def task_robot():
     """test in browser with robot framework"""
 
+    file_dep = [
+        *P.ALL_ROBOT,
+        *P.ALL_SRC_PY,
+        *P.ATEST_PY,
+        *P.ALL_TS,
+        *P.ALL_IPYNB,
+        P.LAB_INDEX,
+        P.SCRIPTS / "_atest.py",
+        P.OK / "lab",
+    ]
+
+    if not P.RUNNING_IN_CI:
+        file_dep += [P.OK / "robot_lint"]
+
     return dict(
-        file_dep=sorted(
-            [
-                *P.ALL_ROBOT,
-                *P.ALL_SRC_PY,
-                *P.ATEST_PY,
-                *P.ALL_TS,
-                *P.ALL_IPYNB,
-                P.LAB_INDEX,
-                P.SCRIPTS / "_atest.py",
-                P.OK / "lab",
-                P.OK / "robot_lint",
-            ]
-        ),
+        file_dep=sorted(file_dep),
         actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
         targets=[P.OK / "robot"],
     )

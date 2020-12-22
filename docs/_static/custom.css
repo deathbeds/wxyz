@@ -26,12 +26,13 @@ code {
   color: var(--wxyz-brand-color0);
 }
 
-.navbar-brand img:not(:hover) {
+.navbar-brand img {
   transform: skew(0deg, 0deg);
   transition: all 0.2s ease-in;
 }
-.navbar-brand img:hover {
-  transform: skew(5deg, 5deg);
+.navbar-brand img:hover,
+.navbar-brand img:active {
+  transform: skew(10deg, 0deg);
   transition: all 0.2s ease-out;
 }
 

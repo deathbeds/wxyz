@@ -1,6 +1,7 @@
 """ test configuration for wxyz_notebook
 """
 # pylint: disable=fixme
+import os
 import platform
 from pathlib import Path
 
@@ -17,6 +18,9 @@ OS_SKIP = {
     # "Windows": [EXAMPLES / "TPOTWXYZ.ipynb"]
 }
 
+# Names of just-don't-run these tests
+ALL_SKIP = os.environ.get("WXYZ_SKIP_NOTEBOOK", "").split(" ")
+
 TEST_NOTEBOOKS = [
     ipynb
     for ipynb in sorted(NOTEBOOKS.rglob("*.ipynb"))
@@ -24,5 +28,6 @@ TEST_NOTEBOOKS = [
         "ipynb_checkpoint" not in str(ipynb)
         and str(DESIGN) not in str(ipynb)
         and ipynb not in OS_SKIP.get(OS, [])
+        and ipynb.name not in ALL_SKIP
     )
 ]
