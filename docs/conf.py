@@ -33,8 +33,8 @@ release = "0.4.0a0"
 # -- General configuration ---------------------------------------------------
 extensions = [
     "recommonmark",
-    "sphinx_markdown_tables",
     "nbsphinx",
+    "sphinx_markdown_tables",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.coverage",
@@ -45,9 +45,10 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
+    "sphinx.ext.graphviz",
     "sphinx_copybutton",
     "sphinx_autodoc_typehints",
-    "sphinx_sitemap"
+    "sphinx_sitemap",
 ]
 
 # -- Sitemap -------------------------------------------------------------
@@ -96,7 +97,7 @@ html_theme_options = {
     "github_url": "https://github.com/deathbeds/wxyz",
     "use_edit_page_button": True,
     "search_bar_position": "navbar",
-    "show_toc_level": 1,
+    "show_toc_level": 4,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -246,7 +247,7 @@ html_logo = "_static/wxyz.svg"
 # always_document_param_types = True
 # typehints_document_rtype = True
 
-
+graphviz_output_format = 'svg'
 
 # -- Auto-convert markdown pages to demo -------------------------------------
 def setup(app):

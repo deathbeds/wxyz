@@ -32,9 +32,10 @@ code {
 }
 .navbar-brand img:hover,
 .navbar-brand img:active {
-  transform: skew(10deg, 0deg);
+  transform: skew(-16deg, 0deg);
   transition: all 0.2s ease-out;
 }
+
 
 body .bd-sidebar .nav>.active:hover>a,
 body .bd-sidebar .nav>.active>a

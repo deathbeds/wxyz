@@ -80,6 +80,8 @@ PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
+DOCS_DOT = DOCS.rglob("*.dot")
+DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in str(nb)]
 DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"
@@ -315,14 +317,34 @@ SCHEMA_WIDGETS = {
     ],
 }
 
-PY_RST_TEMPLATE_TXT = """{{ name }}
+PY_RST_TEMPLATE_TXT = """{{ module }}
 {{ underline }}
+
+.. currentmodule:: {{ module }}
 
 .. automodule:: {{ module }}
    :members:
+   :special-members:
    :inherited-members:
    :show-inheritance:
    :exclude-members: {{ exclude_members }}
+
+
+Classes
+-------
+
+.. graphviz:: dot/classes_{{ name }}.dot
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
+
+PYREVERSE = [
+    "pyreverse",
+    "--filter-mode=ALL",
+    "--all-ancestors",
+    "--module-names=y",
+    # # we want widgets
+    # "--ancestor", "ipywidgets.Widget",
+    # # we want widgets
+    # "--ancestor", "ipywidgets.Box"
+]

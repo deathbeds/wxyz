@@ -3,9 +3,9 @@
     this should be executed from within an environment created from
     the ci/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
-# pylint: disable=expression-not-assigned,W0511
-
 import json
+
+# pylint: disable=expression-not-assigned,W0511
 import shutil
 import subprocess
 import time
@@ -485,14 +485,18 @@ def _make_ts_readme(package_json):
 def _make_py_rst(setup_py):
     pkg = setup_py.parent.name
     name = pkg.replace("wxyz_", "")
-    target = P.DOCS / "widgets" / f"""{name}.rst"""
+    out = P.DOCS / "widgets"
+    target = out / f"""{name}.rst"""
+    module = pkg.replace("_", ".", 1)
 
     def _write():
+        if not out.exists():
+            out.mkdir()
         target.write_text(
             P.PY_RST_TEMPLATE.render(
                 name=name,
-                module=pkg.replace("_", ".", 1),
-                underline="=" * len(name),
+                module=module,
+                underline="=" * len(module),
                 exclude_members=", ".join(dir(ipywidgets.DOMWidget)),
             )
         )
@@ -521,8 +525,11 @@ def _make_widget_index(file_dep):
         toc["source"] = [
             "<!-- BEGIN MODULEGEN -->\n",
             *[
-                "- [{}](./widgets/{})\n".format(d.stem.replace("wxyz_", ""), d.stem)
+                "- [wxyz.{}](./widgets/{})\n".format(
+                    d.stem.replace("wxyz_", ""), d.stem
+                )
                 for d in file_dep
+                if d.suffix == ".rst"
             ],
             "<!-- END MODULEGEN -->\n",
         ]
@@ -530,6 +537,56 @@ def _make_widget_index(file_dep):
 
     return dict(
         name="ipynb:modindex", actions=[_write], targets=[target], file_dep=file_dep
+    )
+
+
+def _make_dot(setup_py):
+    pkg = setup_py.parent.name
+    name = pkg.replace("wxyz_", "")
+    out = P.DOCS / "widgets" / "dot"
+    module = pkg.replace("_", ".", 1)
+    target = out / f"classes_{name}.dot"
+    py_files = [*setup_py.parent.rglob("*.py")]
+
+    def _make():
+        if not out.exists():
+            out.mkdir()
+        subprocess.check_call(
+            [*P.PYREVERSE, "-p", name, module, f"{module}.base"], cwd=out
+        )
+        ugly_packages = out / f"packages_{name}.dot"
+        if ugly_packages.exists():
+            ugly_packages.unlink()
+        dot_txt = target.read_text()
+
+        for py_file in py_files:
+            replace_name = f"wxyz.{name}"
+            if py_file.stem == "base":
+                replace_name += ".base"
+            dot_txt = dot_txt.replace(str(py_file), replace_name)
+
+        dot_lines = dot_txt.splitlines()
+
+        target.write_text(
+            "\n".join(
+                [
+                    dot_lines[0],
+                    """
+            graph [fontname = "sans-serif"];
+            node [fontname = "sans-serif"];
+            edge [fontname = "sans-serif"];
+            """,
+                    *dot_lines[1:],
+                ]
+            )
+        )
+
+    return dict(
+        name=f"dot:{name}",
+        actions=[_make],
+        uptodate=[config_changed({"args": P.PYREVERSE})],
+        file_dep=py_files,
+        targets=[target],
     )
 
 
@@ -542,9 +599,14 @@ if not P.TESTING_IN_CI:
         for setup_py in P.PY_SETUP:
             yield _make_py_readme(setup_py)
 
-            task = _make_py_rst(setup_py)
-            yield task
-            widget_index_deps += task["targets"]
+            if "notebooks" not in setup_py.parent.name:
+                task = _make_py_rst(setup_py)
+                yield task
+                widget_index_deps += task["targets"]
+
+                task = _make_dot(setup_py)
+                yield task
+                widget_index_deps += task["targets"]
 
         yield _make_widget_index(widget_index_deps)
 
@@ -562,6 +624,8 @@ if not P.TESTING_IN_CI:
                     P.DOCS_CONF_PY,
                     *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
+                    *P.DOCS_DOT,
+                    *P.DOCS_IPYNB,
                     P.OK / "setup_py",
                 ],
                 targets=[P.DOCS_BUILDINFO],
