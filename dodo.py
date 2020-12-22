@@ -12,6 +12,7 @@ import time
 from configparser import ConfigParser
 from hashlib import sha256
 
+import ipywidgets
 from doit.tools import PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P
@@ -74,7 +75,7 @@ def task_lock():
 
     yield make_lock_task(
         "docs",
-        [*test_envs, P.ENV.lint, P.ENV.docs],
+        [*test_envs, P.ENV.lint, P.ENV.unix_tpot, P.ENV.docs],
         {},
         *binder_args,
     )
@@ -155,13 +156,39 @@ else:
         )
 
 
+def _make_linters(label, files):
+    prev = [P.OK / "setup_py"]
+    next_prev = []
+
+    for i, cmd_group in enumerate(P.PY_LINT_CMDS):
+        for linter, cmd in cmd_group.items():
+            ok = f"lint_{label}_{i}_{linter}"
+            next_prev += [P.OK / ok]
+
+            yield dict(
+                name=f"{label}:{linter}",
+                file_dep=[*files, *prev] if prev else [*files, P.OK / "setup_py"],
+                actions=[
+                    U.okit(ok, remove=True),
+                    *(cmd(files) if callable(cmd) else [cmd + files]),
+                    U.okit(ok),
+                ],
+                targets=[P.OK / ok],
+            )
+        prev = next_prev
+        next_prev = []
+
+
 if not P.TESTING_IN_CI:
 
-    def task_lint_prettier():
-        """use prettier to format things"""
+    def task_lint():
+        """detect and (hopefully) correct code style/formatting"""
+        for label, files in P.LINT_GROUPS.items():
+            for linter in _make_linters(label, files):
+                yield linter
 
         yield dict(
-            name="core",
+            name="prettier:core",
             uptodate=[config_changed(P.README.read_text())],
             file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
@@ -169,7 +196,7 @@ if not P.TESTING_IN_CI:
         )
 
         yield dict(
-            name="rest",
+            name="prettier:rest",
             file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
             targets=[P.OK / "prettier"],
             actions=[
@@ -179,39 +206,17 @@ if not P.TESTING_IN_CI:
             ],
         )
 
-
-def _make_linter(label, files):
-    def _task():
-        # pylint: disable=not-callable
-        ok = f"lint_{label}"
-        return dict(
-            file_dep=[*files, P.OK / "setup_py"],
+        yield dict(
+            name="robot",
+            file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
+            targets=[P.OK / "robot_lint"],
             actions=[
-                U.okit(ok, remove=True),
-                *sum(
-                    [
-                        cmd[0](files) if callable(cmd[0]) else [cmd + files]
-                        for cmd in P.PY_LINT_CMDS
-                        if callable(cmd[0]) or shutil.which(cmd[0])
-                    ],
-                    [],
-                ),
-                U.okit(ok),
+                U.okit("robot_dry_run", remove=True),
+                [*P.PYM, "robot.tidy", "--inplace", *P.ALL_ROBOT],
+                [*ATEST, "--dryrun"],
+                U.okit("robot_lint"),
             ],
-            targets=[P.OK / ok],
         )
-
-    _task.__name__ = f"task_lint_py_{label}"
-    _task.__doc__ = f"format/lint {label}"
-
-    return {_task.__name__: _task}
-
-
-if not P.TESTING_IN_CI:
-    [
-        globals().update(_make_linter(label, files))
-        for label, files in P.LINT_GROUPS.items()
-    ]
 
 
 def _make_schema(source, targets):
@@ -267,28 +272,27 @@ def _make_pydist(setup_py):
         args = [P.PY, "setup.py", output, "--dist-dir", P.DIST]
         return lambda: U.call(args, cwd=pkg) == 0
 
-    def _task():
-        return dict(
-            doc=f"build {pkg.name} distributions",
-            file_dep=file_dep,
-            actions=[
-                lambda: [
-                    shutil.rmtree(pkg / sub, ignore_errors=True)
-                    for sub in ["build", f"{pkg.name}.egg-info"]
-                ]
-                and None,
-                _action("sdist"),
-                _action("bdist_wheel"),
-            ],
-            targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]],
-        )
-
-    _task.__name__ = f"task_dist_py_{pkg.name}"
-
-    return {_task.__name__: _task}
+    yield dict(
+        name=pkg.name,
+        doc=f"build {pkg.name} distributions",
+        file_dep=file_dep,
+        actions=[
+            lambda: [
+                shutil.rmtree(pkg / sub, ignore_errors=True)
+                for sub in ["build", f"{pkg.name}.egg-info"]
+            ]
+            and None,
+            _action("sdist"),
+            _action("bdist_wheel"),
+        ],
+        targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]],
+    )
 
 
-[globals().update(_make_pydist(pys)) for pys in P.PY_SETUP]
+def task_dist():
+    """make pypi distributions"""
+    for pys in P.PY_SETUP:
+        yield _make_pydist(pys)
 
 
 def task_hash_dist():
@@ -468,13 +472,71 @@ def _make_ts_readme(package_json):
     )
 
 
+def _make_py_rst(setup_py):
+    pkg = setup_py.parent.name
+    name = pkg.replace("wxyz_", "")
+    target = P.DOCS / "widgets" / f"""{name}.rst"""
+
+    def _write():
+        target.write_text(
+            P.PY_RST_TEMPLATE.render(
+                name=name,
+                module=pkg.replace("_", ".", 1),
+                underline="=" * len(name),
+                exclude_members=", ".join(dir(ipywidgets.DOMWidget)),
+            )
+        )
+
+    return dict(
+        name=f"rst:{setup_py.parent.name}",
+        actions=[_write],
+        targets=[target],
+        uptodate=[config_changed(P.PY_RST_TEMPLATE_TXT)],
+        file_dep=[*setup_py.parent.rglob("*.py")],
+    )
+
+
+def _make_widget_index(file_dep):
+    target = P.DOCS / "widgets.ipynb"
+
+    def _write():
+        nb_json = json.loads(target.read_text(encoding="utf-8"))
+        toc = None
+        for cell in nb_json["cells"]:
+            if cell["cell_type"] == "markdown":
+                for line in cell["source"]:
+                    if "<!-- BEGIN MODULEGEN" in line:
+                        toc = cell
+
+        toc["source"] = [
+            "<!-- BEGIN MODULEGEN -->\n",
+            *[
+                "- [{}](./widgets/{})\n".format(d.stem.replace("wxyz_", ""), d.stem)
+                for d in file_dep
+            ],
+            "<!-- END MODULEGEN -->\n",
+        ]
+        target.write_text(json.dumps(nb_json, indent=2), encoding="utf-8")
+
+    return dict(
+        name="ipynb:modindex", actions=[_write], targets=[target], file_dep=file_dep
+    )
+
+
 if not P.TESTING_IN_CI:
 
     def task_docs():
         """make the docs right"""
+        widget_index_deps = []
 
         for setup_py in P.PY_SETUP:
             yield _make_py_readme(setup_py)
+
+            task = _make_py_rst(setup_py)
+            yield task
+            widget_index_deps += task["targets"]
+
+        yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:
             if package_json.parent.name == "wxyz-meta":
@@ -490,7 +552,7 @@ if not P.TESTING_IN_CI:
                     P.DOCS_CONF_PY,
                     *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
-                    P.OK / "setup_py"
+                    P.OK / "setup_py",
                 ],
                 targets=[P.DOCS_BUILDINFO],
             )
@@ -535,7 +597,7 @@ if shutil.which("hunspell"):
 def task_watch():
     """watch typescript sources, launch lab, rebuilding as files change"""
 
-    def _watch():
+    def _lab():
         print(">>> Starting typescript watcher...", flush=True)
         ts = subprocess.Popen(["jlpm", "watch"])
 
@@ -566,11 +628,29 @@ def task_watch():
 
         return True
 
-    return dict(
+    yield dict(
+        name="lab",
         uptodate=[lambda: False],
         file_dep=[P.OK / "lab"],
-        actions=[PythonInteractiveAction(_watch)],
+        actions=[PythonInteractiveAction(_lab)],
     )
+
+    def _docs():
+        p = None
+        try:
+            p = subprocess.Popen(["sphinx-autobuild", P.DOCS, P.DOCS_OUT])
+            p.wait()
+        finally:
+            p.terminate()
+            p.wait()
+
+    if shutil.which("sphinx-autobuild"):
+        yield dict(
+            name="docs",
+            uptodate=[lambda: False],
+            file_dep=[P.DOCS_BUILDINFO],
+            actions=[PythonInteractiveAction(_docs)],
+        )
 
 
 def task_binder():
@@ -581,21 +661,6 @@ def task_binder():
 
 
 ATEST = [P.PY, "-m", "_scripts._atest"]
-
-
-def task_robot_lint():
-    """format, then dry run robot syntax"""
-
-    return dict(
-        file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
-        targets=[P.OK / "robot_lint"],
-        actions=[
-            U.okit("robot_dry_run", remove=True),
-            [*P.PYM, "robot.tidy", "--inplace", *P.ALL_ROBOT],
-            [*ATEST, "--dryrun"],
-            U.okit("robot_lint"),
-        ],
-    )
 
 
 def task_robot():

@@ -92,8 +92,12 @@ html_theme = "pydata_sphinx_theme"
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#
-# html_theme_options = {}
+html_theme_options = {
+    "github_url": "https://github.com/deathbeds/wxyz",
+    "use_edit_page_button": True,
+    "search_bar_position": "navbar",
+    "show_toc_level": 1,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -201,7 +205,9 @@ epub_exclude_files = ["search.html"]
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
+    "ipywidgets": ("https://ipywidgets.readthedocs.io/en/stable/", None),
     "jsonschema": ("https://python-jsonschema.readthedocs.io/en/stable/", None),
+    "traitlets": ("https://traitlets.readthedocs.io/en/stable/", None),
 }
 
 # -- Options for todo extension ----------------------------------------------
@@ -233,7 +239,7 @@ html_context = {
     "conf_py_path": "/docs/",
 }
 
-# html_logo = "../packages/jupyterlab-starters/style/icons/starter.svg"
+html_logo = "_static/wxyz.svg"
 
 # sphinx-autodoc-typehints
 # set_type_checking_flag = True

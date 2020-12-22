@@ -3,8 +3,10 @@
     this is not meant to be used in production, and some settings are insecure
     to game auditing metrics which will vary substantially by deployment
 """
+# pylint: disable=W0223,W0221
 from pathlib import Path
-from tornado import ioloop, web, options
+
+from tornado import ioloop, options, web
 
 options.define("port", default=8080, help="port to listen on")
 options.define(
@@ -21,19 +23,22 @@ SETTINGS = dict(
 
 
 class CacheStaticHandler(web.StaticFileHandler):
-    def get_cache_time(self, *args, **kwargs):
+    """lie about caching"""
+
+    def get_cache_time(self, *_args, **_kwargs):
         """always return a fairly long time. real deployments would have a more
         robust solution
         """
         return int(1e10)
 
-    def get(self, url):
+    async def get(self, url, include_body=True) -> None:
+        """get, but handles index.html """
         root = Path(SETTINGS["static_path"])
         path = root / url
         if path.is_dir():
-            index = (path / "index.html")
+            index = path / "index.html"
             url = str(index.relative_to(root).as_posix())
-        return super().get(url)
+        await super().get(url, include_body)
 
 
 def make_app():

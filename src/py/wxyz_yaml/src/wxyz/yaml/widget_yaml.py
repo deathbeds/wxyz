@@ -22,7 +22,7 @@ class YAML(JSON, YAMLBase):
 
 @W.register
 class UnYAML(UnJSON, YAMLBase):
-    """A Widget that dumps... someting into YAML"""
+    """A Widget that dumps... something into YAML"""
 
     _model_name = T.Unicode("UnYAMLModel").tag(sync=True)
 

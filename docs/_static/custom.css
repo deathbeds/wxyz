@@ -1,10 +1,20 @@
 :root {
-  --wxyz-light-code: rgba(0, 0, 0, 0.9);
+  --wxyz-dark-code-bg: rgba(0, 0, 0, 0.9);
+  --wxyz-brand-color0: rgba(44, 137, 160, 1);
+  --wxyz-brand-color1: rgba(44, 137, 160, 0.5);
+  --wxyz-brand-color2: rgba(44, 137, 160, 0.25);
 }
 
 div:not(.prompt) > .highlight pre {
-  background-color: var(--wxyz-light-code) !important;
+  background-color: var(--wxyz-dark-code-bg) !important;
   padding: 1em !important;
+}
+
+.viewcode-block:target {
+  background-color: var(--wxyz-dark-code-bg) !important;
+  border: solid 4px var(--wxyz-brand-color1) !important;
+  border-bottom: 0;
+  border-top: 0;
 }
 
 .nbinput .prompt,
@@ -12,11 +22,34 @@ div:not(.prompt) > .highlight pre {
   display: none;
 }
 
-@media (min-width: 768px) {
-    .bd-sidebar, .bd-toc {
-        max-width:  20em;
-    }
-    .container-xl {
-        max-width: unset !important;
-    }
+code {
+  color: var(--wxyz-brand-color0);
+}
+
+.navbar-brand img:not(:hover) {
+  transform: skew(0deg, 0deg);
+  transition: all 0.2s ease-in;
+}
+.navbar-brand img:hover {
+  transform: skew(5deg, 5deg);
+  transition: all 0.2s ease-out;
+}
+
+body .bd-sidebar .nav>.active:hover>a,
+body .bd-sidebar .nav>.active>a
+body .navbar-nav > .active > .nav-link {
+  color: var(--wxyz-brand-color0) !important;
+}
+
+@media (min-width: 1400px) {
+  .bd-sidebar,
+  .bd-toc {
+    max-width: 16rem;
+  }
+
+  main.bd-content {
+    flex: 1;
+    max-width: unset;
+    width: 100%;
+  }
 }

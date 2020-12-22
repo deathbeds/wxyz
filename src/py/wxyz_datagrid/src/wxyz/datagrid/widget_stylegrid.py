@@ -11,7 +11,7 @@ from .widget_datagrid import DataGrid
 
 @W.register
 class CellRenderer(DataGridBase):
-    """[0.1.6]/cellrenderer.ts#L29"""
+    """``[0.1.6]/cellrenderer.ts#L29``"""
 
     _model_module = T.Unicode(module_name).tag(sync=True)
     _model_module_version = T.Unicode(module_version).tag(sync=True)
@@ -25,14 +25,14 @@ class CellRenderer(DataGridBase):
 
 @W.register
 class FormatFunc(DataGridBase):
-    """[0.1.6]/textrenderer.ts#L308"""
+    """``[0.1.6]/textrenderer.ts#L308``"""
 
     _model_name = T.Unicode("FormatFuncModel").tag(sync=True)
 
 
 @W.register
 class TextRenderer(CellRenderer):
-    """[0.1.6]/textrenderer.ts#L21"""
+    """``[0.1.6]/textrenderer.ts#L21``"""
 
     _model_name = T.Unicode("TextRendererModel").tag(sync=True)
 
@@ -49,7 +49,7 @@ class TextRenderer(CellRenderer):
 
 @W.register
 class FixedFunc(FormatFunc):
-    """[0.1.6]/textrenderer.ts#L365"""
+    """``[0.1.6]/textrenderer.ts#L365``"""
 
     _model_name = T.Unicode("FixedFuncModel").tag(sync=True)
 
@@ -59,7 +59,7 @@ class FixedFunc(FormatFunc):
 
 @W.register
 class GridStyle(W.Widget):
-    """JSON-compatible Lumino DataGrid styles."""
+    """JSON-compatible Lumino `DataGrid` styles."""
 
     # pylint: disable=C0301
     _model_name = T.Unicode("GridStyleModel").tag(sync=True)
@@ -175,7 +175,8 @@ This is the base fill color for the entire data grid.""",
 @W.register
 class StyleGrid(DataGrid):
     """A styled grid
-    [0.1.6]/datagrid.ts#L64
+
+    ``[0.1.6]/datagrid.ts#L64``
     """
 
     # pylint: disable=no-member

@@ -37,17 +37,17 @@ class Base(WXYZBase):
     _view_module = T.Unicode(module_name).tag(sync=True)
     _view_module_version = T.Unicode(module_version).tag(sync=True)
 
-    error = T.CUnicode("").tag(sync=True)
-    description = T.Unicode("An Undescribed Widget").tag(sync=True)
-    icon_class = T.Unicode("jp-CircleIcon").tag(sync=True)
-    closable = T.Bool(default_value=True).tag(sync=True)
+    error = T.CUnicode("").tag(sync=True)  # type: str
+    description = T.Unicode("An Undescribed Widget").tag(sync=True)  # type: str
+    icon_class = T.Unicode("jp-CircleIcon").tag(sync=True)  # type: str
+    closable = T.Bool(default_value=True).tag(sync=True)  # type: bool
 
 
 class Fn(Base):
     """Turns a `source` into a `value`"""
 
-    source = T.Any(allow_none=True).tag(sync=True)
-    value = T.Any(allow_none=True).tag(sync=True)
+    source = T.Any(allow_none=True).tag(sync=True)  # type: any
+    value = T.Any(allow_none=True).tag(sync=True)  # type: any
     mode = T.Enum(["both", "kernel", "client"], default_value="both").tag(sync=True)
 
     _observed_traits = ["source"]

@@ -94,13 +94,17 @@ DIST = ROOT / "dist"
 
 TEST_OUT = BUILD / "test_output"
 DOCS_OUT = BUILD / "docs"
-DOCS_BUILDINFO = BUILD / ".buildinfo"
+DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
 ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
 NO_SPELL = sorted(
     [
-        *(DOCS_OUT / "_static").rglob("*.html"),
+        (DOCS_OUT / "genindex.html"),
         *(DOCS_OUT / "genindex").rglob("*.html"),
+        *(DOCS_OUT / "_static").rglob("*.html"),
+        *(DOCS_OUT / "py-modindex").rglob("*.html"),
         *(DOCS_OUT / "search").rglob("*.html"),
+        *(DOCS_OUT / "_modules").rglob("*.html"),
+        *(DOCS_OUT / "_sources").rglob("*.html"),
     ]
 )
 ALL_SPELL_DOCS = [p for p in ALL_DOC_HTML if p not in NO_SPELL]
@@ -277,15 +281,17 @@ TS_README_TMPL = jinja2.Template(TS_README_TXT)
 
 
 PY_LINT_CMDS = [
-    [
-        lambda files: [
+    {
+        "black": lambda files: [
             ["isort", "--quiet", "--ac", *files],
             ["black", "--quiet", *files],
             ["git", "diff", "--color-words", "--", *files],
         ]
-    ],
-    ["flake8", "--max-line-length", "88"],
-    ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
+    },
+    {
+        "flake8": ["flake8", "--max-line-length", "88"],
+        "pylint": ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
+    },
 ]
 
 
@@ -308,3 +314,15 @@ SCHEMA_WIDGETS = {
         PY_SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],
 }
+
+PY_RST_TEMPLATE_TXT = """{{ name }}
+{{ underline }}
+
+.. automodule:: {{ module }}
+   :members:
+   :inherited-members:
+   :show-inheritance:
+   :exclude-members: {{ exclude_members }}
+"""
+
+PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)

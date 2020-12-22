@@ -3,7 +3,7 @@
 from .base import LabBase, T, W
 
 DOCK_LAYOUT_HELP = """
-An AreaConfig from `DockPanel.saveLayout` from `@lumino/widgets`,
+An `AreaConfig` from `DockPanel.saveLayout` from `@lumino/widgets`,
 e.g.
 {
     "type": "split-area",
@@ -23,7 +23,7 @@ The `widgets` list of a `tab-area` should be indices of `children`
 
 @W.register
 class DockBox(LabBase, W.Box):
-    """A Box that renders as a DockPanel"""
+    """A `Box` that renders as a `DockPanel`"""
 
     _model_name = T.Unicode("DockBoxModel").tag(sync=True)
     _view_name = T.Unicode("DockBoxView").tag(sync=True)

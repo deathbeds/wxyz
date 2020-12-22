@@ -7,7 +7,6 @@ dependencies:
   - hunspell
   - hunspell-en
   - nbsphinx
-  - nomkl
   - pydata-sphinx-theme
   - pytest-check-links
   - python-graphviz
