@@ -17,3 +17,4 @@ dependencies:
   - sphinx-copybutton
   - sphinx-markdown-tables
   - sphinx-sitemap
+  - tabulate

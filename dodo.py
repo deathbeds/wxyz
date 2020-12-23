@@ -4,6 +4,7 @@
     the ci/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
 import json
+import os
 
 # pylint: disable=expression-not-assigned,W0511
 import shutil
@@ -359,9 +360,17 @@ def task_nbtest():
             lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][-1],
             U.okit("nbtest", True),
             lambda: U.call(
-                [*P.PYM, "pytest", "-vv", "-n", "auto", "--no-coverage-upload"],
+                [
+                    *P.PYM,
+                    "pytest",
+                    "-vv",
+                    "-n",
+                    "auto",
+                    "--no-coverage-upload",
+                    *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
+                ],
                 cwd=P.PY_SRC / "wxyz_notebooks",
-                env=dict(WXYZ_WIDGET_LOG_OUT=P.WIDGET_LOG_OUT),
+                env=dict(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT)),
             )
             == 0,
             U.okit("nbtest"),

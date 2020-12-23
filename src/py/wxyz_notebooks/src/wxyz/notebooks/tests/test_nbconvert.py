@@ -26,8 +26,9 @@ def test_notebook(name, ipynb, tmp_path):
     ]
 
     env = dict(os.environ)
+
     if WIDGET_LOG_OUT:
-        env["WXYZ_WIDGET_LOG"] = Path(WIDGET_LOG_OUT) / f"{ipynb.name}.json"
+        env["WXYZ_WIDGET_LOG"] = Path(WIDGET_LOG_OUT) / f"{name}.json"
 
     assert (
         subprocess.call(
@@ -36,7 +37,8 @@ def test_notebook(name, ipynb, tmp_path):
                     str,
                     args,
                 )
-            ]
+            ],
+            env=env,
         )
         == 0
     ), f"{name} failed to nbconvert --execute"
