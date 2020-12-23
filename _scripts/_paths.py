@@ -106,11 +106,11 @@ DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
 ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
 NO_SPELL = sorted(
     [
+        (DOCS_OUT / "search.html"),
         (DOCS_OUT / "genindex.html"),
+        (DOCS_OUT / "py-modindex.html"),
         *(DOCS_OUT / "genindex").rglob("*.html"),
         *(DOCS_OUT / "_static").rglob("*.html"),
-        *(DOCS_OUT / "py-modindex").rglob("*.html"),
-        *(DOCS_OUT / "search").rglob("*.html"),
         *(DOCS_OUT / "_modules").rglob("*.html"),
         *(DOCS_OUT / "_sources").rglob("*.html"),
     ]

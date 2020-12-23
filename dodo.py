@@ -640,7 +640,7 @@ if not P.TESTING_IN_CI:
             yield dict(
                 name="sphinx",
                 doc="build the HTML site",
-                actions=[["sphinx-build", "-b", "dirhtml", "docs", "build/docs"]],
+                actions=[["sphinx-build", "-b", "html", "docs", "build/docs"]],
                 file_dep=[
                     P.DOCS_CONF_PY,
                     *P.ALL_SRC_PY,
