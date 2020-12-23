@@ -16,14 +16,33 @@
 
     <div class="container-fluid">
       <div class="row">
-          {% block docs_sidebar %}{{ super() }}{% endblock %}
+
+          {% block docs_sidebar %}
+            {% if sidebars %}
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+                {%- for sidebartemplate in sidebars %}
+                {%- include sidebartemplate %}
+                {%- endfor %}
+                <div class="bd-toc">
+                  {% if not (meta is not none and 'notoc' in meta) %}
+                    {%- include "docs-toc.html" %}
+                  {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 col-md-1 col-xl-2 bd-sidebar no-sidebar">
+              <div class="bd-toc">
+                {% if not (meta is not none and 'notoc' in meta) %}
+                  {%- include "docs-toc.html" %}
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+          {% endblock %}
 
           {% block docs_toc %}
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-              {% if not (meta is not none and 'notoc' in meta) %}
-                {%- include "docs-toc.html" %}
-              {% endif %}
-          </div>
+          <!-- no toc -->
           {% endblock %}
 
           {% block docs_main %}

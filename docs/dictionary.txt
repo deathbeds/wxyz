@@ -347,7 +347,7 @@ msg
 NoneType
 numpy
 png
-Python Task failed: '<function _make_spell.<locals>._spell at 0x7f68e3645ee0>' returned False
+proto
 rankdir
 repr
 rgba

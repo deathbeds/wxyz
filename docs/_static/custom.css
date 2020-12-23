@@ -3,6 +3,9 @@
   --wxyz-brand-color0: rgba(44, 137, 160, 1);
   --wxyz-brand-color1: rgba(44, 137, 160, 0.5);
   --wxyz-brand-color2: rgba(44, 137, 160, 0.25);
+  --wxyz-font-size0: 1.00rem;
+  --wxyz-font-size1: 1.25rem;
+  --wxyz-font-size2: 1.75rem;
 }
 
 div:not(.prompt) > .highlight pre {
@@ -41,6 +44,22 @@ body .bd-sidebar .nav>.active:hover>a,
 body .bd-sidebar .nav>.active>a
 body .navbar-nav > .active > .nav-link {
   color: var(--wxyz-brand-color0) !important;
+}
+
+body .bd-sidebar .nav>li>a ,
+body .navbar-nav .nav-link {
+  font-size: var(--wxyz-font-size1) !important;
+}
+
+body {
+  font-size: var(--wxyz-font-size1);
+}
+
+
+.toc-h2,
+.toc-h2,
+.toc-h4 {
+  font-size: var(--wxyz-font-size1);
 }
 
 @media (min-width: 1400px) {
