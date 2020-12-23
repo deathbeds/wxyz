@@ -444,11 +444,11 @@ def _make_py_readme(setup_py):
         )
 
     return dict(
-        name=pkg.name,
+        name=f"readme:py:{pkg.name}",
         uptodate=[config_changed(P.PY_README_TXT)],
         actions=[
             _write,
-            ["jlpm", "prettier", "--write", "--list-different", readme],
+            ["jlpm", "--silent", "prettier", "--write", "--list-different", readme],
         ],
         file_dep=[P.README, setup_cfg],
         targets=[readme, license_],
@@ -471,7 +471,7 @@ def _make_ts_readme(package_json):
         )
 
     return dict(
-        name=pkg.name,
+        name=f"readme:ts:{pkg.name}",
         uptodate=[config_changed(P.TS_README_TXT)],
         actions=[
             _write,
@@ -506,7 +506,7 @@ def _make_py_rst(setup_py):
         actions=[_write],
         targets=[target],
         uptodate=[config_changed(P.PY_RST_TEMPLATE_TXT)],
-        file_dep=[*setup_py.parent.rglob("*.py")],
+        file_dep=[*setup_py.parent.rglob("*.py"), P.OK / "setup_py"],
     )
 
 
@@ -551,9 +551,30 @@ def _make_dot(setup_py):
     def _make():
         if not out.exists():
             out.mkdir()
-        subprocess.check_call(
-            [*P.PYREVERSE, "-p", name, module, f"{module}.base"], cwd=out
+
+        proc = subprocess.Popen(
+            [*P.PYREVERSE, "-p", name, module, f"{module}.base"],
+            cwd=out,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
         )
+
+        pstdout, pstderr = proc.communicate()
+
+        if proc.returncode != 0:
+            raise RuntimeError(
+                "\n".join(
+                    [
+                        "stdout:\n",
+                        pstdout.decode("utf-8"),
+                        "\nstderr:\n",
+                        pstderr.decode("utf-8"),
+                        "-----",
+                        f"ERROR {proc.returncode}",
+                    ]
+                )
+            )
+
         ugly_packages = out / f"packages_{name}.dot"
         if ugly_packages.exists():
             ugly_packages.unlink()
@@ -585,7 +606,7 @@ def _make_dot(setup_py):
         name=f"dot:{name}",
         actions=[_make],
         uptodate=[config_changed({"args": P.PYREVERSE})],
-        file_dep=py_files,
+        file_dep=[*py_files, P.OK / "setup_py"],
         targets=[target],
     )
 
