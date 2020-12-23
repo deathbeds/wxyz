@@ -107,6 +107,7 @@ ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
 NO_SPELL = sorted(
     [
         (DOCS_OUT / "search.html"),
+        (DOCS_OUT / "gallery.html"),
         (DOCS_OUT / "genindex.html"),
         (DOCS_OUT / "py-modindex.html"),
         *(DOCS_OUT / "genindex").rglob("*.html"),
