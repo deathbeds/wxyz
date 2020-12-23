@@ -30,11 +30,11 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'conda-docs | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
                   path: $(Agent.BuildDirectory)/.conda-packages/
                   restoreKeys: |
-                    conda-docs | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
-                    conda-docs | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
                 displayName: cache conda packages
 
               - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
