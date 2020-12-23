@@ -87,7 +87,13 @@ DODO = ROOT / "dodo.py"
 PYLINTRC = ROOT / ".pylintrc"
 
 ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
-ALL_SRC_PY = sorted(PY_SRC.rglob("*.py"))
+ALL_SRC_PY = sorted(
+    [
+        py
+        for py in PY_SRC.rglob("*.py")
+        if ".ipynb_checkpoints" not in str(py) and "build" not in str(py)
+    ]
+)
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY, DOCS_CONF_PY])
 ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])
 ALL_MD = sorted(ROOT.glob("*.md"))

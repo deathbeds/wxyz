@@ -1,7 +1,6 @@
 """ Reusable boilerplate for widgets
 """
-# pylint: disable=broad-except,no-member
-from enum import Enum
+# pylint: disable=broad-except,no-member,too-few-public-methods
 
 import ipywidgets as W
 import traitlets as T
@@ -9,8 +8,11 @@ import traitlets as T
 from ._version import module_name, module_version
 
 
-class WXYZ_MODE(Enum):
-    """locations of WXYZ execution"""
+class WXYZ_MODE:
+    """locations of WXYZ execution
+
+    Should probably be an enum.
+    """
 
     kernel = "kernel"
     client = "client"
@@ -86,7 +88,10 @@ class Fn(Base):
     value = T.Any(allow_none=True).tag(sync=True)  # type: any
 
     #: whether to execute transformations on the client and/or the kernel
-    mode = T.Enum(WXYZ_MODE, default_value=WXYZ_MODE.both.value).tag(sync=True)
+    mode = T.Enum(
+        [WXYZ_MODE.both, WXYZ_MODE.client, WXYZ_MODE.kernel],
+        default_value=WXYZ_MODE.both,
+    ).tag(sync=True)
 
     # these are the function inputs, beyond the source
     _observed_traits = ["source"]
