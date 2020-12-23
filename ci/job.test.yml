@@ -108,6 +108,12 @@ jobs:
                 displayName: publish browser test output
                 condition: always()
 
+              - ? ${{ if and(eq(platform.name, 'Linux'), eq(python.spec, '3.8')) }}
+                : - publish: build/nbwidgets
+                    artifact: $(Build.BuildId) Widgets $(Agent.JobStatus) ${{ platform.name }}${{ python.name }}
+                    displayName: publish widget data
+                    condition: always()
+
               - ${{ if eq(platform.name, 'Linux') }}:
                   - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
                     condition: always()
