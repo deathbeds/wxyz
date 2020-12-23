@@ -12,7 +12,9 @@
 {% endblock %}
 
 {%- block content %}
-    {% block docs_navbar %}{{ super() }}{% endblock %}
+    {% block docs_navbar %}
+      {{ super().replace('container-xl', 'container-fluid') }}
+    {% endblock %}
 
     <div class="container-fluid">
       <div class="row">

@@ -647,6 +647,7 @@ if not P.TESTING_IN_CI:
                     *P.ALL_SETUP_CFG,
                     *P.DOCS_DOT,
                     *P.DOCS_IPYNB,
+                    *P.DOCS_TEMPLATES,
                     P.OK / "setup_py",
                 ],
                 targets=[P.DOCS_BUILDINFO],

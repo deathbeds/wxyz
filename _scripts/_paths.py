@@ -81,6 +81,7 @@ TS_SRC = SRC / "ts"
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_DOT = DOCS.rglob("*.dot")
+DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
 DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in str(nb)]
 DODO = ROOT / "dodo.py"
 
