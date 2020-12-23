@@ -200,7 +200,7 @@ if not P.TESTING_IN_CI:
 
         yield dict(
             name="prettier:core",
-            uptodate=[config_changed(P.README.read_text())],
+            uptodate=[config_changed(P.README.read_text(encoding="utf-8"))],
             file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
             targets=[P.README],
@@ -435,7 +435,7 @@ def _make_py_readme(setup_py):
     license_ = pkg / "LICENSE.txt"
 
     def _write():
-        license_.write_text(P.LICENSE.read_text())
+        license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
         parser = ConfigParser()
         parser.read(setup_cfg)
         context = {s: dict(parser[s]) for s in parser.sections()}
@@ -450,7 +450,11 @@ def _make_py_readme(setup_py):
 
         readme.write_text(
             "\n\n".join(
-                [P.PY_README_TMPL.render(**context), "---", P.README.read_text()]
+                [
+                    P.PY_README_TMPL.render(**context),
+                    "---",
+                    P.README.read_text(encoding="utf-8"),
+                ]
             ).strip()
         )
 
@@ -473,11 +477,15 @@ def _make_ts_readme(package_json):
     license_ = pkg / "LICENSE.txt"
 
     def _write():
-        license_.write_text(P.LICENSE.read_text())
+        license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
         context = json.loads(package_json.read_text(encoding="utf-8"))
         readme.write_text(
             "\n\n".join(
-                [P.TS_README_TMPL.render(**context), "---", P.README.read_text()]
+                [
+                    P.TS_README_TMPL.render(**context),
+                    "---",
+                    P.README.read_text(encoding="utf-8"),
+                ]
             ).strip()
         )
 
@@ -593,7 +601,7 @@ def _make_dot(setup_py):
         ugly_packages = out / f"packages_{name}.dot"
         if ugly_packages.exists():
             ugly_packages.unlink()
-        dot_txt = target.read_text()
+        dot_txt = target.read_text(encoding="utf-8")
 
         for py_file in py_files:
             replace_name = f"wxyz.{name}"

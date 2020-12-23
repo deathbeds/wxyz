@@ -48,7 +48,7 @@ OK = BUILD / "ok"
 CI = ROOT / "ci"
 PIPELINES = ROOT / "azure-pipelines.yml"
 CI_TEST_YML = CI / "job.test.yml"
-CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text())["parameters"]
+CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text(encoding="utf-8"))["parameters"]
 LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
 
@@ -130,7 +130,9 @@ PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
 PY_VERSION = {
     pys: re.findall(
         r"""__version__ = ["](.*)["]""",
-        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(),
+        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(
+            encoding="utf-8"
+        ),
     )[0]
     for pys in PY_SETUP
 }
@@ -138,7 +140,8 @@ PY_DEP = {
     pys.parent.name: [
         other.parent.name
         for other in PY_SETUP
-        if pys.parent.name in (other.parent / "setup.cfg").read_text() and pys != other
+        if pys.parent.name in (other.parent / "setup.cfg").read_text(encoding="utf-8")
+        and pys != other
     ]
     for pys in PY_SETUP
 }
@@ -171,7 +174,7 @@ LABEXT_TXT = ROOT / ".binder" / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [
         line.strip()
-        for line in LABEXT_TXT.read_text().strip().splitlines()
+        for line in LABEXT_TXT.read_text(encoding="utf-8").strip().splitlines()
         if line.strip() and not line.strip().startswith("#")
     ]
 )
@@ -188,7 +191,9 @@ ALL_TS = sorted(
         [],
     )
 )
-TS_PACKAGE_CONTENT = {tsp: json.loads(tsp.read_text()) for tsp in TS_PACKAGE}
+TS_PACKAGE_CONTENT = {
+    tsp: json.loads(tsp.read_text(encoding="utf-8")) for tsp in TS_PACKAGE
+}
 TS_TARBALLS = [
     tsp.parent / f"""deathbeds-{tsp.parent.name}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
