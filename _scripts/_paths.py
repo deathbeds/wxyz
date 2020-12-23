@@ -208,6 +208,8 @@ ALL_IPYNB = sorted(
     ]
 )
 
+WIDGET_LOG_OUT = BUILD / "nbwidgets"
+
 README = ROOT / "README.md"
 CONTRIBUTING = ROOT / "CONTRIBUTING.md"
 LICENSE = ROOT / "LICENSE.txt"
@@ -324,8 +326,9 @@ SCHEMA_WIDGETS = {
     ],
 }
 
-PY_RST_TEMPLATE_TXT = """{{ module }}
-{{ underline }}
+PY_RST_TEMPLATE_TXT = """{{ stars }}
+{{ module }}
+{{ stars }}
 
 .. currentmodule:: {{ module }}
 

@@ -12,6 +12,8 @@ EXAMPLES = NOTEBOOKS / "examples"
 DESIGN = NOTEBOOKS / "Design"
 OS = platform.system()
 
+WIDGET_LOG_OUT = os.environ.get("WXYZ_WIDGET_LOG_OUT")
+
 OS_SKIP = {
     # TODO: remove
     # previously couldn't run these example on windows

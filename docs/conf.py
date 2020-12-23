@@ -237,7 +237,7 @@ html_context = {
     "github_user": github_repo_org,
     "github_repo": github_repo_name,
     "github_version": "master",
-    "conf_py_path": "/docs/",
+    "conf_py_path": "docs"
 }
 
 html_logo = "_static/wxyz.svg"

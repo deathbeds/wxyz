@@ -356,10 +356,12 @@ def task_nbtest():
         file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
         targets=[P.OK / "nbtest"],
         actions=[
+            lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][-1],
             U.okit("nbtest", True),
             lambda: U.call(
                 [*P.PYM, "pytest", "-vv", "-n", "auto", "--no-coverage-upload"],
                 cwd=P.PY_SRC / "wxyz_notebooks",
+                env=dict(WXYZ_WIDGET_LOG_OUT=P.WIDGET_LOG_OUT),
             )
             == 0,
             U.okit("nbtest"),
@@ -496,7 +498,7 @@ def _make_py_rst(setup_py):
             P.PY_RST_TEMPLATE.render(
                 name=name,
                 module=module,
-                underline="=" * len(module),
+                stars="*" * len(module),
                 exclude_members=", ".join(dir(ipywidgets.DOMWidget)),
             )
         )
@@ -552,8 +554,12 @@ def _make_dot(setup_py):
         if not out.exists():
             out.mkdir()
 
+        modules = [module]
+        if "notebooks" not in name:
+            modules += [f"{module}.base"]
+
         proc = subprocess.Popen(
-            [*P.PYREVERSE, "-p", name, module, f"{module}.base"],
+            [*P.PYREVERSE, "-p", name, *modules],
             cwd=out,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -620,14 +626,13 @@ if not P.TESTING_IN_CI:
         for setup_py in P.PY_SETUP:
             yield _make_py_readme(setup_py)
 
-            if "notebooks" not in setup_py.parent.name:
-                task = _make_py_rst(setup_py)
-                yield task
-                widget_index_deps += task["targets"]
+            task = _make_py_rst(setup_py)
+            yield task
+            widget_index_deps += task["targets"]
 
-                task = _make_dot(setup_py)
-                yield task
-                widget_index_deps += task["targets"]
+            task = _make_dot(setup_py)
+            yield task
+            widget_index_deps += task["targets"]
 
         yield _make_widget_index(widget_index_deps)
 
