@@ -1,9 +1,11 @@
 :root {
   --wxyz-dark-code-bg: rgba(0, 0, 0, 0.9);
+  --wxyz-light-code-bg: rgba(255, 255, 255, 0.9);
   --wxyz-brand-color0: rgba(44, 137, 160, 1);
   --wxyz-brand-color1: rgba(44, 137, 160, 0.5);
   --wxyz-brand-color2: rgba(44, 137, 160, 0.25);
-  --wxyz-font-size0: 1.00rem;
+  --wxyz-brand-color3: rgba(44, 137, 160, 0.125);
+  --wxyz-font-size0: 1rem;
   --wxyz-font-size1: 1.25rem;
   --wxyz-font-size2: 1.75rem;
 }
@@ -39,14 +41,12 @@ code {
   transition: all 0.2s ease-out;
 }
 
-
-body .bd-sidebar .nav>.active:hover>a,
-body .bd-sidebar .nav>.active>a
-body .navbar-nav > .active > .nav-link {
+body .bd-sidebar .nav > .active:hover > a,
+body .bd-sidebar .nav > .active > a body .navbar-nav > .active > .nav-link {
   color: var(--wxyz-brand-color0) !important;
 }
 
-body .bd-sidebar .nav>li>a ,
+body .bd-sidebar .nav > li > a,
 body .navbar-nav .nav-link {
   font-size: var(--wxyz-font-size1) !important;
 }
@@ -55,11 +55,37 @@ body {
   font-size: var(--wxyz-font-size1);
 }
 
-
 .toc-h2,
 .toc-h2,
 .toc-h4 {
   font-size: var(--wxyz-font-size1);
+}
+
+.output_area.rendered_html {
+  width: 100% !important;
+}
+
+.carousel:hover .carousel-control-prev {
+  border-left: solid 4px var(--wxyz-brand-color2);
+}
+.carousel:hover .carousel-control-next {
+  border-right: solid 4px var(--wxyz-brand-color2);
+}
+
+body .carousel-control-prev,
+body .carousel-control-next {
+  background-color: rgba(255, 255, 255, 0);
+  transition: all 0.2s ease-out;
+}
+
+body .carousel-control-prev:hover,
+body .carousel-control-next:hover {
+  background-color: var(--wxyz-brand-color2);
+  transition: all 0.2s ease-in;
+}
+
+body .carousel-indicators li {
+  border: solid 4px var(--wxyz-brand-color0);
 }
 
 @media (min-width: 1400px) {

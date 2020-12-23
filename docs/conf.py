@@ -8,6 +8,7 @@ from subprocess import check_call
 import recommonmark
 from recommonmark.transform import AutoStructify
 import nbsphinx
+import wxyz.core
 
 HERE = pathlib.Path(__file__).parent
 ROOT = HERE.parent
@@ -25,9 +26,9 @@ author = "WXYZ Contributors"
 copyright = f"2020, {author}"
 
 # The short X.Y version
-version = "0.4.0"
+version = ".".join(wxyz.core.__version__.rsplit(".", 1))
 # The full version, including alpha/beta/rc tags
-release = "0.4.0a0"
+release = wxyz.core.__version__
 
 
 # -- General configuration ---------------------------------------------------
