@@ -651,6 +651,7 @@ if not P.TESTING_IN_CI:
                     *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
                     *P.DOCS_DOT,
+                    *P.PY_DOCS_RST,
                     *P.DOCS_IPYNB,
                     *P.DOCS_TEMPLATES,
                     P.OK / "setup_py",

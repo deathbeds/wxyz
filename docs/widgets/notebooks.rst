@@ -1,10 +1,10 @@
-*********************
-wxyz.json_schema_form
-*********************
+**************
+wxyz.notebooks
+**************
 
-.. currentmodule:: wxyz.json_schema_form
+.. currentmodule:: wxyz.notebooks
 
-.. automodule:: wxyz.json_schema_form
+.. automodule:: wxyz.notebooks
    :members:
    :special-members:
    :inherited-members:
@@ -15,4 +15,4 @@ wxyz.json_schema_form
 Classes
 -------
 
-.. graphviz:: dot/classes_json_schema_form.dot
+.. graphviz:: dot/classes_notebooks.dot

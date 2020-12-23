@@ -80,7 +80,6 @@ PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
-DOCS_DOT = DOCS.rglob("*.dot")
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
 DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in str(nb)]
 DODO = ROOT / "dodo.py"
@@ -143,6 +142,21 @@ PY_DEP = {
     for pys in PY_SETUP
 }
 PY_DEV_REQS = BUILD / "requirements-dev.txt"
+
+PY_DOCS_DOT = [
+    DOCS
+    / "widgets"
+    / "dot"
+    / f"""classes_{py_setup.parent.name.replace("wxyz_", "")}.dot"""
+    for py_setup in PY_SETUP
+]
+PY_DOCS_RST = [
+    DOCS / "widgets" / f"""{py_setup.parent.name.replace("wxyz_", "")}.rst"""
+    for py_setup in PY_SETUP
+]
+
+
+DOCS_DOT = [*PY_DOCS_DOT]
 
 SITE_PKGS = Path(site.getsitepackages()[0])
 

@@ -1,5 +1,6 @@
+********
 wxyz.svg
-========
+********
 
 .. currentmodule:: wxyz.svg
 

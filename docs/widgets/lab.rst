@@ -1,5 +1,6 @@
+********
 wxyz.lab
-========
+********
 
 .. currentmodule:: wxyz.lab
 

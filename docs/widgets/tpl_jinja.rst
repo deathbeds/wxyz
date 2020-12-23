@@ -1,5 +1,6 @@
+**************
 wxyz.tpl_jinja
-==============
+**************
 
 .. currentmodule:: wxyz.tpl_jinja
 

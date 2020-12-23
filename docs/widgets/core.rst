@@ -1,5 +1,6 @@
+*********
 wxyz.core
-=========
+*********
 
 .. currentmodule:: wxyz.core
 

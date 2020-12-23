@@ -1,5 +1,6 @@
+*************
 wxyz.datagrid
-=============
+*************
 
 .. currentmodule:: wxyz.datagrid
 

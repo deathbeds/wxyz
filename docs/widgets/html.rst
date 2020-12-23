@@ -1,5 +1,6 @@
+*********
 wxyz.html
-=========
+*********
 
 .. currentmodule:: wxyz.html
 

@@ -1,5 +1,6 @@
+*********
 wxyz.dvcs
-=========
+*********
 
 .. currentmodule:: wxyz.dvcs
 

@@ -1,5 +1,6 @@
+*********
 wxyz.yaml
-=========
+*********
 
 .. currentmodule:: wxyz.yaml
 
