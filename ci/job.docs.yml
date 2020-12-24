@@ -24,6 +24,20 @@ jobs:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
             steps:
+              - download: current
+                artifact: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
+                displayName: download widget data
+
+              - bash: find build/nbwidgets
+                displayName: list downloaded widget files
+
+              - download: current
+                artifact: $(Build.BuildId) Robot Succeeded LinuxThreeEight
+                displayName: download robot data
+
+              - bash: find atest/output
+                displayName: list downloaded robot files
+
               - template: steps.conda.yml
                 parameters:
                   name: ${{ platform.name }}
@@ -48,12 +62,6 @@ jobs:
                     yarn | ${{ parameters.cache_epoch }}
                   path: .yarn-packages
                 displayName: cache yarn packages
-
-              - download: current
-                displayName: download everything we've built
-
-              - bash: find build
-                displayName: show all the downloaded files
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs spell || doit docs spell
                 displayName: build all the docs
