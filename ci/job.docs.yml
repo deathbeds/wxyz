@@ -32,8 +32,7 @@ jobs:
               - task: DownloadPipelineArtifact@2
                 displayName: download robot data
                 inputs:
-                  artifactName: $(Pipeline.Workspace)/$(Build.BuildId) Robot Succeeded LinuxThreeEight
-                  path: atest/output
+                  artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
 
               - script: ls -lathr $(Pipeline.Workspace)
                 displayName: list all files [DEBUG]
@@ -45,7 +44,7 @@ jobs:
 
               - task: ExtractFiles@1
                 inputs:
-                  archiveFilePatterns: $(Build.BuildId) Robot Succeeded LinuxThreeEight.zip
+                  archiveFilePatterns: $(Pipeline.Workspace)/$(Build.BuildId) Robot Succeeded LinuxThreeEight.zip
                   destinationFolder: atest/output
 
               - template: steps.conda.yml
