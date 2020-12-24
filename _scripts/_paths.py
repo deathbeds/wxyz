@@ -330,7 +330,7 @@ LINT_GROUPS = {
     i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
 }
 
-LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY]
+LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
 
 SCHEMA = BUILD / "schema"
 SCHEMA_WIDGETS = {

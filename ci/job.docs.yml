@@ -23,6 +23,8 @@ jobs:
             variables:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
+              - name: SITEMAP_URL_BASE
+                value: https://deathbeds.github.io/wxyz/
             steps:
               - task: DownloadPipelineArtifact@2
                 displayName: download widget data

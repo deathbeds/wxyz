@@ -1,13 +1,13 @@
 """ Documentation configuration and workflow for wxyz
 """
 # pylint: disable=invalid-name,redefined-builtin,import-error
+import datetime
 import os
 import pathlib
-import sys
-from subprocess import check_call
-import recommonmark
-from recommonmark.transform import AutoStructify
+
 import nbsphinx
+from recommonmark.transform import AutoStructify
+
 import wxyz.core
 
 HERE = pathlib.Path(__file__).parent
@@ -23,7 +23,7 @@ nbsphinx_prompt_width = 0
 # -- Project information -----------------------------------------------------
 project = "WXYZ"
 author = "WXYZ Contributors"
-copyright = f"2020, {author}"
+copyright = f"{datetime.date.today().year}, {author}"
 
 # The short X.Y version
 version = ".".join(wxyz.core.__version__.rsplit(".", 1))
@@ -105,7 +105,7 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-html_css_files = ['custom.css']
+html_css_files = ["custom.css"]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -159,9 +159,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, "wxyz", "WXYZ Documentation", [author], 1)
-]
+man_pages = [(master_doc, "wxyz", "WXYZ Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -238,7 +236,7 @@ html_context = {
     "github_user": github_repo_org,
     "github_repo": github_repo_name,
     "github_version": "master",
-    "conf_py_path": "docs"
+    "conf_py_path": "docs",
 }
 
 html_logo = "_static/wxyz.svg"
@@ -248,8 +246,9 @@ html_logo = "_static/wxyz.svg"
 # always_document_param_types = True
 # typehints_document_rtype = True
 
-graphviz_output_format = 'svg'
+graphviz_output_format = "svg"
 
-# -- Auto-convert markdown pages to demo -------------------------------------
+
 def setup(app):
+    """runtime docs build stuff... don't go too crazy here"""
     app.add_transform(AutoStructify)
