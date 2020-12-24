@@ -66,6 +66,14 @@ jobs:
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs || doit docs
                 displayName: build all the docs
 
+              - task: Cache@2
+                inputs:
+                  key: 'links | ${{ parameters.cache_epoch }} | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  path: build/check_links.sqlite
+                  restoreKeys: |
+                    links | ${{ parameters.cache_epoch }}
+                displayName: cache link checks
+
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 spell checklinks || doit spell checklinks
                 displayName: check the docs
 

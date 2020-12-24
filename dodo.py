@@ -730,6 +730,8 @@ if shutil.which("pytest-check-links"):
                     "--check-anchors",
                     "--check-links-cache",
                     "--check-links-cache-name=build/check_links",
+                    # a few days seems reasonable
+                    f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
                     # might be able to relax this, eventually
                     "-k",
                     "not master",
