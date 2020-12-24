@@ -25,20 +25,18 @@ def test_notebook(name, ipynb, tmp_path):
         ipynb,
     ]
 
-    env = dict(os.environ)
-
     if WIDGET_LOG_OUT:
-        env["WXYZ_WIDGET_LOG"] = Path(WIDGET_LOG_OUT) / f"{name}.json"
+        os.environ["WXYZ_WIDGET_LOG"] = str(Path(WIDGET_LOG_OUT) / f"{name}.json")
 
-    assert (
-        subprocess.call(
-            [
-                *map(
-                    str,
-                    args,
-                )
-            ],
-            env=env,
-        )
-        == 0
-    ), f"{name} failed to nbconvert --execute"
+    rc = subprocess.call(
+        [
+            *map(
+                str,
+                args,
+            )
+        ],
+    )
+
+    os.environ.pop("WXYZ_WIDGET_LOG", None)
+
+    assert rc == 0, f"{name} failed to nbconvert --execute"
