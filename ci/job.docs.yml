@@ -28,24 +28,16 @@ jobs:
                 displayName: download widget data
                 inputs:
                   artifactName: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
+                  path: build/nbwidgets
 
               - task: DownloadPipelineArtifact@2
                 displayName: download robot data
                 inputs:
                   artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
+                  path: atest/output
 
-              - script: ls -lathr $(Pipeline.Workspace)
+              - script: find $(Pipeline.Workspace)
                 displayName: list all files [DEBUG]
-
-              - task: ExtractFiles@1
-                inputs:
-                  archiveFilePatterns: $(Pipeline.Workspace)/$(Build.BuildId) Widgets Succeeded LinuxThreeEight.zip
-                  destinationFolder: build/nbwidgets
-
-              - task: ExtractFiles@1
-                inputs:
-                  archiveFilePatterns: $(Pipeline.Workspace)/$(Build.BuildId) Robot Succeeded LinuxThreeEight.zip
-                  destinationFolder: atest/output
 
               - template: steps.conda.yml
                 parameters:
