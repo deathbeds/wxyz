@@ -28,14 +28,14 @@ jobs:
                 artifact: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
                 displayName: download widget data
 
-              - script: mkdir -p build && cp -r "$(Build.BuildId) Widgets Succeeded LinuxThreeEight" build/nbwidgets
+              - script: mkdir -p build/nbwidgets && cp -r "$(Pipeline.Workspace)/$(Build.BuildId) Widgets Succeeded LinuxThreeEight/*" build/nbwidgets
                 displayName: restore widget data
 
               - download: current
                 artifact: $(Build.BuildId) Robot Succeeded LinuxThreeEight
                 displayName: download robot data
 
-              - script: mv "$(Build.BuildId) Robot Succeeded LinuxThreeEight" atest/output
+              - script: mkdir -p atest/output && cp -r "$(Pipeline.Workspace)/$(Build.BuildId) Robot Succeeded LinuxThreeEight/*" atest/output
                 displayName: restore robot data
 
               - template: steps.conda.yml
