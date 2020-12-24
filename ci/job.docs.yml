@@ -24,15 +24,15 @@ jobs:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
             steps:
-              - task: DownloadPipelineArtifact@1
+              - task: DownloadPipelineArtifact@2
                 displayName: download widget data
                 inputs:
                   artifactName: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
 
-              - task: DownloadPipelineArtifact@1
+              - task: DownloadPipelineArtifact@2
                 displayName: download robot data
                 inputs:
-                  artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
+                  artifactName: $(Pipeline.Workspace)/$(Build.BuildId) Robot Succeeded LinuxThreeEight
                   path: atest/output
 
               - script: ls -lathr
@@ -40,7 +40,7 @@ jobs:
 
               - task: ExtractFiles@1
                 inputs:
-                  archiveFilePatterns: $(Build.BuildId) Widgets Succeeded LinuxThreeEight.zip
+                  archiveFilePatterns: $(Pipeline.Workspace)/$(Build.BuildId) Widgets Succeeded LinuxThreeEight.zip
                   destinationFolder: build/nbwidgets
 
               - task: ExtractFiles@1
