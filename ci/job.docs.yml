@@ -27,12 +27,12 @@ jobs:
               - download: current
                 artifact: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
                 displayName: download widget data
-                path: build/nbwidgets
+                targetPath: build/nbwidgets
 
               - download: current
                 artifact: $(Build.BuildId) Robot Succeeded LinuxThreeEight
                 displayName: download robot data
-                path: atest/output
+                targetPath: atest/output
 
               - template: steps.conda.yml
                 parameters:
