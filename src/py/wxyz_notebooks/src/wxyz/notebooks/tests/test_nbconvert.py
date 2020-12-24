@@ -1,6 +1,7 @@
 """ test nbconvert CLI with wxyz example notebooks
 """
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -28,6 +29,9 @@ def test_notebook(name, ipynb, tmp_path):
     if WIDGET_LOG_OUT:
         os.environ["WXYZ_WIDGET_LOG"] = str(Path(WIDGET_LOG_OUT) / f"{name}.json")
 
+    work_path = tmp_path / "_wxyz_work"
+    os.environ["WXYZ_TEST_WORK_DIR"] = str(work_path)
+
     rc = subprocess.call(
         [
             *map(
@@ -36,6 +40,9 @@ def test_notebook(name, ipynb, tmp_path):
             )
         ],
     )
+
+    if work_path.exists():
+        shutil.rmtree(work_path)
 
     os.environ.pop("WXYZ_WIDGET_LOG", None)
 

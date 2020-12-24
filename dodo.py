@@ -353,6 +353,10 @@ def task_ts():
 
 def task_nbtest():
     """smoke test all notebooks with nbconvert"""
+
+    env = dict(os.environ)
+    env.update(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT))
+
     return dict(
         file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
         targets=[P.OK / "nbtest"],
@@ -370,7 +374,7 @@ def task_nbtest():
                     *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
                 ],
                 cwd=P.PY_SRC / "wxyz_notebooks",
-                env=dict(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT)),
+                env=env,
             )
             == 0,
             U.okit("nbtest"),
