@@ -57,7 +57,7 @@ jobs:
                 displayName: check repo integrity
 
               - publish: dist
-                artifact: Dist $(Build.BuildId)
+                artifact: $(Build.BuildId) Dist
                 displayName: publish artifacts for distribution
                 condition: always()
 

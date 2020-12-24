@@ -28,7 +28,7 @@ jobs:
                 artifact: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
                 displayName: download widget data
 
-              - bash: find build/nbwidgets
+              - bash: find . | grep json
                 displayName: list downloaded widget files
 
               - download: current
@@ -63,11 +63,14 @@ jobs:
                   path: .yarn-packages
                 displayName: cache yarn packages
 
-              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs spell || doit docs spell
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs || doit docs
                 displayName: build all the docs
 
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 spell checklinks || doit spell checklinks
+                displayName: check the docs
+
               - publish: build/docs
-                artifact: Docs $(Build.BuildId)
+                artifact: $(Build.BuildId) Docs
                 displayName: publish built docs
 
               - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;

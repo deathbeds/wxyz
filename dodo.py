@@ -717,6 +717,31 @@ if shutil.which("hunspell"):
                 yield _make_spell(path)
 
 
+if shutil.which("pytest-check-links"):
+
+    def task_checklinks():
+        """check whether links in built docs are valid"""
+        key = "check_links"
+        return dict(
+            actions=[
+                U.okit(key, remove=True),
+                [
+                    "pytest-check-links",
+                    "--check-anchors",
+                    "--check-links-cache",
+                    "--check-links-cache-name=build/check_links",
+                    # might be able to relax this, eventually
+                    "-k",
+                    "not master",
+                    P.DOCS_OUT,
+                ],
+                U.okit(key),
+            ],
+            file_dep=[*P.ALL_SPELL_DOCS],
+            targets=[P.OK / key],
+        )
+
+
 def task_watch():
     """watch typescript sources, launch lab, rebuilding as files change"""
 
