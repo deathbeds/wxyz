@@ -35,7 +35,7 @@ jobs:
                   artifactName: $(Pipeline.Workspace)/$(Build.BuildId) Robot Succeeded LinuxThreeEight
                   path: atest/output
 
-              - script: ls -lathr
+              - script: ls -lathr $(Pipeline.Workspace)
                 displayName: list all files [DEBUG]
 
               - task: ExtractFiles@1
