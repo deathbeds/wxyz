@@ -1,7 +1,6 @@
 """ test nbconvert CLI with wxyz example notebooks
 """
 import os
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -40,9 +39,6 @@ def test_notebook(name, ipynb, tmp_path):
             )
         ],
     )
-
-    if work_path.exists():
-        shutil.rmtree(work_path)
 
     os.environ.pop("WXYZ_WIDGET_LOG", None)
 
