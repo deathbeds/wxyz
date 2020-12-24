@@ -24,15 +24,17 @@ jobs:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
             steps:
-              - download: current
-                artifact: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
+              - task: DownloadPipelineArtifact@1
                 displayName: download widget data
-                targetPath: build/nbwidgets
+                inputs:
+                  artifactName: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
+                  path: build/nbwidgets
 
-              - download: current
-                artifact: $(Build.BuildId) Robot Succeeded LinuxThreeEight
+              - task: DownloadPipelineArtifact@1
                 displayName: download robot data
-                targetPath: atest/output
+                inputs:
+                  artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
+                  path: atest/output
 
               - template: steps.conda.yml
                 parameters:
