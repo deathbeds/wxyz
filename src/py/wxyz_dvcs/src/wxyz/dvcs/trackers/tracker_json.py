@@ -32,4 +32,4 @@ class JSONDictTracker(DictTracker, ExecutorTracker):
     def on_file_change_sync(self):
         """perform JSON reading in thread"""
         if self.path.exists():
-            self.widget_from_dict(self._read(self.path.read_text()))
+            self.widget_from_dict(self._read(self.path.read_text(encoding="utf-8")))

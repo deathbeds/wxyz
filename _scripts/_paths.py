@@ -48,13 +48,13 @@ OK = BUILD / "ok"
 CI = ROOT / "ci"
 PIPELINES = ROOT / "azure-pipelines.yml"
 CI_TEST_YML = CI / "job.test.yml"
-CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text())["parameters"]
+CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text(encoding="utf-8"))["parameters"]
 LOCKS = CI / "locks"
 REQS = ROOT / "reqs"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
 
-POSTBUILD = ROOT / "postBuild"
+POSTBUILD = ROOT / ".binder" / "postBuild"
 
 
 class ENV:
@@ -63,6 +63,7 @@ class ENV:
     atest = REQS / "atest.yml"
     base = REQS / "base.yml"
     binder = REQS / "binder.yml"
+    docs = REQS / "docs.yml"
     lint = REQS / "lint.yml"
     lock = REQS / "lock.yml"
     utest = REQS / "utest.yml"
@@ -77,19 +78,47 @@ class ENV:
 SRC = ROOT / "src"
 PY_SRC = SRC / "py"
 TS_SRC = SRC / "ts"
+DOCS = ROOT / "docs"
+DOCS_CONF_PY = DOCS / "conf.py"
+DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
+DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in str(nb)]
 DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"
 
 ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
-ALL_SRC_PY = sorted(PY_SRC.rglob("*.py"))
-ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY])
+ALL_SRC_PY = sorted(
+    [
+        py
+        for py in PY_SRC.rglob("*.py")
+        if ".ipynb_checkpoints" not in str(py) and "build" not in str(py)
+    ]
+)
+ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY, DOCS_CONF_PY])
 ALL_YAML = sorted([*REQS.rglob("*.yml"), *CI.rglob("*.yml")])
 ALL_MD = sorted(ROOT.glob("*.md"))
 
 DIST = ROOT / "dist"
 
 TEST_OUT = BUILD / "test_output"
+DOCS_OUT = BUILD / "docs"
+DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
+ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
+NO_SPELL = sorted(
+    [
+        (DOCS_OUT / "search.html"),
+        (DOCS_OUT / "gallery.html"),
+        (DOCS_OUT / "genindex.html"),
+        (DOCS_OUT / "py-modindex.html"),
+        *(DOCS_OUT / "genindex").rglob("*.html"),
+        *(DOCS_OUT / "_static").rglob("*.html"),
+        *(DOCS_OUT / "_modules").rglob("*.html"),
+        *(DOCS_OUT / "_sources").rglob("*.html"),
+    ]
+)
+ALL_SPELL_DOCS = [p for p in ALL_DOC_HTML if p not in NO_SPELL]
+SPELL_LANGS = "en-GB,en_US"
+DICTIONARY = DOCS / "dictionary.txt"
 ROBOT_OUT = TEST_OUT / "robot"
 LAB = ROOT / "lab"
 
@@ -101,7 +130,9 @@ PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
 PY_VERSION = {
     pys: re.findall(
         r"""__version__ = ["](.*)["]""",
-        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(),
+        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(
+            encoding="utf-8"
+        ),
     )[0]
     for pys in PY_SETUP
 }
@@ -109,11 +140,27 @@ PY_DEP = {
     pys.parent.name: [
         other.parent.name
         for other in PY_SETUP
-        if pys.parent.name in (other.parent / "setup.cfg").read_text() and pys != other
+        if pys.parent.name in (other.parent / "setup.cfg").read_text(encoding="utf-8")
+        and pys != other
     ]
     for pys in PY_SETUP
 }
 PY_DEV_REQS = BUILD / "requirements-dev.txt"
+
+PY_DOCS_DOT = [
+    DOCS
+    / "widgets"
+    / "dot"
+    / f"""classes_{py_setup.parent.name.replace("wxyz_", "")}.dot"""
+    for py_setup in PY_SETUP
+]
+PY_DOCS_RST = [
+    DOCS / "widgets" / f"""{py_setup.parent.name.replace("wxyz_", "")}.rst"""
+    for py_setup in PY_SETUP
+]
+
+
+DOCS_DOT = [*PY_DOCS_DOT]
 
 SITE_PKGS = Path(site.getsitepackages()[0])
 
@@ -123,11 +170,11 @@ ROOT_PACKAGE = ROOT / "package.json"
 TS_PACKAGE = sorted(TS_SRC.glob("*/package.json"))
 TS_READMES = sorted(TS_SRC.glob("*/README.md"))
 TS_LICENSES = sorted(TS_SRC.glob("*/LICENSE.txt"))
-LABEXT_TXT = ROOT / "labex.txt"
+LABEXT_TXT = ROOT / ".binder" / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [
         line.strip()
-        for line in LABEXT_TXT.read_text().strip().splitlines()
+        for line in LABEXT_TXT.read_text(encoding="utf-8").strip().splitlines()
         if line.strip() and not line.strip().startswith("#")
     ]
 )
@@ -144,7 +191,9 @@ ALL_TS = sorted(
         [],
     )
 )
-TS_PACKAGE_CONTENT = {tsp: json.loads(tsp.read_text()) for tsp in TS_PACKAGE}
+TS_PACKAGE_CONTENT = {
+    tsp: json.loads(tsp.read_text(encoding="utf-8")) for tsp in TS_PACKAGE
+}
 TS_TARBALLS = [
     tsp.parent / f"""deathbeds-{tsp.parent.name}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
@@ -178,6 +227,8 @@ ALL_IPYNB = sorted(
         and str(DESIGN_IPYNB) not in str(ipynb)
     ]
 )
+
+WIDGET_LOG_OUT = BUILD / "nbwidgets"
 
 README = ROOT / "README.md"
 CONTRIBUTING = ROOT / "CONTRIBUTING.md"
@@ -261,15 +312,17 @@ TS_README_TMPL = jinja2.Template(TS_README_TXT)
 
 
 PY_LINT_CMDS = [
-    [
-        lambda files: [
+    {
+        "black": lambda files: [
             ["isort", "--quiet", "--ac", *files],
             ["black", "--quiet", *files],
             ["git", "diff", "--color-words", "--", *files],
         ]
-    ],
-    ["flake8", "--max-line-length", "88"],
-    ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
+    },
+    {
+        "flake8": ["flake8", "--max-line-length", "88"],
+        "pylint": ["pylint", "-sn", "-rn", f"--rcfile={PYLINTRC}"],
+    },
 ]
 
 
@@ -292,3 +345,36 @@ SCHEMA_WIDGETS = {
         PY_SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],
 }
+
+PY_RST_TEMPLATE_TXT = """{{ stars }}
+{{ module }}
+{{ stars }}
+
+.. currentmodule:: {{ module }}
+
+.. automodule:: {{ module }}
+   :members:
+   :special-members:
+   :inherited-members:
+   :show-inheritance:
+   :exclude-members: {{ exclude_members }}
+
+
+Classes
+-------
+
+.. graphviz:: dot/classes_{{ name }}.dot
+"""
+
+PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
+
+PYREVERSE = [
+    "pyreverse",
+    "--filter-mode=ALL",
+    "--all-ancestors",
+    "--module-names=y",
+    # # we want widgets
+    # "--ancestor", "ipywidgets.Widget",
+    # # we want widgets
+    # "--ancestor", "ipywidgets.Box"
+]

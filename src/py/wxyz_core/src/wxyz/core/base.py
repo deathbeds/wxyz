@@ -1,10 +1,22 @@
 """ Reusable boilerplate for widgets
 """
-# pylint: disable=broad-except,no-member
+# pylint: disable=broad-except,no-member,too-few-public-methods
+
 import ipywidgets as W
 import traitlets as T
 
 from ._version import module_name, module_version
+
+
+class WXYZ_MODE:
+    """locations of WXYZ execution
+
+    Should probably be an enum.
+    """
+
+    kernel = "kernel"
+    client = "client"
+    both = "both"
 
 
 class WXYZBase(W.Widget):
@@ -37,19 +49,51 @@ class Base(WXYZBase):
     _view_module = T.Unicode(module_name).tag(sync=True)
     _view_module_version = T.Unicode(module_version).tag(sync=True)
 
-    error = T.CUnicode("").tag(sync=True)
-    description = T.Unicode("An Undescribed Widget").tag(sync=True)
-    icon_class = T.Unicode("jp-CircleIcon").tag(sync=True)
-    closable = T.Bool(default_value=True).tag(sync=True)
+    error = T.CUnicode("").tag(sync=True)  # type: str
+    description = T.Unicode("An Undescribed Widget").tag(sync=True)  # type: str
+    icon_class = T.Unicode("jp-CircleIcon").tag(sync=True)  # type: str
+    closable = T.Bool(default_value=True).tag(sync=True)  # type: bool
 
 
 class Fn(Base):
-    """Turns a `source` into a `value`"""
+    """Turns a ``source`` into a ``value``
 
-    source = T.Any(allow_none=True).tag(sync=True)
-    value = T.Any(allow_none=True).tag(sync=True)
-    mode = T.Enum(["both", "kernel", "client"], default_value="both").tag(sync=True)
+    This is a foundational class with a number of implementations throughout
+    ``wxyz``.
 
+    The simplest ``Fn`` subclass might implement the *identity function*:
+
+    .. code-block:: python
+
+        class Identity(Fn):
+            def the_function(self, source):
+                return source
+
+    .. note:
+
+        On the TypeScript side, the identity function might look like:
+
+        .. code-block: typescript
+
+            async theFunction(source: T): Promise<U> {
+              return source as U;
+            }
+
+    """
+
+    #: the source
+    source = T.Any(allow_none=True).tag(sync=True)  # type: any
+
+    #: the value produced by evaluating the function
+    value = T.Any(allow_none=True).tag(sync=True)  # type: any
+
+    #: whether to execute transformations on the client and/or the kernel
+    mode = T.Enum(
+        [WXYZ_MODE.both, WXYZ_MODE.client, WXYZ_MODE.kernel],
+        default_value=WXYZ_MODE.both,
+    ).tag(sync=True)
+
+    # these are the function inputs, beyond the source
     _observed_traits = ["source"]
 
     def __init__(self, *args, **kwargs):
@@ -61,7 +105,7 @@ class Fn(Base):
 
     def the_observer(self, *_):
         """Base observer that updates value and/or error"""
-        if self.mode == "client":
+        if self.mode == WXYZ_MODE.client:
             return
 
         with self.hold_trait_notifications():

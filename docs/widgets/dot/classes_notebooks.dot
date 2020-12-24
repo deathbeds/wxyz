@@ -1,0 +1,9 @@
+digraph "classes_notebooks" {
+
+            graph [fontname = "sans-serif"];
+            node [fontname = "sans-serif"];
+            edge [fontname = "sans-serif"];
+            
+charset="utf-8"
+rankdir=BT
+}

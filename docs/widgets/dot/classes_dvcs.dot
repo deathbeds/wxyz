@@ -1,0 +1,69 @@
+digraph "classes_dvcs" {
+
+            graph [fontname = "sans-serif"];
+            node [fontname = "sans-serif"];
+            edge [fontname = "sans-serif"];
+            
+charset="utf-8"
+rankdir=BT
+"0" [label="{wxyz.dvcs.base.DVCSBase|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}", shape="record"];
+"1" [label="{wxyz.dvcs.Remote|auto_fetch : Bool\lexecutor : ThreadPoolExecutor\lheads\lheads : Dict\lname : Unicode\lurl : Unicode\l|__init__()\l_on_auto_fetch(_change)\lfetch()\lpush(ref)\l}", shape="record"];
+"2" [label="{wxyz.dvcs.Repo|_change_link : NoneType\l_change_link : directional_link, NoneType\l_remote_cls\l_trackers\l_trackers\l_watcher : Instance\l_watcher : NoneType\lchanges : Tuple\ldirty : Bool\lexecutor : ThreadPoolExecutor\lhead : Unicode\lhead_hash : Unicode\lhead_history : Tuple\lheads : Dict\lremotes : Dict\lremotes : dict\lurl : Unicode\lwatching : Bool\lworking_dir : Instance\l|__init__(working_dir)\l_default_changes()\l_on_watch_changes(changes)\l_on_watching(change)\ladd_remote(name, url)\ltrack()\l}", shape="record"];
+"3" [label="{wxyz.dvcs.Git|_git : Instance\l_git : Repo\l_ref_watcher : Instance\l_remote_cls\l_watcher\ldirty : bool\lhead\lhead_hash\lhead_history : list\lheads\lremotes : dict\l|_default_head()\l_initialize_watcher()\l_on_head_changed(change)\l_on_path(change)\l_on_ref_change(_change)\l_on_watch_changes()\l_update_head_history()\l_update_heads()\l_update_remotes()\lbranch(name, ref)\lcheckout(name)\lcommit(message)\lmerge(ref)\lrevert(ref)\lstage(path)\lunstage(path)\l}", shape="record"];
+"4" [label="{wxyz.dvcs.GitRemote|_remote\l_remote : Instance\llocal : Instance\l|__init__()\l_fetch()\l_update_heads()\lpush(ref)\l}", shape="record"];
+"5" [label="{wxyz.dvcs._GitRefWatcher|\l|should_watch_dir(entry)\l}", shape="record"];
+"6" [label="{wxyz.dvcs.Committer|_dom_classes\lchildren : list\lcommit_btn : Instance\lmessage : Instance\lrepo : Instance\lwatch : Instance\l|__init__()\l_default_commit_btn()\l_default_message()\l_default_watch()\lchange_btn_desc(changes)\lcommit()\l}", shape="record"];
+"7" [label="{wxyz.dvcs.Brancher|_repo_link : NoneType\lbranch_name : Instance\lchildren : list\lcreate_btn : Instance\lrepo : Instance\l|__init__()\l_default_branch_name()\l_default_create_btn()\lcreate()\l}", shape="record"];
+"8" [label="{wxyz.dvcs.HeadPicker|_repo_link : NoneType\l_repo_link : NoneType, directional_link\lcheckout_btn : Instance\lchildren : list\lpicker : Instance\lrefresh_btn : Instance\lrepo : Instance\l|__init__()\l_default_checkout_btn()\l_default_picker()\l_default_refresh_btn()\l_format_head_options(heads)\l_on_repo_changed(change)\l_update_picker_value()\lcheckout()\lrefresh()\l}", shape="record"];
+"9" [label="{wxyz.dvcs.HeadStatus|children : list\lhtml : Instance\lrepo : Instance\ltemplate : Instance\l|__init__()\l_default_template()\l_on_repo_update(_change)\l}", shape="record"];
+"10" [label="{wxyz.dvcs.Remoter|_remotes_link : NoneType\l_remotes_link : directional_link\lchildren : list\lfetch_btn : Instance\lhead : Unicode\lheads : Instance\lmerge_btn : Instance\lpush_btn : Instance\lremote : Unicode\lremotes : Instance\lrepo : Instance\l|__init__()\l_default_fetch_btn()\l_default_heads()\l_default_merge_btn()\l_default_push_btn()\l_default_remotes()\l_on_fetch_click()\l_on_merge_click()\l_on_push_click()\l_on_remote(change)\l_on_repo(change)\l_update_head_options(change)\l_update_remote_options(remotes)\l}", shape="record"];
+"11" [label="{wxyz.dvcs.TimeTraveler|_commits_cls : SelectionSlider\l_dom_classes\l_option_tmpl : Template\lchildren : list\lcommits : Instance\lenable_chk : Instance\lenabled : Bool\lrepo : Instance\l|__init__()\l_default_enable_chk()\l_make_default_commits()\l_on_change_commit(change)\l_on_head_hash_change(_change)\l_update_history_options(history)\l}", shape="record"];
+"12" [label="{wxyz.dvcs.DictTracker|\l|dict_from_widget()\lwidget_from_dict(content)\l}", shape="record"];
+"13" [label="{wxyz.dvcs.ExecutorTracker|executor : ThreadPoolExecutor\l|on_file_change()\lon_file_change_sync()\lon_user_change()\lon_user_change_sync()\l}", shape="record"];
+"14" [label="{wxyz.dvcs.Tracker|__extension__ : NoneType\l_idle_after\l_idle_after : NoneType\lencoding : Unicode\lloop\lpath : Instance\ltracked_traits\ltracked_widget : Instance\luser_idle_interval : Float\l|_changed_tracked_traits(change)\l_changed_tracked_widget(change)\l_on_file_change(change)\l_on_user_change(change)\ldetect_tracker(cls, path, base_cls)\lon_file_change()\lon_user_change()\l}", shape="record"];
+"15" [label="{wxyz.dvcs.JSONDictTracker|__extension__ : str\l|_read(text)\l_write(widget_dict)\lon_file_change_sync()\lon_user_change_sync()\l}", shape="record"];
+"16" [label="{wxyz.dvcs.YAMLDictTracker|__extension__ : str\l|_read(text)\l_write(widget_dict)\l}", shape="record"];
+"17" [label="{wxyz.dvcs.Watcher|_stop : Instance\l_stop : NoneType, Event\l_watcher_cls : Any\lchanges : NoneType\lchanges : Tuple\lpath : Instance\lwatching : Bool\l|__init__(path)\l_changes(changes)\l_default_changes()\l_on_watching(change)\l_watch()\l}", shape="record"];
+"18" [label="{wxyz.dvcs._JupyterWatcher|\l|should_watch_dir(entry)\l}", shape="record"];
+"19" [label="{ipywidgets.widgets.domwidget.DOMWidget|_dom_classes\l_dom_classes\l_model_name : Unicode\llayout\l|_repr_keys()\ladd_class(className)\lremove_class(className)\l}", shape="record"];
+"20" [label="{ipywidgets.widgets.widget.LoggingHasTraits|log : Instance\l|_log_default()\l}", shape="record"];
+"21" [label="{ipywidgets.widgets.widget.Widget|_display_callbacks : Instance\l_holding_sync : bool\l_holding_sync : bool\l_ipython_display_ : NoneType\l_model_id\l_model_module : Unicode\l_model_module_version : Unicode\l_model_name : Unicode\l_msg_callbacks : Instance\l_property_lock : Dict\l_property_lock : dict\l_states_to_send : Set\l_view_count : Int\l_view_module : Unicode\l_view_module_version : Unicode\l_view_name : Unicode\l_widget_construction_callback : NoneType\lcomm : Comm, NoneType\lcomm : Instance\lkeys : List\lmodel_id\lwidget_types : WidgetRegistry\lwidgets : dict\l|__del__()\l__init__()\l__repr__()\l_call_widget_constructed(widget)\l_comm_changed(change)\l_compare(a, b)\l_default_keys()\l_gen_repr_from_keys(keys)\l_get_embed_state(drop_defaults)\l_handle_custom_msg(content, buffers)\l_handle_displayed()\l_handle_msg(msg)\l_ipython_display_()\l_is_numpy(x)\l_lock_property()\l_repr_keys()\l_send(msg, buffers)\l_should_send_property(key, value)\l_trait_from_json(x)\l_trait_to_json(x)\ladd_traits()\lclose()\lclose_all(cls)\lget_manager_state(drop_defaults, widgets)\lget_state(key, drop_defaults)\lget_view_spec()\lhandle_comm_opened(comm, msg)\lhold_sync()\lnotify_change(change)\lon_displayed(callback, remove)\lon_msg(callback, remove)\lon_widget_constructed(callback)\lopen()\lsend(content, buffers)\lsend_state(key)\lset_state(sync_data)\l}", shape="record"];
+"22" [label="{ipywidgets.widgets.widget_box.Box|_model_name : Unicode\l_view_name : Unicode\lbox_style : CaselessStrEnum\lchildren\l|__init__(children)\l_fire_children_displayed()\l}", shape="record"];
+"23" [label="{ipywidgets.widgets.widget_box.HBox|_model_name : Unicode\l_view_name : Unicode\l|}", shape="record"];
+"24" [label="{ipywidgets.widgets.widget_box.VBox|_model_name : Unicode\l_view_name : Unicode\l|}", shape="record"];
+"25" [label="{ipywidgets.widgets.widget_core.CoreWidget|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}", shape="record"];
+"26" [label="{traitlets.traitlets.HasDescriptors|\l|__new__()\lsetup_instance()\l}", shape="record"];
+"27" [label="{traitlets.traitlets.HasTraits|__class__\l__dict__\l_cross_validation_lock : bool\l_trait_notifiers : dict\lcross_validation_lock\lnotify_change\l|__getstate__()\l__init__()\l__setstate__(state)\l_add_notifiers(handler, name, type)\l_get_trait_default_generator(name)\l_notify_observers(event)\l_notify_trait(name, old_value, new_value)\l_register_validator(handler, names)\l_remove_notifiers(handler, name, type)\ladd_traits()\lclass_own_trait_events(cls, name)\lclass_own_traits(cls)\lclass_trait_names(cls)\lclass_traits(cls)\lhas_trait(name)\lhold_trait_notifications()\lnotify_change(change)\lobserve(handler, names, type)\lon_trait_change(handler, name, remove)\lset_trait(name, value)\lsetup_instance()\ltrait_defaults()\ltrait_events(cls, name)\ltrait_has_value(name)\ltrait_metadata(traitname, key, default)\ltrait_names()\ltrait_values()\ltraits()\lunobserve(handler, names, type)\lunobserve_all(name)\l}", shape="record"];
+"28" [label="{watchgod.watcher.AllWatcher|files : dict\lroot_path\l|__init__(root_path)\l_walk(path, changes, new_files)\l_walk_dir(dir_path, changes, new_files)\l_watch_file(path, changes, new_files)\lcheck()\lshould_watch_dir(entry)\lshould_watch_file(entry)\l}", shape="record"];
+"29" [label="{watchgod.watcher.DefaultDirWatcher|ignored_dirs : set\l|should_watch_dir(entry)\l}", shape="record"];
+"30" [label="{wxyz.core.base.Base|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\lclosable : Bool\ldescription : Unicode\lerror : CUnicode\licon_class : Unicode\l|}", shape="record"];
+"31" [label="{wxyz.core.base.WXYZBase|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}", shape="record"];
+"0" -> "30" [arrowhead="empty", arrowtail="none"];
+"1" -> "21" [arrowhead="empty", arrowtail="none"];
+"2" -> "21" [arrowhead="empty", arrowtail="none"];
+"5" -> "29" [arrowhead="empty", arrowtail="none"];
+"6" -> "24" [arrowhead="empty", arrowtail="none"];
+"7" -> "23" [arrowhead="empty", arrowtail="none"];
+"8" -> "23" [arrowhead="empty", arrowtail="none"];
+"9" -> "23" [arrowhead="empty", arrowtail="none"];
+"10" -> "24" [arrowhead="empty", arrowtail="none"];
+"11" -> "23" [arrowhead="empty", arrowtail="none"];
+"12" -> "14" [arrowhead="empty", arrowtail="none"];
+"13" -> "14" [arrowhead="empty", arrowtail="none"];
+"14" -> "21" [arrowhead="empty", arrowtail="none"];
+"17" -> "21" [arrowhead="empty", arrowtail="none"];
+"18" -> "29" [arrowhead="empty", arrowtail="none"];
+"19" -> "21" [arrowhead="empty", arrowtail="none"];
+"20" -> "27" [arrowhead="empty", arrowtail="none"];
+"21" -> "20" [arrowhead="empty", arrowtail="none"];
+"22" -> "19" [arrowhead="empty", arrowtail="none"];
+"22" -> "25" [arrowhead="empty", arrowtail="none"];
+"23" -> "22" [arrowhead="empty", arrowtail="none"];
+"24" -> "22" [arrowhead="empty", arrowtail="none"];
+"25" -> "21" [arrowhead="empty", arrowtail="none"];
+"27" -> "26" [arrowhead="empty", arrowtail="none"];
+"29" -> "28" [arrowhead="empty", arrowtail="none"];
+"30" -> "31" [arrowhead="empty", arrowtail="none"];
+"31" -> "21" [arrowhead="empty", arrowtail="none"];
+"1" -> "2" [arrowhead="diamond", arrowtail="none", fontcolor="green", label="_remote_cls", style="solid"];
+}

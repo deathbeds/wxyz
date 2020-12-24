@@ -56,11 +56,9 @@ jobs:
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 integrity
                 displayName: check repo integrity
 
-              - task: PublishPipelineArtifact@0
+              - publish: dist
+                artifact: $(Build.BuildId) Dist
                 displayName: publish artifacts for distribution
-                inputs:
-                  targetPath: dist
-                  artifactName: Dist $(Build.BuildId)
                 condition: always()
 
               - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;

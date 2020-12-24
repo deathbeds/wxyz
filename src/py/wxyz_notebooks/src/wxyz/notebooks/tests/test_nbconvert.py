@@ -1,11 +1,13 @@
 """ test nbconvert CLI with wxyz example notebooks
 """
+import os
 import subprocess
 import sys
+from pathlib import Path
 
 import pytest
 
-from .conftest import TEST_NOTEBOOKS
+from .conftest import TEST_NOTEBOOKS, WIDGET_LOG_OUT
 
 
 @pytest.mark.parametrize("name,ipynb", [[i.stem, i] for i in TEST_NOTEBOOKS])
@@ -23,14 +25,21 @@ def test_notebook(name, ipynb, tmp_path):
         ipynb,
     ]
 
-    assert (
-        subprocess.call(
-            [
-                *map(
-                    str,
-                    args,
-                )
-            ]
-        )
-        == 0
-    ), f"{name} failed to nbconvert --execute"
+    if WIDGET_LOG_OUT:
+        os.environ["WXYZ_WIDGET_LOG"] = str(Path(WIDGET_LOG_OUT) / f"{name}.json")
+
+    work_path = tmp_path / "_wxyz_work"
+    os.environ["WXYZ_TEST_WORK_DIR"] = str(work_path)
+
+    rc = subprocess.call(
+        [
+            *map(
+                str,
+                args,
+            )
+        ],
+    )
+
+    os.environ.pop("WXYZ_WIDGET_LOG", None)
+
+    assert rc == 0, f"{name} failed to nbconvert --execute"

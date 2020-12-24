@@ -1,0 +1,79 @@
+parameters:
+  platforms:
+    - name: Linux
+      vmImage: ubuntu-16.04
+      activate: source activate
+      condaPlatform: linux-64
+  pythons:
+    - name: ThreeEight
+      spec: '3.8'
+      lab: '2.2'
+      env: wxyz-test-38
+  cache_epoch: '1'
+
+jobs:
+  - ${{ each platform in parameters.platforms }}:
+      - ${{ each python in parameters.pythons}}:
+          - job: Docs
+            dependsOn:
+              - LinuxThreeEight
+              - Lint
+            pool:
+              vmImage: ${{ platform.vmImage }}
+            variables:
+              - name: CONDA_PKGS_DIRS
+                value: $(Agent.BuildDirectory)/.conda-packages/
+            steps:
+              - task: DownloadPipelineArtifact@2
+                displayName: download widget data
+                inputs:
+                  artifactName: $(Build.BuildId) Widgets Succeeded LinuxThreeEight
+                  path: build/nbwidgets
+
+              - task: DownloadPipelineArtifact@2
+                displayName: download robot data
+                inputs:
+                  artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
+                  path: atest/output
+
+              - script: find $(Pipeline.Workspace)
+                displayName: list all files [DEBUG]
+
+              - template: steps.conda.yml
+                parameters:
+                  name: ${{ platform.name }}
+
+              - task: Cache@2
+                inputs:
+                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  path: $(Agent.BuildDirectory)/.conda-packages/
+                  restoreKeys: |
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
+                displayName: cache conda packages
+
+              - script: conda create --prefix ${{ python.env }} --file ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock
+                displayName: create conda env for docs
+
+              - task: Cache@2
+                inputs:
+                  key: 'yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | yarn.lock'
+                  restoreKeys: |
+                    yarn | ${{ parameters.cache_epoch }} | "$(Agent.OS)"
+                    yarn | ${{ parameters.cache_epoch }}
+                  path: .yarn-packages
+                displayName: cache yarn packages
+
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs || doit docs
+                displayName: build all the docs
+
+              - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 spell checklinks || doit spell checklinks
+                displayName: check the docs
+
+              - publish: build/docs
+                artifact: $(Build.BuildId) Docs
+                displayName: publish built docs
+
+              - bash: find $(Agent.BuildDirectory)/.conda-packages -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+                condition: always()
+                displayName: clean conda cache

@@ -40,7 +40,7 @@ def postbuild():
 def wxyz_notebook_cfg():
     """the notebook setup.cfg"""
     pys = [pys for pys in P.PY_SETUP if pys.parent.name == "wxyz_notebooks"][0]
-    return (pys.parent / "setup.cfg").read_text()
+    return (pys.parent / "setup.cfg").read_text(encoding="utf-8")
 
 
 def test_contributing_locks(contributing_text):
@@ -85,7 +85,7 @@ def test_readme_labext(pkg, readme_text):
 )
 def test_py_versions(pkg, version):
     """are version files consistent?"""
-    setup_cfg = (P.PY_SRC / pkg / "setup.cfg").read_text()
+    setup_cfg = (P.PY_SRC / pkg / "setup.cfg").read_text(encoding="utf-8")
 
     assert f"version = {version}" in setup_cfg
 
@@ -97,7 +97,7 @@ def test_py_versions(pkg, version):
 def test_manifest(pkg_name, pkg_path):
     """are manifest files proper?"""
     manifest = pkg_path / "MANIFEST.in"
-    manifest_txt = manifest.read_text()
+    manifest_txt = manifest.read_text(encoding="utf-8")
 
     assert re.findall(
         r"include .*LICENSE.txt", manifest_txt

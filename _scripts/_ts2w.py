@@ -122,7 +122,8 @@ def update_py(schema, path):
         txt = txt.replace(old, new)
 
     path.write_text(txt, **ENC)
-    subprocess.check_call(["black", str(path)])
+    subprocess.check_call(["isort", "--quiet", "--ac", str(path)])
+    subprocess.check_call(["black", "--quiet", str(path)])
 
 
 def update_ts(schema, path):

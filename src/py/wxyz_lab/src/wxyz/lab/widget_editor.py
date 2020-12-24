@@ -5,7 +5,7 @@ from .base import LabBase, T, W, module_name, module_version
 
 @W.register
 class EditorModeInfo(W.Widget):
-    """codemirror modes known to the frontend"""
+    """CodeMirror modes known to the frontend"""
 
     _model_name = T.Unicode("EditorModeInfoModel").tag(sync=True)
     _model_module = T.Unicode(module_name).tag(sync=True)

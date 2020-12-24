@@ -1,0 +1,20 @@
+name: wxyz-docs
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+
+dependencies:
+  - hunspell
+  - hunspell-en
+  - nbsphinx
+  - pydata-sphinx-theme
+  - pytest-check-links
+  - python-graphviz
+  - recommonmark
+  - requests_cache
+  - sphinx-autobuild
+  - sphinx-autodoc-typehints
+  - sphinx-copybutton
+  - sphinx-markdown-tables
+  - sphinx-sitemap
+  - tabulate

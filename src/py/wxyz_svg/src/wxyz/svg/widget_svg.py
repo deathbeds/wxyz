@@ -48,4 +48,4 @@ class SVGBox(SVGBase, W.Box):
 
     @T.observe("svg_file")
     def _on_svg_file_changed(self, *args, **kwargs):
-        self.svg = Path(self.svg_file).read_text()
+        self.svg = Path(self.svg_file).read_text(encoding="utf-8")

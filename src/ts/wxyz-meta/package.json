@@ -14,7 +14,7 @@
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
-  "homepage": "https://github.com/deathbeds/wxyz",
+  "homepage": "https://deathbeds.github.io/wxyz",
   "keywords": [
     "jupyter",
     "jupyterlab",

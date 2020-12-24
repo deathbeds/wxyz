@@ -131,7 +131,7 @@ https://conda.anaconda.org/conda-forge/noarch/testpath-0.4.4-py_0.tar.bz2#3b98ff
 https://conda.anaconda.org/conda-forge/noarch/threadpoolctl-2.1.0-pyh5ca1d4c_0.tar.bz2#9eb32b63458380aa3804de519b6e5749
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.2-pyhd8ed1ab_0.tar.bz2#f832c45a477c78bebd107098db465095
 https://conda.anaconda.org/conda-forge/noarch/toolz-0.11.1-py_0.tar.bz2#d1e66b58cb00b3817ad9f05eec098c00
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.54.1-pyhd8ed1ab_0.tar.bz2#7b03d52227ac839ae00f94fee1a75074
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.54.1-pyhd8ed1ab_1.tar.bz2#9baa73745bc4829da9e76e84313f9d26
 https://conda.anaconda.org/conda-forge/noarch/typing_extensions-3.7.4.3-py_0.tar.bz2#12b96e382730541a4b332420227055ae
 https://conda.anaconda.org/conda-forge/noarch/watchgod-0.6-py_0.tar.bz2#4499434e6002bd82fdd50a76ea2c7b2c
 https://conda.anaconda.org/conda-forge/noarch/webencodings-0.5.1-py_1.tar.bz2#3563be4c5611a44210d9ba0c16113136
@@ -177,14 +177,14 @@ https://conda.anaconda.org/conda-forge/linux-64/pysocks-1.7.1-py38h924ce5b_2.tar
 https://conda.anaconda.org/conda-forge/noarch/python-dateutil-2.8.1-py_0.tar.bz2#0d0150ed9c2d25817f5324108d3f7571
 https://conda.anaconda.org/conda-forge/linux-64/pyyaml-5.3.1-py38h8df0ef7_1.tar.bz2#8eaa66e391971ac0e9e329b91bc37003
 https://conda.anaconda.org/conda-forge/linux-64/pyzmq-20.0.0-py38h1d1b12f_1.tar.bz2#4961f04ad485621b5ee86e5be1539e8b
-https://conda.anaconda.org/conda-forge/linux-64/regex-2020.11.13-py38h25fe258_0.tar.bz2#a6be67d5c9588f9ec67f9c8a8beabf53
+https://conda.anaconda.org/conda-forge/linux-64/regex-2020.11.13-py38h497a2fe_0.tar.bz2#9cdc2a16a276653d669bc4a0a1c8a366
 https://conda.anaconda.org/conda-forge/noarch/robotframework-lint-1.1-pyh9f0ad1d_0.tar.bz2#c3fa280c4a10c06e83f23193ef4ea5cc
 https://conda.anaconda.org/conda-forge/noarch/robotframework-pabot-1.10.0-py_0.tar.bz2#34b9ed99c11f7ce4bd211f6f8eeeafac
 https://conda.anaconda.org/conda-forge/noarch/robotframework-pythonlibcore-2.1.0-pyhd8ed1ab_1.tar.bz2#c20e2a5cca5be112eddedd02396897b9
 https://conda.anaconda.org/conda-forge/linux-64/soupsieve-2.0.1-py38h32f6830_0.tar.bz2#fb259a0acc8985f755d71c076c871892
 https://conda.anaconda.org/conda-forge/linux-64/tornado-6.1-py38h25fe258_0.tar.bz2#44f79ac64582a77cecbdca04c777ae30
 https://conda.anaconda.org/conda-forge/noarch/traitlets-5.0.5-py_0.tar.bz2#99618ee9ab1323e40f231acdab92fe60
-https://conda.anaconda.org/conda-forge/linux-64/typed-ast-1.4.1-py38h25fe258_1.tar.bz2#431bf50db61ecdfcea5e8980daaf8b57
+https://conda.anaconda.org/conda-forge/linux-64/typed-ast-1.4.1-py38h497a2fe_1.tar.bz2#f9992ba5ba6176c4fb7a6ceab7bbe370
 https://conda.anaconda.org/conda-forge/noarch/typing-extensions-3.7.4.3-0.tar.bz2#36bdcdb4c2bf1efb987f2e9e80f4c9a6
 https://conda.anaconda.org/conda-forge/linux-64/wrapt-1.11.2-py38h1e0a361_1.tar.bz2#a90b3fd0066786f8dc63ea6c130ef72f
 https://conda.anaconda.org/conda-forge/noarch/zict-2.0.0-py_0.tar.bz2#4750152be22f24d695b3004c5e1712d3

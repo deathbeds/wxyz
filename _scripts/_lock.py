@@ -57,7 +57,7 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
 
         for env_dep in env_files:
             print(f"merging {env_dep.name}", flush=True)
-            composite = merge(composite, safe_load(env_dep.read_text()))
+            composite = merge(composite, safe_load(env_dep.read_text(encoding="utf-8")))
 
         fake_deps = []
 
@@ -74,7 +74,12 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
             tdp = Path(td)
             composite_yml = tdp / "composite.yml"
             composite_yml.write_text(safe_dump(composite, default_flow_style=False))
-            print("composite\n\n", composite_yml.read_text(), "\n\n", flush=True)
+            print(
+                "composite\n\n",
+                composite_yml.read_text(encoding="utf-8"),
+                "\n\n",
+                flush=True,
+            )
             rc = 1
             for extra_args in [[], ["--no-mamba"]]:
                 args = [
@@ -93,7 +98,7 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
                 raise Exception("couldn't solve at all", composite)
 
             tmp_lock = tdp / f"conda-{platform_}.lock"
-            tmp_lock_txt = tmp_lock.read_text()
+            tmp_lock_txt = tmp_lock.read_text(encoding="utf-8")
             tmp_lock_lines = tmp_lock_txt.splitlines()
             urls = [line for line in tmp_lock_lines if line.startswith("https://")]
             print(len(urls), "urls")

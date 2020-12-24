@@ -95,7 +95,7 @@ class Terminal(LabBase):
         self._data_handlers.register_callback(callback, remove=remove)
 
     def data(self, content):
-        """programatically call all data listeners"""
+        """programmatically call all data listeners"""
         self._data_handlers(self, content)
 
     def send_line(self, line):

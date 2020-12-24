@@ -1,0 +1,34 @@
+digraph "classes_jsonld" {
+
+            graph [fontname = "sans-serif"];
+            node [fontname = "sans-serif"];
+            edge [fontname = "sans-serif"];
+            
+charset="utf-8"
+rankdir=BT
+"0" [label="{wxyz.jsonld.base.JSONLDBase|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}", shape="record"];
+"1" [label="{wxyz.jsonld.Compact|_model_name : Unicode\l_observed_traits : list\lcontext : Dict\lexpand_context : Dict\lsource : Dict\lvalue : Dict\l|the_function(source, context, expand_context)\l}", shape="record"];
+"2" [label="{wxyz.jsonld.Expand|_model_name : Unicode\l_observed_traits : list\lexpand_context : Dict\lsource : Dict\lvalue : List\l|the_function(source, expand_context)\l}", shape="record"];
+"3" [label="{wxyz.jsonld.Flatten|_model_name : Unicode\l_observed_traits : list\lcontext : Dict\lexpand_context : Dict\lsource : Dict\lvalue : Dict\l|the_function(source, context, expand_context)\l}", shape="record"];
+"4" [label="{wxyz.jsonld.Frame|_model_name : Unicode\l_observed_traits : list\lexpand_context : Dict\lframe : Dict\lsource : Dict\lvalue : Dict\l|the_function(source, frame, expand_context)\l}", shape="record"];
+"5" [label="{wxyz.jsonld.Normalize|_model_name : Unicode\l_observed_traits : list\lexpand_context : Dict\lformat : Unicode\lsource : Dict\lvalue : Union\l|the_function(source, format, expand_context)\l}", shape="record"];
+"6" [label="{ipywidgets.widgets.widget.LoggingHasTraits|log : Instance\l|_log_default()\l}", shape="record"];
+"7" [label="{ipywidgets.widgets.widget.Widget|_display_callbacks : Instance\l_holding_sync : bool\l_holding_sync : bool\l_ipython_display_ : NoneType\l_model_id\l_model_module : Unicode\l_model_module_version : Unicode\l_model_name : Unicode\l_msg_callbacks : Instance\l_property_lock : Dict\l_property_lock : dict\l_states_to_send : Set\l_view_count : Int\l_view_module : Unicode\l_view_module_version : Unicode\l_view_name : Unicode\l_widget_construction_callback : NoneType\lcomm : Comm, NoneType\lcomm : Instance\lkeys : List\lmodel_id\lwidget_types : WidgetRegistry\lwidgets : dict\l|__del__()\l__init__()\l__repr__()\l_call_widget_constructed(widget)\l_comm_changed(change)\l_compare(a, b)\l_default_keys()\l_gen_repr_from_keys(keys)\l_get_embed_state(drop_defaults)\l_handle_custom_msg(content, buffers)\l_handle_displayed()\l_handle_msg(msg)\l_ipython_display_()\l_is_numpy(x)\l_lock_property()\l_repr_keys()\l_send(msg, buffers)\l_should_send_property(key, value)\l_trait_from_json(x)\l_trait_to_json(x)\ladd_traits()\lclose()\lclose_all(cls)\lget_manager_state(drop_defaults, widgets)\lget_state(key, drop_defaults)\lget_view_spec()\lhandle_comm_opened(comm, msg)\lhold_sync()\lnotify_change(change)\lon_displayed(callback, remove)\lon_msg(callback, remove)\lon_widget_constructed(callback)\lopen()\lsend(content, buffers)\lsend_state(key)\lset_state(sync_data)\l}", shape="record"];
+"8" [label="{traitlets.traitlets.HasDescriptors|\l|__new__()\lsetup_instance()\l}", shape="record"];
+"9" [label="{traitlets.traitlets.HasTraits|__class__\l__dict__\l_cross_validation_lock : bool\l_trait_notifiers : dict\lcross_validation_lock\lnotify_change\l|__getstate__()\l__init__()\l__setstate__(state)\l_add_notifiers(handler, name, type)\l_get_trait_default_generator(name)\l_notify_observers(event)\l_notify_trait(name, old_value, new_value)\l_register_validator(handler, names)\l_remove_notifiers(handler, name, type)\ladd_traits()\lclass_own_trait_events(cls, name)\lclass_own_traits(cls)\lclass_trait_names(cls)\lclass_traits(cls)\lhas_trait(name)\lhold_trait_notifications()\lnotify_change(change)\lobserve(handler, names, type)\lon_trait_change(handler, name, remove)\lset_trait(name, value)\lsetup_instance()\ltrait_defaults()\ltrait_events(cls, name)\ltrait_has_value(name)\ltrait_metadata(traitname, key, default)\ltrait_names()\ltrait_values()\ltraits()\lunobserve(handler, names, type)\lunobserve_all(name)\l}", shape="record"];
+"10" [label="{wxyz.core.base.Base|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\lclosable : Bool\ldescription : Unicode\lerror : CUnicode\licon_class : Unicode\l|}", shape="record"];
+"11" [label="{wxyz.core.base.Fn|_observed_traits : list\lerror : str\lmode : Enum\lsource : Any\lvalue : Any\lvalue : NoneType\l|__init__()\lthe_observer()\l}", shape="record"];
+"12" [label="{wxyz.core.base.WXYZBase|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}", shape="record"];
+"0" -> "10" [arrowhead="empty", arrowtail="none"];
+"1" -> "11" [arrowhead="empty", arrowtail="none"];
+"2" -> "11" [arrowhead="empty", arrowtail="none"];
+"3" -> "11" [arrowhead="empty", arrowtail="none"];
+"4" -> "11" [arrowhead="empty", arrowtail="none"];
+"5" -> "11" [arrowhead="empty", arrowtail="none"];
+"6" -> "9" [arrowhead="empty", arrowtail="none"];
+"7" -> "6" [arrowhead="empty", arrowtail="none"];
+"9" -> "8" [arrowhead="empty", arrowtail="none"];
+"10" -> "12" [arrowhead="empty", arrowtail="none"];
+"11" -> "10" [arrowhead="empty", arrowtail="none"];
+"12" -> "7" [arrowhead="empty", arrowtail="none"];
+}
