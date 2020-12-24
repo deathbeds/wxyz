@@ -21,9 +21,9 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 > Experimental [Widgets][] for [JupyterLab][].
 
-|           build           |            demo             |                      docs                       |
-| :-----------------------: | :-------------------------: | :---------------------------------------------: |
-| [![build-badge][]][build] | [![binder-badge][]][binder] | [EXAMPLES][] — [CHANGELOG][] — [CONTRIBUTING][] |
+|           build           |            demo             |                           docs                           |
+| :-----------------------: | :-------------------------: | :------------------------------------------------------: |
+| [![build-badge][]][build] | [![binder-badge][]][binder] | [DOCS][] [EXAMPLES][] — [CHANGELOG][] — [CONTRIBUTING][] |
 
 ## Install and Use
 
@@ -73,6 +73,7 @@ might be better suited to your needs.
 
 [binder-badge]: https://mybinder.org/badge_logo.svg
 [binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[docs]: https://deathbeds.github.io/wxyz
 [build-badge]: https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=master
 [build]: https://dev.azure.com/nickbollweg/deathbeds/_build/latest?definitionId=6&branchName=master
 [changelog]: https://github.com/deathbeds/wxyz/blob/master/CHANGELOG.md

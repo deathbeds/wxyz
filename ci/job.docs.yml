@@ -52,6 +52,9 @@ jobs:
               - download: current
                 displayName: download everything we've built
 
+              - bash: find build
+                displayName: show all the downloaded files
+
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs spell || doit docs spell
                 displayName: build all the docs
 
