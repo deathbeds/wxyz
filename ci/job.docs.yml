@@ -38,9 +38,6 @@ jobs:
                   artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
                   path: atest/output
 
-              - script: find $(Pipeline.Workspace)
-                displayName: list all files [DEBUG]
-
               - template: steps.conda.yml
                 parameters:
                   name: ${{ platform.name }}
