@@ -33,7 +33,7 @@ Setup Server and Browser
     Set Global Variable    ${SERVER}    ${server}
     Open JupyterLab
     ${script} =    Get Element Attribute    id:jupyter-config-data    innerHTML
-    ${config} =    Evaluate    __import__("json").loads("""${script}""")
+    ${config} =    Evaluate    __import__("json").loads("""\n${script.replace("\\", "\\\\")}\n""")
     Set Global Variable    ${PAGE CONFIG}    ${config}
     Set Global Variable    ${LAB VERSION}    ${config["appVersion"]}
 
