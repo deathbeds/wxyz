@@ -725,11 +725,14 @@ if shutil.which("pytest-check-links"):
         return dict(
             actions=[
                 U.okit(key, remove=True),
+                lambda: (P.BUILD / "check_links/cache").mkdir(
+                    parents=True, exist_ok=True
+                ),
                 [
                     "pytest-check-links",
                     "--check-anchors",
                     "--check-links-cache",
-                    "--check-links-cache-name=build/check_links",
+                    "--check-links-cache-name=build/check_links/cache",
                     # a few days seems reasonable
                     f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
                     # might be able to relax this, eventually

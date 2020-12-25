@@ -69,7 +69,7 @@ jobs:
               - task: Cache@2
                 inputs:
                   key: 'links | ${{ parameters.cache_epoch }} | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
-                  path: build/check_links.sqlite
+                  path: build/check_links
                   restoreKeys: |
                     links | ${{ parameters.cache_epoch }}
                 displayName: cache link checks
