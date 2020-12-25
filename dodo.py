@@ -370,6 +370,8 @@ def task_nbtest():
                     "-vv",
                     "-n",
                     "auto",
+                    "-o",
+                    f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
                     "--no-coverage-upload",
                     *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
                 ],
@@ -730,6 +732,8 @@ if shutil.which("pytest-check-links"):
                 ),
                 [
                     "pytest-check-links",
+                    "-o",
+                    "junit_suite_name=checklinks",
                     "--check-anchors",
                     "--check-links-cache",
                     "--check-links-cache-name=build/check_links/cache",
