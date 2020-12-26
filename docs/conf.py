@@ -57,7 +57,7 @@ html_baseurl = os.environ.get("SITEMAP_URL_BASE", "http://127.0.0.1:8080/")
 sitemap_locales = [None]
 sitemap_url_scheme = "{link}"
 
-html_favicon = "foo.ico"
+html_favicon = "_static/favicon.ico"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

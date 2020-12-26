@@ -19,6 +19,7 @@ except ImportError:
 
 try:
     from colorama import init
+
     init()
 except ImportError:
     pass
