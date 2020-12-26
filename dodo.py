@@ -29,6 +29,7 @@ DOIT_CONFIG = {
     "verbosity": 2,
     "par_type": "thread",
     "default_tasks": ["binder"],
+    "reporter": U.Reporter,
 }
 
 
@@ -664,19 +665,27 @@ if not P.TESTING_IN_CI:
                 continue
             yield _make_ts_readme(package_json)
 
+        yield dict(
+            name="favicon",
+            actions=[[*P.PYM, "_scripts._favicon"]],
+            file_dep=[P.DOCS_LOGO],
+            targets=[P.DOCS_FAVICON],
+        )
+
         if shutil.which("sphinx-build"):
             yield dict(
                 name="sphinx",
                 doc="build the HTML site",
                 actions=[["sphinx-build", "-b", "html", "docs", "build/docs"]],
                 file_dep=[
-                    P.DOCS_CONF_PY,
-                    *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
+                    *P.ALL_SRC_PY,
                     *P.DOCS_DOT,
-                    *P.PY_DOCS_RST,
                     *P.DOCS_IPYNB,
+                    *P.DOCS_STATIC.rglob("*"),
                     *P.DOCS_TEMPLATES,
+                    *P.PY_DOCS_RST,
+                    P.DOCS_CONF_PY,
                     P.OK / "setup_py",
                 ],
                 targets=[P.DOCS_BUILDINFO],

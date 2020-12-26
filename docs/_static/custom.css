@@ -88,15 +88,77 @@ body .carousel-indicators li {
   border: solid 4px var(--wxyz-brand-color0);
 }
 
-@media (min-width: 1400px) {
-  .bd-sidebar,
-  .bd-toc {
-    max-width: 16rem;
-  }
+.bd-sidebar .nav > .active:hover > a,
+.bd-sidebar .nav > .active > a,
+.navbar-nav > .active > .nav-link {
+  color: var(--wxyz-brand-color0) !important;
+}
 
-  main.bd-content {
-    flex: 1;
-    max-width: unset;
-    width: 100%;
-  }
+.bd-sidebar .nav > .active:hover > a,
+.bd-sidebar .nav > .active > a {
+  border-left: solid 4px var(--wxyz-brand-color2) !important;
+}
+
+.bd-toc .onthispage,
+.editthispage a {
+  color: var(--wxyz-brand-color1) !important;
+}
+
+.bd-toc {
+  height: unset !important;
+}
+
+.bd-sidebar {
+  border: 0 !important;
+}
+
+.tocsection {
+  border: 0;
+}
+
+footer.footer {
+  background-color: var(--wxyz-brand-color3);
+  border: 0;
+  padding: 1em;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+}
+
+.prev-next-bottom a.left-prev,
+.prev-next-bottom a.right-next {
+  background-color: var(--wxyz-brand-color3);
+  border: 0;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.table {
+  max-width: 100%;
+  width: auto;
+}
+
+.docutils.container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.table th {
+  text-align: center;
+  border-top: 0;
+}
+
+.table img {
+  max-width: unset;
+}
+
+i.fas,
+i.fab {
+  min-width: var(--wxyz-font-size1);
+  min-height: var(--wxyz-font-size1);
 }

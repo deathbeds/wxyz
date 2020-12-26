@@ -2,8 +2,14 @@
 """
 # pylint: disable=expression-not-assigned
 import subprocess
+from datetime import datetime
+
+from doit.reporter import ConsoleReporter
 
 from . import _paths as P
+
+TIMEFMT = "%H:%M:%S"
+SKIP = "        "
 
 
 def call(args, **kwargs):
@@ -28,3 +34,43 @@ def okit(name, remove=False):
         return True
 
     return _ok
+
+
+class Reporter(ConsoleReporter):
+    """a fancy reporter"""
+
+    _timings = {}
+
+    def execute_task(self, task):
+        """start a task"""
+        start = datetime.now()
+        title = task.title()
+        self._timings[title] = [start]
+        self.outstream.write(f"""{start.strftime(TIMEFMT)} 🎢  {title}\n""")
+
+    def outtro(self, task, emoji):
+        """print out at the end of task"""
+        title = task.title()
+        start, end = self._timings[title] = [
+            *self._timings[title],
+            datetime.now(),
+        ]
+        delta = end - start
+        sec = str(delta.seconds).rjust(7)
+        self.outstream.write(f"{sec}s {emoji} {task.title()} {emoji}\n")
+
+    def add_failure(self, task, exception):
+        """special failure"""
+        super().add_failure(task, exception)
+        self.outtro(task, "⭕")
+
+    def add_success(self, task):
+        """special success"""
+        super().add_success(task)
+        self.outtro(task, "🏁 ")
+
+    def skip_uptodate(self, task):
+        """special skip"""
+        self.outstream.write(f"{SKIP} ⏩  {task.title()}\n")
+
+    skip_ignore = skip_uptodate

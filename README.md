@@ -2,9 +2,9 @@
 
 > Experimental [Widgets][] for [JupyterLab][].
 
-|           build           |            demo             |                           docs                           |
-| :-----------------------: | :-------------------------: | :------------------------------------------------------: |
-| [![build-badge][]][build] | [![binder-badge][]][binder] | [DOCS][] [EXAMPLES][] — [CHANGELOG][] — [CONTRIBUTING][] |
+|           build           |            demo             |                            docs                            |
+| :-----------------------: | :-------------------------: | :--------------------------------------------------------: |
+| [![build-badge][]][build] | [![binder-badge][]][binder] | [DOCS][] — [EXAMPLES][] — [CHANGELOG][] — [CONTRIBUTING][] |
 
 ## Install and Use
 

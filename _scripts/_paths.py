@@ -82,6 +82,9 @@ DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
 DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in str(nb)]
+DOCS_STATIC = DOCS / "_static"
+DOCS_LOGO = DOCS_STATIC / "wxyz.svg"
+DOCS_FAVICON = DOCS_STATIC / "favicon.ico"
 DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"

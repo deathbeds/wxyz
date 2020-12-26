@@ -116,9 +116,7 @@ def test_notebook_deps(wxyz_notebook_cfg, pkg_path):
 
 def check_integrity():
     """actually run the tests"""
-    args = [
-        "-vv", "-o", f"junit_suite_name=integrity_{P.OS}_{P.PY_VER}", __file__
-    ]
+    args = ["-vv", "-o", f"junit_suite_name=integrity_{P.OS}_{P.PY_VER}", __file__]
 
     try:
         if find_spec("pytest_azurepipelines"):

@@ -13,3 +13,5 @@ dependencies:
   - pip
   - python
   - twine
+  # remove at some point
+  - jedi <0.18.0
