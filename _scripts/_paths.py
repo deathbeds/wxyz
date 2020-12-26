@@ -17,6 +17,11 @@ try:
 except ImportError:
     import ruamel_yaml as yaml
 
+try:
+    from colorama import init
+    init()
+except ImportError:
+    pass
 
 RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
