@@ -736,24 +736,28 @@ if shutil.which("pytest-check-links"):
     def task_checklinks():
         """check whether links in built docs are valid"""
         key = "check_links"
+        args = [
+            "pytest-check-links",
+            "-o",
+            "junit_suite_name=checklinks",
+            "--check-anchors",
+            "--check-links-cache",
+            "--check-links-cache-name=build/check_links/cache",
+            # a few days seems reasonable
+            f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
+            # might be able to relax this, eventually
+            "-k",
+            "not (master or carousel)",
+        ]
         return dict(
+            uptodate=[config_changed(dict(args=args))],
             actions=[
                 U.okit(key, remove=True),
                 lambda: (P.BUILD / "check_links/cache").mkdir(
                     parents=True, exist_ok=True
                 ),
                 [
-                    "pytest-check-links",
-                    "-o",
-                    "junit_suite_name=checklinks",
-                    "--check-anchors",
-                    "--check-links-cache",
-                    "--check-links-cache-name=build/check_links/cache",
-                    # a few days seems reasonable
-                    f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
-                    # might be able to relax this, eventually
-                    "-k",
-                    "not master",
+                    *args,
                     P.DOCS_OUT,
                 ],
                 U.okit(key),
