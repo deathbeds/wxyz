@@ -112,20 +112,37 @@ DIST = ROOT / "dist"
 TEST_OUT = BUILD / "test_output"
 DOCS_OUT = BUILD / "docs"
 DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
-ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
-NO_SPELL = sorted(
-    [
-        (DOCS_OUT / "search.html"),
-        (DOCS_OUT / "gallery.html"),
-        (DOCS_OUT / "genindex.html"),
-        (DOCS_OUT / "py-modindex.html"),
-        *(DOCS_OUT / "genindex").rglob("*.html"),
-        *(DOCS_OUT / "_static").rglob("*.html"),
-        *(DOCS_OUT / "_modules").rglob("*.html"),
-        *(DOCS_OUT / "_sources").rglob("*.html"),
-    ]
-)
-ALL_SPELL_DOCS = [p for p in ALL_DOC_HTML if p not in NO_SPELL]
+
+
+def NO_SPELL():
+    """files we don't spell/link check"""
+    return sorted(
+        set(
+            [
+                (DOCS_OUT / "search.html"),
+                (DOCS_OUT / "gallery.html"),
+                (DOCS_OUT / "genindex.html"),
+                (DOCS_OUT / "py-modindex.html"),
+                *(DOCS_OUT / "genindex").rglob("*.html"),
+                *(DOCS_OUT / "_static").rglob("*.html"),
+                *(DOCS_OUT / "_modules").rglob("*.html"),
+                *(DOCS_OUT / "_sources").rglob("*.html"),
+            ]
+        )
+    )
+
+
+def ALL_DOC_HTML():
+    """all the generated HTML"""
+    return sorted(DOCS_OUT.rglob("*.html"))
+
+
+def ALL_SPELL_DOCS():
+    """files we do spell/link check"""
+    no_spell = NO_SPELL()
+    return [p for p in ALL_DOC_HTML() if p not in no_spell]
+
+
 SPELL_LANGS = "en-GB,en_US"
 DICTIONARY = DOCS / "dictionary.txt"
 ROBOT_OUT = TEST_OUT / "robot"
@@ -258,15 +275,16 @@ ALL_MD = sorted(
 ALL_PRETTIER = sorted(
     set(
         [
+            *ALL_MD,
+            *ALL_YAML,
             *CI.glob("*.yml"),
+            *DOCS.rglob("*.css"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
             *TS_SRC.rglob("*.css"),
             *TS_SRC.rglob("*.json"),
             *TS_SRC.rglob("*.ts"),
             *TS_SRC.rglob("*.yml"),
-            *ALL_YAML,
-            *ALL_MD,
         ]
     )
 )

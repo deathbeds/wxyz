@@ -18,6 +18,7 @@ try:
 except ImportError:
     pass
 
+from doit import create_after
 from doit.tools import PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P
@@ -721,15 +722,17 @@ def _make_spell(path):
 
 if shutil.which("hunspell"):
 
+    @create_after("docs")
     def task_spell():
         """check spelling of built HTML site"""
         if shutil.which("hunspell"):
-            for path in P.ALL_SPELL_DOCS:
+            for path in P.ALL_SPELL_DOCS():
                 yield _make_spell(path)
 
 
 if shutil.which("pytest-check-links"):
 
+    @create_after("docs")
     def task_checklinks():
         """check whether links in built docs are valid"""
         key = "check_links"
@@ -755,7 +758,7 @@ if shutil.which("pytest-check-links"):
                 ],
                 U.okit(key),
             ],
-            file_dep=[*P.ALL_SPELL_DOCS],
+            file_dep=[*P.ALL_SPELL_DOCS()],
             targets=[P.OK / key],
         )
 

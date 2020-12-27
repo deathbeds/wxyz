@@ -1,10 +1,10 @@
 :root {
   --wxyz-dark-code-bg: rgba(0, 0, 0, 0.9);
   --wxyz-light-code-bg: rgba(255, 255, 255, 0.9);
-  --wxyz-brand-color0: rgba(44, 137, 160, 1);
-  --wxyz-brand-color1: rgba(44, 137, 160, 0.5);
-  --wxyz-brand-color2: rgba(44, 137, 160, 0.25);
-  --wxyz-brand-color3: rgba(44, 137, 160, 0.125);
+  --wxyz-brand-color0: rgba(33, 103, 120, 1);
+  --wxyz-brand-color1: rgba(33, 103, 120, 0.75);
+  --wxyz-brand-color2: rgba(33, 103, 120, 0.5);
+  --wxyz-brand-color3: rgba(33, 103, 120, 0.25);
   --wxyz-font-size0: 1rem;
   --wxyz-font-size1: 1.25rem;
   --wxyz-font-size2: 1.75rem;
@@ -161,4 +161,8 @@ i.fas,
 i.fab {
   min-width: var(--wxyz-font-size1);
   min-height: var(--wxyz-font-size1);
+}
+
+a.headerlink {
+  color: var(--wxyz-brand-color0) !important;
 }
