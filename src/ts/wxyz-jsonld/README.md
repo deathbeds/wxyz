@@ -1,6 +1,13 @@
 # `@deathbeds/wxyz-jsonld`
 
-> Experimental widgets for JupyterLab
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_jsonld
+[pypi]: https://pypi.org/project/wxyz-jsonld
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-jsonld
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-jsonld
+
+> experimental Jupyter widgets for JSON-LD
 
 ## Installation
 

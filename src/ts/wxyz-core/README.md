@@ -1,6 +1,13 @@
 # `@deathbeds/wxyz-core`
 
-> Experimental widgets for JupyterLab
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_core
+[pypi]: https://pypi.org/project/wxyz-core
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-core
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-core
+
+> Experimental Jupyter widgets for JSON and evented transformations
 
 ## Installation
 

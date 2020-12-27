@@ -45,7 +45,7 @@ https://conda.anaconda.org/conda-forge/win-64/libflang-5.0.0-h6538335_20180525.t
 https://conda.anaconda.org/conda-forge/win-64/libpng-1.6.37-ha81a0f5_2.tar.bz2#cc8f11542031225ef813cbc7b60713fc
 https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-hf5bbc77_3.tar.bz2#4d2f9377b960b9f1425e91e13a30126c
 https://conda.anaconda.org/conda-forge/win-64/m2w64-gcc-libgfortran-5.3.0-6.tar.bz2#066552ac6b907ec6d72c0ddab29050dc
-https://conda.anaconda.org/conda-forge/win-64/python-3.8.6-h7840368_2_cpython.tar.bz2#520a80d47d16e7476924767faa00a839
+https://conda.anaconda.org/conda-forge/win-64/python-3.8.6-h7840368_4_cpython.tar.bz2#3c036af256a7a574839db4d03933713c
 https://conda.anaconda.org/conda-forge/win-64/zeromq-4.3.3-h0e60522_3.tar.bz2#3f14354fbaa50a70595d6d1a54292996
 https://conda.anaconda.org/conda-forge/win-64/zstd-1.4.5-h1f3a1b7_2.tar.bz2#b35d995f210429648e920844701b57a9
 https://conda.anaconda.org/conda-forge/noarch/apipkg-1.5-py_0.tar.bz2#4e79696efff4eae6cbcbeddbb5bbb5ee
@@ -215,7 +215,7 @@ https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.1.2-pyh9f0ad
 https://conda.anaconda.org/conda-forge/win-64/matplotlib-base-3.3.3-py38h34ddff4_0.tar.bz2#8d2180013c805f7f841484b7d0ac385e
 https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.8-py_0.tar.bz2#12aaf0d8795a5c375757b49a08e011a2
 https://conda.anaconda.org/conda-forge/win-64/numba-0.52.0-py38h4c96930_0.tar.bz2#4a48c9f98fdbac8848494229d194a4bc
-https://conda.anaconda.org/conda-forge/win-64/pandas-1.1.5-py38h4c96930_0.tar.bz2#664094ffcf5dfb6bb2aa43c6aeb55616
+https://conda.anaconda.org/conda-forge/win-64/pandas-1.2.0-py38h4c96930_0.tar.bz2#62f5e3dfc3a59b5f1dad9a2a1e94feff
 https://conda.anaconda.org/conda-forge/win-64/pylint-2.6.0-py38h32f6830_1.tar.bz2#56b889e135b61ee716d2397f53f6abc5
 https://conda.anaconda.org/conda-forge/noarch/pytest-xdist-2.2.0-pyhd8ed1ab_0.tar.bz2#b4c969906732870a2e52208958730d6c
 https://conda.anaconda.org/conda-forge/win-64/pywavelets-1.1.1-py38h347fdf6_3.tar.bz2#3e49a3149a16d1823247c0d219287ded

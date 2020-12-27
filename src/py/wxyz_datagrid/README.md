@@ -1,5 +1,12 @@
 # `wxyz_datagrid`
 
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_datagrid
+[pypi]: https://pypi.org/project/wxyz-datagrid
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-datagrid
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-datagrid
+
 > experimental Jupyter widgets for the Lumino DataGrid
 
 ## Installation

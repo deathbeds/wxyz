@@ -1,6 +1,13 @@
 # `@deathbeds/wxyz-json-schema-form`
 
-> Experimental widgets for JupyterLab
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_json_schema_form
+[pypi]: https://pypi.org/project/wxyz-json-schema-form
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-json-schema-form
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-json-schema-form
+
+> experimental Jupyter widgets for JSON Schema Form
 
 ## Installation
 

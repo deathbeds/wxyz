@@ -9,7 +9,7 @@
   "dependencies": {
     "js-yaml": "^3.14.1"
   },
-  "description": "Experimental widgets for JupyterLab",
+  "description": "experimental Jupyter widgets for YAML",
   "devDependencies": {
     "@deathbeds/wxyz-core": "^0.4.0",
     "@types/js-yaml": "^3.12.0",
@@ -55,5 +55,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

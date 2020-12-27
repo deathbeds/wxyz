@@ -1,6 +1,13 @@
 # `@deathbeds/wxyz-svg`
 
-> Experimental widgets for JupyterLab
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_svg
+[pypi]: https://pypi.org/project/wxyz-svg
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-svg
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-svg
+
+> experimental Jupyter widgets for SVG
 
 ## Installation
 

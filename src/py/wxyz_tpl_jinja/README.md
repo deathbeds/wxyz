@@ -1,5 +1,12 @@
 # `wxyz_tpl_jinja`
 
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_tpl_jinja
+[pypi]: https://pypi.org/project/wxyz-tpl-jinja
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-tpl-nunjucks
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-tpl-nunjucks
+
 > experimental Jupyter widgets for Jinja2 templates
 
 ## Installation

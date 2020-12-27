@@ -1,5 +1,12 @@
 # `wxyz_dvcs`
 
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_dvcs
+[pypi]: https://pypi.org/project/wxyz-dvcs
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-dvcs
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-dvcs
+
 > experimental Jupyter widgets for working with data in revision control
 
 ## Installation

@@ -7,11 +7,11 @@ https://conda.anaconda.org/conda-forge/win-64/vc-14.2-hb210afc_2.tar.bz2#6852e7e
 https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h8ffe710_4.tar.bz2#7c03c66026944073040cb19a4f3ec3c9
 https://conda.anaconda.org/conda-forge/win-64/libiconv-1.16-he774522_0.tar.bz2#bdfeadc9348e4d9fbe4821e81bf8f221
 https://conda.anaconda.org/conda-forge/win-64/lz4-c-1.9.2-h62dcd97_2.tar.bz2#a90475bc5d6e86b41360b614b20aa973
-https://conda.anaconda.org/conda-forge/win-64/lzo-2.10-he774522_1000.tar.bz2#d5cf4b7eaa52316f135eed9e8548ad57
+https://conda.anaconda.org/conda-forge/win-64/lzo-2.10-hfa6e2cd_1000.tar.bz2#8286080ecc02a0b7765e326fe78b7c5f
 https://conda.anaconda.org/conda-forge/win-64/openssl-1.1.1i-h8ffe710_0.tar.bz2#49729ddb4fec3c604009a80e0411bb47
 https://conda.anaconda.org/conda-forge/win-64/reproc-14.2.1-h8ffe710_0.tar.bz2#8fdd355ebf4593385112b247a83f5806
 https://conda.anaconda.org/conda-forge/win-64/sqlite-3.34.0-h8ffe710_0.tar.bz2#0887d420b945a5342cd03429d475658c
-https://conda.anaconda.org/conda-forge/win-64/tk-8.6.10-h8ffe710_1.tar.bz2#0796b4624ee7797fca7819459a79c6e6
+https://conda.anaconda.org/conda-forge/win-64/tk-8.6.10-he774522_1.tar.bz2#34a906fb55a5f0820d87b93da4dbb596
 https://conda.anaconda.org/conda-forge/win-64/xz-5.2.5-h62dcd97_1.tar.bz2#eabcbfedd14d7c18a514afca09ea0ebb
 https://conda.anaconda.org/conda-forge/win-64/yaml-0.2.5-he774522_0.tar.bz2#d41c34441d8bbb6d141e691ae7bccf35
 https://conda.anaconda.org/conda-forge/win-64/zlib-1.2.11-h62dcd97_1010.tar.bz2#a4cdf389c5f73e60a0ca121ff77c22a9
@@ -19,7 +19,7 @@ https://conda.anaconda.org/conda-forge/win-64/krb5-1.17.2-hbae68bd_0.tar.bz2#367
 https://conda.anaconda.org/conda-forge/win-64/libsolv-0.7.16-h200bbdf_0.tar.bz2#0f1dd8c450a8c6f813f56712d6652ab1
 https://conda.anaconda.org/conda-forge/win-64/libssh2-1.9.0-hb06d900_5.tar.bz2#d98a41c806a42bffd8b05a2e6f1132f1
 https://conda.anaconda.org/conda-forge/win-64/libxml2-2.9.10-hf5bbc77_3.tar.bz2#4d2f9377b960b9f1425e91e13a30126c
-https://conda.anaconda.org/conda-forge/win-64/python-3.8.6-h7840368_2_cpython.tar.bz2#520a80d47d16e7476924767faa00a839
+https://conda.anaconda.org/conda-forge/win-64/python-3.8.6-h7840368_4_cpython.tar.bz2#3c036af256a7a574839db4d03933713c
 https://conda.anaconda.org/conda-forge/win-64/reproc-cpp-14.2.1-h0e60522_0.tar.bz2#225f0c12c0bb4f118be96b1766466347
 https://conda.anaconda.org/conda-forge/win-64/zstd-1.4.5-h1f3a1b7_2.tar.bz2#b35d995f210429648e920844701b57a9
 https://conda.anaconda.org/conda-forge/noarch/appdirs-1.4.4-pyh9f0ad1d_0.tar.bz2#5f095bc6454094e96f146491fd03633b
@@ -33,7 +33,7 @@ https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz
 https://conda.anaconda.org/conda-forge/win-64/python_abi-3.8-1_cp38.tar.bz2#18ced0580562dca07ae039050748cc50
 https://conda.anaconda.org/conda-forge/noarch/six-1.15.0-pyh9f0ad1d_0.tar.bz2#1eec421f0f1f39e579e44e4a5ce646a2
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.2-pyhd8ed1ab_0.tar.bz2#f832c45a477c78bebd107098db465095
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.54.1-pyhd8ed1ab_1.tar.bz2#9baa73745bc4829da9e76e84313f9d26
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.55.0-pyhd8ed1ab_0.tar.bz2#8c521b8677ea6f764d4f93a1c2011729
 https://conda.anaconda.org/conda-forge/win-64/certifi-2020.12.5-py38haa244fe_0.tar.bz2#db40497e160e52cd67f94e491a75b63c
 https://conda.anaconda.org/conda-forge/win-64/cffi-1.14.4-py38hd8c33c5_1.tar.bz2#2eafaa5f8f4f7e43cfb6dbee50bcb792
 https://conda.anaconda.org/conda-forge/win-64/chardet-4.0.0-py38haa244fe_0.tar.bz2#a76a8157fc4e94294d483780a13ef8ad

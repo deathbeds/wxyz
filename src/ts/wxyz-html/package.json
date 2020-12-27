@@ -9,7 +9,7 @@
   "dependencies": {
     "screenfull": "^5.0.2"
   },
-  "description": "Experimental widgets for JupyterLab",
+  "description": "experimental Jupyter widgets for HTML5",
   "devDependencies": {
     "@jupyter-widgets/base": "3",
     "@jupyter-widgets/controls": "2",
@@ -62,5 +62,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

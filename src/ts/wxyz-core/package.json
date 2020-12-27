@@ -9,7 +9,7 @@
   "dependencies": {
     "jsonpointer": "^4.1.0"
   },
-  "description": "Experimental widgets for JupyterLab",
+  "description": "Experimental Jupyter widgets for JSON and evented transformations",
   "devDependencies": {
     "@jupyter-widgets/base": "3",
     "@jupyter-widgets/controls": "2",
@@ -62,5 +62,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

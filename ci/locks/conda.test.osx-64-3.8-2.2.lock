@@ -66,7 +66,7 @@ https://conda.anaconda.org/conda-forge/osx-64/libcurl-7.71.1-h9bf37e3_8.tar.bz2#
 https://conda.anaconda.org/conda-forge/osx-64/liblapack-3.8.0-21_mkl.tar.bz2#11a3f58a4110092ef0e095471bb4d5da
 https://conda.anaconda.org/conda-forge/osx-64/libtiff-4.2.0-h355d032_0.tar.bz2#ad3cbf0f77b9f89df082eef584d9009a
 https://conda.anaconda.org/conda-forge/osx-64/libxslt-1.1.33-h5739fc3_2.tar.bz2#14333dae9eef1116162a1bb6119d3537
-https://conda.anaconda.org/conda-forge/osx-64/python-3.8.6-h624753d_2_cpython.tar.bz2#5133295d410d92cfb18fab064389df87
+https://conda.anaconda.org/conda-forge/osx-64/python-3.8.6-h624753d_4_cpython.tar.bz2#8832475a71a7a9b3eb94b550fe053705
 https://conda.anaconda.org/conda-forge/noarch/apipkg-1.5-py_0.tar.bz2#4e79696efff4eae6cbcbeddbb5bbb5ee
 https://conda.anaconda.org/conda-forge/noarch/appdirs-1.4.4-pyh9f0ad1d_0.tar.bz2#5f095bc6454094e96f146491fd03633b
 https://conda.anaconda.org/conda-forge/noarch/async-timeout-3.0.1-py_1000.tar.bz2#8b11024b2762a07aaa07d2743231a41b
@@ -196,7 +196,7 @@ https://conda.anaconda.org/conda-forge/osx-64/imagecodecs-2020.5.30-py38h5c28ed5
 https://conda.anaconda.org/conda-forge/noarch/imageio-2.9.0-py_0.tar.bz2#62ad9e579278e777d4abaa8c9312b6a7
 https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-3.3.0-hd8ed1ab_2.tar.bz2#936c79b1b03cec81f74fb88f4fb4caa8
 https://conda.anaconda.org/conda-forge/osx-64/jupyter_core-4.7.0-py38h50d1736_0.tar.bz2#3b207eb36704052c8b3263679f63b5af
-https://conda.anaconda.org/conda-forge/osx-64/pandas-1.1.5-py38he9f00de_0.tar.bz2#2f12db1fdfb4435f6857845ab8a6ea12
+https://conda.anaconda.org/conda-forge/osx-64/pandas-1.2.0-py38he9f00de_0.tar.bz2#48a8880a19f6ef51582bff5738bef6b6
 https://conda.anaconda.org/conda-forge/osx-64/pytest-6.2.1-py38h50d1736_0.tar.bz2#0027732797ef96b459ddef7ba398679e
 https://conda.anaconda.org/conda-forge/osx-64/pytorch-cpu-1.6.0-cpu_py38h0a2d6d8_1.tar.bz2#e8d2ab7db69a264527b04ec25378e113
 https://conda.anaconda.org/conda-forge/osx-64/pywavelets-1.1.1-py38hc7193ba_3.tar.bz2#dbc8a72b7b40481b7cf7e0aa983676e7
