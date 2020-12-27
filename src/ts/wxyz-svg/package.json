@@ -10,7 +10,7 @@
     "d3-drag": "^2.0.0",
     "d3-zoom": "^2.0.0"
   },
-  "description": "Experimental widgets for JupyterLab",
+  "description": "experimental Jupyter widgets for SVG",
   "devDependencies": {
     "@jupyter-widgets/base": "3",
     "@jupyter-widgets/controls": "2",
@@ -66,5 +66,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

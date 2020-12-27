@@ -9,7 +9,7 @@
   "dependencies": {
     "@deathbeds/jupyterlab-rjsf": "^0.6.0a0"
   },
-  "description": "Experimental widgets for JupyterLab",
+  "description": "experimental Jupyter widgets for JSON Schema Form",
   "devDependencies": {
     "@deathbeds/wxyz-core": "^0.4.0",
     "@blueprintjs/core": "*",
@@ -57,5 +57,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

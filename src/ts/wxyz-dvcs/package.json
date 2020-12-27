@@ -7,7 +7,7 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {},
-  "description": "Experimental widgets for JupyterLab",
+  "description": "experimental Jupyter widgets for working with data in revision control",
   "devDependencies": {
     "@deathbeds/wxyz-core": "^0.4.0",
     "@types/node": "^10.11.6",
@@ -51,5 +51,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

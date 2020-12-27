@@ -1,5 +1,12 @@
 # `wxyz_json_e`
 
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_json_e
+[pypi]: https://pypi.org/project/wxyz-json-e
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-json-e
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-json-e
+
 > experimental Jupyter widgets for JSON-E
 
 ## Installation

@@ -9,7 +9,7 @@
   "dependencies": {
     "jsonld": "^1.5.1"
   },
-  "description": "Experimental widgets for JupyterLab",
+  "description": "experimental Jupyter widgets for JSON-LD",
   "devDependencies": {
     "@types/jsonld": "^1.5.1",
     "@jupyter-widgets/base": "3",
@@ -64,5 +64,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.4.1"
 }

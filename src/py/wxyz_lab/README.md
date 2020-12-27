@@ -1,5 +1,12 @@
 # `wxyz_lab`
 
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_lab
+[pypi]: https://pypi.org/project/wxyz-lab
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-lab
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-lab
+
 > experimental Jupyter widgets for JupyterLab
 
 ## Installation

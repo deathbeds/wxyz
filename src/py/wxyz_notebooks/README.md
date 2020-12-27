@@ -1,5 +1,10 @@
 # `wxyz_notebooks`
 
+[![pypi-badge][]][pypi]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_notebooks
+[pypi]: https://pypi.org/project/wxyz-notebooks
+
 > notebook demos for experimental Jupyter widgets
 
 ## Installation

@@ -294,6 +294,15 @@ ALL_ROBOT = [*ATEST.rglob("*.robot")]
 PY_README_TXT = """
 # `{{ metadata.name }}`
 
+[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif %}
+
+[pypi-badge]: https://img.shields.io/pypi/v/{{ metadata.name }}
+[pypi]: https://pypi.org/project/{{ metadata.name.replace("_", "-") }}
+{% if js_pkg %}
+[npm-badge]: https://img.shields.io/npm/v/{{ js_pkg.name }}
+[npm]: https://www.npmjs.com/package/{{ js_pkg.name }}
+{% endif %}
+
 > {{ metadata.description }}
 
 ## Installation
@@ -316,6 +325,15 @@ PY_README_TMPL = jinja2.Template(PY_README_TXT)
 
 TS_README_TXT = """
 # `{{ name }}`
+
+{% set py = jupyterlab.discovery.server.base.name %}
+
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/{{ py }}
+[pypi]: https://pypi.org/project/{{ py.replace("_", "-") }}
+[npm-badge]: https://img.shields.io/npm/v/{{ name }}
+[npm]: https://www.npmjs.com/package/{{ name }}
 
 > {{ description }}
 

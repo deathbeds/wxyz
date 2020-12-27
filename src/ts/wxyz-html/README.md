@@ -1,6 +1,13 @@
 # `@deathbeds/wxyz-html`
 
-> Experimental widgets for JupyterLab
+[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz_html
+[pypi]: https://pypi.org/project/wxyz-html
+[npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-html
+[npm]: https://www.npmjs.com/package/@deathbeds/wxyz-html
+
+> experimental Jupyter widgets for HTML5
 
 ## Installation
 
