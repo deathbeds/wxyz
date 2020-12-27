@@ -44,9 +44,10 @@ jobs:
 
               - task: Cache@2
                 inputs:
-                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  key: 'conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | docs | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
                   path: $(Agent.BuildDirectory)/.conda-packages/
                   restoreKeys: |
+                    conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}" | docs
                     conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}" | "${{ python.lab }}"
                     conda | ${{ parameters.cache_epoch }} | "$(Agent.OS)" | "${{ python.spec }}"
                 displayName: cache conda packages
