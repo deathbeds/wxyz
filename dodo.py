@@ -18,6 +18,7 @@ try:
 except ImportError:
     pass
 
+from doit import create_after
 from doit.tools import PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P
@@ -29,6 +30,7 @@ DOIT_CONFIG = {
     "verbosity": 2,
     "par_type": "thread",
     "default_tasks": ["binder"],
+    "reporter": U.Reporter,
 }
 
 
@@ -370,6 +372,8 @@ def task_nbtest():
                     "-vv",
                     "-n",
                     "auto",
+                    "-o",
+                    f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
                     "--no-coverage-upload",
                     *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
                 ],
@@ -662,19 +666,27 @@ if not P.TESTING_IN_CI:
                 continue
             yield _make_ts_readme(package_json)
 
+        yield dict(
+            name="favicon",
+            actions=[[*P.PYM, "_scripts._favicon"]],
+            file_dep=[P.DOCS_LOGO],
+            targets=[P.DOCS_FAVICON],
+        )
+
         if shutil.which("sphinx-build"):
             yield dict(
                 name="sphinx",
                 doc="build the HTML site",
                 actions=[["sphinx-build", "-b", "html", "docs", "build/docs"]],
                 file_dep=[
-                    P.DOCS_CONF_PY,
-                    *P.ALL_SRC_PY,
                     *P.ALL_SETUP_CFG,
+                    *P.ALL_SRC_PY,
                     *P.DOCS_DOT,
-                    *P.PY_DOCS_RST,
                     *P.DOCS_IPYNB,
+                    *P.DOCS_STATIC.rglob("*"),
                     *P.DOCS_TEMPLATES,
+                    *P.PY_DOCS_RST,
+                    P.DOCS_CONF_PY,
                     P.OK / "setup_py",
                 ],
                 targets=[P.DOCS_BUILDINFO],
@@ -710,34 +722,47 @@ def _make_spell(path):
 
 if shutil.which("hunspell"):
 
+    @create_after("docs")
     def task_spell():
         """check spelling of built HTML site"""
         if shutil.which("hunspell"):
-            for path in P.ALL_SPELL_DOCS:
+            for path in P.ALL_SPELL_DOCS():
                 yield _make_spell(path)
 
 
 if shutil.which("pytest-check-links"):
 
+    @create_after("docs")
     def task_checklinks():
         """check whether links in built docs are valid"""
         key = "check_links"
+        args = [
+            "pytest-check-links",
+            "-o",
+            "junit_suite_name=checklinks",
+            "--check-anchors",
+            "--check-links-cache",
+            "--check-links-cache-name=build/check_links/cache",
+            # a few days seems reasonable
+            f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
+            # might be able to relax this, eventually
+            "-k",
+            "not (master or carousel)",
+        ]
         return dict(
+            uptodate=[config_changed(dict(args=args))],
             actions=[
                 U.okit(key, remove=True),
+                lambda: (P.BUILD / "check_links/cache").mkdir(
+                    parents=True, exist_ok=True
+                ),
                 [
-                    "pytest-check-links",
-                    "--check-anchors",
-                    "--check-links-cache",
-                    "--check-links-cache-name=build/check_links",
-                    # might be able to relax this, eventually
-                    "-k",
-                    "not master",
+                    *args,
                     P.DOCS_OUT,
                 ],
                 U.okit(key),
             ],
-            file_dep=[*P.ALL_SPELL_DOCS],
+            file_dep=[*P.ALL_SPELL_DOCS()],
             targets=[P.OK / key],
         )
 

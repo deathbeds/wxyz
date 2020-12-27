@@ -4,11 +4,12 @@ channels:
   - https://conda.anaconda.org/conda-forge
 
 dependencies:
+  - cairosvg
   - hunspell
   - hunspell-en
   - nbsphinx
   - pydata-sphinx-theme
-  - pytest-check-links
+  - pytest-check-links >=0.4.4,!=4.3.3
   - python-graphviz
   - recommonmark
   - requests_cache

@@ -17,6 +17,12 @@ try:
 except ImportError:
     import ruamel_yaml as yaml
 
+try:
+    from colorama import init
+
+    init()
+except ImportError:
+    pass
 
 RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
@@ -82,6 +88,9 @@ DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
 DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in str(nb)]
+DOCS_STATIC = DOCS / "_static"
+DOCS_LOGO = DOCS_STATIC / "wxyz.svg"
+DOCS_FAVICON = DOCS_STATIC / "favicon.ico"
 DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"
@@ -103,20 +112,37 @@ DIST = ROOT / "dist"
 TEST_OUT = BUILD / "test_output"
 DOCS_OUT = BUILD / "docs"
 DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
-ALL_DOC_HTML = sorted(DOCS_OUT.rglob("*.html"))
-NO_SPELL = sorted(
-    [
-        (DOCS_OUT / "search.html"),
-        (DOCS_OUT / "gallery.html"),
-        (DOCS_OUT / "genindex.html"),
-        (DOCS_OUT / "py-modindex.html"),
-        *(DOCS_OUT / "genindex").rglob("*.html"),
-        *(DOCS_OUT / "_static").rglob("*.html"),
-        *(DOCS_OUT / "_modules").rglob("*.html"),
-        *(DOCS_OUT / "_sources").rglob("*.html"),
-    ]
-)
-ALL_SPELL_DOCS = [p for p in ALL_DOC_HTML if p not in NO_SPELL]
+
+
+def NO_SPELL():
+    """files we don't spell/link check"""
+    return sorted(
+        set(
+            [
+                (DOCS_OUT / "search.html"),
+                (DOCS_OUT / "gallery.html"),
+                (DOCS_OUT / "genindex.html"),
+                (DOCS_OUT / "py-modindex.html"),
+                *(DOCS_OUT / "genindex").rglob("*.html"),
+                *(DOCS_OUT / "_static").rglob("*.html"),
+                *(DOCS_OUT / "_modules").rglob("*.html"),
+                *(DOCS_OUT / "_sources").rglob("*.html"),
+            ]
+        )
+    )
+
+
+def ALL_DOC_HTML():
+    """all the generated HTML"""
+    return sorted(DOCS_OUT.rglob("*.html"))
+
+
+def ALL_SPELL_DOCS():
+    """files we do spell/link check"""
+    no_spell = NO_SPELL()
+    return [p for p in ALL_DOC_HTML() if p not in no_spell]
+
+
 SPELL_LANGS = "en-GB,en_US"
 DICTIONARY = DOCS / "dictionary.txt"
 ROBOT_OUT = TEST_OUT / "robot"
@@ -249,15 +275,16 @@ ALL_MD = sorted(
 ALL_PRETTIER = sorted(
     set(
         [
+            *ALL_MD,
+            *ALL_YAML,
             *CI.glob("*.yml"),
+            *DOCS.rglob("*.css"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
             *TS_SRC.rglob("*.css"),
             *TS_SRC.rglob("*.json"),
             *TS_SRC.rglob("*.ts"),
             *TS_SRC.rglob("*.yml"),
-            *ALL_YAML,
-            *ALL_MD,
         ]
     )
 )
@@ -330,7 +357,7 @@ LINT_GROUPS = {
     i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
 }
 
-LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY]
+LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
 
 SCHEMA = BUILD / "schema"
 SCHEMA_WIDGETS = {

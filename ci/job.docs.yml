@@ -23,6 +23,8 @@ jobs:
             variables:
               - name: CONDA_PKGS_DIRS
                 value: $(Agent.BuildDirectory)/.conda-packages/
+              - name: SITEMAP_URL_BASE
+                value: https://deathbeds.github.io/wxyz/
             steps:
               - task: DownloadPipelineArtifact@2
                 displayName: download widget data
@@ -35,9 +37,6 @@ jobs:
                 inputs:
                   artifactName: $(Build.BuildId) Robot Succeeded LinuxThreeEight
                   path: atest/output
-
-              - script: find $(Pipeline.Workspace)
-                displayName: list all files [DEBUG]
 
               - template: steps.conda.yml
                 parameters:
@@ -66,6 +65,14 @@ jobs:
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 docs || doit docs
                 displayName: build all the docs
+
+              - task: Cache@2
+                inputs:
+                  key: 'links | ${{ parameters.cache_epoch }} | ci/locks/conda.docs.${{ platform.condaPlatform }}-${{ python.spec }}-${{ python.lab }}.lock'
+                  path: build/check_links
+                  restoreKeys: |
+                    links | ${{ parameters.cache_epoch }}
+                displayName: cache link checks
 
               - script: ${{ platform.activate }} ./${{ python.env }} && doit -n4 spell checklinks || doit spell checklinks
                 displayName: check the docs

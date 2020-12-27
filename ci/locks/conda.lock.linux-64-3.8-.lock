@@ -3,7 +3,7 @@
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/ca-certificates-2020.12.5-ha878542_0.tar.bz2#7eb5d4ffeee663caa1635cd67071bc1b
-https://conda.anaconda.org/conda-forge/linux-64/ld_impl_linux-64-2.35.1-hed1e6ac_1.tar.bz2#a267624dbd39c49e945d29dca1538635
+https://conda.anaconda.org/conda-forge/linux-64/ld_impl_linux-64-2.35.1-hea4e1c9_1.tar.bz2#cdabe198d509eeae33a9fc8741d7841d
 https://conda.anaconda.org/conda-forge/linux-64/libstdcxx-ng-9.3.0-h2ae2ef3_17.tar.bz2#342f3c931d0a3a209ab09a522469d20c
 https://conda.anaconda.org/conda-forge/linux-64/libgomp-9.3.0-h5dbcf3e_17.tar.bz2#8fd587013b9da8b52050268d50c12305
 https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-1_gnu.tar.bz2#561e277319a41d4f24f5c05a9ef63c04
@@ -29,13 +29,13 @@ https://conda.anaconda.org/conda-forge/linux-64/libssh2-1.9.0-hab1572f_5.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/libxml2-2.9.10-h72842e0_3.tar.bz2#5ed2c4742d5f1141783f484fe8974ccf
 https://conda.anaconda.org/conda-forge/linux-64/readline-8.0-he28a2e2_2.tar.bz2#4d0ae8d473f863696088f76800ef9d38
 https://conda.anaconda.org/conda-forge/linux-64/reproc-cpp-14.2.1-h58526e2_0.tar.bz2#d1d5d63dafc7b2e484d02823606db5d9
-https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.10-hed695b0_1.tar.bz2#7ef837cd455bd0f19f49b8b62d4cb568
+https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.10-h21135ba_1.tar.bz2#c647f70aa7e3d4cc4e029cc1c9a99953
 https://conda.anaconda.org/conda-forge/linux-64/zstd-1.4.5-h6597ccf_2.tar.bz2#d60d50f369d40f9787878cdd866fc9d3
 https://conda.anaconda.org/conda-forge/linux-64/krb5-1.17.2-h926e7f8_0.tar.bz2#926325c11478d6e781e76072c117763b
 https://conda.anaconda.org/conda-forge/linux-64/libarchive-3.3.3-hddc7a2b_1008.tar.bz2#053a287e9cca3926369a5f6f21f32764
 https://conda.anaconda.org/conda-forge/linux-64/sqlite-3.34.0-h74cdb3f_0.tar.bz2#0a83e21e8c1929cc9a1e21ebb2459fc5
 https://conda.anaconda.org/conda-forge/linux-64/libcurl-7.71.1-hcdd3856_8.tar.bz2#2c81fb9f0d82c04b08617fc73eb615af
-https://conda.anaconda.org/conda-forge/linux-64/python-3.8.6-hffdb5ce_1_cpython.tar.bz2#8a33708324a714c7b69d4bd49774166f
+https://conda.anaconda.org/conda-forge/linux-64/python-3.8.6-hffdb5ce_2_cpython.tar.bz2#26622ffda9cd65d6542260f972dbb5fc
 https://conda.anaconda.org/conda-forge/noarch/appdirs-1.4.4-pyh9f0ad1d_0.tar.bz2#5f095bc6454094e96f146491fd03633b
 https://conda.anaconda.org/conda-forge/noarch/click-7.1.2-pyh9f0ad1d_0.tar.bz2#bd50a970ce07e660c319fdc4d730d3f1
 https://conda.anaconda.org/conda-forge/noarch/cloudpickle-1.6.0-py_0.tar.bz2#76d764d8881719e305f6fa368dc2b65e
