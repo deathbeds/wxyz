@@ -132,10 +132,10 @@ jobs:
         with:
           path: ~/conda_pkgs_dir
           key:
-            ${{ runner.os }}-conda-${{ matrix.python-version }}-${{
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{
             hashFiles(steps.lock.outputs.lockfile) }}
           restore-keys: |
-            ${{ runner.os }}-conda-${{ matrix.python-version }}-
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
 
 
       - uses: actions/cache@v1
@@ -176,3 +176,88 @@ jobs:
         with:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path:  atest/output
+
+  docs:
+    name: docs ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
+    needs: [build, test]
+    runs-on: ${{ matrix.os }}-latest
+    env:
+      SITEMAP_URL_BASE: https://deathbeds.github.io/wxyz/
+
+    strategy:
+      matrix:
+        os: [ubuntu]
+        python-version: [3.8]
+        lab: [2.2]
+        include:
+          - os: ubuntu
+            conda-subdir: linux-64
+            forge-ext: Linux-x86_64.sh
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: lock
+        run: |
+          echo "::set-output name=lockfile::${{
+            format(
+              'ci/locks/conda.docs.{0}-{1}-{2}.lock',
+              matrix.conda-subdir,
+              matrix.python-version,
+              matrix.lab
+            ) }}"
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{
+            hashFiles(steps.lock.outputs.lockfile) }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
+
+      - uses: actions/cache@v1
+        with:
+          path: .yarn-packages
+          key: ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-yarn-${{ runner.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: wxyz ${{ github.run_number }} dist
+          path: ./dist
+      - uses: actions/download-artifact@v2
+        with:
+          name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          path: ./atest/output
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          use-only-tar-bz2: true
+          installer-url: |
+            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+
+      - run: mamba info --json
+
+      - run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+
+      - run: doit -n4 docs || doit docs
+
+      - uses: actions/cache@v1
+        with:
+          path: build/check_links
+          key:
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-${{
+            hashFiles(steps.lock.outputs.lockfile) }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-
+
+      - run: doit -n4 spell checklinks || doit spell checklinks
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          path: build/docs
