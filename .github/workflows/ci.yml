@@ -158,16 +158,17 @@ jobs:
             https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
       - if: ${{ matrix.os != 'windows' }}
-        run: mamba info --json && mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+        run: mamba info --json && mamba create -p ./envs/_base test --file ${{ steps.lock.outputs.lockfile }}
 
       - if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
-        run: mamba info --json && mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+        run: mamba info --json && mamba create -p ./envs/_base --file ${{ steps.lock.outputs.lockfile }}
 
-      - run: doit -n4 nbtest robot || doit nbtest robot
+      - if: ${{ matrix.os != 'windows' }}
+        run: source activate ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
 
-      - run: doit list --all --status | sort
-        if: always()
+      - if: ${{ matrix.os == 'windows' }}
+        run: activate ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
 
       - uses: actions/upload-artifact@v2
         if: always()
