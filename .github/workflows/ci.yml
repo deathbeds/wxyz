@@ -53,4 +53,4 @@ jobs:
             https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
       - run: mamba info --json
       - run: mamba create -n test --file ${{ matrix.lockfile }}
-      - run: doit -n8 ts dist_py
+      - run: doit -n8 ts dist || doit -n8 ts dist
