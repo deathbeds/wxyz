@@ -17,6 +17,7 @@ env:
   CONDA_EXE: mamba
   FORGE: Mambaforge
   FORGE_VERSION: 4.9.2-5
+  FORGE_EXT: .sh 
 
 jobs:
   build:
@@ -30,6 +31,7 @@ jobs:
             conda-platform: linux-64
             lab: 3
             lockfile: ci/locks/conda.test.linux-64-3.8-2.2.lock
+            forge-ext: .sh 
     defaults:
       run:
         shell: bash -l {0}
@@ -46,7 +48,7 @@ jobs:
         with:
           use-only-tar-bz2: true
           installer-url: |
-            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.miniforge }}
+            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.miniforge }}${{ matrix.forge-ext }}
       - run: mamba info --json
       - run: mamba create -p .conda-env --file ${{ matrix.lockfile }}
       - run: mamba list
