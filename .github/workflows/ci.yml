@@ -87,7 +87,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: wxyz dist ${{ github.run_number }}
+          name: wxyz ${{ github.run_number }} dist
           path: ./dist
 
   test:
@@ -148,7 +148,7 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: wxyz dist ${{ github.run_number }}
+          name: wxyz ${{ github.run_number }} dist
           path: ./dist
 
       - uses: conda-incubator/setup-miniconda@v2
@@ -174,5 +174,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: wxyz dist ${{ github.run_number }}
+          name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path:  atest/output
