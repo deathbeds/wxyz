@@ -78,11 +78,11 @@ jobs:
 
       - run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
-      - run: doit -n4 lint
+      - run: doit -n4 lint || doit lint
 
-      - run: doit -n4 ts dist
+      - run: doit -n4 ts dist || doit ts dist
 
-      - run:  doit list --all --status
+      - run: doit list --all --status | sort
         if: always()
 
       - uses: actions/upload-artifact@v2
@@ -161,9 +161,9 @@ jobs:
 
       - run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
-      - run: doit -n4 nbtest robot
+      - run: doit -n4 nbtest robot || doit nbtest robot
 
-      - run:  doit list --all --status
+      - run: doit list --all --status | sort
         if: always()
 
       - uses: actions/upload-artifact@v2
