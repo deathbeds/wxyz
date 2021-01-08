@@ -51,5 +51,5 @@ jobs:
           installer-url: |
             https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
       - run: mamba info --json
-      - run: mamba create -p ./.env --file
+      - run: mamba create -p ./.env --file ${{ matrix.lockfile }}
       - run: source activate ./.env && doit -n8 ts dist_py
