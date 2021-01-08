@@ -159,10 +159,10 @@ jobs:
 
       - run: mamba info --json
 
-      - if: ${{ matrix.os != "windows" }}
+      - if: ${{ matrix.os != 'windows' }}
         run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
-      - if: ${{ matrix.os != "windows" }}
+      - if: ${{ matrix.os != 'windows' }}
         shell: cmd /C CALL {0}
         run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
