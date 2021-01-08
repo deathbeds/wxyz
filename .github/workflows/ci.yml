@@ -159,7 +159,12 @@ jobs:
 
       - run: mamba info --json
 
-      - run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+      - if: ${{ matrix.os != "windows" }}
+        run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+
+      - if: ${{ matrix.os != "windows" }}
+        shell: cmd /C CALL {0}
+        run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
       - run: doit -n4 nbtest robot || doit nbtest robot
 
