@@ -7,6 +7,8 @@ on:
     branches: [master]
 
 env:
+  # maybe could normalize to semi-standard `CI`
+  RUNNING_IN_CI: 1
   # increment to reset all caches
   CACHE_EPOCH: 0
   # python cruft
@@ -17,7 +19,6 @@ env:
   CONDA_EXE: mamba
   FORGE: Mambaforge
   FORGE_VERSION: 4.9.2-5
-  FORGE_EXT: .sh 
 
 jobs:
   build:
@@ -50,6 +51,5 @@ jobs:
           installer-url: |
             https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
       - run: mamba info --json
-      - run: mamba create -p .conda-env --file ${{ matrix.lockfile }}
-      - run: mamba list
-      - run: doit -n8 ts dist_py
+      - run: mamba create -p ./.env --file
+      - run: source activate ./.env && doit -n8 ts dist_py
