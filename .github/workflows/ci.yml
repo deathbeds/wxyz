@@ -168,7 +168,7 @@ jobs:
         run: source $CONDA/bin/activate ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
 
       - if: ${{ matrix.os == 'windows' }}
-        run: C:/Miniconda3/scripts/activate.bat ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
+        run: .github/win.bat
 
       - uses: actions/upload-artifact@v2
         if: always()
