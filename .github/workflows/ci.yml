@@ -7,13 +7,16 @@ on:
     branches: [master]
 
 env:
+  # increment to reset all caches
+  CACHE_EPOCH: 0
+  # python cruft
   PYTHONIOENCODING: utf-8
   PYTHONUNBUFFERED: 1
   PIP_DISABLE_PIP_VERSION_CHECK: 1
-  # until have mamabforge...
+  # mamba cruft
   CONDA_EXE: mamba
-  # increment to reset all caches
-  CACHE_EPOCH: 0
+  FORGE: Mambaforge
+  FORGE_VERSION: 4.9.2-5
 
 jobs:
   build:
@@ -26,5 +29,25 @@ jobs:
           - os: ubuntu
             conda-platform: linux-64
             lab: 3
+            lockfile: ci/locks/conda.test.linux-64-3.8-2.2.lock
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ env.CACHE_EPOCH }}-${{ runner.conda-platform }}-build-${{ matrix.python-version }}-${{ hashFiles(matrix.lockfile) }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.conda-platform }}-build-${{ matrix.python-version }}-
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          use-only-tar-bz2: true
+          installer-url: |
+            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.miniforge }}
+      - run: mamba info --json
+      - run: mamba create -p .conda-env --file ${{ matrix.lockfile }}
+      - run: mamba list
+      - run: doit -n8 ts dist_py
