@@ -157,14 +157,12 @@ jobs:
           installer-url: |
             https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
-      - run: mamba info --json
-
       - if: ${{ matrix.os != 'windows' }}
-        run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+        run: mamba info --json && mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
       - if: ${{ matrix.os != 'windows' }}
         shell: cmd /C CALL {0}
-        run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+        run: mamba info --json && mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
 
       - run: doit -n4 nbtest robot || doit nbtest robot
 
