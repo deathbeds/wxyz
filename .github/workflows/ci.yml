@@ -108,7 +108,7 @@ jobs:
             forge-ext: Linux-x86_64.sh
           - os: macos
             conda-subdir: osx-64
-            forge-ext: MacOS-x86_64.sh
+            forge-ext: MacOSX-x86_64.sh
           - os: windows
             forge-ext: Windows-x86_64.exe
             conda-subdir: win-64
