@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  PYTHONIOENCODING: utf-8
+  PYTHONUNBUFFERED: 1
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
+  # until have mamabforge...
+  CONDA_EXE: mamba
+  # increment to reset all caches
+  CACHE_EPOCH: 0
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [ubuntu]
+        python-version: [3.8]
+        include:
+          - os: ubuntu
+            conda-platform: linux-64
+            lab: 3
+    steps:
+      - uses: actions/checkout@v2
