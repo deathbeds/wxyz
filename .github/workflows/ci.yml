@@ -165,7 +165,7 @@ jobs:
         run: mamba info --json && mamba create -p ./envs/_base --file ${{ steps.lock.outputs.lockfile }}
 
       - if: ${{ matrix.os != 'windows' }}
-        run: source activate ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
+        run: source $CONDA/bin/activate ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
 
       - if: ${{ matrix.os == 'windows' }}
         run: activate ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
