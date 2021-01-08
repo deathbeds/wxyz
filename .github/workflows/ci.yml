@@ -34,7 +34,6 @@ jobs:
           - os: ubuntu
             conda-subdir: linux-64
             forge-ext: Linux-x86_64.sh
-
     defaults:
       run:
         shell: bash -l {0}
@@ -76,7 +75,7 @@ jobs:
 
       - run: mamba info --json
 
-      - run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
 
       - run: doit -n4 lint || doit lint
 
@@ -194,6 +193,10 @@ jobs:
             conda-subdir: linux-64
             forge-ext: Linux-x86_64.sh
 
+    defaults:
+      run:
+        shell: bash -l {0}
+
     steps:
       - uses: actions/checkout@v2
 
@@ -241,7 +244,7 @@ jobs:
 
       - run: mamba info --json
 
-      - run: mamba create -n test --file ${{ steps.lock.outputs.lockfile }}
+      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
 
       - run: doit -n4 docs || doit docs
 
