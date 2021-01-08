@@ -31,7 +31,7 @@ jobs:
             conda-platform: linux-64
             lab: 3
             lockfile: ci/locks/conda.test.linux-64-3.8-2.2.lock
-            forge-ext: .sh 
+            forge-ext: .Linux-x86_64.sh
     defaults:
       run:
         shell: bash -l {0}
