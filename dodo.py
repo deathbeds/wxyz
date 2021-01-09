@@ -291,7 +291,7 @@ def _make_pydist(setup_py):
         setup_py,
         pkg / "setup.cfg",
         pkg / "MANIFEST.in",
-        pkg / P.LICENSE_NAME,
+        [*(pkg / "src/wxyz").glob("*")][0] / "js" / P.LICENSE_NAME,
         pkg / "README.md",
         *sorted((pkg / "src").rglob("*.py")),
     ]

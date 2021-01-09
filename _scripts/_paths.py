@@ -219,7 +219,7 @@ THIRD_PARTY_EXTENSIONS = sorted(
     ]
 )
 WXYZ_LAB_EXTENSIONS = [
-    tsp.parent for tsp in TS_PACKAGE if "wxyz-meta" not in tsp.parent.name
+    tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
 ]
 ALL_LABEXTENSIONS = [*THIRD_PARTY_EXTENSIONS, *WXYZ_LAB_EXTENSIONS]
 ALL_TS = sorted(
