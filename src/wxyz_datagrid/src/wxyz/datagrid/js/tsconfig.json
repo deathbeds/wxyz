@@ -1,14 +1,9 @@
 {
   "extends": "../../../../../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./lib",
-    "tsBuildInfoFile": "lib/.tsbuildinfo"
+    "rootDir": ".",
+    "outDir": ".",
+    "tsBuildInfoFile": "lib/.root.tsbuildinfo"
   },
-  "include": ["./src/**/*"],
-  "references": [
-    {
-      "path": "../../../../../wxyz_core/src/wxyz/core/js"
-    }
-  ]
+  "files": ["package.json"]
 }

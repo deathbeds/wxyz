@@ -420,9 +420,7 @@ def task_lab_extensions():
     extensions = [*P.THIRD_PARTY_EXTENSIONS]
 
     if P.RUNNING_IN_CI:
-        extensions += [
-            p for p in P.TS_TARBALLS if "wxyz-meta" not in p.name
-        ]
+        extensions += [p for p in P.TS_TARBALLS if "wxyz-meta" not in p.name]
     else:
         extensions += P.WXYZ_LAB_EXTENSIONS
 
@@ -439,6 +437,7 @@ def task_lab_extensions():
                 "--no-build",
                 *APP_DIR,
             ],
+            [*P.JPY, "labextension", "list"],
             U.okit("labextensions"),
         ],
     )

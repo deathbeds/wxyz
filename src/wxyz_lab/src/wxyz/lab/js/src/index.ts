@@ -1,2 +1,4 @@
-export const NAME = '@deathbeds/wxyz-lab';
-export const VERSION = '0.4.0';
+import * as __package__ from '../package.json';
+
+export const NAME = __package__.name;
+export const VERSION = __package__.version;
