@@ -55,55 +55,59 @@ def task_release():
     )
 
 
-def task_lock():
-    """lock conda envs so they don't need to be solved in CI
-    This should be run semi-frequently (e.g. after merge to master).
-    Requires `conda-lock` CLI to be available
-    """
+if not P.TESTING_IN_CI:
 
-    base_envs = [P.ENV.base, *P.ENV.WXYZ]
-    test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
-    binder_args = None
+    def task_lock():
+        """lock conda envs so they don't need to be solved in CI
+        This should be run semi-frequently (e.g. after merge to master).
+        Requires `conda-lock` CLI to be available
+        """
 
-    for task_args in iter_matrix(P.CI_TEST_MATRIX):
-        if "linux-64" in task_args:
-            binder_args = task_args
-        matrix_envs = list(test_envs)
-        if "win-64" in task_args:
-            matrix_envs += [P.ENV.tpot, P.ENV.win, P.ENV.win_tpot]
-        else:
-            matrix_envs += [P.ENV.tpot, P.ENV.unix, P.ENV.unix_tpot]
+        base_envs = [P.ENV.base, *P.ENV.WXYZ]
+        test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
+        binder_args = None
 
-        yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
+        for task_args in iter_matrix(P.CI_TEST_MATRIX):
+            if "linux-64" in task_args:
+                binder_args = task_args
+            matrix_envs = list(test_envs)
+            if "win-64" in task_args:
+                matrix_envs += [P.ENV.tpot, P.ENV.win, P.ENV.win_tpot]
+            else:
+                matrix_envs += [P.ENV.tpot, P.ENV.unix, P.ENV.unix_tpot]
 
-    for conda_platform in P.ALL_CONDA_PLATFORMS:
-        yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
+            yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
-    yield make_lock_task(
-        "binder",
-        [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
-        {},
-        *binder_args,
-    )
+        for conda_platform in P.ALL_CONDA_PLATFORMS:
+            yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
 
-    yield make_lock_task(
-        "docs",
-        [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
-        {},
-        *binder_args,
-    )
+        yield make_lock_task(
+            "binder",
+            [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
+            {},
+            *binder_args,
+        )
+
+        yield make_lock_task(
+            "docs",
+            [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
+            {},
+            *binder_args,
+        )
 
 
-def task_setup_ts():
-    """set up typescript environment"""
-    return dict(
-        file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
-        targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
-        actions=[
-            ["jlpm", "--prefer-offline", "--ignore-optional"],
-            ["jlpm", "lerna", "bootstrap"],
-        ],
-    )
+if not P.TESTING_IN_CI:
+
+    def task_setup_ts():
+        """set up typescript environment"""
+        return dict(
+            file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
+            targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
+            actions=[
+                ["jlpm", "--prefer-offline", "--ignore-optional"],
+                ["jlpm", "lerna", "bootstrap"],
+            ],
+        )
 
 
 if P.RUNNING_IN_CI:
@@ -277,11 +281,13 @@ def _make_schema(source, targets):
         )
 
 
-def task_schema():
-    """update code files from schema"""
-    for source, targets in P.SCHEMA_WIDGETS.items():
-        for task in _make_schema(source, targets):
-            yield task
+if not P.TESTING_IN_CI:
+
+    def task_schema():
+        """update code files from schema"""
+        for source, targets in P.SCHEMA_WIDGETS.items():
+            for task in _make_schema(source, targets):
+                yield task
 
 
 def _make_pydist(setup_py):
@@ -318,55 +324,61 @@ def _make_pydist(setup_py):
     )
 
 
-def task_dist():
-    """make pypi distributions"""
-    for pys in P.PY_SETUP:
-        yield _make_pydist(pys)
+if not P.TESTING_IN_CI:
+
+    def task_dist():
+        """make pypi distributions"""
+        for pys in P.PY_SETUP:
+            yield _make_pydist(pys)
 
 
-def task_hash_dist():
-    """make a hash bundle of the dist artifacts"""
+if not P.TESTING_IN_CI:
 
-    def _run_hash():
-        # mimic sha256sum CLI
-        if P.SHA256SUMS.exists():
-            P.SHA256SUMS.unlink()
+    def task_hash_dist():
+        """make a hash bundle of the dist artifacts"""
 
-        lines = []
+        def _run_hash():
+            # mimic sha256sum CLI
+            if P.SHA256SUMS.exists():
+                P.SHA256SUMS.unlink()
 
-        for p in P.HASH_DEPS:
-            if p.parent != P.DIST:
-                tgt = P.DIST / p.name
-                if tgt.exists():
-                    tgt.unlink()
-                shutil.copy2(p, tgt)
-            lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
+            lines = []
 
-        output = "\n".join(lines)
-        print(output)
-        P.SHA256SUMS.write_text(output)
+            for p in P.HASH_DEPS:
+                if p.parent != P.DIST:
+                    tgt = P.DIST / p.name
+                    if tgt.exists():
+                        tgt.unlink()
+                    shutil.copy2(p, tgt)
+                lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
 
-    return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
+            output = "\n".join(lines)
+            print(output)
+            P.SHA256SUMS.write_text(output)
+
+        return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
-def task_ts():
-    """build typescript components"""
+if not P.TESTING_IN_CI:
 
-    file_dep = [
-        P.YARN_LOCK,
-        *P.TS_PACKAGE,
-        *P.TS_READMES,
-        *P.TS_LICENSES,
-    ]
+    def task_ts():
+        """build typescript components"""
 
-    if not P.TESTING_IN_CI:
-        file_dep += [P.OK / "prettier", P.OK / "eslint"]
+        file_dep = [
+            P.YARN_LOCK,
+            *P.TS_PACKAGE,
+            *P.TS_READMES,
+            *P.TS_LICENSES,
+        ]
 
-    return dict(
-        file_dep=file_dep,
-        targets=[*P.TS_TARBALLS],
-        actions=[["jlpm", "build"]],
-    )
+        if not P.TESTING_IN_CI:
+            file_dep += [P.OK / "prettier", P.OK / "eslint"]
+
+        return dict(
+            file_dep=file_dep,
+            targets=[*P.TS_TARBALLS],
+            actions=[["jlpm", "build"]],
+        )
 
 
 def task_nbtest():
@@ -546,7 +558,7 @@ def _make_py_rst(setup_py):
         actions=[_write],
         targets=[target],
         uptodate=[config_changed(P.PY_RST_TEMPLATE_TXT)],
-        file_dep=[*setup_py.parent.rglob("*.py"), P.OK / "setup_py"],
+        file_dep=[*(setup_py.parent / "src").rglob("*.py"), P.OK / "setup_py"],
     )
 
 
@@ -733,7 +745,7 @@ def _make_spell(path):
     )
 
 
-if shutil.which("hunspell"):
+if not P.TESTING_IN_CI and shutil.which("hunspell"):
 
     @create_after("docs")
     def task_spell():
@@ -743,7 +755,7 @@ if shutil.which("hunspell"):
                 yield _make_spell(path)
 
 
-if shutil.which("pytest-check-links"):
+if not P.TESTING_IN_CI and shutil.which("pytest-check-links"):
 
     @create_after("docs")
     def task_checklinks():
@@ -780,70 +792,76 @@ if shutil.which("pytest-check-links"):
         )
 
 
-def task_watch():
-    """watch typescript sources, launch lab, rebuilding as files change"""
+if not P.TESTING_IN_CI:
 
-    def _lab():
-        print(">>> Starting typescript watcher...", flush=True)
-        ts = subprocess.Popen(["jlpm", "watch"])
+    def task_watch():
+        """watch typescript sources, launch lab, rebuilding as files change"""
 
-        print(">>> Waiting a bit to start lab watcher...", flush=True)
-        time.sleep(10)
-        print(">>> Starting lab watcher...", flush=True)
-        lab = subprocess.Popen(
-            [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
-            stdin=subprocess.PIPE,
-        )
+        def _lab():
+            print(">>> Starting typescript watcher...", flush=True)
+            ts = subprocess.Popen(["jlpm", "watch"])
 
-        try:
-            print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
-            lab.wait()
-        except KeyboardInterrupt:
-            print(
-                ">>> Watch canceled by user!",
-                flush=True,
+            print(">>> Waiting a bit to start lab watcher...", flush=True)
+            time.sleep(10)
+            print(">>> Starting lab watcher...", flush=True)
+            lab = subprocess.Popen(
+                [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
+                stdin=subprocess.PIPE,
             )
-        finally:
-            print(">>> Stopping watchers...", flush=True)
-            ts.terminate()
-            lab.terminate()
-            lab.communicate(b"y\n")
-            ts.wait()
-            lab.wait()
-            print(">>> Stopped watchers! maybe check process monitor...", flush=True)
 
-        return True
+            try:
+                print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
+                lab.wait()
+            except KeyboardInterrupt:
+                print(
+                    ">>> Watch canceled by user!",
+                    flush=True,
+                )
+            finally:
+                print(">>> Stopping watchers...", flush=True)
+                ts.terminate()
+                lab.terminate()
+                lab.communicate(b"y\n")
+                ts.wait()
+                lab.wait()
+                print(
+                    ">>> Stopped watchers! maybe check process monitor...", flush=True
+                )
 
-    yield dict(
-        name="lab",
-        uptodate=[lambda: False],
-        file_dep=[P.OK / "lab"],
-        actions=[PythonInteractiveAction(_lab)],
-    )
+            return True
 
-    def _docs():
-        p = None
-        try:
-            p = subprocess.Popen(["sphinx-autobuild", P.DOCS, P.DOCS_OUT])
-            p.wait()
-        finally:
-            p.terminate()
-            p.wait()
-
-    if shutil.which("sphinx-autobuild"):
         yield dict(
-            name="docs",
+            name="lab",
             uptodate=[lambda: False],
-            file_dep=[P.DOCS_BUILDINFO],
-            actions=[PythonInteractiveAction(_docs)],
+            file_dep=[P.OK / "lab"],
+            actions=[PythonInteractiveAction(_lab)],
         )
 
+        def _docs():
+            p = None
+            try:
+                p = subprocess.Popen(["sphinx-autobuild", P.DOCS, P.DOCS_OUT])
+                p.wait()
+            finally:
+                p.terminate()
+                p.wait()
 
-def task_binder():
-    """get to a working interactive state"""
-    return dict(
-        file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
-    )
+        if shutil.which("sphinx-autobuild"):
+            yield dict(
+                name="docs",
+                uptodate=[lambda: False],
+                file_dep=[P.DOCS_BUILDINFO],
+                actions=[PythonInteractiveAction(_docs)],
+            )
+
+
+if not P.TESTING_IN_CI:
+
+    def task_binder():
+        """get to a working interactive state"""
+        return dict(
+            file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
+        )
 
 
 ATEST = [P.PY, "-m", "_scripts._atest"]
