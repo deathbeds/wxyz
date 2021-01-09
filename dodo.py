@@ -360,7 +360,7 @@ def task_ts():
     ]
 
     if not P.TESTING_IN_CI:
-        file_dep += [P.OK / "prettier"]
+        file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
     return dict(
         file_dep=file_dep,
