@@ -79,9 +79,7 @@ jobs:
 
       - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
 
-      - run: doit -n4 lint || doit lint
-
-      - run: doit -n4 ts dist || doit ts dist
+      - run: doit -n4 hash_dist || doit hash_dist
 
       - run: doit list --all --status | sort
         if: always()
@@ -90,6 +88,64 @@ jobs:
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
+
+  lint:
+    name: lint
+    needs: [build]
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [ubuntu]
+        python-version: [3.8]
+        lab: [2.2]
+        include:
+          - os: ubuntu
+            conda-subdir: linux-64
+            forge-ext: Linux-x86_64.sh
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: lock
+        run: |
+          echo "::set-output name=lockfile::${{
+            format(
+              'ci/locks/conda.test.{0}-{1}-{2}.lock',
+              matrix.conda-subdir,
+              matrix.python-version,
+              matrix.lab
+            ) }}"
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-lint-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-lint-${{ matrix.python-version }}-
+
+      - name: cache (yarn)
+        uses: actions/cache@v1
+        with:
+          path: .yarn-packages
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          use-only-tar-bz2: true
+          installer-url: |
+            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+
+      - run: mamba info --json
+
+      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
+
+      - run: doit -n4 lint || doit lint
 
   test:
     name: test ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
