@@ -105,6 +105,7 @@ SRC_IGNORE_PATTERNS = [
     "lib/",
     "node_modules/",
     "*.egg-info/",
+    "output/"
 ]
 # these are actual packages
 ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
@@ -287,8 +288,9 @@ ALL_MD = sorted(
 )
 
 ALL_PRETTIER = sorted(
-    set(
-        [
+    {
+        pretty
+        for pretty in [
             *ALL_MD,
             *ALL_YAML,
             *CI.glob("*.yml"),
@@ -300,7 +302,8 @@ ALL_PRETTIER = sorted(
             *SRC.rglob("*.ts"),
             *SRC.rglob("*.yml"),
         ]
-    )
+        if all([p not in str(pretty.as_posix()) for p in SRC_IGNORE_PATTERNS])
+    }
 )
 
 ALL_ROBOT = [*ATEST.rglob("*.robot")]
