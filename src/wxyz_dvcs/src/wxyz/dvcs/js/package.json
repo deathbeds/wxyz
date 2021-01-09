@@ -1,0 +1,55 @@
+{
+  "author": {
+    "email": "",
+    "name": "wxyz contributors"
+  },
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "dependencies": {},
+  "description": "experimental Jupyter widgets for working with data in revision control",
+  "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.4.0",
+    "@types/node": "^10.11.6",
+    "typescript": "~4.0.2"
+  },
+  "files": [
+    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
+    "LICENSE.txt"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
+  "jupyterlab": {
+    "extension": "lib/plugin",
+    "discovery": {
+      "server": {
+        "base": {
+          "name": "wxyz_dvcs"
+        },
+        "managers": [
+          "pip"
+        ]
+      }
+    }
+  },
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "name": "@deathbeds/wxyz-dvcs",
+  "peerDependencies": {
+    "@deathbeds/wxyz-core": "^0.4.0",
+    "@types/node": "^10.11.6",
+    "typescript": "~4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "types": "lib/index.d.ts",
+  "version": "0.4.2"
+}

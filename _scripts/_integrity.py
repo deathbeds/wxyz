@@ -80,17 +80,6 @@ def test_readme_labext(pkg, readme_text):
 
 
 @pytest.mark.parametrize(
-    "pkg,version",
-    [[setup_py.parent.name, version] for setup_py, version in P.PY_VERSION.items()],
-)
-def test_py_versions(pkg, version):
-    """are version files consistent?"""
-    setup_cfg = (P.PY_SRC / pkg / "setup.cfg").read_text(encoding="utf-8")
-
-    assert f"version = {version}" in setup_cfg
-
-
-@pytest.mark.parametrize(
     "pkg_name,pkg_path",
     [[setup_py.parent.name, setup_py.parent] for setup_py in P.PY_VERSION],
 )
@@ -100,11 +89,14 @@ def test_manifest(pkg_name, pkg_path):
     manifest_txt = manifest.read_text(encoding="utf-8")
 
     assert re.findall(
-        r"include .*LICENSE.txt", manifest_txt
-    ), f"{pkg_name} missing license in {manifest}"
+        r"include .*js/LICENSE.txt", manifest_txt
+    ), f"{pkg_name} missing nested license in {manifest}"
     assert re.findall(
         r"global-exclude\s+.ipynb_checkpoints", manifest_txt
     ), f"{pkg_name} missing checkpoint exclude in {manifest}"
+    assert re.findall(
+        r"global-exclude\s+node_modules", manifest_txt
+    ), f"{pkg_name} missing node_modules exclude in {manifest}"
 
 
 @pytest.mark.parametrize("pkg_path", P.PY_SETUP)

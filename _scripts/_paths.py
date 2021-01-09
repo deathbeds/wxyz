@@ -1,10 +1,10 @@
 """ paths, versions and other metadata for wxyz
+
 """
 # pylint: disable=too-few-public-methods
 import json
 import os
 import platform
-import re
 import shutil
 import site
 import sys
@@ -28,6 +28,8 @@ RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
 TESTING_IN_CI = bool(json.loads(os.environ.get("TESTING_IN_CI", "false")))
 
+RUNNING_IN_GITHUB = bool(json.loads(os.environ.get("RUNNING_IN_GITHUB", "false")))
+
 PY = Path(sys.executable)
 PYM = [PY, "-m"]
 PIP = [*PYM, "pip"]
@@ -44,6 +46,8 @@ CONDA_CMD = "mamba" if not WIN and shutil.which("mamba") else "conda"
 JLPM = shutil.which("jlpm")
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
+
+LICENSE_NAME = "LICENSE.txt"
 
 SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent
@@ -82,8 +86,7 @@ class ENV:
 
 
 SRC = ROOT / "src"
-PY_SRC = SRC / "py"
-TS_SRC = SRC / "ts"
+PY_SRC = SRC
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
@@ -95,12 +98,22 @@ DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"
 
-ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
+SRC_IGNORE_PATTERNS = [
+    ".ipynb_checkpoints/",
+    "build/",
+    "dist/",
+    "lib/",
+    "node_modules/",
+    "*.egg-info/",
+    "output/"
+]
+# these are actual packages
+ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
 ALL_SRC_PY = sorted(
     [
         py
         for py in PY_SRC.rglob("*.py")
-        if ".ipynb_checkpoints" not in str(py) and "build" not in str(py)
+        if all([p not in str(py.as_posix()) for p in SRC_IGNORE_PATTERNS])
     ]
 )
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY, DOCS_CONF_PY])
@@ -154,12 +167,11 @@ ATEST_PY = sorted(ATEST.rglob("*.py"))
 
 PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
 PY_VERSION = {
-    pys: re.findall(
-        r"""__version__ = ["](.*)["]""",
-        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(
+    pys: json.loads(
+        next((pys.parent / "src" / "wxyz").glob("*/js/package.json")).read_text(
             encoding="utf-8"
-        ),
-    )[0]
+        )
+    )["version"]
     for pys in PY_SETUP
 }
 PY_DEP = {
@@ -193,9 +205,12 @@ SITE_PKGS = Path(site.getsitepackages()[0])
 YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
-TS_PACKAGE = sorted(TS_SRC.glob("*/package.json"))
-TS_READMES = sorted(TS_SRC.glob("*/README.md"))
-TS_LICENSES = sorted(TS_SRC.glob("*/LICENSE.txt"))
+
+TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in PY_SETUP]
+
+TS_SRC = [p.parent for p in TS_PACKAGE]
+TS_READMES = [p / "README.md" for p in TS_SRC]
+TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
 LABEXT_TXT = ROOT / ".binder" / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [
@@ -205,7 +220,7 @@ THIRD_PARTY_EXTENSIONS = sorted(
     ]
 )
 WXYZ_LAB_EXTENSIONS = [
-    tsp.parent for tsp in TS_PACKAGE if "wxyz-meta" not in tsp.parent.name
+    tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
 ]
 ALL_LABEXTENSIONS = [*THIRD_PARTY_EXTENSIONS, *WXYZ_LAB_EXTENSIONS]
 ALL_TS = sorted(
@@ -221,7 +236,8 @@ TS_PACKAGE_CONTENT = {
     tsp: json.loads(tsp.read_text(encoding="utf-8")) for tsp in TS_PACKAGE
 }
 TS_TARBALLS = [
-    tsp.parent / f"""deathbeds-{tsp.parent.name}-{tsp_json["version"]}.tgz"""
+    tsp.parent
+    / f"""deathbeds-{tsp_json["name"].split("/")[-1]}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
 
@@ -258,14 +274,13 @@ WIDGET_LOG_OUT = BUILD / "nbwidgets"
 
 README = ROOT / "README.md"
 CONTRIBUTING = ROOT / "CONTRIBUTING.md"
-LICENSE = ROOT / "LICENSE.txt"
+LICENSE = ROOT / LICENSE_NAME
 
 ALL_MD = sorted(
     set(
         [
             *PY_SRC.rglob("*.md"),
             *ROOT.glob("*.md"),
-            *TS_SRC.rglob("*.md"),
             CONTRIBUTING,
             README,
         ]
@@ -273,20 +288,22 @@ ALL_MD = sorted(
 )
 
 ALL_PRETTIER = sorted(
-    set(
-        [
+    {
+        pretty
+        for pretty in [
             *ALL_MD,
             *ALL_YAML,
             *CI.glob("*.yml"),
             *DOCS.rglob("*.css"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
-            *TS_SRC.rglob("*.css"),
-            *TS_SRC.rglob("*.json"),
-            *TS_SRC.rglob("*.ts"),
-            *TS_SRC.rglob("*.yml"),
+            *SRC.rglob("*.css"),
+            *SRC.rglob("*.json"),
+            *SRC.rglob("*.ts"),
+            *SRC.rglob("*.yml"),
         ]
-    )
+        if all([p not in str(pretty.as_posix()) for p in SRC_IGNORE_PATTERNS])
+    }
 )
 
 ALL_ROBOT = [*ATEST.rglob("*.robot")]
@@ -379,15 +396,15 @@ LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
 
 SCHEMA = BUILD / "schema"
 SCHEMA_WIDGETS = {
-    TS_SRC
-    / "wxyz-lab/src/widgets/_cm_options.ts": [
-        TS_SRC / "wxyz-lab/src/widgets/editor.ts",
-        PY_SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
+    SRC
+    / "wxyz_lab/src/wxyz/lab/js/src/widgets/_cm_options.ts": [
+        SRC / "wxyz_lab/src/wxyz/lab/src/js/src/widgets/editor.ts",
+        SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
     ],
-    TS_SRC
-    / "wxyz-datagrid/src/widgets/_datagrid_styles.ts": [
-        TS_SRC / "wxyz-datagrid/src/widgets/pwidgets/stylegrid.ts",
-        PY_SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
+    SRC
+    / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts": [
+        SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/pwidgets/stylegrid.ts",
+        SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],
 }
 

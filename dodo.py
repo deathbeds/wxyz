@@ -55,45 +55,49 @@ def task_release():
     )
 
 
-def task_lock():
-    """lock conda envs so they don't need to be solved in CI
-    This should be run semi-frequently (e.g. after merge to master).
-    Requires `conda-lock` CLI to be available
-    """
+if not P.TESTING_IN_CI:
 
-    base_envs = [P.ENV.base, *P.ENV.WXYZ]
-    test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
-    binder_args = None
+    def task_lock():
+        """lock conda envs so they don't need to be solved in CI
+        This should be run semi-frequently (e.g. after merge to master).
+        Requires `conda-lock` CLI to be available
+        """
 
-    for task_args in iter_matrix(P.CI_TEST_MATRIX):
-        if "linux-64" in task_args:
-            binder_args = task_args
-        matrix_envs = list(test_envs)
-        if "win-64" in task_args:
-            matrix_envs += [P.ENV.tpot, P.ENV.win, P.ENV.win_tpot]
-        else:
-            matrix_envs += [P.ENV.tpot, P.ENV.unix, P.ENV.unix_tpot]
+        base_envs = [P.ENV.base, *P.ENV.WXYZ]
+        test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
+        binder_args = None
 
-        yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
+        for task_args in iter_matrix(P.CI_TEST_MATRIX):
+            if "linux-64" in task_args:
+                binder_args = task_args
+            matrix_envs = list(test_envs)
+            if "win-64" in task_args:
+                matrix_envs += [P.ENV.tpot, P.ENV.win, P.ENV.win_tpot]
+            else:
+                matrix_envs += [P.ENV.tpot, P.ENV.unix, P.ENV.unix_tpot]
 
-    for conda_platform in P.ALL_CONDA_PLATFORMS:
-        yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
+            yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
-    yield make_lock_task(
-        "binder",
-        [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
-        {},
-        *binder_args,
-    )
+        for conda_platform in P.ALL_CONDA_PLATFORMS:
+            yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
 
-    yield make_lock_task(
-        "docs",
-        [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
-        {},
-        *binder_args,
-    )
+        yield make_lock_task(
+            "binder",
+            [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
+            {},
+            *binder_args,
+        )
+
+        yield make_lock_task(
+            "docs",
+            [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
+            {},
+            *binder_args,
+        )
 
 
+# TODO: remove entirely in lab 3
+# if P.TESTING_IN_CI and not P.RUNNING_IN_GITHUB:
 def task_setup_ts():
     """set up typescript environment"""
     return dict(
@@ -214,8 +218,24 @@ if not P.TESTING_IN_CI:
             targets=[P.OK / "prettier"],
             actions=[
                 U.okit("prettier", remove=True),
-                ["jlpm", "lint"],
+                ["jlpm", "lint:prettier"],
                 U.okit("prettier"),
+            ],
+        )
+
+        yield dict(
+            name="eslint",
+            file_dep=[
+                P.YARN_INTEGRITY,
+                P.YARN_LOCK,
+                P.OK / "prettier",
+                *sum([[*p.rglob("*.ts")] for p in P.TS_SRC], []),
+            ],
+            targets=[P.OK / "eslint"],
+            actions=[
+                U.okit("eslint", remove=True),
+                ["jlpm", "lint:eslint"],
+                U.okit("eslint"),
             ],
         )
 
@@ -261,11 +281,13 @@ def _make_schema(source, targets):
         )
 
 
-def task_schema():
-    """update code files from schema"""
-    for source, targets in P.SCHEMA_WIDGETS.items():
-        for task in _make_schema(source, targets):
-            yield task
+if not P.TESTING_IN_CI:
+
+    def task_schema():
+        """update code files from schema"""
+        for source, targets in P.SCHEMA_WIDGETS.items():
+            for task in _make_schema(source, targets):
+                yield task
 
 
 def _make_pydist(setup_py):
@@ -275,7 +297,7 @@ def _make_pydist(setup_py):
         setup_py,
         pkg / "setup.cfg",
         pkg / "MANIFEST.in",
-        pkg / "LICENSE.txt",
+        [*(pkg / "src/wxyz").glob("*")][0] / "js" / P.LICENSE_NAME,
         pkg / "README.md",
         *sorted((pkg / "src").rglob("*.py")),
     ]
@@ -344,7 +366,7 @@ def task_ts():
     ]
 
     if not P.TESTING_IN_CI:
-        file_dep += [P.OK / "prettier"]
+        file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
     return dict(
         file_dep=file_dep,
@@ -395,6 +417,13 @@ else:
 def task_lab_extensions():
     """set up local jupyterlab"""
 
+    extensions = [*P.THIRD_PARTY_EXTENSIONS]
+
+    if P.RUNNING_IN_CI:
+        extensions += [p for p in P.TS_TARBALLS if "wxyz-meta" not in p.name]
+    else:
+        extensions += P.WXYZ_LAB_EXTENSIONS
+
     return dict(
         file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS, P.LABEXT_TXT],
         targets=[P.OK / "labextensions"],
@@ -404,10 +433,11 @@ def task_lab_extensions():
                 *P.JPY,
                 "labextension",
                 "install",
-                *P.ALL_LABEXTENSIONS,
+                *extensions,
                 "--no-build",
                 *APP_DIR,
             ],
+            [*P.JPY, "labextension", "list"],
             U.okit("labextensions"),
         ],
     )
@@ -440,10 +470,8 @@ def _make_py_readme(setup_py):
     setup_cfg = pkg / "setup.cfg"
 
     readme = pkg / "README.md"
-    license_ = pkg / "LICENSE.txt"
 
     def _write():
-        license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
         parser = ConfigParser()
         parser.read(setup_cfg)
         context = {s: dict(parser[s]) for s in parser.sections()}
@@ -474,15 +502,14 @@ def _make_py_readme(setup_py):
             ["jlpm", "--silent", "prettier", "--write", "--list-different", readme],
         ],
         file_dep=[P.README, setup_cfg],
-        targets=[readme, license_],
+        targets=[readme],
     )
 
 
 def _make_ts_readme(package_json):
     pkg = package_json.parent
-
     readme = pkg / "README.md"
-    license_ = pkg / "LICENSE.txt"
+    license_ = pkg / P.LICENSE_NAME
 
     def _write():
         license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
@@ -498,7 +525,7 @@ def _make_ts_readme(package_json):
         )
 
     return dict(
-        name=f"readme:ts:{pkg.name}",
+        name=f"readme:ts:{pkg.parent.name}",
         uptodate=[config_changed(P.TS_README_TXT)],
         actions=[
             _write,
@@ -533,7 +560,7 @@ def _make_py_rst(setup_py):
         actions=[_write],
         targets=[target],
         uptodate=[config_changed(P.PY_RST_TEMPLATE_TXT)],
-        file_dep=[*setup_py.parent.rglob("*.py"), P.OK / "setup_py"],
+        file_dep=[*(setup_py.parent / "src").rglob("*.py"), P.OK / "setup_py"],
     )
 
 
@@ -662,7 +689,7 @@ if not P.TESTING_IN_CI:
         yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:
-            if package_json.parent.name == "wxyz-meta":
+            if package_json.parent.parent.name == "notebooks":
                 continue
             yield _make_ts_readme(package_json)
 
@@ -720,7 +747,7 @@ def _make_spell(path):
     )
 
 
-if shutil.which("hunspell"):
+if not P.TESTING_IN_CI and shutil.which("hunspell"):
 
     @create_after("docs")
     def task_spell():
@@ -730,7 +757,7 @@ if shutil.which("hunspell"):
                 yield _make_spell(path)
 
 
-if shutil.which("pytest-check-links"):
+if not P.TESTING_IN_CI and shutil.which("pytest-check-links"):
 
     @create_after("docs")
     def task_checklinks():
@@ -767,70 +794,76 @@ if shutil.which("pytest-check-links"):
         )
 
 
-def task_watch():
-    """watch typescript sources, launch lab, rebuilding as files change"""
+if not P.TESTING_IN_CI:
 
-    def _lab():
-        print(">>> Starting typescript watcher...", flush=True)
-        ts = subprocess.Popen(["jlpm", "watch"])
+    def task_watch():
+        """watch typescript sources, launch lab, rebuilding as files change"""
 
-        print(">>> Waiting a bit to start lab watcher...", flush=True)
-        time.sleep(10)
-        print(">>> Starting lab watcher...", flush=True)
-        lab = subprocess.Popen(
-            [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
-            stdin=subprocess.PIPE,
-        )
+        def _lab():
+            print(">>> Starting typescript watcher...", flush=True)
+            ts = subprocess.Popen(["jlpm", "watch"])
 
-        try:
-            print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
-            lab.wait()
-        except KeyboardInterrupt:
-            print(
-                ">>> Watch canceled by user!",
-                flush=True,
+            print(">>> Waiting a bit to start lab watcher...", flush=True)
+            time.sleep(10)
+            print(">>> Starting lab watcher...", flush=True)
+            lab = subprocess.Popen(
+                [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
+                stdin=subprocess.PIPE,
             )
-        finally:
-            print(">>> Stopping watchers...", flush=True)
-            ts.terminate()
-            lab.terminate()
-            lab.communicate(b"y\n")
-            ts.wait()
-            lab.wait()
-            print(">>> Stopped watchers! maybe check process monitor...", flush=True)
 
-        return True
+            try:
+                print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
+                lab.wait()
+            except KeyboardInterrupt:
+                print(
+                    ">>> Watch canceled by user!",
+                    flush=True,
+                )
+            finally:
+                print(">>> Stopping watchers...", flush=True)
+                ts.terminate()
+                lab.terminate()
+                lab.communicate(b"y\n")
+                ts.wait()
+                lab.wait()
+                print(
+                    ">>> Stopped watchers! maybe check process monitor...", flush=True
+                )
 
-    yield dict(
-        name="lab",
-        uptodate=[lambda: False],
-        file_dep=[P.OK / "lab"],
-        actions=[PythonInteractiveAction(_lab)],
-    )
+            return True
 
-    def _docs():
-        p = None
-        try:
-            p = subprocess.Popen(["sphinx-autobuild", P.DOCS, P.DOCS_OUT])
-            p.wait()
-        finally:
-            p.terminate()
-            p.wait()
-
-    if shutil.which("sphinx-autobuild"):
         yield dict(
-            name="docs",
+            name="lab",
             uptodate=[lambda: False],
-            file_dep=[P.DOCS_BUILDINFO],
-            actions=[PythonInteractiveAction(_docs)],
+            file_dep=[P.OK / "lab"],
+            actions=[PythonInteractiveAction(_lab)],
         )
 
+        def _docs():
+            p = None
+            try:
+                p = subprocess.Popen(["sphinx-autobuild", P.DOCS, P.DOCS_OUT])
+                p.wait()
+            finally:
+                p.terminate()
+                p.wait()
 
-def task_binder():
-    """get to a working interactive state"""
-    return dict(
-        file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
-    )
+        if shutil.which("sphinx-autobuild"):
+            yield dict(
+                name="docs",
+                uptodate=[lambda: False],
+                file_dep=[P.DOCS_BUILDINFO],
+                actions=[PythonInteractiveAction(_docs)],
+            )
+
+
+if not P.TESTING_IN_CI:
+
+    def task_binder():
+        """get to a working interactive state"""
+        return dict(
+            file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
+        )
 
 
 ATEST = [P.PY, "-m", "_scripts._atest"]

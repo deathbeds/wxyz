@@ -6,6 +6,7 @@ _*_repo_/
 .ipynb_checkpoints/
 .pabotsuitenames
 .pytest_cache/
+.vscode/
 .yarn-packages/
 *.egg-info
 *.tgz

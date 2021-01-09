@@ -1,0 +1,15 @@
+{
+  "extends": "../../../../../../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../lib",
+    "tsBuildInfoFile": "../lib/.tsbuildinfo"
+  },
+  "include": ["./**/*"],
+  "references": [
+    { "path": "../" },
+    {
+      "path": "../../../../../../wxyz_core/src/wxyz/core/js"
+    }
+  ]
+}

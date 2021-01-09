@@ -1,0 +1,4 @@
+include README.md
+include src/wxyz/core/js/package.json src/wxyz/core/js/LICENSE.txt
+global-exclude .ipynb_checkpoints
+global-exclude node_modules

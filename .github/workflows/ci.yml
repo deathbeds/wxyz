@@ -9,13 +9,15 @@ on:
 env:
   # maybe could normalize to semi-standard `CI`
   RUNNING_IN_CI: 1
+  RUNNING_IN_GITHUB: 1
   # increment to reset all caches
-  CACHE_EPOCH: 0
+  CACHE_EPOCH: 2
   # python cruft
   PYTHONIOENCODING: utf-8
   PYTHONUNBUFFERED: 1
   PIP_DISABLE_PIP_VERSION_CHECK: 1
   # mamba cruft
+  FORGE_URL: https://github.com/conda-forge/miniforge/releases/download
   CONDA_EXE: mamba
   FORGE: Mambaforge
   FORGE_VERSION: 4.9.2-5
@@ -54,9 +56,9 @@ jobs:
         with:
           path: ~/conda_pkgs_dir
           key:
-            ${{ env.CACHE_EPOCH }}-${{ runner.conda-subdir }}-build-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
+            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-build-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
           restore-keys: |
-            ${{ env.CACHE_EPOCH }}-${{ runner.conda-subdir }}-build-${{ matrix.python-version }}-
+            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-build-${{ matrix.python-version }}-
 
       - name: cache (yarn)
         uses: actions/cache@v1
@@ -64,22 +66,20 @@ jobs:
           path: .yarn-packages
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
           restore-keys: |
-            ${{ env.CACHE_EPOCH }}-yarn-${{ runner.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
       - uses: conda-incubator/setup-miniconda@v2
         with:
           use-only-tar-bz2: true
           installer-url: |
-            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
       - run: mamba info --json
 
       - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
 
-      - run: doit -n4 lint || doit lint
-
-      - run: doit -n4 ts dist || doit ts dist
+      - run: doit -n4 hash_dist || doit hash_dist
 
       - run: doit list --all --status | sort
         if: always()
@@ -89,6 +89,64 @@ jobs:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
 
+  lint:
+    name: lint
+    needs: [build]
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [ubuntu]
+        python-version: [3.8]
+        lab: [2.2]
+        include:
+          - os: ubuntu
+            conda-subdir: linux-64
+            forge-ext: Linux-x86_64.sh
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: lock
+        run: |
+          echo "::set-output name=lockfile::${{
+            format(
+              'ci/locks/conda.test.{0}-{1}-{2}.lock',
+              matrix.conda-subdir,
+              matrix.python-version,
+              matrix.lab
+            ) }}"
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-lint-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-lint-${{ matrix.python-version }}-
+
+      - name: cache (yarn)
+        uses: actions/cache@v1
+        with:
+          path: .yarn-packages
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
+          restore-keys: |
+            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          use-only-tar-bz2: true
+          installer-url: |
+            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+
+      - run: mamba info --json
+
+      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
+
+      - run: doit -n4 lint || doit lint
+
   test:
     name: test ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
     needs: [build]
@@ -97,6 +155,8 @@ jobs:
       TESTING_IN_CI: 1
       ATEST_RETRIES: 1
     strategy:
+      # TODO: remove
+      fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
         python-version: [3.6, 3.7, 3.8]
@@ -142,7 +202,7 @@ jobs:
           path: .yarn-packages
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
           restore-keys: |
-            ${{ env.CACHE_EPOCH }}-yarn-${{ runner.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
       - uses: actions/download-artifact@v2
@@ -154,7 +214,7 @@ jobs:
         with:
           use-only-tar-bz2: true
           installer-url: |
-            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
       - if: ${{ matrix.os != 'windows' }}
         run: mamba info --json && mamba create -p ./envs/_base test --file "${{ steps.lock.outputs.lockfile }}"
@@ -164,7 +224,7 @@ jobs:
         run: mamba info --json && mamba create -p ./envs/_base --file "${{ steps.lock.outputs.lockfile }}"
 
       - if: ${{ matrix.os != 'windows' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
+        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_ts setup_py_ci nbtest robot || doit setup_ts setup_py_ci nbtest robot
 
       - if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
@@ -230,7 +290,7 @@ jobs:
           path: .yarn-packages
           key: ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
           restore-keys: |
-            ${{ env.CACHE_EPOCH }}-yarn-${{ runner.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
       - uses: actions/download-artifact@v2
@@ -252,7 +312,7 @@ jobs:
         with:
           use-only-tar-bz2: true
           installer-url: |
-            https://github.com/conda-forge/miniforge/releases/download/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
       - run: mamba info --json
 
