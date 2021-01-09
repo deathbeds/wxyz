@@ -1,4 +1,5 @@
 """ paths, versions and other metadata for wxyz
+
 """
 # pylint: disable=too-few-public-methods
 import json
@@ -82,8 +83,7 @@ class ENV:
 
 
 SRC = ROOT / "src"
-PY_SRC = SRC / "py"
-TS_SRC = SRC / "ts"
+PY_SRC = SRC
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
@@ -95,12 +95,21 @@ DODO = ROOT / "dodo.py"
 
 PYLINTRC = ROOT / ".pylintrc"
 
-ALL_SETUP_CFG = sorted(PY_SRC.rglob("setup.cfg"))
+SRC_IGNORE_PATTERNS = [
+    ".ipynb_checkpoints/",
+    "build/",
+    "dist/"
+    "lib/",
+    "node_modules/",
+    "*.egg-info/"
+]
+# these are actual packages
+ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
 ALL_SRC_PY = sorted(
     [
         py
         for py in PY_SRC.rglob("*.py")
-        if ".ipynb_checkpoints" not in str(py) and "build" not in str(py)
+        if all([p not in str(py.as_posix()) for p in SRC_IGNORE_PATTERNS])
     ]
 )
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY, DOCS_CONF_PY])
@@ -193,9 +202,15 @@ SITE_PKGS = Path(site.getsitepackages()[0])
 YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
-TS_PACKAGE = sorted(TS_SRC.glob("*/package.json"))
-TS_READMES = sorted(TS_SRC.glob("*/README.md"))
-TS_LICENSES = sorted(TS_SRC.glob("*/LICENSE.txt"))
+
+TS_PACKAGE = [
+    (p.parent / "src").glob("*/js/package.json")
+    for p in PY_SETUP
+    if [*(p.parent / "src").glob("*/js/package.json")]
+]
+TS_SRC = [p.parent for p in TS_PACKAGE]
+TS_READMES = [p / "README.md" for p in TS_SRC]
+TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
 LABEXT_TXT = ROOT / ".binder" / "labex.txt"
 THIRD_PARTY_EXTENSIONS = sorted(
     [
@@ -265,7 +280,6 @@ ALL_MD = sorted(
         [
             *PY_SRC.rglob("*.md"),
             *ROOT.glob("*.md"),
-            *TS_SRC.rglob("*.md"),
             CONTRIBUTING,
             README,
         ]
@@ -281,10 +295,12 @@ ALL_PRETTIER = sorted(
             *DOCS.rglob("*.css"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
-            *TS_SRC.rglob("*.css"),
-            *TS_SRC.rglob("*.json"),
-            *TS_SRC.rglob("*.ts"),
-            *TS_SRC.rglob("*.yml"),
+            *sum([
+                [
+                    p.rglob("*.css"), p.rglob("*.json"), p.rglob("*.ts"),
+                    p.rglob("*.yml"),
+                ] for p in TS_SRC
+            ], [])
         ]
     )
 )
@@ -379,15 +395,13 @@ LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
 
 SCHEMA = BUILD / "schema"
 SCHEMA_WIDGETS = {
-    TS_SRC
-    / "wxyz-lab/src/widgets/_cm_options.ts": [
-        TS_SRC / "wxyz-lab/src/widgets/editor.ts",
-        PY_SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
+    SRC / "wxyz_lab/src/wxyz/lab/src/js/src/widgets/_cm_options.ts": [
+        SRC / "wxyz_lab/src/wxyz/lab/src/js/src/widgets/editor.ts",
+        SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
     ],
-    TS_SRC
-    / "wxyz-datagrid/src/widgets/_datagrid_styles.ts": [
-        TS_SRC / "wxyz-datagrid/src/widgets/pwidgets/stylegrid.ts",
-        PY_SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
+    SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts": [
+        SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/pwidgets/stylegrid.ts",
+        SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],
 }
 
