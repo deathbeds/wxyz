@@ -20,6 +20,20 @@
     { "path": "../../../../../../wxyz_lab/src/wxyz/lab/js" },
     { "path": "../../../../../../wxyz_svg/src/wxyz/svg/js" },
     { "path": "../../../../../../wxyz_tpl_jinja/src/wxyz/tpl_jinja/js" },
-    { "path": "../../../../../../wxyz_yaml/src/wxyz/yaml/js" }
+    { "path": "../../../../../../wxyz_yaml/src/wxyz/yaml/js" },
+
+    { "path": "../../../../../../wxyz_core/src/wxyz/core/js/src" },
+    { "path": "../../../../../../wxyz_datagrid/src/wxyz/datagrid/js/src" },
+    { "path": "../../../../../../wxyz_dvcs/src/wxyz/dvcs/js/src" },
+    { "path": "../../../../../../wxyz_html/src/wxyz/html/js/src" },
+    {
+      "path": "../../../../../../wxyz_json_schema_form/src/wxyz/json_schema_form/js/src"
+    },
+    { "path": "../../../../../../wxyz_json_e/src/wxyz/json_e/js/src" },
+    { "path": "../../../../../../wxyz_jsonld/src/wxyz/jsonld/js/src" },
+    { "path": "../../../../../../wxyz_lab/src/wxyz/lab/js/src" },
+    { "path": "../../../../../../wxyz_svg/src/wxyz/svg/js/src" },
+    { "path": "../../../../../../wxyz_tpl_jinja/src/wxyz/tpl_jinja/js/src" },
+    { "path": "../../../../../../wxyz_yaml/src/wxyz/yaml/js/src" }
   ]
 }

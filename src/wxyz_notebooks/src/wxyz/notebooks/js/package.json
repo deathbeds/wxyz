@@ -43,7 +43,7 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b src",
     "watch": "jlpm build --watch --preserveWatchOutput"
   },
   "types": "lib/index.d.ts",
