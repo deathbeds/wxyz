@@ -204,10 +204,10 @@ YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 
 TS_PACKAGE = [
-    (p.parent / "src").glob("*/js/package.json")
+    [*(p.parent / "src").glob("wxyz/*/js/package.json")][0]
     for p in PY_SETUP
-    if [*(p.parent / "src").glob("*/js/package.json")]
 ]
+
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
@@ -295,12 +295,10 @@ ALL_PRETTIER = sorted(
             *DOCS.rglob("*.css"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
-            *sum([
-                [
-                    p.rglob("*.css"), p.rglob("*.json"), p.rglob("*.ts"),
-                    p.rglob("*.yml"),
-                ] for p in TS_SRC
-            ], [])
+            *SRC.rglob("*.css"),
+            *SRC.rglob("*.json"),
+            *SRC.rglob("*.ts"),
+            *SRC.rglob("*.yml"),
         ]
     )
 )

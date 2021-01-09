@@ -498,7 +498,7 @@ def _make_ts_readme(package_json):
         )
 
     return dict(
-        name=f"readme:ts:{pkg.name}",
+        name=f"readme:ts:{pkg.parent.name}",
         uptodate=[config_changed(P.TS_README_TXT)],
         actions=[
             _write,
