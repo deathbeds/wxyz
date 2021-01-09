@@ -417,6 +417,15 @@ else:
 def task_lab_extensions():
     """set up local jupyterlab"""
 
+    extensions = [*P.THIRD_PARTY_EXTENSIONS]
+
+    if P.RUNNING_IN_CI:
+        extensions += [
+            p for p in P.TS_TARBALLS if "wxyz-meta" not in p.name
+        ]
+    else:
+        extensions += P.WXYZ_LAB_EXTENSIONS
+
     return dict(
         file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS, P.LABEXT_TXT],
         targets=[P.OK / "labextensions"],
@@ -426,7 +435,7 @@ def task_lab_extensions():
                 *P.JPY,
                 "labextension",
                 "install",
-                *P.ALL_LABEXTENSIONS,
+                *extensions,
                 "--no-build",
                 *APP_DIR,
             ],
