@@ -176,6 +176,12 @@ jobs:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path:  atest/output
 
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          path: ./build/nbwidgets
+
   docs:
     name: docs ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
     needs: [build, test]
@@ -231,10 +237,16 @@ jobs:
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
+
       - uses: actions/download-artifact@v2
         with:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: ./atest/output
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          path: ./build/nbwidgets
 
       - uses: conda-incubator/setup-miniconda@v2
         with:
