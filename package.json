@@ -13,8 +13,8 @@
     "build:ts": "lerna run --parallel --stream build",
     "build:tgz": "lerna exec --parallel --stream npm pack",
     "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml}\" \"./{src,ci,reqs}/**/*.{ts,json,md,yml,yaml,css,yml}\"",
-    "lint:ts": "eslint --config .eslintrc.js --ext .js,.jsx,.ts,.tsx --fix src/ts",
-    "lint": "jlpm lint:prettier && jlpm lint:ts",
+    "lint:eslint": "eslint --config .eslintrc.js --ext .js,.jsx,.ts,.tsx --fix src/wxyz_*/src/wxyz/*/js/src",
+    "lint": "jlpm lint:prettier && jlpm lint:eslint",
     "watch": "lerna run --parallel --stream watch"
   },
   "prettier": {

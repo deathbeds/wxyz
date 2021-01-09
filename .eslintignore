@@ -13,7 +13,7 @@ coverage
 *.map.js
 *.bundle.js
 *.egg-info
-lab/
+./lab/
 atest/
 docs/
 

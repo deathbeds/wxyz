@@ -1,2 +1,4 @@
-include LICENSE.txt README.md
+include README.md
+include src/wxyz/tpl_jinja/js/LICENSE.txt
 global-exclude .ipynb_checkpoints
+global-exclude .node_modules

@@ -46,6 +46,8 @@ JLPM = shutil.which("jlpm")
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
+LICENSE_NAME = "LICENSE.txt"
+
 SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent
 
@@ -98,10 +100,10 @@ PYLINTRC = ROOT / ".pylintrc"
 SRC_IGNORE_PATTERNS = [
     ".ipynb_checkpoints/",
     "build/",
-    "dist/"
+    "dist/",
     "lib/",
     "node_modules/",
-    "*.egg-info/"
+    "*.egg-info/",
 ]
 # these are actual packages
 ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
@@ -203,10 +205,7 @@ YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 
-TS_PACKAGE = [
-    [*(p.parent / "src").glob("wxyz/*/js/package.json")][0]
-    for p in PY_SETUP
-]
+TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in PY_SETUP]
 
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
@@ -273,7 +272,7 @@ WIDGET_LOG_OUT = BUILD / "nbwidgets"
 
 README = ROOT / "README.md"
 CONTRIBUTING = ROOT / "CONTRIBUTING.md"
-LICENSE = ROOT / "LICENSE.txt"
+LICENSE = ROOT / LICENSE_NAME
 
 ALL_MD = sorted(
     set(
@@ -393,11 +392,13 @@ LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
 
 SCHEMA = BUILD / "schema"
 SCHEMA_WIDGETS = {
-    SRC / "wxyz_lab/src/wxyz/lab/src/js/src/widgets/_cm_options.ts": [
+    SRC
+    / "wxyz_lab/src/wxyz/lab/js/src/widgets/_cm_options.ts": [
         SRC / "wxyz_lab/src/wxyz/lab/src/js/src/widgets/editor.ts",
         SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
     ],
-    SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts": [
+    SRC
+    / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts": [
         SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/pwidgets/stylegrid.ts",
         SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],

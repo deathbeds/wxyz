@@ -214,8 +214,24 @@ if not P.TESTING_IN_CI:
             targets=[P.OK / "prettier"],
             actions=[
                 U.okit("prettier", remove=True),
-                ["jlpm", "lint"],
+                ["jlpm", "lint:prettier"],
                 U.okit("prettier"),
+            ],
+        )
+
+        yield dict(
+            name="eslint",
+            file_dep=[
+                P.YARN_INTEGRITY,
+                P.YARN_LOCK,
+                P.OK / "prettier",
+                *sum([[*p.rglob("*.ts")] for p in P.TS_SRC], []),
+            ],
+            targets=[P.OK / "eslint"],
+            actions=[
+                U.okit("eslint", remove=True),
+                ["jlpm", "lint:eslint"],
+                U.okit("eslint"),
             ],
         )
 
@@ -275,7 +291,7 @@ def _make_pydist(setup_py):
         setup_py,
         pkg / "setup.cfg",
         pkg / "MANIFEST.in",
-        pkg / "LICENSE.txt",
+        pkg / P.LICENSE_NAME,
         pkg / "README.md",
         *sorted((pkg / "src").rglob("*.py")),
     ]
@@ -440,10 +456,8 @@ def _make_py_readme(setup_py):
     setup_cfg = pkg / "setup.cfg"
 
     readme = pkg / "README.md"
-    license_ = pkg / "LICENSE.txt"
 
     def _write():
-        license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
         parser = ConfigParser()
         parser.read(setup_cfg)
         context = {s: dict(parser[s]) for s in parser.sections()}
@@ -474,15 +488,14 @@ def _make_py_readme(setup_py):
             ["jlpm", "--silent", "prettier", "--write", "--list-different", readme],
         ],
         file_dep=[P.README, setup_cfg],
-        targets=[readme, license_],
+        targets=[readme],
     )
 
 
 def _make_ts_readme(package_json):
     pkg = package_json.parent
-
     readme = pkg / "README.md"
-    license_ = pkg / "LICENSE.txt"
+    license_ = pkg / P.LICENSE_NAME
 
     def _write():
         license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
@@ -662,7 +675,7 @@ if not P.TESTING_IN_CI:
         yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:
-            if package_json.parent.name == "wxyz-meta":
+            if package_json.parent.parent.name == "notebooks":
                 continue
             yield _make_ts_readme(package_json)
 

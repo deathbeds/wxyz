@@ -1,5 +1,7 @@
 # `@deathbeds/wxyz-lab`
 
+
+
 [![pypi-badge][]][pypi] [![npm-badge][]][npm]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_lab
@@ -12,7 +14,6 @@
 ## Installation
 
 > Prerequisites:
->
 > - `python >=3.6`
 > - `nodejs >=10`
 > - `jupyterlab >=2,<3`
