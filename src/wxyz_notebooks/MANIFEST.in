@@ -1,5 +1,5 @@
 include README.md
-include src/wxyz/notebook/js/LICENSE.txt
+include src/wxyz/notebook/js/package.json src/wxyz/notebook/js/LICENSE.txt
 
 recursive-include src/wxyz/notebooks *.ipynb *.svg
 global-exclude .ipynb_checkpoints

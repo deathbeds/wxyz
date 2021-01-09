@@ -1,4 +1,4 @@
 include README.md
-include src/wxyz/jsonld/js/LICENSE.txt
+include src/wxyz/jsonld/js/package.json src/wxyz/jsonld/js/LICENSE.txt
 global-exclude .ipynb_checkpoints
 global-exclude .node_modules

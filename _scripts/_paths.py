@@ -5,7 +5,6 @@
 import json
 import os
 import platform
-import re
 import shutil
 import site
 import sys
@@ -165,12 +164,11 @@ ATEST_PY = sorted(ATEST.rglob("*.py"))
 
 PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
 PY_VERSION = {
-    pys: re.findall(
-        r"""__version__ = ["](.*)["]""",
-        next((pys.parent / "src" / "wxyz").rglob("_version.py")).read_text(
+    pys: json.loads(
+        next((pys.parent / "src" / "wxyz").glob("*/js/package.json")).read_text(
             encoding="utf-8"
-        ),
-    )[0]
+        )
+    )["version"]
     for pys in PY_SETUP
 }
 PY_DEP = {
