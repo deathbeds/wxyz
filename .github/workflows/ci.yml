@@ -99,6 +99,8 @@ jobs:
       TESTING_IN_CI: 1
       ATEST_RETRIES: 1
     strategy:
+      # TODO: remove
+      fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
         python-version: [3.6, 3.7, 3.8]
