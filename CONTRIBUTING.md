@@ -1,12 +1,12 @@
 # Contributing to wxyz
 
-Get [Miniforge][]. Create/activate a dev environment from a [lockfile][], list tasks.
+Get [Mambaforge][]. Create/activate a dev environment from a [lockfile][], list tasks.
 
-    conda create --prefix envs/docs --file ci/locks/conda.docs.linux-64-3.8-2.2.lock
+    mamba create --prefix envs/docs --file ci/locks/conda.docs.linux-64-3.8-2.2.lock
     source activate envs/docs
     doit list
 
-[miniforge]: https://github.com/conda-forge/miniforge/releases
+[mambaforge]: https://github.com/conda-forge/miniforge/releases
 [lockfile]: ./ci/locks
 
 ## Use doit
@@ -70,6 +70,6 @@ Code style is enforced by a number of python, typescript and miscellaneous files
 The lockfiles in `ci/locks` are created in a separate environment from the main
 development environment to avoid a `conda` dependency.
 
-    conda create --prefix envs/lock --file ci/locks/conda.lock.linux-64-3.8-.lock
+    mamba create --prefix envs/lock --file ci/locks/conda.lock.linux-64-3.8-.lock
     source envs/lock/bin/activate
     doit lock
