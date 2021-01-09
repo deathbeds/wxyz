@@ -7,16 +7,16 @@
   },
   "include": ["./src/**/*"],
   "references": [
-    { "path": "../wxyz-core" },
-    { "path": "../wxyz-datagrid" },
-    { "path": "../wxyz-dvcs" },
-    { "path": "../wxyz-html" },
-    { "path": "../wxyz-json-schema-form" },
-    { "path": "../wxyz-json-e" },
-    { "path": "../wxyz-jsonld" },
-    { "path": "../wxyz-lab" },
-    { "path": "../wxyz-svg" },
-    { "path": "../wxyz-tpl-nunjucks" },
-    { "path": "../wxyz-yaml" }
+    { "path": "../../../../../wxyz_core/src/wxyz/core/js" },
+    { "path": "../../../../../wxyz_datagrid/src/wxyz/datagrid/js" },
+    { "path": "../../../../../wxyz_dvcs/src/wxyz/dvcs/js" },
+    { "path": "../../../../../wxyz_html/src/wxyz/html/js" },
+    { "path": "../../../../../wxyz_json_schema_form/src/wxyz/json_schema_form/js" },
+    { "path": "../../../../../wxyz_json_e/src/wxyz/json_e/js" },
+    { "path": "../../../../../wxyz_jsonld/src/wxyz/jsonld/js" },
+    { "path": "../../../../../wxyz_lab/src/wxyz/lab/js" },
+    { "path": "../../../../../wxyz_svg/src/wxyz/svg/js" },
+    { "path": "../../../../../wxyz_tpl_jinja/src/wxyz/tpl_jinja/js" },
+    { "path": "../../../../../wxyz_yaml/src/wxyz/yaml/js" }
   ]
 }

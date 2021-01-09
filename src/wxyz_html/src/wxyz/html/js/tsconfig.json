@@ -8,7 +8,7 @@
   "include": ["./src/**/*"],
   "references": [
     {
-      "path": "../wxyz-core"
+      "path": "../../../../../wxyz_core/src/wxyz/core/js"
     }
   ]
 }

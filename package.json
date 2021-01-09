@@ -37,6 +37,6 @@
     "ts-json-schema-generator": "^0.80.1"
   },
   "workspaces": [
-    "src/ts/wxyz-*"
+    "src/wxyz_*/src/wxyz/*/js"
   ]
 }
