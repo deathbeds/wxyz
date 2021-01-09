@@ -106,7 +106,7 @@ def test_manifest(pkg_name, pkg_path):
         r"global-exclude\s+.ipynb_checkpoints", manifest_txt
     ), f"{pkg_name} missing checkpoint exclude in {manifest}"
     assert re.findall(
-        r"global-exclude\s+.node_modules", manifest_txt
+        r"global-exclude\s+node_modules", manifest_txt
     ), f"{pkg_name} missing node_modules exclude in {manifest}"
 
 

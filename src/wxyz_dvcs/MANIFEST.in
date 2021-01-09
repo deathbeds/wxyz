@@ -1,4 +1,4 @@
 include README.md
 include src/wxyz/dvcs/js/package.json src/wxyz/dvcs/js/LICENSE.txt
 global-exclude .ipynb_checkpoints
-global-exclude .node_modules
+global-exclude node_modules
