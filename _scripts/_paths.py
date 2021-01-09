@@ -235,7 +235,8 @@ TS_PACKAGE_CONTENT = {
     tsp: json.loads(tsp.read_text(encoding="utf-8")) for tsp in TS_PACKAGE
 }
 TS_TARBALLS = [
-    tsp.parent / f"""deathbeds-{tsp.parent.name}-{tsp_json["version"]}.tgz"""
+    tsp.parent
+    / f"""deathbeds-{tsp_json["name"].split("/")[-1]}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
 

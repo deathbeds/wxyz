@@ -115,7 +115,8 @@ export class SVGBoxView extends BoxView {
   onZoom() {
     this._zoomer &&
       this._zoomer.call(
-        this._zoom.transform,
+        // TODO: fix this
+        this._zoom.transform as any,
         d3Zoom.zoomIdentity
           .translate(this.model.get('zoom_x'), this.model.get('zoom_y'))
           .scale(this.model.get('zoom_k'))
@@ -228,8 +229,8 @@ export class SVGBoxView extends BoxView {
         view._zoomer.attr('transform', transform);
         view.model.saveZoom(transform);
       });
-
-      layout.call(this._zoom);
+      // TODO: fix this
+      layout.call(this._zoom as any);
     }
     const el = this.el.parentNode;
     if (!el) {
