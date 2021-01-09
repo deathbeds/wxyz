@@ -324,61 +324,55 @@ def _make_pydist(setup_py):
     )
 
 
-if not P.TESTING_IN_CI:
-
-    def task_dist():
-        """make pypi distributions"""
-        for pys in P.PY_SETUP:
-            yield _make_pydist(pys)
+def task_dist():
+    """make pypi distributions"""
+    for pys in P.PY_SETUP:
+        yield _make_pydist(pys)
 
 
-if not P.TESTING_IN_CI:
+def task_hash_dist():
+    """make a hash bundle of the dist artifacts"""
 
-    def task_hash_dist():
-        """make a hash bundle of the dist artifacts"""
+    def _run_hash():
+        # mimic sha256sum CLI
+        if P.SHA256SUMS.exists():
+            P.SHA256SUMS.unlink()
 
-        def _run_hash():
-            # mimic sha256sum CLI
-            if P.SHA256SUMS.exists():
-                P.SHA256SUMS.unlink()
+        lines = []
 
-            lines = []
+        for p in P.HASH_DEPS:
+            if p.parent != P.DIST:
+                tgt = P.DIST / p.name
+                if tgt.exists():
+                    tgt.unlink()
+                shutil.copy2(p, tgt)
+            lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
 
-            for p in P.HASH_DEPS:
-                if p.parent != P.DIST:
-                    tgt = P.DIST / p.name
-                    if tgt.exists():
-                        tgt.unlink()
-                    shutil.copy2(p, tgt)
-                lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
+        output = "\n".join(lines)
+        print(output)
+        P.SHA256SUMS.write_text(output)
 
-            output = "\n".join(lines)
-            print(output)
-            P.SHA256SUMS.write_text(output)
-
-        return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
+    return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
-if not P.TESTING_IN_CI:
+def task_ts():
+    """build typescript components"""
 
-    def task_ts():
-        """build typescript components"""
+    file_dep = [
+        P.YARN_LOCK,
+        *P.TS_PACKAGE,
+        *P.TS_READMES,
+        *P.TS_LICENSES,
+    ]
 
-        file_dep = [
-            P.YARN_LOCK,
-            *P.TS_PACKAGE,
-            *P.TS_READMES,
-            *P.TS_LICENSES,
-        ]
+    if not P.TESTING_IN_CI:
+        file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
-        if not P.TESTING_IN_CI:
-            file_dep += [P.OK / "prettier", P.OK / "eslint"]
-
-        return dict(
-            file_dep=file_dep,
-            targets=[*P.TS_TARBALLS],
-            actions=[["jlpm", "build"]],
-        )
+    return dict(
+        file_dep=file_dep,
+        targets=[*P.TS_TARBALLS],
+        actions=[["jlpm", "build"]],
+    )
 
 
 def task_nbtest():
