@@ -96,8 +96,8 @@ if not P.TESTING_IN_CI:
         )
 
 
-# TODO: remove in lab 3
-# if not P.TESTING_IN_CI:
+# TODO: remove entirely in lab 3
+# if P.TESTING_IN_CI and not P.RUNNING_IN_GITHUB:
 def task_setup_ts():
     """set up typescript environment"""
     return dict(

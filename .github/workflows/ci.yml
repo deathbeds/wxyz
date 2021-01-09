@@ -9,6 +9,7 @@ on:
 env:
   # maybe could normalize to semi-standard `CI`
   RUNNING_IN_CI: 1
+  RUNNING_IN_GITHUB: 1
   # increment to reset all caches
   CACHE_EPOCH: 0
   # python cruft
@@ -164,7 +165,7 @@ jobs:
         run: mamba info --json && mamba create -p ./envs/_base --file "${{ steps.lock.outputs.lockfile }}"
 
       - if: ${{ matrix.os != 'windows' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && doit -n4 nbtest robot || doit nbtest robot
+        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_py_ci nbtest robot || doit setup_py_ci nbtest robot
 
       - if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}

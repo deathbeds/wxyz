@@ -28,6 +28,8 @@ RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
 TESTING_IN_CI = bool(json.loads(os.environ.get("TESTING_IN_CI", "false")))
 
+RUNNING_IN_GITHUB = bool(json.loads(os.environ.get("RUNNING_IN_GITHUB", "false")))
+
 PY = Path(sys.executable)
 PYM = [PY, "-m"]
 PIP = [*PYM, "pip"]
