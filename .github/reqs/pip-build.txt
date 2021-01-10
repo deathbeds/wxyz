@@ -4,4 +4,4 @@ jupyterlab >=2.2,<3.0.0a0
 pip
 setuptools
 wheel
-yaml
+pyyaml
