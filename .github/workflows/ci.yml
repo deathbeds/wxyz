@@ -97,7 +97,7 @@ jobs:
           path: ./dist
 
   test:
-    name: test ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
+    name: ${{ matrix.lockname }} ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
     needs: [build]
     runs-on: ${{ matrix.os }}-latest
     env:
