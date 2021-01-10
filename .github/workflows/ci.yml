@@ -178,7 +178,7 @@ jobs:
         shell: cmd /C CALL {0}
         run: mamba info --json && mamba create -p ./envs/_base --file "${{ steps.lock.outputs.lockfile }}"
 
-      - if: ${{ matrix.lockname == "docs" }}
+      - if: ${{ matrix.lockname == 'docs' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 lint
 
       - if: ${{ matrix.os != 'windows' }}
@@ -200,7 +200,7 @@ jobs:
           name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: ./build/nbwidgets
 
-      - if: ${{ matrix.lockname == "docs" }}
+      - if: ${{ matrix.lockname == 'docs' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 docs
 
       - uses: actions/upload-artifact@v2
@@ -210,7 +210,7 @@ jobs:
           path: build/docs
 
       - uses: actions/cache@v1
-        if: ${{ matrix.lockname == "docs" }}
+        if: ${{ matrix.lockname == 'docs' }}
         with:
           path: build/check_links
           key:
@@ -219,5 +219,5 @@ jobs:
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-
 
-      - if: ${{ matrix.lockname == "docs" }}
+      - if: ${{ matrix.lockname == 'docs' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 spell checklinks || doit spell checklinks
