@@ -137,7 +137,8 @@ jobs:
         run: |
           echo "::set-output name=lockfile::${{
             format(
-              '.github/locks/conda.${{ matrix.lockname }}.{0}-{1}-{2}.lock',
+              '.github/locks/conda.{0}.{1}-{2}-{3}.lock',
+              matrix.lockname,
               matrix.conda-subdir,
               matrix.python-version,
               matrix.lab
