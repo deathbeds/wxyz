@@ -2,6 +2,8 @@
 """
 # pylint: disable=too-many-arguments,import-outside-toplevel,import-error
 
+import collections
+import itertools
 import subprocess
 import tempfile
 from pathlib import Path
@@ -115,12 +117,46 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
     )
 
 
-def iter_matrix(matrix):
-    """generate"""
-    for platform_ in matrix["platforms"]:
-        for python_ in matrix["pythons"]:
-            yield (
-                platform_["condaPlatform"],
-                python_["spec"],
-                python_["lab"],
+def expand_gh_matrix(matrix):
+    """apply github matrix `include` and `exclude` transformations"""
+    raw = dict(matrix)
+    include = raw.pop("include", [])
+    exclude = raw.pop("exclude", [])
+    merged = [
+        dict(collections.ChainMap(*p))
+        for p in [*itertools.product(*[[{k: i} for i in raw[k]] for k in raw])]
+    ]
+
+    for m in merged:
+        to_yield = dict(m)
+        should_yield = True
+
+        for inc in include or []:
+            might_add = {}
+            should_add = True
+            for k, v in inc.items():
+                mk = m.get(k)
+                if mk is None:
+                    might_add[k] = v
+                elif mk != v:
+                    should_add = False
+            if should_add:
+                to_yield.update(might_add)
+
+        # if any of these match, skip yield
+        for exc in exclude or []:
+            should_yield = should_yield and not (
+                all([m.get(k) == v for k, v in exc.items()])
             )
+
+        if should_yield:
+            yield to_yield
+
+
+def iter_matrix(matrix, keys=None):
+    """generate a tuples of the keys for the github action matrix"""
+
+    keys = keys or ["conda-subdir", "python-version", "lab"]
+
+    for key in expand_gh_matrix(matrix):
+        yield tuple([key[k] for k in keys])

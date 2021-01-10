@@ -55,11 +55,11 @@ ROOT = SCRIPTS.parent
 BUILD = ROOT / "build"
 OK = BUILD / "ok"
 
-CI = ROOT / "ci"
-PIPELINES = ROOT / "azure-pipelines.yml"
-CI_TEST_YML = CI / "job.test.yml"
-CI_TEST_MATRIX = yaml.safe_load(CI_TEST_YML.read_text(encoding="utf-8"))["parameters"]
-LOCKS = CI / "locks"
+GITHUB = CI = ROOT / ".github"
+CI_YML = GITHUB / "workflows" / "ci.yml"
+CI_YML_DATA = yaml.safe_load(CI_YML.read_text(encoding="utf-8"))
+CI_TEST_MATRIX = CI_YML_DATA["jobs"]["test"]["strategy"]["matrix"]
+LOCKS = GITHUB / "locks"
 REQS = ROOT / "reqs"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
@@ -105,7 +105,7 @@ SRC_IGNORE_PATTERNS = [
     "lib/",
     "node_modules/",
     "*.egg-info/",
-    "output/"
+    "output/",
 ]
 # these are actual packages
 ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
