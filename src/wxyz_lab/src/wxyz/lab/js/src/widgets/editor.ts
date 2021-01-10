@@ -28,6 +28,7 @@ const WATCHED_OPTIONS = [
 
 
 
+
 ];
 const WATCHED_EVENTS = WATCHED_OPTIONS.reduce((m, o) => `${m} change:${o}`, '');
 
