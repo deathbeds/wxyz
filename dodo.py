@@ -425,15 +425,18 @@ if not P.BUILDING_IN_CI:
     def task_lab_extensions():
         """set up local jupyterlab"""
 
+        file_dep = [*P.TS_PACKAGE, P.LABEXT_TXT]
         extensions = [*P.THIRD_PARTY_EXTENSIONS]
-
         if P.RUNNING_IN_CI:
-            extensions += [p for p in P.DIST.glob("*.tgz") if "wxyz-meta" not in p.name]
+            tarballs = [p for p in P.DIST.glob("*.tgz") if "wxyz-meta" not in p.name]
+            extensions += tarballs
+            file_dep += tarballs
         else:
             extensions += P.WXYZ_LAB_EXTENSIONS
+            file_dep += P.TS_TARBALLS
 
         return dict(
-            file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS, P.LABEXT_TXT],
+            file_dep=file_dep,
             targets=[P.OK / "labextensions"],
             actions=[
                 U.okit("labextensions", True),
@@ -464,8 +467,13 @@ if not P.BUILDING_IN_CI:
         else:
             args += ["--minimize=True"]
 
+        file_dep = [P.OK / "labextensions"]
+
+        if not P.TESTING_IN_CI:
+            file_dep += P.TS_TARBALLS
+
         return dict(
-            file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],
+            file_dep=file_dep,
             targets=[P.OK / "lab", P.LAB_INDEX],
             actions=[
                 U.okit("lab", True),
