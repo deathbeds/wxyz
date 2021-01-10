@@ -96,18 +96,17 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
         )
 
 
-# TODO: remove entirely in lab 3
-# if P.TESTING_IN_CI and not P.RUNNING_IN_GITHUB:
-def task_setup_ts():
-    """set up typescript environment"""
-    return dict(
-        file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
-        targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
-        actions=[
-            ["jlpm", "--prefer-offline", "--ignore-optional"],
-            ["jlpm", "lerna", "bootstrap"],
-        ],
-    )
+if not P.TESTING_IN_CI:
+    def task_setup_ts():
+        """set up typescript environment"""
+        return dict(
+            file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
+            targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
+            actions=[
+                ["jlpm", "--prefer-offline", "--ignore-optional"],
+                ["jlpm", "lerna", "bootstrap"],
+            ],
+        )
 
 
 if P.RUNNING_IN_CI:
