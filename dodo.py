@@ -355,24 +355,26 @@ def task_hash_dist():
     return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
-def task_ts():
-    """build typescript components"""
+if not P.TESTING_IN_CI:
 
-    file_dep = [
-        P.YARN_LOCK,
-        *P.TS_PACKAGE,
-        *P.TS_READMES,
-        *P.TS_LICENSES,
-    ]
+    def task_ts():
+        """build typescript components"""
 
-    if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
-        file_dep += [P.OK / "prettier", P.OK / "eslint"]
+        file_dep = [
+            P.YARN_LOCK,
+            *P.TS_PACKAGE,
+            *P.TS_READMES,
+            *P.TS_LICENSES,
+        ]
 
-    return dict(
-        file_dep=file_dep,
-        targets=[*P.TS_TARBALLS],
-        actions=[["jlpm", "build"]],
-    )
+        if not P.BUILDING_IN_CI:
+            file_dep += [P.OK / "prettier", P.OK / "eslint"]
+
+        return dict(
+            file_dep=file_dep,
+            targets=[*P.TS_TARBALLS],
+            actions=[["jlpm", "build"]],
+        )
 
 
 if not P.BUILDING_IN_CI:
