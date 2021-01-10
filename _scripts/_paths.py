@@ -395,14 +395,22 @@ LINT_GROUPS = {
 LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
 
 SCHEMA = BUILD / "schema"
+
+# these schema update files in-place
+
+
+SCHEMA_TS_CM_OPTIONS = SRC / "wxyz_lab/src/wxyz/lab/js/src/widgets/_cm_options.ts"
+
+SCHEMA_TS_DG_STYLE = (
+    SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts"
+)
+
 SCHEMA_WIDGETS = {
-    SRC
-    / "wxyz_lab/src/wxyz/lab/js/src/widgets/_cm_options.ts": [
-        SRC / "wxyz_lab/src/wxyz/lab/src/js/src/widgets/editor.ts",
+    SCHEMA_TS_CM_OPTIONS: [
+        SRC / "wxyz_lab/src/wxyz/lab/js/src/widgets/editor.ts",
         SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
     ],
-    SRC
-    / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts": [
+    SCHEMA_TS_DG_STYLE: [
         SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/pwidgets/stylegrid.ts",
         SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],

@@ -1,6 +1,7 @@
 """generate widget boilerplate updater for python and typescript
 
 """
+import hashlib
 import json
 import re
 import shutil
@@ -19,11 +20,11 @@ JLPM = shutil.which("jlpm")
 ENC = dict(encoding="utf-8")
 
 RE_PY_TRAITS = re.compile(
-    r"""(# BEGIN SCHEMAGEN:TRAITS (.*?)\n(.*)# END SCHEMAGEN:TRAITS)""",
+    r"""(# BEGIN SCHEMAGEN:TRAITS (.*?) @(.*)\n(.*)# END SCHEMAGEN:TRAITS)""",
     flags=re.M | re.S,
 )
 RE_TS_PROPERTIES = re.compile(
-    r"""(// BEGIN SCHEMAGEN:PROPERTIES (.*?)\n(.*)// END SCHEMAGEN:PROPERTIES)""",
+    r"""(// BEGIN SCHEMAGEN:PROPERTIES (.*?) @(.*)\n(.*)// END SCHEMAGEN:PROPERTIES)""",
     flags=re.M | re.S,
 )
 
@@ -98,9 +99,20 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
     return f"""T.{trait}({all_arg_str}){tag_str}"""
 
 
-def update_py(schema, path):
+def get_hash(path, block_size=65536):
+    """another re-implementation of sha256sum"""
+    sha256 = hashlib.sha256()
+    with path.open("rb") as f:
+        for block in iter(lambda: f.read(block_size), b""):
+            sha256.update(block)
+    return sha256.hexdigest()
+
+
+def update_py(schema, schema_path, path):
     """update a python file chunk from a schema"""
     txt = path.read_text(**ENC)
+
+    new_version = get_hash(schema_path)
 
     for match in re.findall(RE_PY_TRAITS, txt):
         old, dfn = match[:2]
@@ -115,7 +127,7 @@ def update_py(schema, path):
 
         ind = "\n    "
         new = (
-            f"""# BEGIN SCHEMAGEN:TRAITS {dfn}\n"""
+            f"""# BEGIN SCHEMAGEN:TRAITS {dfn} @{new_version}\n"""
             f"""    {ind.join(traits)}\n"""
             f"""    # END SCHEMAGEN:TRAITS\n"""
         )
@@ -126,9 +138,11 @@ def update_py(schema, path):
     subprocess.check_call(["black", "--quiet", str(path)])
 
 
-def update_ts(schema, path):
+def update_ts(schema, schema_path, path):
     """update a typescript file from schema"""
     txt = path.read_text(**ENC)
+
+    new_version = get_hash(schema_path)
 
     for match in re.findall(RE_TS_PROPERTIES, txt):
         old, dfn = match[:2]
@@ -136,7 +150,7 @@ def update_ts(schema, path):
 
         str_props = ", ".join([f"'{p}'" for p in root["properties"].keys()])
         new = (
-            f"""// BEGIN SCHEMAGEN:PROPERTIES {dfn}\n"""
+            f"""// BEGIN SCHEMAGEN:PROPERTIES {dfn} @{new_version}\n"""
             f"""  {str_props}\n"""
             f"""  // END SCHEMAGEN:PROPERTIES\n"""
         )
@@ -152,9 +166,9 @@ def ts_to_widget(schema_path: Path, target_paths: List[Path]):
 
     for path in target_paths:
         if path.suffix == ".py":
-            update_py(schema, path)
+            update_py(schema, schema_path, path)
         elif path.suffix == ".ts":
-            update_ts(schema, path)
+            update_ts(schema, schema_path, path)
 
     return 0
 

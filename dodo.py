@@ -281,7 +281,7 @@ def _make_schema(source, targets):
         )
 
 
-if not P.TESTING_IN_CI:
+if not P.RUNNING_IN_CI:
 
     def task_schema():
         """update code files from schema"""

@@ -1,10 +1,13 @@
 # TOOD: reduce minimum pip-only build requirements for all wxyz packages
-beautifulsoup4
-black
-doit
-isort
-jupyterlab >=2.2,<3.0.0a0
+
+# probably not going anywhere
 pip
-pyyaml
 setuptools
 wheel
+
+# likely can be avoided
+doit
+pyyaml
+
+# very likely will need this in the future, if not now
+jupyterlab >=2.2,<3.0.0a0

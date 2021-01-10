@@ -67,7 +67,7 @@ class GridStyle(W.Widget):
     _model_module_version = T.Unicode(module_version).tag(sync=True)
 
     # the part between these comments will be rewritten
-    # BEGIN SCHEMAGEN:TRAITS IDataGridStyles
+    # BEGIN SCHEMAGEN:TRAITS IDataGridStyles @b911858621aef508319fec6b6d1cbe8afeeb8ffafe0646c0083d9491e3277e78
     backgroundColor = T.Unicode(
         help="""The background color for the body cells.
 
