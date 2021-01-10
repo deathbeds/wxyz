@@ -39,6 +39,8 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+    env:
+      BUILDING_IN_CI: 1
     steps:
       - uses: actions/checkout@v2
 
@@ -47,9 +49,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
+
       - uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: '14'
 
       # restore caches
       - uses: actions/cache@v2
@@ -64,7 +67,7 @@ jobs:
         id: cache-node-modules
         with:
           path: '**/node_modules'
-          key: ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-lint-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
+          key: ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-build-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
 
       - uses: actions/cache@v1
         if: steps.cache-node-modules.outputs.cache-hit != 'true'

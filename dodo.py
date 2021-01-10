@@ -365,7 +365,7 @@ def task_ts():
         *P.TS_LICENSES,
     ]
 
-    if not P.TESTING_IN_CI:
+    if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
         file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
     return dict(

@@ -26,6 +26,11 @@ except ImportError:
 
 RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
 RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
+
+# avoid certain checks etc
+BUILDING_IN_CI = bool(json.loads(os.environ.get("BUILDING_IN_CI", "false")))
+
+# generally avoid re-building assetc, checks.
 TESTING_IN_CI = bool(json.loads(os.environ.get("TESTING_IN_CI", "false")))
 
 RUNNING_IN_GITHUB = bool(json.loads(os.environ.get("RUNNING_IN_GITHUB", "false")))
