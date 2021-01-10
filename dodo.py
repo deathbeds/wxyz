@@ -428,7 +428,7 @@ if not P.BUILDING_IN_CI:
         extensions = [*P.THIRD_PARTY_EXTENSIONS]
 
         if P.RUNNING_IN_CI:
-            extensions += [p for p in P.TS_TARBALLS if "wxyz-meta" not in p.name]
+            extensions += [p for p in P.DIST / "*.tgz" if "wxyz-meta" not in p.name]
         else:
             extensions += P.WXYZ_LAB_EXTENSIONS
 
