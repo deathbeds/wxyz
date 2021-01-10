@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eux
 
-export LOCKFILE=ci/locks/conda.binder.linux-64-3.8-2.2.lock
+export LOCKFILE=.github/locks/conda.binder.linux-64-3.8-2.2.lock
 
 time mamba create --yes --prefix ${NB_PYTHON_PREFIX} --file ${LOCKFILE}
 

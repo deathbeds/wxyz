@@ -1,7 +1,7 @@
 """ wxyz top-level automation
 
     this should be executed from within an environment created from
-    the ci/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
+    the .github/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
 import json
 import os

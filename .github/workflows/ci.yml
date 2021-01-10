@@ -46,7 +46,7 @@ jobs:
         run: |
           echo "::set-output name=lockfile::${{
             format(
-              'ci/locks/conda.test.{0}-{1}-{2}.lock',
+              '.github/locks/conda.test.{0}-{1}-{2}.lock',
               matrix.conda-subdir,
               matrix.python-version,
               matrix.lab
@@ -112,7 +112,7 @@ jobs:
         run: |
           echo "::set-output name=lockfile::${{
             format(
-              'ci/locks/conda.test.{0}-{1}-{2}.lock',
+              '.github/locks/conda.test.{0}-{1}-{2}.lock',
               matrix.conda-subdir,
               matrix.python-version,
               matrix.lab
@@ -181,7 +181,7 @@ jobs:
         run: |
           echo "::set-output name=lockfile::${{
             format(
-              'ci/locks/conda.test.{0}-{1}-{2}.lock',
+              '.github/locks/conda.test.{0}-{1}-{2}.lock',
               matrix.conda-subdir,
               matrix.python-version,
               matrix.lab
@@ -270,7 +270,7 @@ jobs:
         run: |
           echo "::set-output name=lockfile::${{
             format(
-              'ci/locks/conda.docs.{0}-{1}-{2}.lock',
+              '.github/locks/conda.docs.{0}-{1}-{2}.lock',
               matrix.conda-subdir,
               matrix.python-version,
               matrix.lab
