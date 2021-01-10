@@ -76,6 +76,12 @@ jobs:
             ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
+      - run: pip install -U pip wheel
+
+      - run: pip install -U -v -r .github/reqs/pip-build.txt
+
+      - run: pip freeze && pip check
+
       # actually run build
       - run: doit -n4 hash_dist || doit hash_dist
 
