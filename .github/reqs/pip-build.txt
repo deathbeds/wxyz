@@ -1,0 +1,7 @@
+# minimum pip-only build requirements for all wxyz packages
+doit
+jupyterlab=2.2
+pip
+setuptools
+wheel
+yaml
