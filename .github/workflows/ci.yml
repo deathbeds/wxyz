@@ -83,7 +83,7 @@ jobs:
       - run: pip freeze && pip check
 
       # actually run build
-      - run: doit -n4 hash_dist || doit hash_dist
+      - run: doit -n8 hash_dist || doit hash_dist
 
       - run: doit list --all --status | sort
         if: always()

@@ -1,7 +1,8 @@
 # minimum pip-only build requirements for all wxyz packages
+beautifulsoup4
 doit
 jupyterlab >=2.2,<3.0.0a0
 pip
+pyyaml
 setuptools
 wheel
-pyyaml
