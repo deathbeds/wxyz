@@ -4,6 +4,7 @@
 pip
 setuptools
 wheel
+twine
 
 # likely can be avoided
 doit
