@@ -182,7 +182,7 @@ jobs:
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 lint
 
       - if: ${{ matrix.os != 'windows' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_ts setup_py_ci nbtest robot || doit setup_ts setup_py_ci nbtest robot
+        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_py_ci nbtest robot || doit setup_py_ci nbtest robot
 
       - if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}

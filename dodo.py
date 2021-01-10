@@ -97,6 +97,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
 
 if not P.TESTING_IN_CI:
+
     def task_setup_ts():
         """set up typescript environment"""
         return dict(
