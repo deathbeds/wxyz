@@ -1,0 +1,14 @@
+# TOOD: reduce minimum pip-only build requirements for all wxyz packages
+
+# probably not going anywhere
+pip
+setuptools
+wheel
+twine
+
+# likely can be avoided
+doit
+pyyaml
+
+# very likely will need this in the future, if not now
+jupyterlab >=2.2,<3.0.0a0

@@ -11,7 +11,7 @@ env:
   RUNNING_IN_CI: 1
   RUNNING_IN_GITHUB: 1
   # increment to reset all caches
-  CACHE_EPOCH: 2
+  CACHE_EPOCH: 4
   # python cruft
   PYTHONIOENCODING: utf-8
   PYTHONUNBUFFERED: 1
@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu]
-        python-version: [3.8]
+        python-version: [3.9]
         lab: [2.2]
         include:
           - os: ubuntu
@@ -39,116 +39,75 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+    env:
+      BUILDING_IN_CI: 1
     steps:
       - uses: actions/checkout@v2
 
-      - id: lock
-        run: |
-          echo "::set-output name=lockfile::${{
-            format(
-              'ci/locks/conda.test.{0}-{1}-{2}.lock',
-              matrix.conda-subdir,
-              matrix.python-version,
-              matrix.lab
-            ) }}"
-
-      - uses: actions/cache@v1
+      # configure builtin providers
+      - name: setup (python)
+        uses: actions/setup-python@v2
         with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-build-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: setup (node)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # restore caches
+      - name: cache (pip)
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-pip-${{ hashFiles('.github/reqs/pip-build.txt') }}
           restore-keys: |
-            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-build-${{ matrix.python-version }}-
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-pip-
+
+      - name: cache (node)
+        uses: actions/cache@v2
+        id: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-build-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
 
       - name: cache (yarn)
         uses: actions/cache@v1
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        id: cache-yarn-packages
         with:
           path: .yarn-packages
-          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
+          key: ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
+            ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          use-only-tar-bz2: true
-          installer-url: |
-            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+      - name: setup (pip)
+        run: pip install -U pip wheel
 
-      - run: mamba info --json
+      - name: setup (pip build)
+        run: pip install -U -v -r .github/reqs/pip-build.txt
 
-      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
+      - name: check (pip)
+        run: pip freeze && pip check
 
-      - run: doit -n4 hash_dist || doit hash_dist
+      - name: build
+        run: doit -n4 hash_dist || doit hash_dist
 
-      - run: doit list --all --status | sort
+      - name: status
+        run: doit list --all --status | sort
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (dist)
+        uses: actions/upload-artifact@v2
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
 
-  lint:
-    name: lint
-    needs: [build]
-    runs-on: ${{ matrix.os }}-latest
-    strategy:
-      matrix:
-        os: [ubuntu]
-        python-version: [3.8]
-        lab: [2.2]
-        include:
-          - os: ubuntu
-            conda-subdir: linux-64
-            forge-ext: Linux-x86_64.sh
-    defaults:
-      run:
-        shell: bash -l {0}
-    steps:
-      - uses: actions/checkout@v2
-
-      - id: lock
-        run: |
-          echo "::set-output name=lockfile::${{
-            format(
-              'ci/locks/conda.test.{0}-{1}-{2}.lock',
-              matrix.conda-subdir,
-              matrix.python-version,
-              matrix.lab
-            ) }}"
-
-      - uses: actions/cache@v1
-        with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-lint-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
-          restore-keys: |
-            ${{ env.CACHE_EPOCH }}-${{ matrix.conda-subdir }}-lint-${{ matrix.python-version }}-
-
-      - name: cache (yarn)
-        uses: actions/cache@v1
-        with:
-          path: .yarn-packages
-          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
-          restore-keys: |
-            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
-            ${{ env.CACHE_EPOCH }}-yarn-
-
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          use-only-tar-bz2: true
-          installer-url: |
-            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
-
-      - run: mamba info --json
-
-      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
-
-      - run: doit -n4 lint || doit lint
-
   test:
-    name: test ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
+    name: ${{ matrix.lockname }} ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
     needs: [build]
     runs-on: ${{ matrix.os }}-latest
     env:
@@ -165,29 +124,38 @@ jobs:
           - os: ubuntu
             conda-subdir: linux-64
             forge-ext: Linux-x86_64.sh
+            lockname: test
           - os: macos
             conda-subdir: osx-64
             forge-ext: MacOSX-x86_64.sh
+            lockname: test
           - os: windows
             forge-ext: Windows-x86_64.exe
             conda-subdir: win-64
+            lockname: test
+          - os: ubuntu
+            python-version: 3.8
+            lockname: docs
     defaults:
       run:
         shell: bash -l {0}
     steps:
       - uses: actions/checkout@v2
 
-      - id: lock
+      - name: lock
+        id: lock
         run: |
           echo "::set-output name=lockfile::${{
             format(
-              'ci/locks/conda.test.{0}-{1}-{2}.lock',
+              '.github/locks/conda.{0}.{1}-{2}-{3}.lock',
+              matrix.lockname,
               matrix.conda-subdir,
               matrix.python-version,
               matrix.lab
             ) }}"
 
-      - uses: actions/cache@v1
+      - name: cache (conda)
+        uses: actions/cache@v1
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -196,8 +164,8 @@ jobs:
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
 
-
-      - uses: actions/cache@v1
+      - name: cache (yarn)
+        uses: actions/cache@v1
         with:
           path: .yarn-packages
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
@@ -205,122 +173,69 @@ jobs:
             ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
-      - uses: actions/download-artifact@v2
+      - name: download (dist)
+        uses: actions/download-artifact@v2
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - name: setup (mamba)
+        uses: conda-incubator/setup-miniconda@v2
         with:
           use-only-tar-bz2: true
           installer-url: |
             ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
-      - if: ${{ matrix.os != 'windows' }}
+      - name: mamba (env, unix)
+        if: ${{ matrix.os != 'windows' }}
         run: mamba info --json && mamba create -p ./envs/_base test --file "${{ steps.lock.outputs.lockfile }}"
 
-      - if: ${{ matrix.os == 'windows' }}
+      - name: mamba (env, win)
+        if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
         run: mamba info --json && mamba create -p ./envs/_base --file "${{ steps.lock.outputs.lockfile }}"
 
-      - if: ${{ matrix.os != 'windows' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_ts setup_py_ci nbtest robot || doit setup_ts setup_py_ci nbtest robot
+      - name: doit (lint)
+        if: ${{ matrix.lockname == 'docs' }}
+        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 lint
 
-      - if: ${{ matrix.os == 'windows' }}
+      - name: doit (test, unix)
+        if: ${{ matrix.os != 'windows' }}
+        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_py_ci nbtest robot || doit setup_py_ci nbtest robot
+
+      - name: doit (test, windows)
+        if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
         run: .github/win.bat
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (atest)
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
-          path:  atest/output
+          path: atest/output
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (widgets)
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: ./build/nbwidgets
 
-  docs:
-    name: docs ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
-    needs: [build, test]
-    runs-on: ${{ matrix.os }}-latest
-    env:
-      SITEMAP_URL_BASE: https://deathbeds.github.io/wxyz/
+      - name: doit (docs)
+        if: ${{ matrix.lockname == 'docs' }}
+        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 docs
 
-    strategy:
-      matrix:
-        os: [ubuntu]
-        python-version: [3.8]
-        lab: [2.2]
-        include:
-          - os: ubuntu
-            conda-subdir: linux-64
-            forge-ext: Linux-x86_64.sh
-
-    defaults:
-      run:
-        shell: bash -l {0}
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - id: lock
-        run: |
-          echo "::set-output name=lockfile::${{
-            format(
-              'ci/locks/conda.docs.{0}-{1}-{2}.lock',
-              matrix.conda-subdir,
-              matrix.python-version,
-              matrix.lab
-            ) }}"
-
-      - uses: actions/cache@v1
+      - name: upload (docs)
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.lockname == 'docs' }}
         with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{
-            hashFiles(steps.lock.outputs.lockfile) }}
-          restore-keys: |
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
+          name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          path: build/docs
 
-      - uses: actions/cache@v1
-        with:
-          path: .yarn-packages
-          key: ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
-          restore-keys: |
-            ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
-            ${{ env.CACHE_EPOCH }}-yarn-
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: wxyz ${{ github.run_number }} dist
-          path: ./dist
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
-          path: ./atest/output
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
-          path: ./build/nbwidgets
-
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          use-only-tar-bz2: true
-          installer-url: |
-            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
-
-      - run: mamba info --json
-
-      - run: mamba create -n test --file "${{ steps.lock.outputs.lockfile }}"
-
-      - run: doit -n4 docs || doit docs
-
-      - uses: actions/cache@v1
+      - name: cache (links)
+        uses: actions/cache@v1
+        if: ${{ matrix.lockname == 'docs' }}
         with:
           path: build/check_links
           key:
@@ -329,10 +244,6 @@ jobs:
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-
 
-      - run: doit -n4 spell checklinks || doit spell checklinks
-
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
-          path: build/docs
+      - name: check (spelling, checklinks)
+        if: ${{ matrix.lockname == 'docs' }}
+        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 spell checklinks || doit spell checklinks

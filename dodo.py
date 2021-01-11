@@ -1,7 +1,7 @@
 """ wxyz top-level automation
 
     this should be executed from within an environment created from
-    the ci/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
+    the .github/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
 import json
 import os
@@ -55,12 +55,15 @@ def task_release():
     )
 
 
-if not P.TESTING_IN_CI:
+if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
     def task_lock():
         """lock conda envs so they don't need to be solved in CI
         This should be run semi-frequently (e.g. after merge to master).
         Requires `conda-lock` CLI to be available
+
+        TODO: this should be more deriveable directly from a file tree structure
+              that matches a github actions schema
         """
 
         base_envs = [P.ENV.base, *P.ENV.WXYZ]
@@ -96,18 +99,18 @@ if not P.TESTING_IN_CI:
         )
 
 
-# TODO: remove entirely in lab 3
-# if P.TESTING_IN_CI and not P.RUNNING_IN_GITHUB:
-def task_setup_ts():
-    """set up typescript environment"""
-    return dict(
-        file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
-        targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
-        actions=[
-            ["jlpm", "--prefer-offline", "--ignore-optional"],
-            ["jlpm", "lerna", "bootstrap"],
-        ],
-    )
+if not P.TESTING_IN_CI:
+
+    def task_setup_ts():
+        """set up typescript environment"""
+        return dict(
+            file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
+            targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
+            actions=[
+                ["jlpm", "--prefer-offline", "--ignore-optional"],
+                ["jlpm", "lerna", "bootstrap"],
+            ],
+        )
 
 
 if P.RUNNING_IN_CI:
@@ -196,7 +199,7 @@ def _make_linters(label, files):
         next_prev = []
 
 
-if not P.TESTING_IN_CI:
+if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
     def task_lint():
         """detect and (hopefully) correct code style/formatting"""
@@ -281,7 +284,7 @@ def _make_schema(source, targets):
         )
 
 
-if not P.TESTING_IN_CI:
+if not P.RUNNING_IN_CI:
 
     def task_schema():
         """update code files from schema"""
@@ -355,57 +358,63 @@ def task_hash_dist():
     return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
-def task_ts():
-    """build typescript components"""
+if not P.TESTING_IN_CI:
 
-    file_dep = [
-        P.YARN_LOCK,
-        *P.TS_PACKAGE,
-        *P.TS_READMES,
-        *P.TS_LICENSES,
-    ]
+    def task_ts():
+        """build typescript components"""
 
-    if not P.TESTING_IN_CI:
-        file_dep += [P.OK / "prettier", P.OK / "eslint"]
+        file_dep = [
+            P.YARN_LOCK,
+            *P.TS_PACKAGE,
+            *P.TS_READMES,
+            *P.TS_LICENSES,
+        ]
 
-    return dict(
-        file_dep=file_dep,
-        targets=[*P.TS_TARBALLS],
-        actions=[["jlpm", "build"]],
-    )
+        if not P.BUILDING_IN_CI:
+            file_dep += [P.OK / "prettier", P.OK / "eslint"]
+
+        return dict(
+            file_dep=file_dep,
+            targets=[*P.TS_TARBALLS],
+            actions=[["jlpm", "build"]],
+        )
 
 
-def task_nbtest():
-    """smoke test all notebooks with nbconvert"""
+if not P.BUILDING_IN_CI:
 
-    env = dict(os.environ)
-    env.update(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT))
+    def task_nbtest():
+        """smoke test all notebooks with nbconvert"""
 
-    return dict(
-        file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
-        targets=[P.OK / "nbtest"],
-        actions=[
-            lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][-1],
-            U.okit("nbtest", True),
-            lambda: U.call(
-                [
-                    *P.PYM,
-                    "pytest",
-                    "-vv",
-                    "-n",
-                    "auto",
-                    "-o",
-                    f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
-                    "--no-coverage-upload",
-                    *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
+        env = dict(os.environ)
+        env.update(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT))
+
+        return dict(
+            file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
+            targets=[P.OK / "nbtest"],
+            actions=[
+                lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][
+                    -1
                 ],
-                cwd=P.PY_SRC / "wxyz_notebooks",
-                env=env,
-            )
-            == 0,
-            U.okit("nbtest"),
-        ],
-    )
+                U.okit("nbtest", True),
+                lambda: U.call(
+                    [
+                        *P.PYM,
+                        "pytest",
+                        "-vv",
+                        "-n",
+                        "auto",
+                        "-o",
+                        f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
+                        "--no-coverage-upload",
+                        *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
+                    ],
+                    cwd=P.PY_SRC / "wxyz_notebooks",
+                    env=env,
+                )
+                == 0,
+                U.okit("nbtest"),
+            ],
+        )
 
 
 if P.RUNNING_IN_BINDER:
@@ -414,55 +423,67 @@ else:
     APP_DIR = ["--debug", "--app-dir", P.LAB]
 
 
-def task_lab_extensions():
-    """set up local jupyterlab"""
+if not P.BUILDING_IN_CI:
 
-    extensions = [*P.THIRD_PARTY_EXTENSIONS]
+    def task_lab_extensions():
+        """set up local jupyterlab"""
 
-    if P.RUNNING_IN_CI:
-        extensions += [p for p in P.TS_TARBALLS if "wxyz-meta" not in p.name]
-    else:
-        extensions += P.WXYZ_LAB_EXTENSIONS
+        file_dep = [*P.TS_PACKAGE, P.LABEXT_TXT]
+        extensions = [*P.THIRD_PARTY_EXTENSIONS]
+        if P.RUNNING_IN_CI:
+            tarballs = [p for p in P.DIST.glob("*.tgz") if "wxyz-meta" not in p.name]
+            extensions += tarballs
+            file_dep += tarballs
+        else:
+            extensions += P.WXYZ_LAB_EXTENSIONS
+            file_dep += P.TS_TARBALLS
 
-    return dict(
-        file_dep=[*P.TS_PACKAGE, *P.TS_TARBALLS, P.LABEXT_TXT],
-        targets=[P.OK / "labextensions"],
-        actions=[
-            U.okit("labextensions", True),
-            [
-                *P.JPY,
-                "labextension",
-                "install",
-                *extensions,
-                "--no-build",
-                *APP_DIR,
+        return dict(
+            file_dep=file_dep,
+            targets=[P.OK / "labextensions"],
+            actions=[
+                U.okit("labextensions", True),
+                [
+                    *P.JPY,
+                    "labextension",
+                    "install",
+                    *extensions,
+                    "--no-build",
+                    *APP_DIR,
+                ],
+                [*P.JPY, "labextension", "list"],
+                U.okit("labextensions"),
             ],
-            [*P.JPY, "labextension", "list"],
-            U.okit("labextensions"),
-        ],
-    )
+        )
 
 
-def task_lab_build():
-    """build JupyterLab web application"""
+if not P.BUILDING_IN_CI:
 
-    args = [*P.JPY, "lab", "build", "--dev-build=False", *APP_DIR]
+    def task_lab_build():
+        """build JupyterLab web application"""
 
-    # binder runs out of memory
-    if P.RUNNING_IN_BINDER:
-        args += ["--minimize=False"]
-    else:
-        args += ["--minimize=True"]
+        args = [*P.JPY, "lab", "build", "--dev-build=False", *APP_DIR]
 
-    return dict(
-        file_dep=[P.OK / "labextensions", *P.TS_TARBALLS],
-        targets=[P.OK / "lab", P.LAB_INDEX],
-        actions=[
-            U.okit("lab", True),
-            args,
-            U.okit("lab"),
-        ],
-    )
+        # binder runs out of memory
+        if P.RUNNING_IN_BINDER:
+            args += ["--minimize=False"]
+        else:
+            args += ["--minimize=True"]
+
+        file_dep = [P.OK / "labextensions"]
+
+        if not P.TESTING_IN_CI:
+            file_dep += P.TS_TARBALLS
+
+        return dict(
+            file_dep=file_dep,
+            targets=[P.OK / "lab", P.LAB_INDEX],
+            actions=[
+                U.okit("lab", True),
+                args,
+                U.okit("lab"),
+            ],
+        )
 
 
 def _make_py_readme(setup_py):
@@ -669,7 +690,7 @@ def _make_dot(setup_py):
     )
 
 
-if not P.TESTING_IN_CI:
+if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
     def task_docs():
         """make the docs right"""
@@ -747,7 +768,7 @@ def _make_spell(path):
     )
 
 
-if not P.TESTING_IN_CI and shutil.which("hunspell"):
+if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("hunspell"):
 
     @create_after("docs")
     def task_spell():
@@ -757,7 +778,7 @@ if not P.TESTING_IN_CI and shutil.which("hunspell"):
                 yield _make_spell(path)
 
 
-if not P.TESTING_IN_CI and shutil.which("pytest-check-links"):
+if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("pytest-check-links"):
 
     @create_after("docs")
     def task_checklinks():
@@ -794,7 +815,7 @@ if not P.TESTING_IN_CI and shutil.which("pytest-check-links"):
         )
 
 
-if not P.TESTING_IN_CI:
+if not P.RUNNING_IN_CI:
 
     def task_watch():
         """watch typescript sources, launch lab, rebuilding as files change"""
@@ -857,7 +878,7 @@ if not P.TESTING_IN_CI:
             )
 
 
-if not P.TESTING_IN_CI:
+if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
     def task_binder():
         """get to a working interactive state"""
@@ -869,44 +890,48 @@ if not P.TESTING_IN_CI:
 ATEST = [P.PY, "-m", "_scripts._atest"]
 
 
-def task_robot():
-    """test in browser with robot framework"""
+if not P.BUILDING_IN_CI:
 
-    file_dep = [
-        *P.ALL_ROBOT,
-        *P.ALL_SRC_PY,
-        *P.ATEST_PY,
-        *P.ALL_TS,
-        *P.ALL_IPYNB,
-        P.LAB_INDEX,
-        P.SCRIPTS / "_atest.py",
-        P.OK / "lab",
-    ]
+    def task_robot():
+        """test in browser with robot framework"""
 
-    if not P.RUNNING_IN_CI:
-        file_dep += [P.OK / "robot_lint"]
-
-    return dict(
-        file_dep=sorted(file_dep),
-        actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
-        targets=[P.OK / "robot"],
-    )
-
-
-def task_integrity():
-    """check various sources of version and documentation issues"""
-    return dict(
-        file_dep=[
+        file_dep = [
+            *P.ALL_ROBOT,
             *P.ALL_SRC_PY,
-            *P.ALL_MD,
-            *P.ALL_SETUP_CFG,
-            P.POSTBUILD,
-            P.SCRIPTS / "_integrity.py",
-        ],
-        actions=[
-            U.okit("integrity", remove=True),
-            [*P.PYM, "_scripts._integrity"],
-            U.okit("integrity"),
-        ],
-        targets=[P.OK / "integrity"],
-    )
+            *P.ATEST_PY,
+            *P.ALL_TS,
+            *P.ALL_IPYNB,
+            P.LAB_INDEX,
+            P.SCRIPTS / "_atest.py",
+            P.OK / "lab",
+        ]
+
+        if not P.RUNNING_IN_CI:
+            file_dep += [P.OK / "robot_lint"]
+
+        return dict(
+            file_dep=sorted(file_dep),
+            actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
+            targets=[P.OK / "robot"],
+        )
+
+
+if not (P.BUILDING_IN_CI or P.TESTING_IN_CI):
+
+    def task_integrity():
+        """check various sources of version and documentation issues"""
+        return dict(
+            file_dep=[
+                *P.ALL_SRC_PY,
+                *P.ALL_MD,
+                *P.ALL_SETUP_CFG,
+                P.POSTBUILD,
+                P.SCRIPTS / "_integrity.py",
+            ],
+            actions=[
+                U.okit("integrity", remove=True),
+                [*P.PYM, "_scripts._integrity"],
+                U.okit("integrity"),
+            ],
+            targets=[P.OK / "integrity"],
+        )

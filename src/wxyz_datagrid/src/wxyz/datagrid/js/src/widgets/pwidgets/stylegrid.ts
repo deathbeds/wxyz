@@ -18,7 +18,7 @@ const SIZES = [
 
 const WATCHED_STYLES = [
   // the part between these comments will be rewritten
-  // BEGIN SCHEMAGEN:PROPERTIES IDataGridStyles
+  // BEGIN SCHEMAGEN:PROPERTIES IDataGridStyles @b911858621aef508319fec6b6d1cbe8afeeb8ffafe0646c0083d9491e3277e78
   'backgroundColor',
   'columnBackgroundColor',
   'cursorBorderColor',

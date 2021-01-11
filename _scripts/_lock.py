@@ -2,6 +2,8 @@
 """
 # pylint: disable=too-many-arguments,import-outside-toplevel,import-error
 
+import collections
+import itertools
 import subprocess
 import tempfile
 from pathlib import Path
@@ -9,12 +11,6 @@ from pathlib import Path
 from doit.tools import config_changed
 
 from . import _paths as P
-
-try:
-    from ruamel_yaml import safe_dump, safe_load
-except ImportError:
-    from yaml import safe_dump, safe_load
-
 
 # below here could move to a separate file
 
@@ -27,67 +23,27 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
     lockfile = (
         P.LOCKS / f"conda.{kind_}.{platform_}-{python_}-{lab_ if lab_ else ''}.lock"
     )
-    file_dep = [*env_files]
 
-    def expand_specs(specs):
-        from conda.models.match_spec import MatchSpec
+    all_envs = [
+        *env_files,
+        P.REQS / f"py_{python_}.yml",
+    ]
 
-        for raw in specs:
-            match = MatchSpec(raw)
-            yield match.name, [raw, match]
+    if lab_:
+        all_envs += [P.REQS / f"lab_{lab_}.yml"]
 
-    def merge(composite, env):
-        if CHN in env and env[CHN]:
-            composite[CHN] = env[CHN]
-
-        comp_specs = dict(expand_specs(composite.get(DEP, [])))
-        env_specs = dict(expand_specs(env.get(DEP, [])))
-
-        deps = [raw for (raw, match) in env_specs.values()]
-        deps += [
-            raw for name, (raw, match) in comp_specs.items() if name not in env_specs
-        ]
-
-        composite[DEP] = sorted(deps)
-
-        return composite
+    file_dep = [*all_envs]
 
     def _lock():
-        composite = dict()
-
-        for env_dep in env_files:
-            print(f"merging {env_dep.name}", flush=True)
-            composite = merge(composite, safe_load(env_dep.read_text(encoding="utf-8")))
-
-        fake_deps = []
-
-        if python_:
-            fake_deps += [f"python ={python_}.*"]
-        if lab_:
-            fake_deps += [f"jupyterlab ={lab_}.*"]
-
-        fake_env = {DEP: fake_deps}
-
-        composite = merge(composite, fake_env)
-
         with tempfile.TemporaryDirectory() as td:
             tdp = Path(td)
-            composite_yml = tdp / "composite.yml"
-            composite_yml.write_text(safe_dump(composite, default_flow_style=False))
-            print(
-                "composite\n\n",
-                composite_yml.read_text(encoding="utf-8"),
-                "\n\n",
-                flush=True,
-            )
             rc = 1
             for extra_args in [[], ["--no-mamba"]]:
                 args = [
                     "conda-lock",
                     "-p",
                     platform_,
-                    "-f",
-                    str(composite_yml),
+                    *sum([["-f", str(p)] for p in all_envs], []),
                 ] + extra_args
                 print(">>>", " ".join(args), flush=True)
                 rc = subprocess.call(args, cwd=str(tdp))
@@ -95,7 +51,7 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
                     break
 
             if rc != 0:
-                raise Exception("couldn't solve at all", composite)
+                raise Exception("couldn't solve at all", all_envs)
 
             tmp_lock = tdp / f"conda-{platform_}.lock"
             tmp_lock_txt = tmp_lock.read_text(encoding="utf-8")
@@ -115,12 +71,46 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
     )
 
 
-def iter_matrix(matrix):
-    """generate"""
-    for platform_ in matrix["platforms"]:
-        for python_ in matrix["pythons"]:
-            yield (
-                platform_["condaPlatform"],
-                python_["spec"],
-                python_["lab"],
+def expand_gh_matrix(matrix):
+    """apply github matrix `include` and `exclude` transformations"""
+    raw = dict(matrix)
+    include = raw.pop("include", [])
+    exclude = raw.pop("exclude", [])
+    merged = [
+        dict(collections.ChainMap(*p))
+        for p in [*itertools.product(*[[{k: i} for i in raw[k]] for k in raw])]
+    ]
+
+    for m in merged:
+        to_yield = dict(m)
+        should_yield = True
+
+        for inc in include or []:
+            might_add = {}
+            should_add = True
+            for k, v in inc.items():
+                mk = m.get(k)
+                if mk is None:
+                    might_add[k] = v
+                elif mk != v:
+                    should_add = False
+            if should_add:
+                to_yield.update(might_add)
+
+        # if any of these match, skip yield
+        for exc in exclude or []:
+            should_yield = should_yield and not (
+                all([m.get(k) == v for k, v in exc.items()])
             )
+
+        if should_yield:
+            yield to_yield
+
+
+def iter_matrix(matrix, keys=None):
+    """generate a tuples of the keys for the github action matrix"""
+
+    keys = keys or ["conda-subdir", "python-version", "lab"]
+
+    for key in expand_gh_matrix(matrix):
+        yield tuple([key[k] for k in keys])
