@@ -43,7 +43,7 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
                     "conda-lock",
                     "-p",
                     platform_,
-                    sum([["-f", str(p)] for p in all_envs], []),
+                    *sum([["-f", str(p)] for p in all_envs], []),
                 ] + extra_args
                 print(">>>", " ".join(args), flush=True)
                 rc = subprocess.call(args, cwd=str(tdp))
