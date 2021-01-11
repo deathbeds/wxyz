@@ -45,17 +45,20 @@ jobs:
       - uses: actions/checkout@v2
 
       # configure builtin providers
-      - uses: actions/setup-python@v2
+      - name: setup (python)
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
-      - uses: actions/setup-node@v2
+      - name: setup (node)
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
 
       # restore caches
-      - uses: actions/cache@v2
+      - name: cache (pip)
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
           key: |
@@ -63,13 +66,15 @@ jobs:
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-pip-
 
-      - uses: actions/cache@v2
+      - name: cache (node)
+        uses: actions/cache@v2
         id: cache-node-modules
         with:
           path: '**/node_modules'
           key: ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-build-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
 
-      - uses: actions/cache@v1
+      - name: cache (yarn)
+        uses: actions/cache@v1
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         id: cache-yarn-packages
         with:
@@ -79,19 +84,24 @@ jobs:
             ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
-      - run: pip install -U pip wheel
+      - name: setup (pip)
+        run: pip install -U pip wheel
 
-      - run: pip install -U -v -r .github/reqs/pip-build.txt
+      - name: setup (pip build)
+        run: pip install -U -v -r .github/reqs/pip-build.txt
 
-      - run: pip freeze && pip check
+      - name: check (pip)
+        run: pip freeze && pip check
 
-      # actually run build
-      - run: doit -n4 hash_dist || doit hash_dist
+      - name: build
+        run: doit -n4 hash_dist || doit hash_dist
 
-      - run: doit list --all --status | sort
+      - name: status
+        run: doit list --all --status | sort
         if: always()
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (dist)
+        uses: actions/upload-artifact@v2
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
@@ -132,7 +142,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - id: lock
+      - name: lock
+        id: lock
         run: |
           echo "::set-output name=lockfile::${{
             format(
@@ -143,7 +154,8 @@ jobs:
               matrix.lab
             ) }}"
 
-      - uses: actions/cache@v1
+      - name: cache (conda)
+        uses: actions/cache@v1
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -152,7 +164,8 @@ jobs:
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
 
-      - uses: actions/cache@v1
+      - name: cache (yarn)
+        uses: actions/cache@v1
         with:
           path: .yarn-packages
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
@@ -160,56 +173,68 @@ jobs:
             ${{ env.CACHE_EPOCH }}-yarn-${{ matrix.conda-subdir }}-
             ${{ env.CACHE_EPOCH }}-yarn-
 
-      - uses: actions/download-artifact@v2
+      - name: download (dist)
+        uses: actions/download-artifact@v2
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - name: setup (mamba)
+        uses: conda-incubator/setup-miniconda@v2
         with:
           use-only-tar-bz2: true
           installer-url: |
             ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 
-      - if: ${{ matrix.os != 'windows' }}
+      - name: mamba (env, unix)
+        if: ${{ matrix.os != 'windows' }}
         run: mamba info --json && mamba create -p ./envs/_base test --file "${{ steps.lock.outputs.lockfile }}"
 
-      - if: ${{ matrix.os == 'windows' }}
+      - name: mamba (env, win)
+        if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
         run: mamba info --json && mamba create -p ./envs/_base --file "${{ steps.lock.outputs.lockfile }}"
 
-      - if: ${{ matrix.lockname == 'docs' }}
+      - name: doit (lint)
+        if: ${{ matrix.lockname == 'docs' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 lint
 
-      - if: ${{ matrix.os != 'windows' }}
+      - name: doit (test, unix)
+        if: ${{ matrix.os != 'windows' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_py_ci nbtest robot || doit setup_py_ci nbtest robot
 
-      - if: ${{ matrix.os == 'windows' }}
+      - name: doit (test, windows)
+        if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
         run: .github/win.bat
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (atest)
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path:  atest/output
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (widgets)
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: ./build/nbwidgets
 
-      - if: ${{ matrix.lockname == 'docs' }}
+      - name: doit (docs)
+        if: ${{ matrix.lockname == 'docs' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 docs
 
-      - uses: actions/upload-artifact@v2
+      - name: upload (docs)
+        uses: actions/upload-artifact@v2
         if: always()
         with:
           name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: build/docs
 
-      - uses: actions/cache@v1
+      - name: cache (links)
+        uses: actions/cache@v1
         if: ${{ matrix.lockname == 'docs' }}
         with:
           path: build/check_links
@@ -219,5 +244,6 @@ jobs:
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-
 
-      - if: ${{ matrix.lockname == 'docs' }}
+      - name: check (spelling, checklinks)
+        if: ${{ matrix.lockname == 'docs' }}
         run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 spell checklinks || doit spell checklinks
