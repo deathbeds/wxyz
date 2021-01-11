@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.5.0 (unreleased)
+
+> Supports JupyterLab 3.x ([#42])
+
+- primary distribution of all `@deathbeds/wxyz-` labextensions via `pip`/`conda`
+  - `npm` releases will be pinned to python releases, public API TBD
+
+[#42]: https://github.com/deathbeds/wxyz/issues/42
+
+## 0.4.1
+
+> Minor release with packaging fixes, last anticipated release for JupyterLab 2.
+
+- fixes `wxyz_json_schema_form` packaging error ([#47])
+
+[#47]: https://github.com/deathbeds/wxyz/issues/47
+
 ## 0.4.1
 
 > Minor release with small documentation and packaging fixes
