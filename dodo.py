@@ -61,6 +61,9 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
         """lock conda envs so they don't need to be solved in CI
         This should be run semi-frequently (e.g. after merge to master).
         Requires `conda-lock` CLI to be available
+
+        TODO: this should be more deriveable directly from a file tree structure
+              that matches a github actions schema
         """
 
         base_envs = [P.ENV.base, *P.ENV.WXYZ]

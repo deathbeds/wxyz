@@ -228,7 +228,7 @@ jobs:
 
       - name: upload (docs)
         uses: actions/upload-artifact@v2
-        if: always()
+        if: ${{ matrix.lockname == 'docs' }}
         with:
           name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: build/docs
