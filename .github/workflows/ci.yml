@@ -11,7 +11,7 @@ env:
   RUNNING_IN_CI: 1
   RUNNING_IN_GITHUB: 1
   # increment to reset all caches
-  CACHE_EPOCH: 3
+  CACHE_EPOCH: 4
   # python cruft
   PYTHONIOENCODING: utf-8
   PYTHONUNBUFFERED: 1
