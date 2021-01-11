@@ -65,7 +65,7 @@ CI_YML = GITHUB / "workflows" / "ci.yml"
 CI_YML_DATA = yaml.safe_load(CI_YML.read_text(encoding="utf-8"))
 CI_TEST_MATRIX = CI_YML_DATA["jobs"]["test"]["strategy"]["matrix"]
 LOCKS = GITHUB / "locks"
-REQS = ROOT / "reqs"
+REQS = GITHUB / "reqs"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
 
