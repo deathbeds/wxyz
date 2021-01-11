@@ -213,7 +213,7 @@ jobs:
         if: always()
         with:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
-          path:  atest/output
+          path: atest/output
 
       - name: upload (widgets)
         uses: actions/upload-artifact@v2

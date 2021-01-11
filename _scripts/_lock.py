@@ -12,12 +12,6 @@ from doit.tools import config_changed
 
 from . import _paths as P
 
-try:
-    from ruamel_yaml import safe_dump, safe_load
-except ImportError:
-    from yaml import safe_dump, safe_load
-
-
 # below here could move to a separate file
 
 CHN = "channels"
@@ -29,67 +23,27 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
     lockfile = (
         P.LOCKS / f"conda.{kind_}.{platform_}-{python_}-{lab_ if lab_ else ''}.lock"
     )
-    file_dep = [*env_files]
 
-    def expand_specs(specs):
-        from conda.models.match_spec import MatchSpec
+    all_envs = [
+        *env_files,
+        P.REQS / f"py_{python_}.yml",
+    ]
 
-        for raw in specs:
-            match = MatchSpec(raw)
-            yield match.name, [raw, match]
+    if lab_:
+        all_envs += [P.REQS / f"lab_{lab_}.yml"]
 
-    def merge(composite, env):
-        if CHN in env and env[CHN]:
-            composite[CHN] = env[CHN]
-
-        comp_specs = dict(expand_specs(composite.get(DEP, [])))
-        env_specs = dict(expand_specs(env.get(DEP, [])))
-
-        deps = [raw for (raw, match) in env_specs.values()]
-        deps += [
-            raw for name, (raw, match) in comp_specs.items() if name not in env_specs
-        ]
-
-        composite[DEP] = sorted(deps)
-
-        return composite
+    file_dep = [*all_envs]
 
     def _lock():
-        composite = dict()
-
-        for env_dep in env_files:
-            print(f"merging {env_dep.name}", flush=True)
-            composite = merge(composite, safe_load(env_dep.read_text(encoding="utf-8")))
-
-        fake_deps = []
-
-        if python_:
-            fake_deps += [f"python ={python_}.*"]
-        if lab_:
-            fake_deps += [f"jupyterlab ={lab_}.*"]
-
-        fake_env = {DEP: fake_deps}
-
-        composite = merge(composite, fake_env)
-
         with tempfile.TemporaryDirectory() as td:
             tdp = Path(td)
-            composite_yml = tdp / "composite.yml"
-            composite_yml.write_text(safe_dump(composite, default_flow_style=False))
-            print(
-                "composite\n\n",
-                composite_yml.read_text(encoding="utf-8"),
-                "\n\n",
-                flush=True,
-            )
             rc = 1
             for extra_args in [[], ["--no-mamba"]]:
                 args = [
                     "conda-lock",
                     "-p",
                     platform_,
-                    "-f",
-                    str(composite_yml),
+                    sum([["-f", str(p)] for p in all_envs], []),
                 ] + extra_args
                 print(">>>", " ".join(args), flush=True)
                 rc = subprocess.call(args, cwd=str(tdp))
@@ -97,7 +51,7 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
                     break
 
             if rc != 0:
-                raise Exception("couldn't solve at all", composite)
+                raise Exception("couldn't solve at all", all_envs)
 
             tmp_lock = tdp / f"conda-{platform_}.lock"
             tmp_lock_txt = tmp_lock.read_text(encoding="utf-8")

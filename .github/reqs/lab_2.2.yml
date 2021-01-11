@@ -1,0 +1,2 @@
+packages:
+  - jupyterlab >=2.2,<3.0.0a0
