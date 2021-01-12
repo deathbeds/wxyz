@@ -216,18 +216,9 @@ TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in P
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
-LABEXT_TXT = ROOT / ".binder" / "labex.txt"
-THIRD_PARTY_EXTENSIONS = sorted(
-    [
-        line.strip()
-        for line in LABEXT_TXT.read_text(encoding="utf-8").strip().splitlines()
-        if line.strip() and not line.strip().startswith("#")
-    ]
-)
 WXYZ_LAB_EXTENSIONS = [
     tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
 ]
-ALL_LABEXTENSIONS = [*THIRD_PARTY_EXTENSIONS, *WXYZ_LAB_EXTENSIONS]
 ALL_TS = sorted(
     sum(
         [

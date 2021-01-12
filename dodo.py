@@ -428,7 +428,7 @@ if not P.BUILDING_IN_CI:
     def task_lab_extensions():
         """set up local jupyterlab"""
 
-        file_dep = [*P.TS_PACKAGE, P.LABEXT_TXT]
+        file_dep = [*P.TS_PACKAGE]
         extensions = [*P.THIRD_PARTY_EXTENSIONS]
         if P.RUNNING_IN_CI:
             tarballs = [p for p in P.DIST.glob("*.tgz") if "wxyz-meta" not in p.name]

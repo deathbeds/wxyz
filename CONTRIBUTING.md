@@ -2,7 +2,7 @@
 
 Get [Mambaforge][]. Create/activate a dev environment from a [lockfile][], list tasks.
 
-    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.8-2.2.lock
+    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.8-3.0.lock
     source activate envs/docs
     doit list
 
