@@ -8,13 +8,14 @@
   },
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
-    "@jupyter-widgets/base": "3",
-    "@jupyter-widgets/controls": "2",
-    "@jupyter-widgets/jupyterlab-manager": "2",
-    "@jupyterlab/rendermime": "2",
-    "@deathbeds/wxyz-core": "^0.4.0",
-    "@lumino/application": "^1.8.4",
-    "@lumino/widgets": "^1.11.1",
+    "@jupyter-widgets/base": "4",
+    "@jupyter-widgets/controls": "3",
+    "@jupyter-widgets/jupyterlab-manager": "3",
+    "@jupyterlab/rendermime": "3",
+    "@deathbeds/wxyz-core": "^0.5.0",
+    "@jupyterlab/builder": "^3.0.0",
+    "@lumino/application" : "^1.13.1",
+    "@lumino/widgets": "^1.16.1",
     "@types/codemirror": "^0.0.71",
     "@types/marked": "~0.3.0",
     "@types/node": "^10.11.6",
@@ -52,23 +53,10 @@
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "name": "@deathbeds/wxyz-lab",
-  "peerDependencies": {
-    "@jupyter-widgets/base": "3",
-    "@jupyter-widgets/controls": "2",
-    "@jupyter-widgets/jupyterlab-manager": "2",
-    "@deathbeds/wxyz-core": "^0.4.0",
-    "@jupyterlab/rendermime": "2",
-    "@lumino/application": "^1.8.4",
-    "ajv": "*",
-    "codemirror": "*",
-    "marked": "*",
-    "xterm": "~4.2.0",
-    "xterm-addon-fit": "~0.3.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.2"
+  "version": "0.5.0"
 }

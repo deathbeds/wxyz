@@ -11,12 +11,13 @@
   },
   "description": "Experimental Jupyter widgets for JSON and evented transformations",
   "devDependencies": {
-    "@jupyter-widgets/base": "3",
-    "@jupyter-widgets/controls": "2",
-    "@jupyter-widgets/jupyterlab-manager": "2",
-    "@jupyterlab/rendermime": "2",
-    "@lumino/application": "^1.8.4",
-    "@lumino/widgets": "^1.11.1",
+    "@jupyter-widgets/base": "4",
+    "@jupyter-widgets/controls": "3",
+    "@jupyter-widgets/jupyterlab-manager": "3",
+    "@jupyterlab/builder": "^3.0.0",
+    "@jupyterlab/rendermime": "3",
+    "@lumino/application": "^1.13.1",
+    "@lumino/widgets": "^1.16.1",
     "@types/node": "^10.11.6",
     "ajv": "*",
     "typescript": "~4.0.2"
@@ -37,6 +38,13 @@
           "pip"
         ]
       }
+    },
+    "outputDir": "../../labextension",
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      }
     }
   },
   "keywords": [
@@ -49,18 +57,10 @@
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "name": "@deathbeds/wxyz-core",
-  "peerDependencies": {
-    "@jupyter-widgets/base": "3",
-    "@jupyter-widgets/controls": "2",
-    "@jupyter-widgets/jupyterlab-manager": "2",
-    "@jupyterlab/rendermime": "2",
-    "@lumino/application": "^1.8.4",
-    "ajv": "*"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.4.2"
+  "version": "0.5.0"
 }

@@ -21,3 +21,4 @@ lib/
 node_modules/
 untitled*
 Untitled*
+src/**/static/

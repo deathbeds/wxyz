@@ -119,9 +119,10 @@ if P.RUNNING_IN_CI:
         """CI: setup python packages from wheels"""
         return dict(
             file_dep=[*P.WHEELS.values()],
-            targets=[P.OK / "setup_py"],
+            targets=[P.OK / "setup_py", P.OK / "setup_lab"],
             actions=[
                 U.okit("setup_py", remove=True),
+                U.okit("setup_lab", remove=True),
                 [
                     *P.PIP,
                     "install",
@@ -132,6 +133,8 @@ if P.RUNNING_IN_CI:
                 [*P.PIP, "freeze"],
                 [*P.PIP, "check"],
                 U.okit("setup_py"),
+                ["jupyter", "labextension", "list"],
+                U.okit("setup_lab")
             ],
         )
 
@@ -173,6 +176,30 @@ else:
                 [*P.PIP, "check"],
                 U.okit("setup_py"),
             ],
+        )
+
+        yield dict(
+            name="lab",
+            file_dep=[P.PY_DEV_REQS, *P.TS_TARBALLS, P.OK / "setup_py"],
+            targets=[P.OK / "setup_lab"],
+            actions=[
+                U.okit("setup_lab", remove=True),
+                *[
+                    [
+                        "jupyter",
+                        "labextension",
+                        "develop",
+                        "--overwrite",
+                        p.parent
+                    ] for p in P.PY_SETUP if p.parent.name not in "wxyz_notebooks"
+                ],
+                [
+                    "jupyter",
+                    "labextension",
+                    "list"
+                ],
+                U.okit("setup_lab"),
+            ]
         )
 
 
@@ -373,10 +400,27 @@ if not P.TESTING_IN_CI:
         if not P.BUILDING_IN_CI:
             file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
-        return dict(
+
+        meta_build = P.ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
+
+        yield dict(
+            name="tsc",
             file_dep=file_dep,
-            targets=[*P.TS_TARBALLS],
-            actions=[["jlpm", "build"]],
+            targets=[meta_build],
+            actions=[["jlpm", "build:ts"]],
+        )
+
+        yield dict(
+            name="pack",
+            file_dep=[meta_build],
+            actions=[["jlpm", "build:tgz"]],
+            targets=[*P.TS_TARBALLS]
+        )
+
+        yield dict(
+            name="ext",
+            file_dep=[meta_build],
+            actions=[["jlpm", "build:ext"]],
         )
 
 
@@ -421,69 +465,6 @@ if P.RUNNING_IN_BINDER:
     APP_DIR = ["--debug"]
 else:
     APP_DIR = ["--debug", "--app-dir", P.LAB]
-
-
-if not P.BUILDING_IN_CI:
-
-    def task_lab_extensions():
-        """set up local jupyterlab"""
-
-        file_dep = [*P.TS_PACKAGE]
-        extensions = [*P.THIRD_PARTY_EXTENSIONS]
-        if P.RUNNING_IN_CI:
-            tarballs = [p for p in P.DIST.glob("*.tgz") if "wxyz-meta" not in p.name]
-            extensions += tarballs
-            file_dep += tarballs
-        else:
-            extensions += P.WXYZ_LAB_EXTENSIONS
-            file_dep += P.TS_TARBALLS
-
-        return dict(
-            file_dep=file_dep,
-            targets=[P.OK / "labextensions"],
-            actions=[
-                U.okit("labextensions", True),
-                [
-                    *P.JPY,
-                    "labextension",
-                    "install",
-                    *extensions,
-                    "--no-build",
-                    *APP_DIR,
-                ],
-                [*P.JPY, "labextension", "list"],
-                U.okit("labextensions"),
-            ],
-        )
-
-
-if not P.BUILDING_IN_CI:
-
-    def task_lab_build():
-        """build JupyterLab web application"""
-
-        args = [*P.JPY, "lab", "build", "--dev-build=False", *APP_DIR]
-
-        # binder runs out of memory
-        if P.RUNNING_IN_BINDER:
-            args += ["--minimize=False"]
-        else:
-            args += ["--minimize=True"]
-
-        file_dep = [P.OK / "labextensions"]
-
-        if not P.TESTING_IN_CI:
-            file_dep += P.TS_TARBALLS
-
-        return dict(
-            file_dep=file_dep,
-            targets=[P.OK / "lab", P.LAB_INDEX],
-            actions=[
-                U.okit("lab", True),
-                args,
-                U.okit("lab"),
-            ],
-        )
 
 
 def _make_py_readme(setup_py):
