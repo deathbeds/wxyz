@@ -42,6 +42,17 @@
           "pip"
         ]
       }
+    },
+    "outputDir": "../labextension",
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@deathbeds/wxyz-core": {
+        "bundled": false,
+        "singleton": true
+      }
     }
   },
   "keywords": [

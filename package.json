@@ -11,7 +11,7 @@
     "clean": "lerna exec --parallel --stream rimraf lib *.tgz",
     "build": "jlpm build:ts && jlpm build:ext && jlpm build:tgz",
     "build:ts": "lerna run --parallel --stream build",
-    "build:ext": "lerna exec --parallel --stream --ignore @deathbeds/wxyz-meta -- jupyter labextension build .",
+    "build:ext": "lerna exec --stream --ignore @deathbeds/wxyz-meta -- jupyter labextension build .",
     "build:tgz": "lerna exec --parallel --stream npm pack",
     "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml,yaml}\" \"./{src,.github}/**/*.{ts,json,md,yml,yaml,css,yaml}\"",
     "lint:eslint": "eslint --config .eslintrc.js --ext .js,.jsx,.ts,.tsx --fix src/wxyz_*/src/wxyz/*/js/src",

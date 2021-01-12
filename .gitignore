@@ -10,6 +10,8 @@ _*_repo_/
 .yarn-packages/
 *.egg-info
 *.tgz
+**/labextension/
+**/static/
 **/test-output.xml
 /lab/
 atest/output/
@@ -21,4 +23,3 @@ lib/
 node_modules/
 untitled*
 Untitled*
-src/**/static/

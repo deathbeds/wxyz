@@ -39,9 +39,13 @@
         ]
       }
     },
-    "outputDir": "../../labextension",
+    "outputDir": "../labextension",
     "sharedPackages": {
       "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "ajv": {
         "bundled": false,
         "singleton": true
       }
