@@ -5,6 +5,7 @@ node_modules
 **/mock_packages
 **/static
 **/typings
+**/labextension
 **/schemas
 **/themes
 **/dist

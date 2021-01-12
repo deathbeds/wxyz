@@ -47,7 +47,6 @@ def task_release():
             ),
             P.SHA256SUMS,
             P.OK / "integrity",
-            P.OK / "labextensions",
             P.OK / "nbtest",
             P.OK / "robot",
         ],
@@ -160,7 +159,10 @@ else:
 
         yield dict(
             name="pip",
-            file_dep=[P.PY_DEV_REQS],
+            file_dep=[
+                P.PY_DEV_REQS,
+                *[p.parent / "labextension" / "package.json" for p in P.WXYZ_LAB_EXTENSIONS],
+            ],
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
@@ -180,7 +182,10 @@ else:
 
         yield dict(
             name="lab",
-            file_dep=[P.PY_DEV_REQS, *P.TS_TARBALLS, P.OK / "setup_py"],
+            file_dep=[
+                P.PY_DEV_REQS,
+                P.OK / "setup_py"
+            ],
             targets=[P.OK / "setup_lab"],
             actions=[
                 U.okit("setup_lab", remove=True),
@@ -392,7 +397,9 @@ def _make_lab_ext_build(ext):
 
     yield dict(
         name=f"""ext:{ext.relative_to(ext.parent.parent)}""".replace("/", "_"),
-        file_dep=[P.TS_META_BUILD],
+        file_dep=[
+            P.TS_META_BUILD,
+        ],
         actions=[
             [*P.LERNA_EXEC, "--scope", pkg["name"], *P.LAB_EXT, "build",  "."]
         ],
@@ -408,8 +415,6 @@ if not P.TESTING_IN_CI:
         file_dep = [
             P.YARN_LOCK,
             *P.TS_PACKAGE,
-            *P.TS_READMES,
-            *P.TS_LICENSES,
         ]
 
         if not P.BUILDING_IN_CI:
@@ -425,7 +430,11 @@ if not P.TESTING_IN_CI:
 
         yield dict(
             name="pack",
-            file_dep=[P.TS_META_BUILD],
+            file_dep=[
+                P.TS_META_BUILD,
+                *P.TS_READMES,
+                *P.TS_LICENSES,
+            ],
             actions=[["jlpm", "build:tgz"]],
             targets=[*P.TS_TARBALLS]
         )
@@ -816,11 +825,16 @@ if not P.RUNNING_IN_CI:
             print(">>> Starting typescript watcher...", flush=True)
             ts = subprocess.Popen(["jlpm", "watch"])
 
+            ext_watchers = [
+                subprocess.Popen([P.LAB_EXT, "watch", "."], cwd=str(p))
+                for p in P.WXYZ_LAB_EXTENSIONS
+            ]
+
             print(">>> Waiting a bit to start lab watcher...", flush=True)
             time.sleep(10)
             print(">>> Starting lab watcher...", flush=True)
             lab = subprocess.Popen(
-                [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
+                [*P.JPY, "lab", "--no-browser", "--debug", *APP_DIR],
                 stdin=subprocess.PIPE,
             )
 
@@ -834,11 +848,13 @@ if not P.RUNNING_IN_CI:
                 )
             finally:
                 print(">>> Stopping watchers...", flush=True)
+                [x.terminate() for x in ext_watchers]
                 ts.terminate()
                 lab.terminate()
                 lab.communicate(b"y\n")
                 ts.wait()
                 lab.wait()
+                [x.wait() for x in ext_watchers]
                 print(
                     ">>> Stopped watchers! maybe check process monitor...", flush=True
                 )

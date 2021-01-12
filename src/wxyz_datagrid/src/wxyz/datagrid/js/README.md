@@ -18,7 +18,7 @@
 > - `jupyterlab >=2,<3`
 
 ```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-datagrid
+jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-datagrid
 pip install wxyz_datagrid
 ```
 

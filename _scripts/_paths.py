@@ -113,6 +113,7 @@ SRC_IGNORE_PATTERNS = [
     "node_modules/",
     "*.egg-info/",
     "output/",
+    "labextension/"
 ]
 # these are actual packages
 ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))

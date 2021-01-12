@@ -9,6 +9,9 @@
   "dependencies": {},
   "description": "experimental Jupyter widgets for working with data in revision control",
   "devDependencies": {
+    "@jupyter-widgets/base": "4",
+    "@jupyter-widgets/controls": "3",
+    "@jupyter-widgets/jupyterlab-manager": "3",
     "@jupyterlab/builder": "^3.0.1",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@types/node": "^10.11.6",
