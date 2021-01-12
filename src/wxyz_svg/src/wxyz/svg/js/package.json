@@ -15,7 +15,7 @@
     "@jupyter-widgets/base": "4",
     "@jupyter-widgets/controls": "3",
     "@jupyter-widgets/jupyterlab-manager": "3",
-    "@jupyterlab/builder": "^3.0.0",
+    "@jupyterlab/builder": "^3.0.1",
     "@jupyterlab/rendermime": "3",
     "@lumino/application": "^1.13.1",
     "@types/d3-drag": "^2.0.0",

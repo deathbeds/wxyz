@@ -11,7 +11,7 @@
   },
   "description": "experimental Jupyter widgets for JSON Schema Form",
   "devDependencies": {
-    "@jupyterlab/builder": "^3.0.0",
+    "@jupyterlab/builder": "^3.0.1",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@blueprintjs/core": "*",
     "@types/node": "^10.11.6",

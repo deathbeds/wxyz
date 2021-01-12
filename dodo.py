@@ -385,6 +385,21 @@ def task_hash_dist():
     return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
+def _make_lab_ext_build(ext):
+    target = ext.parent / "labextension" / "package.json"
+
+    pkg = P.TS_PACKAGE_CONTENT[ext / "package.json"]
+
+    yield dict(
+        name=f"""ext:{ext.relative_to(ext.parent.parent)}""".replace("/", "_"),
+        file_dep=[P.TS_META_BUILD],
+        actions=[
+            [*P.LERNA_EXEC, "--scope", pkg["name"], *P.LAB_EXT, "build",  "."]
+        ],
+        targets=[target]
+    )
+
+
 if not P.TESTING_IN_CI:
 
     def task_ts():
@@ -401,27 +416,23 @@ if not P.TESTING_IN_CI:
             file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
 
-        meta_build = P.ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
-
         yield dict(
             name="tsc",
             file_dep=file_dep,
-            targets=[meta_build],
+            targets=[P.TS_META_BUILD],
             actions=[["jlpm", "build:ts"]],
         )
 
         yield dict(
             name="pack",
-            file_dep=[meta_build],
+            file_dep=[P.TS_META_BUILD],
             actions=[["jlpm", "build:tgz"]],
             targets=[*P.TS_TARBALLS]
         )
 
-        yield dict(
-            name="ext",
-            file_dep=[meta_build],
-            actions=[["jlpm", "build:ext"]],
-        )
+        for ext in P.WXYZ_LAB_EXTENSIONS:
+            for task in _make_lab_ext_build(ext):
+                yield task
 
 
 if not P.BUILDING_IN_CI:

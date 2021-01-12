@@ -14,7 +14,7 @@
     "@jupyter-widgets/base": "4",
     "@jupyter-widgets/controls": "3",
     "@jupyter-widgets/jupyterlab-manager": "3",
-    "@jupyterlab/builder": "^3.0.0",
+    "@jupyterlab/builder": "^3.0.1",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@jupyterlab/rendermime": "3",
     "@lumino/application": "^1.13.1",

@@ -9,7 +9,7 @@
   "dependencies": {},
   "description": "experimental Jupyter widgets for working with data in revision control",
   "devDependencies": {
-    "@jupyterlab/builder": "^3.0.0",
+    "@jupyterlab/builder": "^3.0.1",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@types/node": "^10.11.6",
     "typescript": "~4.0.2"

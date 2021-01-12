@@ -49,6 +49,8 @@ CONDA_PLATFORM = "win-64" if WIN else "osx-64" if OSX else "linux-64"
 
 CONDA_CMD = "mamba" if not WIN and shutil.which("mamba") else "conda"
 JLPM = shutil.which("jlpm")
+LERNA_EXEC = [JLPM, "lerna", "exec", "--stream"]
+LAB_EXT = ["jupyter", "labextension"]
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
@@ -216,6 +218,8 @@ TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in P
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
+TS_META_BUILD = ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
+
 WXYZ_LAB_EXTENSIONS = [
     tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
 ]
