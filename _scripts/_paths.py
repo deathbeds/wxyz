@@ -167,7 +167,6 @@ def ALL_SPELL_DOCS():
 SPELL_LANGS = "en-GB,en_US"
 DICTIONARY = DOCS / "dictionary.txt"
 ROBOT_OUT = TEST_OUT / "robot"
-LAB = ROOT / "lab"
 
 ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
@@ -242,9 +241,6 @@ TS_TARBALLS = [
     / f"""deathbeds-{tsp_json["name"].split("/")[-1]}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
-
-
-LAB_INDEX = LAB / "static" / "index.html"
 
 SDISTS = {
     pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"

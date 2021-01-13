@@ -549,12 +549,6 @@ if not P.BUILDING_IN_CI:
         )
 
 
-if P.RUNNING_IN_BINDER:
-    APP_DIR = ["--debug"]
-else:
-    APP_DIR = ["--debug", "--app-dir", P.LAB]
-
-
 def _make_py_readme(setup_py):
     pkg = setup_py.parent
     setup_cfg = pkg / "setup.cfg"
@@ -902,7 +896,7 @@ if not P.RUNNING_IN_CI:
             time.sleep(10)
             print(">>> Starting lab watcher...", flush=True)
             lab = subprocess.Popen(
-                [*P.JPY, "lab", "--no-browser", "--debug", *APP_DIR],
+                [*P.JPY, "lab", "--no-browser", "--debug"],
                 stdin=subprocess.PIPE,
             )
 
@@ -978,7 +972,6 @@ if not P.BUILDING_IN_CI:
             *P.ATEST_PY,
             *P.ALL_TS,
             *P.ALL_IPYNB,
-            P.LAB_INDEX,
             P.SCRIPTS / "_atest.py",
             P.OK / "lab",
         ]

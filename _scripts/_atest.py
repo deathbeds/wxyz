@@ -75,7 +75,6 @@ def atest(attempt, extra_args):
         *(extra_args or []),
     ]
 
-    os.environ["JUPYTERLAB_DIR"] = str(P.LAB)
     os.chdir(P.ATEST)
 
     if out_dir.exists():
