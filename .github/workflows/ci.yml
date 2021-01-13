@@ -91,7 +91,11 @@ jobs:
         run: pip install -U -v -r .github/reqs/pip-build.txt
 
       - name: check (pip)
-        run: pip freeze | tee build/pip/dist.pip.freeze && pip check
+        run: |
+          set -eux
+          mkdir -p build/pip
+          pip freeze | tee build/pip/dist.pip.freeze
+          pip check
 
       - name: upload (pip freeze)
         uses: actions/upload-artifact@v2
