@@ -199,9 +199,14 @@ else:
             actions=[
                 U.okit("setup_lab", remove=True),
                 *[
-                    ["jupyter", "labextension", "develop", "--overwrite", p.parent]
-                    for p in P.PY_SETUP
-                    if p.parent.name not in "wxyz_notebooks"
+                    [
+                        "jupyter",
+                        "labextension",
+                        "develop",
+                        "--overwrite",
+                        f"wxyz.{p.parent.name}",
+                    ]
+                    for p in P.WXYZ_LAB_EXTENSIONS
                 ],
                 ["jupyter", "labextension", "list"],
                 U.okit("setup_lab"),

@@ -1,6 +1,6 @@
 """ DVCS widgets
 """
-from ._version import __version__  # noqa
+from ._version import __version__, module_name
 from .repos.repo_base import Repo
 from .tools.tool_commits import Committer
 from .tools.tool_heads import Brancher, HeadPicker, HeadStatus
@@ -39,3 +39,7 @@ try:
     __all__ += ["Git"]
 except ImportError:
     pass
+
+
+def _jupyter_labextension_paths():
+    return [{"src": "labextension", "dest": module_name}]
