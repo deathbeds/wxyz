@@ -208,10 +208,12 @@ else:
             ],
         )
 
-    def task_data_files():
-        """ensure data_files are set up properly"""
-        for ext in P.WXYZ_LAB_EXTENSIONS:
-            yield from _make_ext_data_files(ext)
+    if not P.RUNNING_IN_BINDER:
+
+        def task_data_files():
+            """ensure data_files are set up properly"""
+            for ext in P.WXYZ_LAB_EXTENSIONS:
+                yield from _make_ext_data_files(ext)
 
     def task_setup_py_dev():
         """ensure local packages are installed and editable"""
