@@ -433,6 +433,7 @@ def _make_pydist(setup_py):
 
 
 if not P.TESTING_IN_CI:
+
     @create_after("ts")
     def task_dist():
         """make pypi distributions"""
