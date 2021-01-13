@@ -149,6 +149,45 @@ if P.RUNNING_IN_CI:
 
 else:
 
+    def _make_ext_data_files(ext):
+        """ensure a single extension's data_files are set up properly"""
+        name = ext.parent.name
+        setup_py = ext.parent.parent.parent.parent / "setup.py"
+        install_json = ext.parent / "install.json"
+
+        yield dict(
+            name=f"setup_py:{name}",
+            uptodate=[config_changed(P.PY_SETUP_TEXT)],
+            file_dep=[ext / "package.json"],
+            targets=[setup_py],
+            actions=[
+                lambda: [
+                    setup_py.write_text(P.PY_SETUP_TEMPLATE.render(name=name)),
+                    None,
+                ][-1],
+                ["isort", setup_py],
+                ["black", setup_py],
+            ],
+        )
+
+        yield dict(
+            name=f"install_json:{name}",
+            uptodate=[config_changed(P.INSTALL_JSON_TEXT)],
+            file_dep=[ext / "package.json"],
+            targets=[install_json],
+            actions=[
+                lambda: [
+                    install_json.write_text(P.INSTALL_JSON_TEMPLATE.render(name=name)),
+                    None,
+                ][-1]
+            ],
+        )
+
+    def task_data_files():
+        """ensure data_files are set up properly"""
+        for ext in P.WXYZ_LAB_EXTENSIONS:
+            yield from _make_ext_data_files(ext)
+
     def task_setup_py_dev():
         """ensure local packages are installed and editable"""
 
