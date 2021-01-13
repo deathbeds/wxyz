@@ -1,7 +1,5 @@
 # `@deathbeds/wxyz-lab`
 
-
-
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_lab
@@ -41,6 +39,7 @@ console.log(wxyz); // and see _something_
 > _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
+>
 > - `python >=3.6`
 > - `nodejs >=12`
 > - `jupyterlab >=3,<4`

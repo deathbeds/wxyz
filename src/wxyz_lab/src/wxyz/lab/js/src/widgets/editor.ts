@@ -21,25 +21,39 @@ const EDITOR_CLASS = 'jp-WXYZ-Editor';
 const WATCHED_OPTIONS = [
   // the part between these comments will be rewritten
   // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration @61e400d051e0be2c3d80ab6bbc304e616b0dce7729d13c64396b21352cf10855
-  'autofocus', 'cursorBlinkRate', 'cursorHeight', 'dragDrop', 'electricChars', 'firstLineNumber', 'fixedGutter', 'flattenSpans', 'foldGutter', 'gutters', 'historyEventDelay', 'indentUnit', 'indentWithTabs', 'keyMap', 'lineNumbers', 'lineWrapping', 'maxHighlightLength', 'mode', 'placeholder', 'pollInterval', 'readOnly', 'rtlMoveVisually', 'scrollbarStyle', 'showCursorWhenSelecting', 'smartIndent', 'tabSize', 'tabindex', 'theme', 'undoDepth', 'viewportMargin', 'workDelay', 'workTime'
+  'autofocus',
+  'cursorBlinkRate',
+  'cursorHeight',
+  'dragDrop',
+  'electricChars',
+  'firstLineNumber',
+  'fixedGutter',
+  'flattenSpans',
+  'foldGutter',
+  'gutters',
+  'historyEventDelay',
+  'indentUnit',
+  'indentWithTabs',
+  'keyMap',
+  'lineNumbers',
+  'lineWrapping',
+  'maxHighlightLength',
+  'mode',
+  'placeholder',
+  'pollInterval',
+  'readOnly',
+  'rtlMoveVisually',
+  'scrollbarStyle',
+  'showCursorWhenSelecting',
+  'smartIndent',
+  'tabSize',
+  'tabindex',
+  'theme',
+  'undoDepth',
+  'viewportMargin',
+  'workDelay',
+  'workTime',
   // END SCHEMAGEN:PROPERTIES
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ];
 const WATCHED_EVENTS = WATCHED_OPTIONS.reduce((m, o) => `${m} change:${o}`, '');
 
