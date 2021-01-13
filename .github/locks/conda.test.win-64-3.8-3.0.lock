@@ -229,7 +229,7 @@ https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.10-pyha770c72_0
 https://conda.anaconda.org/conda-forge/noarch/requests-2.25.1-pyhd3deb0d_0.tar.bz2#ae687aba31a1c400192a86a2e993ffdc
 https://conda.anaconda.org/conda-forge/win-64/scikit-learn-0.24.0-py38ha09990b_0.tar.bz2#1bd5e60f69ee458519ec2277ea089158
 https://conda.anaconda.org/conda-forge/win-64/selenium-3.141.0-py38h1e8a9f7_1002.tar.bz2#82eb5bcde73994ab844862ce24127e70
-https://conda.anaconda.org/conda-forge/noarch/tifffile-2021.1.8-pyhd8ed1ab_0.tar.bz2#0c6ce7d5305d1286317d597dc6619ab4
+https://conda.anaconda.org/conda-forge/noarch/tifffile-2021.1.11-pyhd8ed1ab_0.tar.bz2#26b4bbfa5456030a7578128bac511dae
 https://conda.anaconda.org/conda-forge/noarch/dask-glm-0.2.0-py_1.tar.bz2#7c9c5295a0499bf56bbf084578618af5
 https://conda.anaconda.org/conda-forge/win-64/ipython-7.19.0-py38hc5df569_1.tar.bz2#f06a70e60a122c6e477e9ab0c46f6abd
 https://conda.anaconda.org/conda-forge/win-64/nbconvert-6.0.7-py38haa244fe_3.tar.bz2#29a323f66b8d790aeb71eb16b0663670
@@ -249,12 +249,12 @@ https://conda.anaconda.org/conda-forge/win-64/scikit-image-0.18.1-py38h4c96930_0
 https://conda.anaconda.org/conda-forge/noarch/tpot-0.11.6.post1-pyhd3deb0d_0.tar.bz2#a6f63c8ea4b3625258291a27d35c9594
 https://conda.anaconda.org/conda-forge/win-64/twine-3.3.0-py38haa244fe_0.tar.bz2#703c5c9dc169f4c44a56dba0afc2b927
 https://conda.anaconda.org/conda-forge/win-64/umap-learn-0.5.0-py38haa244fe_0.tar.bz2#7779f4f70815658d5053bcf04ba0335c
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.1.1-pyhd8ed1ab_0.tar.bz2#79c47512aded0a513fe18af89608646c
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.1.2-pyhd8ed1ab_0.tar.bz2#78085479d089821058c00bf6fcfeda9f
 https://conda.anaconda.org/conda-forge/win-64/notebook-6.1.6-py38haa244fe_0.tar.bz2#22ee7e0f6e0d1824c9eb4fd507736282
 https://conda.anaconda.org/conda-forge/noarch/jupyter-server-proxy-1.5.3-pyhd8ed1ab_0.tar.bz2#0829562349b76ad1258919f3c345e0ba
 https://conda.anaconda.org/conda-forge/noarch/nbclassic-0.2.6-pyhd8ed1ab_0.tar.bz2#49be35e31b49012ea91fcd667ebdf4ad
 https://conda.anaconda.org/conda-forge/win-64/widgetsnbextension-3.5.1-py38haa244fe_4.tar.bz2#36985a09e5fcd85459c2ab647020c603
 https://conda.anaconda.org/conda-forge/noarch/dask-labextension-4.0.1-pyhd8ed1ab_0.tar.bz2#db3edf649c44f12beedf58bf665dd03c
 https://conda.anaconda.org/conda-forge/noarch/ipywidgets-7.6.3-pyhd3deb0d_0.tar.bz2#536a9ed6d9e740f2b83d1a3c388e4388
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.3-pyhd8ed1ab_0.tar.bz2#8bf2ed6ca16d3fe1679523d8f543928f
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.4-pyhd8ed1ab_0.tar.bz2#f196ddf31157a9d42e724fde26790330
 https://conda.anaconda.org/conda-forge/noarch/ipympl-0.6.2-pyhd8ed1ab_0.tar.bz2#fd94fe44ff7117af3bdc4b98098f8111

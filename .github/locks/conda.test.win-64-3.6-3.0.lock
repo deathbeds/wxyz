@@ -248,7 +248,7 @@ https://conda.anaconda.org/conda-forge/noarch/tpot-0.11.6.post1-pyhd3deb0d_0.tar
 https://conda.anaconda.org/conda-forge/win-64/twine-3.3.0-py36ha15d459_0.tar.bz2#953088e7fefb84afc6b56211761b199f
 https://conda.anaconda.org/conda-forge/noarch/yellowbrick-1.2-pyh9f0ad1d_0.tar.bz2#3eef320f403216b68eba3a6424f96b9c
 https://conda.anaconda.org/conda-forge/noarch/dask-ml-1.7.0-py_0.tar.bz2#ffc9eea86e065cd464f6a141dda50127
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.1.1-pyhd8ed1ab_0.tar.bz2#79c47512aded0a513fe18af89608646c
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.1.2-pyhd8ed1ab_0.tar.bz2#78085479d089821058c00bf6fcfeda9f
 https://conda.anaconda.org/conda-forge/win-64/notebook-6.1.6-py36ha15d459_0.tar.bz2#d046b506af41d71e85f8669cc8c2994d
 https://conda.anaconda.org/conda-forge/win-64/umap-learn-0.5.0-py36ha15d459_0.tar.bz2#5f2320cf658203c5e4680003468bbc7d
 https://conda.anaconda.org/conda-forge/noarch/jupyter-server-proxy-1.5.3-pyhd8ed1ab_0.tar.bz2#0829562349b76ad1258919f3c345e0ba
@@ -256,5 +256,5 @@ https://conda.anaconda.org/conda-forge/noarch/nbclassic-0.2.6-pyhd8ed1ab_0.tar.b
 https://conda.anaconda.org/conda-forge/win-64/widgetsnbextension-3.5.1-py36ha15d459_4.tar.bz2#2c71f6a23d569494cf7e07b261868e31
 https://conda.anaconda.org/conda-forge/noarch/dask-labextension-4.0.1-pyhd8ed1ab_0.tar.bz2#db3edf649c44f12beedf58bf665dd03c
 https://conda.anaconda.org/conda-forge/noarch/ipywidgets-7.6.3-pyhd3deb0d_0.tar.bz2#536a9ed6d9e740f2b83d1a3c388e4388
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.3-pyhd8ed1ab_0.tar.bz2#8bf2ed6ca16d3fe1679523d8f543928f
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.4-pyhd8ed1ab_0.tar.bz2#f196ddf31157a9d42e724fde26790330
 https://conda.anaconda.org/conda-forge/noarch/ipympl-0.6.2-pyhd8ed1ab_0.tar.bz2#fd94fe44ff7117af3bdc4b98098f8111
