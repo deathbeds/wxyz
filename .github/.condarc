@@ -1,7 +1,7 @@
 # From
 # https://github.com/conda/conda/blob/aed799b56d9ee16a3653928527e2af6e41394e85/conda/base/context.py#L1132
 local_repodata_ttl: 3600
-repodata_fns: repodata.json
+repodata_fns: [repodata.json]
 remote_connect_timeout_secs: 60
 remote_read_timeout_secs: 120
 remote_max_retries: 5
