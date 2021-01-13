@@ -880,54 +880,70 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("pytest-check-link
 
 if not P.RUNNING_IN_CI:
 
-    def task_watch():
-        """watch typescript sources, launch lab, rebuilding as files change"""
-
+    def _make_lab(watch=False):
         def _lab():
-            print(">>> Starting typescript watcher...", flush=True)
-            ts = subprocess.Popen(["jlpm", "watch"])
+            if watch:
+                print(">>> Starting typescript watcher...", flush=True)
+                ts = subprocess.Popen(["jlpm", "watch"])
 
-            ext_watchers = [
-                subprocess.Popen([P.LAB_EXT, "watch", "."], cwd=str(p))
-                for p in P.WXYZ_LAB_EXTENSIONS
-            ]
+                ext_watchers = [
+                    subprocess.Popen([*P.LAB_EXT, "watch", "."], cwd=str(p))
+                    for p in P.WXYZ_LAB_EXTENSIONS
+                ]
 
-            print(">>> Waiting a bit to start lab watcher...", flush=True)
-            time.sleep(10)
-            print(">>> Starting lab watcher...", flush=True)
+                print(">>> Waiting a bit to JupyterLab...", flush=True)
+                time.sleep(3)
+            print(">>> Starting JupyterLab...", flush=True)
             lab = subprocess.Popen(
                 [*P.JPY, "lab", "--no-browser", "--debug"],
                 stdin=subprocess.PIPE,
             )
 
             try:
-                print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
+                print(">>> Waiting for JupyterLab to exit (Ctrl+C)...", flush=True)
                 lab.wait()
             except KeyboardInterrupt:
                 print(
-                    ">>> Watch canceled by user!",
+                    f""">>> {"Watch" if watch else "Run"} canceled by user!""",
                     flush=True,
                 )
             finally:
                 print(">>> Stopping watchers...", flush=True)
-                [x.terminate() for x in ext_watchers]
-                ts.terminate()
+                if watch:
+                    [x.terminate() for x in ext_watchers]
+                    ts.terminate()
                 lab.terminate()
                 lab.communicate(b"y\n")
-                ts.wait()
-                lab.wait()
-                [x.wait() for x in ext_watchers]
-                print(
-                    ">>> Stopped watchers! maybe check process monitor...", flush=True
-                )
+                if watch:
+                    ts.wait()
+                    lab.wait()
+                    [x.wait() for x in ext_watchers]
+                    print(
+                        ">>> Stopped watchers! maybe check process monitor...",
+                        flush=True
+                    )
 
             return True
+        return _lab
+
+    def task_lab():
+        yield dict(
+            name="serve",
+            uptodate=[lambda: False],
+            file_dep=[P.OK / "setup_lab"],
+            actions=[
+                PythonInteractiveAction(_make_lab())
+            ]
+        )
+
+    def task_watch():
+        """watch typescript sources, launch lab, rebuilding as files change"""
 
         yield dict(
             name="lab",
             uptodate=[lambda: False],
             file_dep=[P.OK / "setup_lab"],
-            actions=[PythonInteractiveAction(_lab)],
+            actions=[PythonInteractiveAction(_make_lab(watch=True))],
         )
 
         def _docs():
@@ -973,7 +989,7 @@ if not P.BUILDING_IN_CI:
             *P.ALL_TS,
             *P.ALL_IPYNB,
             P.SCRIPTS / "_atest.py",
-            P.OK / "lab",
+            P.OK / "setup_lab",
         ]
 
         if not P.RUNNING_IN_CI:
