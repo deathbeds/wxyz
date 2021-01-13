@@ -103,8 +103,11 @@ jobs:
           name: wxyz ${{ github.run_number }} build pip freeze
           path: ./build/pip/
 
+      - name: list
+        run: doit list --all --status
+
       - name: build
-        run: doit -n4 hash_dist || doit hash_dist
+        run: doit -n4 ts hash_dist || doit ts hash_dist
 
       - name: status
         run: doit list --all --status | sort

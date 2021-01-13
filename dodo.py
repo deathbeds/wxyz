@@ -400,15 +400,18 @@ if not P.RUNNING_IN_CI:
 def _make_pydist(setup_py):
     """build python release artifacts"""
     pkg = setup_py.parent
+    src = [*(pkg / "src/wxyz").glob("*")][0]
     file_dep = [
         setup_py,
         pkg / "setup.cfg",
         pkg / "MANIFEST.in",
-        [*(pkg / "src/wxyz").glob("*")][0] / "js" / P.LICENSE_NAME,
         pkg / "README.md",
-        *sorted(pkg.glob("src/wxyz/*/labextension/package.json")),
+        src / "js" / P.LICENSE_NAME,
         *sorted((pkg / "src").rglob("*.py")),
     ]
+
+    if src.name != "notebooks":
+        file_dep += [src / "labextension/package.json"]
 
     def _action(output):
         """build a single task so we can run in the cwd"""
@@ -434,7 +437,6 @@ def _make_pydist(setup_py):
 
 if not P.TESTING_IN_CI:
 
-    @create_after("ts")
     def task_dist():
         """make pypi distributions"""
         for pys in P.PY_SETUP:
