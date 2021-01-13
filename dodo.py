@@ -162,7 +162,7 @@ else:
         yield dict(
             name=f"{wxyz_name}:setup.py",
             uptodate=[config_changed(P.PY_SETUP_TEXT)],
-            file_dep=[ext / "package.json"],
+            file_dep=[package_json],
             targets=[setup_py],
             actions=[
                 lambda: [
