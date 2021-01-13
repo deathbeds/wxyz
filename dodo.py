@@ -920,24 +920,24 @@ if not P.RUNNING_IN_CI:
                     [x.wait() for x in ext_watchers]
                     print(
                         ">>> Stopped watchers! maybe check process monitor...",
-                        flush=True
+                        flush=True,
                     )
 
             return True
+
         return _lab
 
     def task_lab():
+        """start JupyterLab, no funny stuff (Note: Single Ctrl+C stops)"""
         yield dict(
             name="serve",
             uptodate=[lambda: False],
             file_dep=[P.OK / "setup_lab"],
-            actions=[
-                PythonInteractiveAction(_make_lab())
-            ]
+            actions=[PythonInteractiveAction(_make_lab())],
         )
 
     def task_watch():
-        """watch typescript sources, launch lab, rebuilding as files change"""
+        """watch typescript sources, launch JupyterLab, rebuilding as files change"""
 
         yield dict(
             name="lab",
@@ -958,6 +958,7 @@ if not P.RUNNING_IN_CI:
         if shutil.which("sphinx-autobuild"):
             yield dict(
                 name="docs",
+                doc="serve docs, watch (some) sources, livereload (when it can)",
                 uptodate=[lambda: False],
                 file_dep=[P.DOCS_BUILDINFO],
                 actions=[PythonInteractiveAction(_docs)],
