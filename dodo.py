@@ -932,7 +932,7 @@ if not P.RUNNING_IN_CI:
         yield dict(
             name="lab",
             uptodate=[lambda: False],
-            file_dep=[P.OK / "lab"],
+            file_dep=[P.OK / "setup_lab"],
             actions=[PythonInteractiveAction(_lab)],
         )
 
@@ -959,7 +959,8 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
     def task_binder():
         """get to a working interactive state"""
         return dict(
-            file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
+            file_dep=[P.OK / "setup_lab", P.OK / "setup_py"],
+            actions=[lambda: print("OK")],
         )
 
 
