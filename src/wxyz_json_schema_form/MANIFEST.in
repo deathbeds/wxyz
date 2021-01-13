@@ -1,4 +1,8 @@
-include README.md
-include src/wxyz/json_schema_form/js/package.json src/wxyz/json_schema_form/js/LICENSE.txt
-global-exclude .ipynb_checkpoints
-global-exclude node_modules
+# generated python data file manifest for wxyz_json_schema_form, do not edit by hand
+include             README.md
+include             src/wxyz/json_schema_form/js/package.json
+include             src/wxyz/json_schema_form/js/LICENSE.txt
+include             src/wxyz/json_schema_form/js/README.md
+recursive-include   src/wxyz/json_schema_form/labextension *.*
+global-exclude      .ipynb_checkpoints
+global-exclude      node_modules

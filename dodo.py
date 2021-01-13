@@ -6,7 +6,7 @@
 import json
 import os
 
-# pylint: disable=expression-not-assigned,W0511
+# pylint: disable=expression-not-assigned,W0511,too-many-lines
 import shutil
 import subprocess
 import time
@@ -151,18 +151,24 @@ else:
 
     def _make_ext_data_files(ext):
         """ensure a single extension's data_files are set up properly"""
-        name = ext.parent.name
-        setup_py = ext.parent.parent.parent.parent / "setup.py"
+        wxyz_name = ext.parent.name
+        py_pkg = ext.parent.parent.parent.parent
+        package_json = ext / "package.json"
+        package_data = P.TS_PACKAGE_CONTENT[package_json]
+        setup_py = py_pkg / "setup.py"
+        manifest_in = py_pkg / "MANIFEST.in"
         install_json = ext.parent / "install.json"
 
         yield dict(
-            name=f"setup_py:{name}",
+            name=f"{wxyz_name}:setup.py",
             uptodate=[config_changed(P.PY_SETUP_TEXT)],
             file_dep=[ext / "package.json"],
             targets=[setup_py],
             actions=[
                 lambda: [
-                    setup_py.write_text(P.PY_SETUP_TEMPLATE.render(name=name)),
+                    setup_py.write_text(
+                        P.PY_SETUP_TEMPLATE.render(wxyz_name=wxyz_name, **package_data)
+                    ),
                     None,
                 ][-1],
                 ["isort", setup_py],
@@ -171,13 +177,32 @@ else:
         )
 
         yield dict(
-            name=f"install_json:{name}",
+            name=f"{wxyz_name}:manifest.in",
+            uptodate=[config_changed(P.MANIFEST_TEXT)],
+            file_dep=[package_json],
+            targets=[manifest_in],
+            actions=[
+                lambda: [
+                    manifest_in.write_text(
+                        P.MANIFEST_TEMPLATE.render(wxyz_name=wxyz_name, **package_data)
+                    ),
+                    None,
+                ][-1]
+            ],
+        )
+
+        yield dict(
+            name=f"{wxyz_name}:install.json",
             uptodate=[config_changed(P.INSTALL_JSON_TEXT)],
-            file_dep=[ext / "package.json"],
+            file_dep=[package_json],
             targets=[install_json],
             actions=[
                 lambda: [
-                    install_json.write_text(P.INSTALL_JSON_TEMPLATE.render(name=name)),
+                    install_json.write_text(
+                        P.INSTALL_JSON_TEMPLATE.render(
+                            wxyz_name=wxyz_name, **package_data
+                        )
+                    ),
                     None,
                 ][-1]
             ],

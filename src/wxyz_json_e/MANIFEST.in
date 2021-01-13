@@ -1,4 +1,8 @@
-include README.md
-include src/wxyz/json_e/js/package.json src/wxyz/json_e/js/LICENSE.txt
-global-exclude .ipynb_checkpoints
-global-exclude node_modules
+# generated python data file manifest for wxyz_json_e, do not edit by hand
+include             README.md
+include             src/wxyz/json_e/js/package.json
+include             src/wxyz/json_e/js/LICENSE.txt
+include             src/wxyz/json_e/js/README.md
+recursive-include   src/wxyz/json_e/labextension *.*
+global-exclude      .ipynb_checkpoints
+global-exclude      node_modules
