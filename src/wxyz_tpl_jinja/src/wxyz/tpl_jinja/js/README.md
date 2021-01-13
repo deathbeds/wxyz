@@ -1,21 +1,48 @@
 # `@deathbeds/wxyz-tpl-nunjucks`
 
-[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_tpl_jinja
 [pypi]: https://pypi.org/project/wxyz-tpl-jinja
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-tpl-nunjucks
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-tpl-nunjucks
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 
 > experimental Jupyter widgets for Nunjucks templates
 
-## Installation
+**If you just want to _use_ `@deathbeds/wxyz-tpl-nunjucks` in JupyterLab 3**
+
+```bash
+pip install wxyz_tpl_jinja  # or conda, or mamba
+```
+
+## Developer Installation
+
+The public API of the widgets in `@deathbeds/wxyz-tpl-nunjucks` are not yet fully documented.
+However, it's likely that you can:
+
+```bash
+jlpm add @deathbeds/wxyz-tpl-nunjucks
+```
+
+and then, in your widget extension:
+
+```ts
+import wxyz from '@deathbeds/wxyz-tpl-nunjucks';
+
+console.log(wxyz); // and see _something_
+```
+
+## Legacy Installation (Pre-JupyterLab 2)
+
+> _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
 >
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `nodejs >=12`
+> - `jupyterlab >=3,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-tpl-nunjucks

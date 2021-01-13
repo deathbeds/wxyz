@@ -1,7 +1,9 @@
 # `wxyz_dvcs`
 
-[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_dvcs
 [pypi]: https://pypi.org/project/wxyz-dvcs
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-dvcs
@@ -14,12 +16,10 @@
 > Prerequisites:
 >
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `jupyterlab >=3,<4`
 
 ```bash
 pip install wxyz_dvcs
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core
 ```
 
 ---

@@ -2,21 +2,48 @@
 
 
 
-[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_lab
 [pypi]: https://pypi.org/project/wxyz-lab
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-lab
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-lab
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 
 > Experimental widgets for JupyterLab
 
-## Installation
+**If you just want to _use_ `@deathbeds/wxyz-lab` in JupyterLab 3**
+
+```bash
+pip install wxyz_lab  # or conda, or mamba
+```
+
+## Developer Installation
+
+The public API of the widgets in `@deathbeds/wxyz-lab` are not yet fully documented.
+However, it's likely that you can:
+
+```bash
+jlpm add @deathbeds/wxyz-lab
+```
+
+and then, in your widget extension:
+
+```ts
+import wxyz from '@deathbeds/wxyz-lab';
+
+console.log(wxyz); // and see _something_
+```
+
+## Legacy Installation (Pre-JupyterLab 2)
+
+> _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `nodejs >=12`
+> - `jupyterlab >=3,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-lab

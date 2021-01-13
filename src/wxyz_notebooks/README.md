@@ -1,7 +1,9 @@
 # `wxyz_notebooks`
 
-[![pypi-badge][]][pypi]
+[![pypi-badge][]][pypi] [![docs-badge][docs]]
 
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_notebooks
 [pypi]: https://pypi.org/project/wxyz-notebooks
 
@@ -12,11 +14,11 @@
 > Prerequisites:
 >
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `jupyterlab >=3,<4`
 
-````bash
-pip install wxyz_notebooks```
+```bash
+pip install wxyz_notebooks
+```
 
 ---
 
@@ -94,4 +96,3 @@ might be better suited to your needs.
 [this repo]: https://github.com/deathbeds/wxyz
 [traitlets]: https://github.com/ipython/traitlets
 [widgets]: https://jupyter.org/widgets
-````

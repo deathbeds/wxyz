@@ -313,8 +313,11 @@ ALL_ROBOT = [*ATEST.rglob("*.robot")]
 PY_README_TXT = """
 # `{{ metadata.name }}`
 
-[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif %}
+[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif
+%} [![docs-badge][docs]]
 
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 [pypi-badge]: https://img.shields.io/pypi/v/{{ metadata.name }}
 [pypi]: https://pypi.org/project/{{ metadata.name.replace("_", "-") }}
 {% if js_pkg %}
@@ -328,40 +331,62 @@ PY_README_TXT = """
 
 > Prerequisites:
 > - `python {{ options.python_requires }}`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `jupyterlab >=3,<4`
+
 ```bash
 pip install {{ metadata.name }}
-{%- if js_pkg %}
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
-{%- for dep in js_pkg.devDependencies -%}
-{% if "@deathbeds" in dep %} {{ dep }}{% endif %}
-{%- endfor %} {{ name }}
-{% endif %}```
+```
 """
 
-PY_README_TMPL = jinja2.Template(PY_README_TXT)
+PY_README_TMPL = jinja2.Template(PY_README_TXT.strip())
 
 TS_README_TXT = """
 # `{{ name }}`
 
 {% set py = jupyterlab.discovery.server.base.name %}
 
-[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/{{ py }}
 [pypi]: https://pypi.org/project/{{ py.replace("_", "-") }}
 [npm-badge]: https://img.shields.io/npm/v/{{ name }}
 [npm]: https://www.npmjs.com/package/{{ name }}
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 
 > {{ description }}
 
-## Installation
+**If you just want to _use_ `{{ name }}` in JupyterLab 3**
+
+```bash
+pip install {{ py }}  # or conda, or mamba
+```
+
+## Developer Installation
+
+The public API of the widgets in `{{ name }}` are not yet fully documented.
+However, it's likely that you can:
+
+```bash
+jlpm add {{ name }}
+```
+
+and then, in your widget extension:
+
+```ts
+import wxyz from '{{ name }}';
+
+console.log(wxyz); // and see _something_
+```
+
+## Legacy Installation (Pre-JupyterLab 2)
+
+> _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `nodejs >=12`
+> - `jupyterlab >=3,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
@@ -372,7 +397,7 @@ pip install {{ jupyterlab.discovery.server.base.name }}
 ```
 """
 
-TS_README_TMPL = jinja2.Template(TS_README_TXT)
+TS_README_TMPL = jinja2.Template(TS_README_TXT.strip())
 
 
 PY_LINT_CMDS = [
