@@ -30,8 +30,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu]
-        python-version: ["3.8"]
-        lab: ["3.0"]
+        python-version: ['3.8']
+        lab: ['3.0']
         include:
           - os: ubuntu
             conda-subdir: linux-64
@@ -131,8 +131,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python-version: ["3.6", "3.8"]
-        lab: ["3.0"]
+        python-version: ['3.6', '3.8']
+        lab: ['3.0']
         include:
           - os: ubuntu
             conda-subdir: linux-64
