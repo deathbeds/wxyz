@@ -47,6 +47,10 @@
         "bundled": false,
         "singleton": true
       },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
       "@deathbeds/wxyz-core": {
         "bundled": false,
         "singleton": true

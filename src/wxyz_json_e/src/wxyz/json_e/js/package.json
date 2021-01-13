@@ -11,6 +11,9 @@
   },
   "description": "experimental Jupyter widgets for JSON-E",
   "devDependencies": {
+    "@jupyter-widgets/base": "4",
+    "@jupyter-widgets/controls": "3",
+    "@jupyter-widgets/jupyterlab-manager": "3",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@jupyterlab/builder": "^3.0.1",
     "@types/js-yaml": "^3.12.0",

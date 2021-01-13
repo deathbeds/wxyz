@@ -6,6 +6,7 @@
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
+  "dependencies": {},
   "description": "Experimental widgets for JupyterLab",
   "devDependencies": {
     "@jupyter-widgets/base": "4",
@@ -14,7 +15,7 @@
     "@jupyterlab/rendermime": "3",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@jupyterlab/builder": "^3.0.1",
-    "@lumino/application" : "^1.13.1",
+    "@lumino/application": "^1.13.1",
     "@lumino/widgets": "^1.16.1",
     "@types/codemirror": "^0.0.71",
     "@types/marked": "~0.3.0",
@@ -48,7 +49,27 @@
         "bundled": false,
         "singleton": true
       },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "codemirror": {
+        "bundled": false,
+        "singleton": true
+      },
       "@deathbeds/wxyz-core": {
+        "bundled": false,
+        "singleton": true
+      },
+      "xterm": {
+        "bundled": false,
+        "singleton": true
+      },
+      "xterm-addon-fit": {
+        "bundled": false,
+        "singleton": true
+      },
+      "marked": {
         "bundled": false,
         "singleton": true
       }

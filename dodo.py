@@ -102,8 +102,17 @@ if not P.TESTING_IN_CI:
 
     def task_setup_ts():
         """set up typescript environment"""
+        dep_types = ["devDependencies", "dependencies", "peerDependencies"]
         return dict(
-            file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
+            uptodate=[
+                config_changed(
+                    {
+                        pkg["name"]: {dep: pkg.get(dep) for dep in dep_types}
+                        for pkg in P.TS_PACKAGE_CONTENT.values()
+                    }
+                )
+            ],
+            file_dep=[P.ROOT_PACKAGE],
             targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[
                 ["jlpm", "--prefer-offline", "--ignore-optional"],
@@ -133,7 +142,7 @@ if P.RUNNING_IN_CI:
                 [*P.PIP, "check"],
                 U.okit("setup_py"),
                 ["jupyter", "labextension", "list"],
-                U.okit("setup_lab")
+                U.okit("setup_lab"),
             ],
         )
 
@@ -161,7 +170,10 @@ else:
             name="pip",
             file_dep=[
                 P.PY_DEV_REQS,
-                *[p.parent / "labextension" / "package.json" for p in P.WXYZ_LAB_EXTENSIONS],
+                *[
+                    p.parent / "labextension" / "package.json"
+                    for p in P.WXYZ_LAB_EXTENSIONS
+                ],
             ],
             targets=[P.OK / "setup_py"],
             actions=[
@@ -182,29 +194,18 @@ else:
 
         yield dict(
             name="lab",
-            file_dep=[
-                P.PY_DEV_REQS,
-                P.OK / "setup_py"
-            ],
+            file_dep=[P.PY_DEV_REQS, P.OK / "setup_py"],
             targets=[P.OK / "setup_lab"],
             actions=[
                 U.okit("setup_lab", remove=True),
                 *[
-                    [
-                        "jupyter",
-                        "labextension",
-                        "develop",
-                        "--overwrite",
-                        p.parent
-                    ] for p in P.PY_SETUP if p.parent.name not in "wxyz_notebooks"
+                    ["jupyter", "labextension", "develop", "--overwrite", p.parent]
+                    for p in P.PY_SETUP
+                    if p.parent.name not in "wxyz_notebooks"
                 ],
-                [
-                    "jupyter",
-                    "labextension",
-                    "list"
-                ],
+                ["jupyter", "labextension", "list"],
                 U.okit("setup_lab"),
-            ]
+            ],
         )
 
 
@@ -393,17 +394,19 @@ def task_hash_dist():
 def _make_lab_ext_build(ext):
     target = ext.parent / "labextension" / "package.json"
 
-    pkg = P.TS_PACKAGE_CONTENT[ext / "package.json"]
-
     yield dict(
-        name=f"""ext:{ext.relative_to(ext.parent.parent)}""".replace("/", "_"),
+        name=f"""ext:{ext.parent.name}""".replace("/", "_"),
         file_dep=[
-            P.TS_META_BUILD,
+            ext / "lib" / ".tsbuildinfo",
+            ext / "README.md",
+            ext / "LICENSE.txt",
+            *ext.rglob("style/*.css"),
+            ext / "package.json",
         ],
         actions=[
-            [*P.LERNA_EXEC, "--scope", pkg["name"], *P.LAB_EXT, "build",  "."]
+            lambda: subprocess.call([*P.LAB_EXT, "build", "."], cwd=str(ext)) == 0
         ],
-        targets=[target]
+        targets=[target],
     )
 
 
@@ -412,19 +415,15 @@ if not P.TESTING_IN_CI:
     def task_ts():
         """build typescript components"""
 
-        file_dep = [
-            P.YARN_LOCK,
-            *P.TS_PACKAGE,
-        ]
+        file_dep = [P.YARN_LOCK, *P.TS_PACKAGE, *P.ALL_TS]
 
         if not P.BUILDING_IN_CI:
             file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
-
         yield dict(
             name="tsc",
             file_dep=file_dep,
-            targets=[P.TS_META_BUILD],
+            targets=P.TS_ALL_BUILD,
             actions=[["jlpm", "build:ts"]],
         )
 
@@ -436,7 +435,7 @@ if not P.TESTING_IN_CI:
                 *P.TS_LICENSES,
             ],
             actions=[["jlpm", "build:tgz"]],
-            targets=[*P.TS_TARBALLS]
+            targets=[*P.TS_TARBALLS],
         )
 
         for ext in P.WXYZ_LAB_EXTENSIONS:

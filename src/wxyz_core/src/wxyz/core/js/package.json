@@ -45,6 +45,10 @@
         "bundled": false,
         "singleton": true
       },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
       "ajv": {
         "bundled": false,
         "singleton": true

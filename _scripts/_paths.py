@@ -113,7 +113,7 @@ SRC_IGNORE_PATTERNS = [
     "node_modules/",
     "*.egg-info/",
     "output/",
-    "labextension/"
+    "labextension/",
 ]
 # these are actual packages
 ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
@@ -220,6 +220,7 @@ TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
 TS_META_BUILD = ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
+TS_ALL_BUILD = [p / "lib" / ".tsbuildinfo" for p in TS_SRC]
 
 WXYZ_LAB_EXTENSIONS = [
     tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name

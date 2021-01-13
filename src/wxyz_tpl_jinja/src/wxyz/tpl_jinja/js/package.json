@@ -11,6 +11,9 @@
   },
   "description": "experimental Jupyter widgets for Nunjucks templates",
   "devDependencies": {
+    "@jupyter-widgets/base": "4",
+    "@jupyter-widgets/controls": "3",
+    "@jupyter-widgets/jupyterlab-manager": "3",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@jupyterlab/builder": "^3.0.1",
     "@types/node": "^10.11.6",
@@ -37,6 +40,10 @@
     "outputDir": "../labextension",
     "sharedPackages": {
       "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
         "bundled": false,
         "singleton": true
       },

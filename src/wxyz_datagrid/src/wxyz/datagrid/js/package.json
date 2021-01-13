@@ -6,6 +6,7 @@
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
+  "dependencies": {},
   "description": "experimental Jupyter widgets for the Lumino DataGrid",
   "devDependencies": {
     "@jupyter-widgets/base": "4",
@@ -44,6 +45,14 @@
         "singleton": true
       },
       "@deathbeds/wxyz-core": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@lumino/datagrid": {
         "bundled": false,
         "singleton": true
       }

@@ -7,10 +7,13 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "@deathbeds/jupyterlab-rjsf": "^0.6.0a0"
+    "@deathbeds/jupyterlab-rjsf": "^1.0.0a0"
   },
   "description": "experimental Jupyter widgets for JSON Schema Form",
   "devDependencies": {
+    "@jupyter-widgets/base": "4",
+    "@jupyter-widgets/controls": "3",
+    "@jupyter-widgets/jupyterlab-manager": "3",
     "@jupyterlab/builder": "^3.0.1",
     "@deathbeds/wxyz-core": "^0.5.0",
     "@blueprintjs/core": "*",
@@ -41,7 +44,19 @@
         "bundled": false,
         "singleton": true
       },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
       "@deathbeds/wxyz-core": {
+        "bundled": false,
+        "singleton": true
+      },
+      "codemirror": {
+        "bundled": false,
+        "singleton": true
+      },
+      "ajv": {
         "bundled": false,
         "singleton": true
       }
