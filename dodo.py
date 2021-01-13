@@ -35,7 +35,7 @@ DOIT_CONFIG = {
 
 
 def task_release():
-    """run all tasks, except re-locking"""
+    """run all tasks, except re-locking and docs"""
     return dict(
         file_dep=[
             *sum(
@@ -50,7 +50,22 @@ def task_release():
             P.OK / "nbtest",
             P.OK / "robot",
         ],
-        actions=[lambda: print("OK to release")],
+        targets=[P.OK / "release"],
+        actions=[
+            U.okit("release", remove=True),
+            lambda: print("OK to release"),
+            U.okit("release"),
+        ],
+    )
+
+
+@create_after("docs")
+def task_all():
+    """like release, but also builds docs (no locks)"""
+    return dict(
+        file_dep=[P.SHA256SUMS, P.OK / "release"],
+        task_dep=["spell", "checklinks"],
+        actions=[lambda: print("OK to docs")],
     )
 
 
