@@ -406,6 +406,7 @@ def _make_pydist(setup_py):
         pkg / "MANIFEST.in",
         [*(pkg / "src/wxyz").glob("*")][0] / "js" / P.LICENSE_NAME,
         pkg / "README.md",
+        *sorted(pkg.glob("src/wxyz/*/labextension/package.json")),
         *sorted((pkg / "src").rglob("*.py")),
     ]
 
