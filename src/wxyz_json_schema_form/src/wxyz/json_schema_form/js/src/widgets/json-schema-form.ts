@@ -93,6 +93,7 @@ export class JSONSchemaFormView extends BoxView {
       this.rerender,
       this
     );
+    setTimeout(async () => await this.rerender(), 100);
   }
 
   get m() {
@@ -107,8 +108,8 @@ export class JSONSchemaFormView extends BoxView {
     const { m } = this;
     const { formData, schema, uiSchema } = m;
 
-    if (!this._form) {
-      return await this.initForm();
+    if (this._form == null) {
+      await this.initForm();
     }
 
     const changed = m.changedAttributes();
