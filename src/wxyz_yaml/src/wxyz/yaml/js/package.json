@@ -46,6 +46,9 @@
       "@deathbeds/wxyz-core": {
         "bundled": false,
         "singleton": true
+      },
+      "js-yaml": {
+        "bundled": true
       }
     }
   },
