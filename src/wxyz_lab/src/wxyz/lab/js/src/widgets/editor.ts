@@ -7,7 +7,7 @@ import {
 } from '@jupyter-widgets/base';
 import { TextareaModel } from '@jupyter-widgets/controls';
 
-import { WXYZ } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { WXYZ } from '@deathbeds/wxyz-core';
 import { NAME, VERSION } from '..';
 
 import { Mode } from '@jupyterlab/codemirror';
@@ -23,6 +23,8 @@ const WATCHED_OPTIONS = [
   // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration @61e400d051e0be2c3d80ab6bbc304e616b0dce7729d13c64396b21352cf10855
   'autofocus', 'cursorBlinkRate', 'cursorHeight', 'dragDrop', 'electricChars', 'firstLineNumber', 'fixedGutter', 'flattenSpans', 'foldGutter', 'gutters', 'historyEventDelay', 'indentUnit', 'indentWithTabs', 'keyMap', 'lineNumbers', 'lineWrapping', 'maxHighlightLength', 'mode', 'placeholder', 'pollInterval', 'readOnly', 'rtlMoveVisually', 'scrollbarStyle', 'showCursorWhenSelecting', 'smartIndent', 'tabSize', 'tabindex', 'theme', 'undoDepth', 'viewportMargin', 'workDelay', 'workTime'
   // END SCHEMAGEN:PROPERTIES
+
+
 
 
 

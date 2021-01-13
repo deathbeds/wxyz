@@ -7,7 +7,7 @@ import { BoxModel } from '@jupyter-widgets/controls';
 
 import { JSONExt } from '@lumino/coreutils';
 
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 
 export type TObject = Record<string, unknown>;
 

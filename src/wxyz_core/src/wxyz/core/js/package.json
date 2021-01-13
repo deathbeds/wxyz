@@ -50,7 +50,7 @@
         "singleton": true
       },
       "ajv": {
-        "bundled": false,
+        "bundled": true,
         "singleton": true
       }
     }

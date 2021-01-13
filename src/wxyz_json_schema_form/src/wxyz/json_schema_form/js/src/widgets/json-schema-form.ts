@@ -6,8 +6,8 @@ import { RenderedMarkdown } from '@jupyterlab/rendermime';
 import * as _schemaform from '@deathbeds/jupyterlab-rjsf/lib/schemaform';
 import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 
-import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
-import { WXYZBox } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { lazyLoader } from '@deathbeds/wxyz-core';
+import { WXYZBox } from '@deathbeds/wxyz-core';
 import { NAME, VERSION } from '..';
 import { SchemaFormModel } from '@deathbeds/jupyterlab-rjsf/lib/schemaform/model';
 

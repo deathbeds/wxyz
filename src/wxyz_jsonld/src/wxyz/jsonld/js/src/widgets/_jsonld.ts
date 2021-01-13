@@ -1,6 +1,6 @@
 import { Context } from 'jsonld/jsonld-spec';
 
-import { FnModel, TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { FnModel, TObject } from '@deathbeds/wxyz-core';
 
 export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
   T,

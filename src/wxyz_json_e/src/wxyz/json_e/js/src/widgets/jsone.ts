@@ -1,4 +1,4 @@
-import { FnModel, TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { FnModel, TObject } from '@deathbeds/wxyz-core';
 import { JSONExt } from '@lumino/coreutils';
 import jsone from 'json-e';
 

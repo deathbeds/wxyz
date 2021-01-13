@@ -3,8 +3,6 @@ import { Widget } from '@lumino/widgets';
 
 import { StyleGrid } from './stylegrid';
 
-import { SectionList } from '@lumino/datagrid/lib/sectionlist';
-
 export class SelectGrid extends StyleGrid {
   protected _scrollLock = false;
 
@@ -78,8 +76,9 @@ export class SelectGrid extends StyleGrid {
 
   viewExtent() {
     const { headerWidth, headerHeight, scrollX, scrollY } = this;
-    const rows: SectionList = (this as any)._rowSections;
-    const cols: SectionList = (this as any)._columnSections;
+
+    const rows = this.rowSections;
+    const cols = this.columnSections;
 
     const x = scrollX - headerWidth;
     const y = scrollY - headerHeight;

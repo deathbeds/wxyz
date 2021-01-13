@@ -1,7 +1,7 @@
 import * as widgets from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '..';
-import { WXYZ } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { WXYZ } from '@deathbeds/wxyz-core';
 
 export class FooModel extends widgets.DOMWidgetModel {
   static model_name = 'FooModel';

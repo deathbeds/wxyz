@@ -5,11 +5,7 @@ import * as controls from '@jupyter-widgets/controls';
 import { JSONExt } from '@lumino/coreutils';
 
 import { NAME, VERSION } from '..';
-import {
-  WXYZ,
-  WXYZBox,
-  createModel,
-} from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { WXYZ, WXYZBox, createModel } from '@deathbeds/wxyz-core';
 
 const CSS = {
   FILE_BOX: 'jp-WXYZ-FileBox',

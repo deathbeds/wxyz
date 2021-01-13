@@ -3,8 +3,8 @@ import {
   unpack_models as deserialize,
 } from '@jupyter-widgets/base';
 
-import { FnModel } from '@deathbeds/wxyz-core/lib/widgets/_base';
-import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
+import { FnModel } from '@deathbeds/wxyz-core';
+import { lazyLoader } from '@deathbeds/wxyz-core';
 
 const _nunjucks = lazyLoader(async () => {
   const nj = await import(/* webpackChunkName: "nunjucks" */ 'nunjucks');
