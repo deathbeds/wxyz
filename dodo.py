@@ -59,14 +59,16 @@ def task_release():
     )
 
 
-@create_after("docs")
-def task_all():
-    """like release, but also builds docs (no locks)"""
-    return dict(
-        file_dep=[P.SHA256SUMS, P.OK / "release"],
-        task_dep=["spell", "checklinks"],
-        actions=[lambda: print("OK to docs")],
-    )
+if not P.RUNNING_IN_CI:
+
+    @create_after("docs")
+    def task_all():
+        """like release, but also builds docs (no locks)"""
+        return dict(
+            file_dep=[P.SHA256SUMS, P.OK / "release"],
+            task_dep=["spell", "checklinks"],
+            actions=[lambda: print("OK to docs")],
+        )
 
 
 if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
