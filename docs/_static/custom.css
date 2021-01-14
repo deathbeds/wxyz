@@ -9,18 +9,18 @@
   --wxyz-font-size1: 1.25rem;
   --wxyz-font-size2: 1.75rem;
 }
-
-div:not(.prompt) > .highlight pre {
+/*
+div:not(.prompt) > *[class*='highlight'] pre {
   background-color: var(--wxyz-dark-code-bg) !important;
   padding: 1em !important;
-}
-
+} */
+/*
 .viewcode-block:target {
   background-color: var(--wxyz-dark-code-bg) !important;
   border: solid 4px var(--wxyz-brand-color1) !important;
   border-bottom: 0;
   border-top: 0;
-}
+} */
 
 .nbinput .prompt,
 .nboutput .prompt {
