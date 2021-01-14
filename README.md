@@ -8,20 +8,19 @@
 
 ## Install and Use
 
-| `pip or conda install W`|      `from wxyz.Y` | `import Z`                                                                                 | _powered by_    |
-| :---------------------- | -----------------: | :----------------------------------------------------------------------------------------- | ------------- |
-| `wxyz_core`             |             `core` | `JSON`<br/>`UnJSON`<br/>                                                                   | `jsonpointer`<br/>`jsonschema` |
-| `wxyz_datagrid`         |         `datagrid` | `DataGrid`<br/>`GridStyle`<br/>`SelectGrid`<br/>`StyleGrid`                                | `pandas`<br/>`wxyz_core` |
-| `wxyz_html`             |             `html` | `AlphaColorPicker`<br/>`File`<br/>`FileBox`<br/>`FullScreen`<br/>`JSONFile`<br/>`TextFile` | `wxyz_core` |
-| `wxyz_dvcs`             |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                         | `gitpython`<br/>`watchgod`<br/>`wxyz_core` |
-| `wxyz_json_e`           |           `json_e` | `JSONE`                                                                                    | `jsone`<br/>`wxyz_core` |
-| `wxyz_json_schema_form` | `json_schema_form` | `JSONSchemaForm`                                                                           | `wxyz_core` |
-| `wxyz_jsonld`           |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`                           | `pyld`<br/>`wxyz_core` |
-| `wxyz_lab`              |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal`<br/>`ModeInfo`          | `jupyterlab`<br/>`wxyz_core` |
-| `wxyz_svg`              |              `svg` | `SVGBox`                                                                                   | `wxyz_core` |
-| `wxyz_tpl_jinja`        |        `tpl_jinja` | `Template`                                                                                 | `jinja2`<br/>`wxyz_core` |
-| `wxyz_yaml`             |             `yaml` | `YAML`                                                                                     | `pyyaml`<br/>`wxyz_core` |
-
+| `pip or conda install W` |      `from wxyz.Y` | `import Z`                                                                                 | _powered by_                               |
+| :----------------------- | -----------------: | :----------------------------------------------------------------------------------------- | ------------------------------------------ |
+| `wxyz_core`              |             `core` | `JSON`<br/>`UnJSON`<br/>                                                                   | `jsonpointer`<br/>`jsonschema`             |
+| `wxyz_datagrid`          |         `datagrid` | `DataGrid`<br/>`GridStyle`<br/>`SelectGrid`<br/>`StyleGrid`                                | `pandas`<br/>`wxyz_core`                   |
+| `wxyz_html`              |             `html` | `AlphaColorPicker`<br/>`File`<br/>`FileBox`<br/>`FullScreen`<br/>`JSONFile`<br/>`TextFile` | `wxyz_core`                                |
+| `wxyz_dvcs`              |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                         | `gitpython`<br/>`watchgod`<br/>`wxyz_core` |
+| `wxyz_json_e`            |           `json_e` | `JSONE`                                                                                    | `jsone`<br/>`wxyz_core`                    |
+| `wxyz_json_schema_form`  | `json_schema_form` | `JSONSchemaForm`                                                                           | `wxyz_core`                                |
+| `wxyz_jsonld`            |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`                           | `pyld`<br/>`wxyz_core`                     |
+| `wxyz_lab`               |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal`<br/>`ModeInfo`          | `jupyterlab`<br/>`wxyz_core`               |
+| `wxyz_svg`               |              `svg` | `SVGBox`                                                                                   | `wxyz_core`                                |
+| `wxyz_tpl_jinja`         |        `tpl_jinja` | `Template`                                                                                 | `jinja2`<br/>`wxyz_core`                   |
+| `wxyz_yaml`              |             `yaml` | `YAML`                                                                                     | `pyyaml`<br/>`wxyz_core`                   |
 
 ### Strongly Discouraged
 

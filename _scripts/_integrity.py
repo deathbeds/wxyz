@@ -71,15 +71,6 @@ def test_readme_py_pkgs(pkg, readme_text):
 
 
 @pytest.mark.parametrize(
-    "pkg",
-    [P.TS_PACKAGE_CONTENT[p / "package.json"]["name"] for p in P.WXYZ_LAB_EXTENSIONS],
-)
-def test_readme_labext(pkg, readme_text):
-    """Are all of the labextensions mentioned in the readme?"""
-    assert pkg in readme_text
-
-
-@pytest.mark.parametrize(
     "pkg_name,pkg_path",
     [[setup_py.parent.name, setup_py.parent] for setup_py in P.PY_VERSION],
 )
