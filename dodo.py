@@ -686,13 +686,14 @@ def _make_widget_index(file_dep):
 
         toc["source"] = [
             "<!-- BEGIN MODULEGEN -->\n",
+            """```{toctree}\n""",
+            """:maxdepth: 3\n""",
             *[
-                "- [wxyz.{}](./widgets/{})\n".format(
-                    d.stem.replace("wxyz_", ""), d.stem
-                )
+                "widgets/{}\n".format(d.stem.replace("wxyz_", ""))
                 for d in file_dep
                 if d.suffix == ".rst"
             ],
+            "```\n",
             "<!-- END MODULEGEN -->\n",
         ]
         target.write_text(json.dumps(nb_json, indent=2), encoding="utf-8")
