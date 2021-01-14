@@ -23,6 +23,27 @@
 | `wxyz_yaml`             |             `yaml` | `YAML`                                                                                     | `pyyaml`<br/>`wxyz_core` |
 
 
+### Strongly Discouraged
+
+`wxyz_notebooks`, not **recommended for production use**, requires all of the
+`wxyz_*` packages.
+
+Some _`extra(s)` dangerous_ dependencies are available as well
+
+```bash
+pip install wxyz_notebooks              # wxyz_*
+pip install wxyz_notebooks[binder]      # everything used on binder demos, used in tests
+pip install wxyz_notebooks[thirdparty]  # some casually co-tested third-party packages
+pip install wxyz_notebooks[all]         # everything. it's a lot. good luck.
+```
+
+It is unknown whether the heavier dependencies will continue to work in the future
+and may carry _very specific version pins_ which might not be solveable with any old:
+
+- operating system
+- version of python
+- package manager
+
 ## Motivation
 
 `wxyz` contains a number of "missing pieces" from the [ipywidgets][] toolbox.
