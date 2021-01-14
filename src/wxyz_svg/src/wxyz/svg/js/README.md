@@ -61,19 +61,40 @@ pip install wxyz_svg
 
 ## Install and Use
 
-| `pip install W`         | `jupyter labextension install X`   |      `from wxyz.Y` | `import Z`                                                                                 |
-| :---------------------- | :--------------------------------- | -----------------: | :----------------------------------------------------------------------------------------- |
-| `wxyz_core`             | `@deathbeds/wxyz-core`             |             `core` | `JSON`<br/>`UnJSON`<br/>                                                                   |
-| `wxyz_datagrid`         | `@deathbeds/wxyz-datagrid`         |         `datagrid` | `DataGrid`<br/>`GridStyle`<br/>`SelectGrid`<br/>`StyleGrid`                                |
-| `wxyz_html`             | `@deathbeds/wxyz-html`             |             `html` | `AlphaColorPicker`<br/>`File`<br/>`FileBox`<br/>`FullScreen`<br/>`JSONFile`<br/>`TextFile` |
-| `wxyz_dvcs`             | `@deathbeds/wxyz-dvcs`             |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                         |
-| `wxyz_json_e`           | `@deathbeds/wxyz-json-e`           |           `json_e` | `JSONE`                                                                                    |
-| `wxyz_json_schema_form` | `@deathbeds/wxyz-json-schema-form` | `json_schema_form` | `JSONSchemaForm`                                                                           |
-| `wxyz_jsonld`           | `@deathbeds/wxyz-jsonld`           |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`                           |
-| `wxyz_lab`              | `@deathbeds/wxyz-lab`              |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal`<br/>`ModeInfo`          |
-| `wxyz_svg`              | `@deathbeds/wxyz-svg`              |              `svg` | `SVGBox`                                                                                   |
-| `wxyz_tpl_jinja`        | `@deathbeds/wxyz-tpl-nunjucks`     |        `tpl_jinja` | `Template`                                                                                 |
-| `wxyz_yaml`             | `@deathbeds/wxyz-yaml`             |             `yaml` | `YAML`                                                                                     |
+| `pip or conda install W` |      `from wxyz.Y` | `import Z`                                                                                 | _powered by_                               |
+| :----------------------- | -----------------: | :----------------------------------------------------------------------------------------- | ------------------------------------------ |
+| `wxyz_core`              |             `core` | `JSON`<br/>`UnJSON`<br/>                                                                   | `jsonpointer`<br/>`jsonschema`             |
+| `wxyz_datagrid`          |         `datagrid` | `DataGrid`<br/>`GridStyle`<br/>`SelectGrid`<br/>`StyleGrid`                                | `pandas`<br/>`wxyz_core`                   |
+| `wxyz_html`              |             `html` | `AlphaColorPicker`<br/>`File`<br/>`FileBox`<br/>`FullScreen`<br/>`JSONFile`<br/>`TextFile` | `wxyz_core`                                |
+| `wxyz_dvcs`              |             `dvcs` | `repos.repo_git.Git`<br/>`Watcher`                                                         | `gitpython`<br/>`watchgod`<br/>`wxyz_core` |
+| `wxyz_json_e`            |           `json_e` | `JSONE`                                                                                    | `jsone`<br/>`wxyz_core`                    |
+| `wxyz_json_schema_form`  | `json_schema_form` | `JSONSchemaForm`                                                                           | `wxyz_core`                                |
+| `wxyz_jsonld`            |           `jsonld` | `Compact`<br/>`Expand`<br/>`Flatten`<br/>`Frame`<br/>`Normalize`                           | `pyld`<br/>`wxyz_core`                     |
+| `wxyz_lab`               |              `lab` | `DockBox`<br/>`DockPop`<br/>`Editor`<br/>`Markdown`<br/>`Terminal`<br/>`ModeInfo`          | `jupyterlab`<br/>`wxyz_core`               |
+| `wxyz_svg`               |              `svg` | `SVGBox`                                                                                   | `wxyz_core`                                |
+| `wxyz_tpl_jinja`         |        `tpl_jinja` | `Template`                                                                                 | `jinja2`<br/>`wxyz_core`                   |
+| `wxyz_yaml`              |             `yaml` | `YAML`                                                                                     | `pyyaml`<br/>`wxyz_core`                   |
+
+### Strongly Discouraged
+
+`wxyz_notebooks`, not **recommended for production use**, requires all of the
+`wxyz_*` packages.
+
+Some _`extra(s)` dangerous_ dependencies are available as well
+
+```bash
+pip install wxyz_notebooks              # wxyz_*
+pip install wxyz_notebooks[binder]      # everything used on binder demos, used in tests
+pip install wxyz_notebooks[thirdparty]  # some casually co-tested third-party packages
+pip install wxyz_notebooks[all]         # everything. it's a lot. good luck.
+```
+
+It is unknown whether the heavier dependencies will continue to work in the future
+and may carry _very specific version pins_ which might not be solveable with any old:
+
+- operating system
+- version of python
+- package manager
 
 ## Motivation
 
@@ -82,6 +103,12 @@ It is made up of a number of packages for Python and the browser, in [this repo]
 While many create _pixels on the page_, some are focused around configurably
 transforming the [traitlets][] of one widget to another, in the _kernel_, the
 _browser_ or _both_.
+
+## Uninstall
+
+We're sad to see you go!
+
+Use `pip` or `conda` to uninstall any `wxyz_*` packages.
 
 ## Alternatives
 
