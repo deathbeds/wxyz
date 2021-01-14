@@ -352,6 +352,7 @@ SelectGrid
 SelectGrid
 SelectionSlider
 setstate
+solveable
 src
 str
 StyleGrid
