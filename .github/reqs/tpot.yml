@@ -19,3 +19,10 @@ dependencies:
   - tpot
   - umap-learn
   - yellowbrick
+  # not actually used in demos/tests, yet...
+  - bqplot
+  - datashader
+  - hvplot
+  - ipycytoscape
+  - ipylab
+  - jupyterlab-classic
