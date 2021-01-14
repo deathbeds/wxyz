@@ -5,20 +5,12 @@ import datetime
 import os
 import pathlib
 
-import nbsphinx
 from recommonmark.transform import AutoStructify
 
 import wxyz.core
 
 HERE = pathlib.Path(__file__).parent
 ROOT = HERE.parent
-
-nbsphinx.RST_TEMPLATE = nbsphinx.RST_TEMPLATE.replace(
-    """{% block input -%}""",
-    """{% block input -%}""" """{% if not cell.metadata.get("hide_input", False) -%}""",
-).replace("""{% endblock input %}""", """{%- endif -%}{%- endblock input %}""")
-
-nbsphinx_prompt_width = 0
 
 # -- Project information -----------------------------------------------------
 project = "WXYZ"
@@ -34,7 +26,7 @@ release = wxyz.core.__version__
 # -- General configuration ---------------------------------------------------
 extensions = [
     "recommonmark",
-    "nbsphinx",
+    "myst_nb",
     "sphinx_markdown_tables",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
