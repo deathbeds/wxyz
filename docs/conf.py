@@ -25,7 +25,6 @@ release = wxyz.core.__version__
 
 # -- General configuration ---------------------------------------------------
 extensions = [
-    "recommonmark",
     "myst_nb",
     "sphinx_markdown_tables",
     "sphinx.ext.autodoc",
@@ -75,7 +74,7 @@ language = "en"
 exclude_patterns = [".ipynb_checkpoints", "**/.ipynb_checkpoints", "**/~.*"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = "native"
+# pygments_style = "native"
 
 
 # -- Options for HTML output -------------------------------------------------

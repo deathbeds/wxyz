@@ -973,7 +973,15 @@ if not P.RUNNING_IN_CI:
         def _docs():
             p = None
             try:
-                p = subprocess.Popen(["sphinx-autobuild", P.DOCS, P.DOCS_OUT])
+                p = subprocess.Popen(
+                    [
+                        "sphinx-autobuild",
+                        "--re-ignore",
+                        r"'*\.ipynb_checkpoints*'",
+                        P.DOCS,
+                        P.DOCS_OUT,
+                    ]
+                )
                 p.wait()
             finally:
                 p.terminate()
