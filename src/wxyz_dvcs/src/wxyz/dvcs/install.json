@@ -1,0 +1,5 @@
+{
+  "packageManager": "python",
+  "packageName": "wxyz_dvcs",
+  "uninstallInstructions": "Use `pip/conda uninstall wxyz_dvcs`"
+}

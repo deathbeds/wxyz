@@ -1,21 +1,48 @@
 # `@deathbeds/wxyz-json-schema-form`
 
-[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_json_schema_form
 [pypi]: https://pypi.org/project/wxyz-json-schema-form
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-json-schema-form
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-json-schema-form
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 
 > experimental Jupyter widgets for JSON Schema Form
 
-## Installation
+**If you just want to _use_ `@deathbeds/wxyz-json-schema-form` in JupyterLab 3**
+
+```bash
+pip install wxyz_json_schema_form  # or conda, or mamba
+```
+
+## Developer Installation
+
+The public API of the widgets in `@deathbeds/wxyz-json-schema-form` are not yet fully documented.
+However, it's likely that you can:
+
+```bash
+jlpm add @deathbeds/wxyz-json-schema-form
+```
+
+and then, in your widget extension:
+
+```ts
+import wxyz from '@deathbeds/wxyz-json-schema-form';
+
+console.log(wxyz); // and see _something_
+```
+
+## Legacy Installation (Pre-JupyterLab 2)
+
+> _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
 >
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `nodejs >=12`
+> - `jupyterlab >=3,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-json-schema-form

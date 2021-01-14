@@ -11,7 +11,7 @@ env:
   RUNNING_IN_CI: 1
   RUNNING_IN_GITHUB: 1
   # increment to reset all caches
-  CACHE_EPOCH: 4
+  CACHE_EPOCH: 3005
   # python cruft
   PYTHONIOENCODING: utf-8
   PYTHONUNBUFFERED: 1
@@ -30,8 +30,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu]
-        python-version: [3.9]
-        lab: [2.2]
+        python-version: ['3.8']
+        lab: ['3.0']
         include:
           - os: ubuntu
             conda-subdir: linux-64
@@ -85,16 +85,29 @@ jobs:
             ${{ env.CACHE_EPOCH }}-yarn-
 
       - name: setup (pip)
-        run: pip install -U pip wheel
+        run: pip install -U pip wheel setuptools
 
       - name: setup (pip build)
         run: pip install -U -v -r .github/reqs/pip-build.txt
 
       - name: check (pip)
-        run: pip freeze && pip check
+        run: |
+          set -eux
+          mkdir -p build/pip
+          pip freeze | tee build/pip/dist.pip.freeze
+          pip check
+
+      - name: upload (pip freeze)
+        uses: actions/upload-artifact@v2
+        with:
+          name: wxyz ${{ github.run_number }} build pip freeze
+          path: ./build/pip/
+
+      - name: list
+        run: doit list --all --status
 
       - name: build
-        run: doit -n4 hash_dist || doit hash_dist
+        run: doit -n4 ts hash_dist || doit ts hash_dist
 
       - name: status
         run: doit list --all --status | sort
@@ -118,8 +131,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python-version: [3.6, 3.7, 3.8]
-        lab: [2.2]
+        python-version: ['3.6', '3.8']
+        lab: ['3.0']
         include:
           - os: ubuntu
             conda-subdir: linux-64
@@ -165,6 +178,7 @@ jobs:
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
 
       - name: cache (yarn)
+        if: ${{ matrix.lockname == 'docs' }}
         uses: actions/cache@v1
         with:
           path: .yarn-packages
@@ -183,6 +197,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           use-only-tar-bz2: true
+          condarc-file: .github/.condarc
           installer-url: |
             ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
 

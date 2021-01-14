@@ -51,12 +51,14 @@ class Reporter(ConsoleReporter):
     def outtro(self, task, emoji):
         """print out at the end of task"""
         title = task.title()
-        start, end = self._timings[title] = [
-            *self._timings[title],
-            datetime.now(),
-        ]
-        delta = end - start
-        sec = str(delta.seconds).rjust(7)
+        sec = "?".rjust(7)
+        if title in self._timings:
+            start, end = self._timings[title] = [
+                *self._timings[title],
+                datetime.now(),
+            ]
+            delta = end - start
+            sec = str(delta.seconds).rjust(7)
         self.outstream.write(f"{sec}s {emoji} {task.title()} {emoji}\n")
 
     def add_failure(self, task, exception):

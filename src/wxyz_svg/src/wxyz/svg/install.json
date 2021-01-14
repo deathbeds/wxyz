@@ -1,0 +1,5 @@
+{
+  "packageManager": "python",
+  "packageName": "wxyz_svg",
+  "uninstallInstructions": "Use `pip/conda uninstall wxyz_svg`"
+}

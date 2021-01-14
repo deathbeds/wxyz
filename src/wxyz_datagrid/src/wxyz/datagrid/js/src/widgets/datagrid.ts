@@ -4,7 +4,7 @@ import { BasicKeyHandler, BasicMouseHandler, DataGrid } from '@lumino/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
-import { WXYZBox } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { WXYZBox } from '@deathbeds/wxyz-core';
 import { WXYZJSONModel } from './pmodels/jsonmodel';
 
 const CSS = {

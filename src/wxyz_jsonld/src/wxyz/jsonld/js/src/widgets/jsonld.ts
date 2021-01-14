@@ -3,7 +3,7 @@ import { Context, Frame, JsonLdArray } from 'jsonld/jsonld-spec';
 
 import { JSONLDBase } from './_jsonld';
 
-import { TObject } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { TObject } from '@deathbeds/wxyz-core';
 
 export class ExpandModel extends JSONLDBase<
   TObject,

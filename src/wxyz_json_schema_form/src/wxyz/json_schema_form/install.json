@@ -1,0 +1,5 @@
+{
+  "packageManager": "python",
+  "packageName": "wxyz_json_schema_form",
+  "uninstallInstructions": "Use `pip/conda uninstall wxyz_json_schema_form`"
+}

@@ -40,7 +40,7 @@ https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz
 https://conda.anaconda.org/conda-forge/osx-64/python_abi-3.8-1_cp38.tar.bz2#5fe7757fd743e1c2d14d6170d4f53365
 https://conda.anaconda.org/conda-forge/noarch/six-1.15.0-pyh9f0ad1d_0.tar.bz2#1eec421f0f1f39e579e44e4a5ce646a2
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.2-pyhd8ed1ab_0.tar.bz2#f832c45a477c78bebd107098db465095
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.55.2-pyhd8ed1ab_0.tar.bz2#088a81d97e99f367d7003f97576f5753
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.56.0-pyhd8ed1ab_0.tar.bz2#63018cb9f2c144516a081028651ed4ed
 https://conda.anaconda.org/conda-forge/osx-64/certifi-2020.12.5-py38h50d1736_1.tar.bz2#fe528d606027dc2848f5a3577ab9b4eb
 https://conda.anaconda.org/conda-forge/osx-64/cffi-1.14.4-py38h979bc6b_1.tar.bz2#e648f242bf242deb64206104cb8cbf1f
 https://conda.anaconda.org/conda-forge/osx-64/chardet-4.0.0-py38h50d1736_1.tar.bz2#78e43861bd8d39b948feaa1715b22851
@@ -51,9 +51,9 @@ https://conda.anaconda.org/conda-forge/osx-64/markupsafe-1.1.1-py38h5406a74_3.ta
 https://conda.anaconda.org/conda-forge/osx-64/pycosat-0.6.3-py38h5406a74_1006.tar.bz2#ce1a2e7a97809ec51a0acc1d7e350544
 https://conda.anaconda.org/conda-forge/osx-64/pysocks-1.7.1-py38h50d1736_3.tar.bz2#cbf7ab149d29e578a094bcf99d2dbf09
 https://conda.anaconda.org/conda-forge/osx-64/pyyaml-5.3.1-py38h5406a74_2.tar.bz2#8bed52de67f180049bb55f39e9bbbc81
-https://conda.anaconda.org/conda-forge/osx-64/ruamel_yaml-0.15.80-py38h94c058a_1003.tar.bz2#472be675e5d51bec3616943e899db5a4
+https://conda.anaconda.org/conda-forge/osx-64/ruamel_yaml-0.15.80-py38h5406a74_1003.tar.bz2#0c301ad9ac06e28e115a9b7544f59ef2
 https://conda.anaconda.org/conda-forge/osx-64/brotlipy-0.7.0-py38h94c058a_1001.tar.bz2#e75b32a4f716a68f0437ad606f4078e1
-https://conda.anaconda.org/conda-forge/osx-64/cryptography-3.3.1-py38h6b4ec92_0.tar.bz2#3859e5520835a7d11468187fefcc2922
+https://conda.anaconda.org/conda-forge/osx-64/cryptography-3.3.1-py38h6b4ec92_1.tar.bz2#6abac77df622b0872db88b8c87da3300
 https://conda.anaconda.org/conda-forge/osx-64/doit-0.33.1-py38h32f6830_1.tar.bz2#15dba72dfa4453ebafe25a9fd526811a
 https://conda.anaconda.org/conda-forge/osx-64/setuptools-49.6.0-py38h50d1736_3.tar.bz2#af8a81ee7c2c09fc2884c800a044b616
 https://conda.anaconda.org/conda-forge/noarch/jinja2-2.11.2-pyh9f0ad1d_0.tar.bz2#e8a5d614d1a27bdba00059ca062a0551

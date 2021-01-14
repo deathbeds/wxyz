@@ -6,7 +6,7 @@
 import json
 import os
 
-# pylint: disable=expression-not-assigned,W0511
+# pylint: disable=expression-not-assigned,W0511,too-many-lines
 import shutil
 import subprocess
 import time
@@ -35,7 +35,7 @@ DOIT_CONFIG = {
 
 
 def task_release():
-    """run all tasks, except re-locking"""
+    """run all tasks, except re-locking and docs"""
     return dict(
         file_dep=[
             *sum(
@@ -47,12 +47,28 @@ def task_release():
             ),
             P.SHA256SUMS,
             P.OK / "integrity",
-            P.OK / "labextensions",
             P.OK / "nbtest",
             P.OK / "robot",
         ],
-        actions=[lambda: print("OK to release")],
+        targets=[P.OK / "release"],
+        actions=[
+            U.okit("release", remove=True),
+            lambda: print("OK to release"),
+            U.okit("release"),
+        ],
     )
+
+
+if not P.RUNNING_IN_CI:
+
+    @create_after("docs")
+    def task_all():
+        """like release, but also builds docs (no locks)"""
+        return dict(
+            file_dep=[P.SHA256SUMS, P.OK / "release"],
+            task_dep=["spell", "checklinks"],
+            actions=[lambda: print("OK to docs")],
+        )
 
 
 if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
@@ -103,8 +119,17 @@ if not P.TESTING_IN_CI:
 
     def task_setup_ts():
         """set up typescript environment"""
+        dep_types = ["devDependencies", "dependencies", "peerDependencies"]
         return dict(
-            file_dep=[*P.TS_PACKAGE, P.ROOT_PACKAGE],
+            uptodate=[
+                config_changed(
+                    {
+                        pkg["name"]: {dep: pkg.get(dep) for dep in dep_types}
+                        for pkg in P.TS_PACKAGE_CONTENT.values()
+                    }
+                )
+            ],
+            file_dep=[P.ROOT_PACKAGE],
             targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[
                 ["jlpm", "--prefer-offline", "--ignore-optional"],
@@ -119,9 +144,10 @@ if P.RUNNING_IN_CI:
         """CI: setup python packages from wheels"""
         return dict(
             file_dep=[*P.WHEELS.values()],
-            targets=[P.OK / "setup_py"],
+            targets=[P.OK / "setup_py", P.OK / "setup_lab"],
             actions=[
                 U.okit("setup_py", remove=True),
+                U.okit("setup_lab", remove=True),
                 [
                     *P.PIP,
                     "install",
@@ -132,11 +158,79 @@ if P.RUNNING_IN_CI:
                 [*P.PIP, "freeze"],
                 [*P.PIP, "check"],
                 U.okit("setup_py"),
+                ["jupyter", "labextension", "list"],
+                U.okit("setup_lab"),
             ],
         )
 
 
 else:
+
+    def _make_ext_data_files(ext):
+        """ensure a single extension's data_files are set up properly"""
+        wxyz_name = ext.parent.name
+        py_pkg = ext.parent.parent.parent.parent
+        package_json = ext / "package.json"
+        package_data = P.TS_PACKAGE_CONTENT[package_json]
+        setup_py = py_pkg / "setup.py"
+        manifest_in = py_pkg / "MANIFEST.in"
+        install_json = ext.parent / "install.json"
+
+        yield dict(
+            name=f"{wxyz_name}:setup.py",
+            uptodate=[config_changed(P.PY_SETUP_TEXT)],
+            file_dep=[package_json],
+            targets=[setup_py],
+            actions=[
+                lambda: [
+                    setup_py.write_text(
+                        P.PY_SETUP_TEMPLATE.render(wxyz_name=wxyz_name, **package_data)
+                    ),
+                    None,
+                ][-1],
+                ["isort", setup_py],
+                ["black", setup_py],
+            ],
+        )
+
+        yield dict(
+            name=f"{wxyz_name}:manifest.in",
+            uptodate=[config_changed(P.MANIFEST_TEXT)],
+            file_dep=[package_json],
+            targets=[manifest_in],
+            actions=[
+                lambda: [
+                    manifest_in.write_text(
+                        P.MANIFEST_TEMPLATE.render(wxyz_name=wxyz_name, **package_data)
+                    ),
+                    None,
+                ][-1]
+            ],
+        )
+
+        yield dict(
+            name=f"{wxyz_name}:install.json",
+            uptodate=[config_changed(P.INSTALL_JSON_TEXT)],
+            file_dep=[package_json],
+            targets=[install_json],
+            actions=[
+                lambda: [
+                    install_json.write_text(
+                        P.INSTALL_JSON_TEMPLATE.render(
+                            wxyz_name=wxyz_name, **package_data
+                        )
+                    ),
+                    None,
+                ][-1]
+            ],
+        )
+
+    if not P.RUNNING_IN_BINDER:
+
+        def task_data_files():
+            """ensure data_files are set up properly"""
+            for ext in P.WXYZ_LAB_EXTENSIONS:
+                yield from _make_ext_data_files(ext)
 
     def task_setup_py_dev():
         """ensure local packages are installed and editable"""
@@ -157,7 +251,13 @@ else:
 
         yield dict(
             name="pip",
-            file_dep=[P.PY_DEV_REQS],
+            file_dep=[
+                P.PY_DEV_REQS,
+                *[
+                    p.parent / "labextension" / "package.json"
+                    for p in P.WXYZ_LAB_EXTENSIONS
+                ],
+            ],
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
@@ -172,6 +272,27 @@ else:
                 [*P.PIP, "freeze"],
                 [*P.PIP, "check"],
                 U.okit("setup_py"),
+            ],
+        )
+
+        yield dict(
+            name="lab",
+            file_dep=[P.PY_DEV_REQS, P.OK / "setup_py"],
+            targets=[P.OK / "setup_lab"],
+            actions=[
+                U.okit("setup_lab", remove=True),
+                *[
+                    [
+                        "jupyter",
+                        "labextension",
+                        "develop",
+                        "--overwrite",
+                        f"wxyz.{p.parent.name}",
+                    ]
+                    for p in P.WXYZ_LAB_EXTENSIONS
+                ],
+                ["jupyter", "labextension", "list"],
+                U.okit("setup_lab"),
             ],
         )
 
@@ -296,14 +417,18 @@ if not P.RUNNING_IN_CI:
 def _make_pydist(setup_py):
     """build python release artifacts"""
     pkg = setup_py.parent
+    src = [*(pkg / "src/wxyz").glob("*")][0]
     file_dep = [
         setup_py,
         pkg / "setup.cfg",
         pkg / "MANIFEST.in",
-        [*(pkg / "src/wxyz").glob("*")][0] / "js" / P.LICENSE_NAME,
         pkg / "README.md",
+        src / "js" / P.LICENSE_NAME,
         *sorted((pkg / "src").rglob("*.py")),
     ]
+
+    if src.name != "notebooks":
+        file_dep += [src / "labextension/package.json"]
 
     def _action(output):
         """build a single task so we can run in the cwd"""
@@ -327,35 +452,55 @@ def _make_pydist(setup_py):
     )
 
 
-def task_dist():
-    """make pypi distributions"""
-    for pys in P.PY_SETUP:
-        yield _make_pydist(pys)
+if not P.TESTING_IN_CI:
+
+    def task_dist():
+        """make pypi distributions"""
+        for pys in P.PY_SETUP:
+            yield _make_pydist(pys)
+
+    def task_hash_dist():
+        """make a hash bundle of the dist artifacts"""
+
+        def _run_hash():
+            # mimic sha256sum CLI
+            if P.SHA256SUMS.exists():
+                P.SHA256SUMS.unlink()
+
+            lines = []
+
+            for p in P.HASH_DEPS:
+                if p.parent != P.DIST:
+                    tgt = P.DIST / p.name
+                    if tgt.exists():
+                        tgt.unlink()
+                    shutil.copy2(p, tgt)
+                lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
+
+            output = "\n".join(lines)
+            print(output)
+            P.SHA256SUMS.write_text(output)
+
+        return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
-def task_hash_dist():
-    """make a hash bundle of the dist artifacts"""
+def _make_lab_ext_build(ext):
+    target = ext.parent / "labextension" / "package.json"
 
-    def _run_hash():
-        # mimic sha256sum CLI
-        if P.SHA256SUMS.exists():
-            P.SHA256SUMS.unlink()
-
-        lines = []
-
-        for p in P.HASH_DEPS:
-            if p.parent != P.DIST:
-                tgt = P.DIST / p.name
-                if tgt.exists():
-                    tgt.unlink()
-                shutil.copy2(p, tgt)
-            lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
-
-        output = "\n".join(lines)
-        print(output)
-        P.SHA256SUMS.write_text(output)
-
-    return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
+    yield dict(
+        name=f"""ext:{ext.parent.name}""".replace("/", "_"),
+        file_dep=[
+            ext / "lib" / ".tsbuildinfo",
+            ext / "README.md",
+            ext / "LICENSE.txt",
+            *ext.rglob("style/*.css"),
+            ext / "package.json",
+        ],
+        actions=[
+            lambda: subprocess.call([*P.LAB_EXT, "build", "."], cwd=str(ext)) == 0
+        ],
+        targets=[target],
+    )
 
 
 if not P.TESTING_IN_CI:
@@ -363,21 +508,32 @@ if not P.TESTING_IN_CI:
     def task_ts():
         """build typescript components"""
 
-        file_dep = [
-            P.YARN_LOCK,
-            *P.TS_PACKAGE,
-            *P.TS_READMES,
-            *P.TS_LICENSES,
-        ]
+        file_dep = [P.YARN_LOCK, *P.TS_PACKAGE, *P.ALL_TS]
 
         if not P.BUILDING_IN_CI:
             file_dep += [P.OK / "prettier", P.OK / "eslint"]
 
-        return dict(
+        yield dict(
+            name="tsc",
             file_dep=file_dep,
-            targets=[*P.TS_TARBALLS],
-            actions=[["jlpm", "build"]],
+            targets=P.TS_ALL_BUILD,
+            actions=[["jlpm", "build:ts"]],
         )
+
+        yield dict(
+            name="pack",
+            file_dep=[
+                P.TS_META_BUILD,
+                *P.TS_READMES,
+                *P.TS_LICENSES,
+            ],
+            actions=[["jlpm", "build:tgz"]],
+            targets=[*P.TS_TARBALLS],
+        )
+
+        for ext in P.WXYZ_LAB_EXTENSIONS:
+            for task in _make_lab_ext_build(ext):
+                yield task
 
 
 if not P.BUILDING_IN_CI:
@@ -413,75 +569,6 @@ if not P.BUILDING_IN_CI:
                 )
                 == 0,
                 U.okit("nbtest"),
-            ],
-        )
-
-
-if P.RUNNING_IN_BINDER:
-    APP_DIR = ["--debug"]
-else:
-    APP_DIR = ["--debug", "--app-dir", P.LAB]
-
-
-if not P.BUILDING_IN_CI:
-
-    def task_lab_extensions():
-        """set up local jupyterlab"""
-
-        file_dep = [*P.TS_PACKAGE, P.LABEXT_TXT]
-        extensions = [*P.THIRD_PARTY_EXTENSIONS]
-        if P.RUNNING_IN_CI:
-            tarballs = [p for p in P.DIST.glob("*.tgz") if "wxyz-meta" not in p.name]
-            extensions += tarballs
-            file_dep += tarballs
-        else:
-            extensions += P.WXYZ_LAB_EXTENSIONS
-            file_dep += P.TS_TARBALLS
-
-        return dict(
-            file_dep=file_dep,
-            targets=[P.OK / "labextensions"],
-            actions=[
-                U.okit("labextensions", True),
-                [
-                    *P.JPY,
-                    "labextension",
-                    "install",
-                    *extensions,
-                    "--no-build",
-                    *APP_DIR,
-                ],
-                [*P.JPY, "labextension", "list"],
-                U.okit("labextensions"),
-            ],
-        )
-
-
-if not P.BUILDING_IN_CI:
-
-    def task_lab_build():
-        """build JupyterLab web application"""
-
-        args = [*P.JPY, "lab", "build", "--dev-build=False", *APP_DIR]
-
-        # binder runs out of memory
-        if P.RUNNING_IN_BINDER:
-            args += ["--minimize=False"]
-        else:
-            args += ["--minimize=True"]
-
-        file_dep = [P.OK / "labextensions"]
-
-        if not P.TESTING_IN_CI:
-            file_dep += P.TS_TARBALLS
-
-        return dict(
-            file_dep=file_dep,
-            targets=[P.OK / "lab", P.LAB_INDEX],
-            actions=[
-                U.okit("lab", True),
-                args,
-                U.okit("lab"),
             ],
         )
 
@@ -817,47 +904,70 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("pytest-check-link
 
 if not P.RUNNING_IN_CI:
 
-    def task_watch():
-        """watch typescript sources, launch lab, rebuilding as files change"""
-
+    def _make_lab(watch=False):
         def _lab():
-            print(">>> Starting typescript watcher...", flush=True)
-            ts = subprocess.Popen(["jlpm", "watch"])
+            if watch:
+                print(">>> Starting typescript watcher...", flush=True)
+                ts = subprocess.Popen(["jlpm", "watch"])
 
-            print(">>> Waiting a bit to start lab watcher...", flush=True)
-            time.sleep(10)
-            print(">>> Starting lab watcher...", flush=True)
+                ext_watchers = [
+                    subprocess.Popen([*P.LAB_EXT, "watch", "."], cwd=str(p))
+                    for p in P.WXYZ_LAB_EXTENSIONS
+                ]
+
+                print(">>> Waiting a bit to JupyterLab...", flush=True)
+                time.sleep(3)
+            print(">>> Starting JupyterLab...", flush=True)
             lab = subprocess.Popen(
-                [*P.JPY, "lab", "--watch", "--no-browser", "--debug", *APP_DIR],
+                [*P.JPY, "lab", "--no-browser", "--debug"],
                 stdin=subprocess.PIPE,
             )
 
             try:
-                print(">>> Waiting for lab to exit (Ctrl+C)...", flush=True)
+                print(">>> Waiting for JupyterLab to exit (Ctrl+C)...", flush=True)
                 lab.wait()
             except KeyboardInterrupt:
                 print(
-                    ">>> Watch canceled by user!",
+                    f""">>> {"Watch" if watch else "Run"} canceled by user!""",
                     flush=True,
                 )
             finally:
                 print(">>> Stopping watchers...", flush=True)
-                ts.terminate()
+                if watch:
+                    [x.terminate() for x in ext_watchers]
+                    ts.terminate()
                 lab.terminate()
                 lab.communicate(b"y\n")
-                ts.wait()
-                lab.wait()
-                print(
-                    ">>> Stopped watchers! maybe check process monitor...", flush=True
-                )
+                if watch:
+                    ts.wait()
+                    lab.wait()
+                    [x.wait() for x in ext_watchers]
+                    print(
+                        ">>> Stopped watchers! maybe check process monitor...",
+                        flush=True,
+                    )
 
             return True
+
+        return _lab
+
+    def task_lab():
+        """start JupyterLab, no funny stuff (Note: Single Ctrl+C stops)"""
+        yield dict(
+            name="serve",
+            uptodate=[lambda: False],
+            file_dep=[P.OK / "setup_lab"],
+            actions=[PythonInteractiveAction(_make_lab())],
+        )
+
+    def task_watch():
+        """watch typescript sources, launch JupyterLab, rebuilding as files change"""
 
         yield dict(
             name="lab",
             uptodate=[lambda: False],
-            file_dep=[P.OK / "lab"],
-            actions=[PythonInteractiveAction(_lab)],
+            file_dep=[P.OK / "setup_lab"],
+            actions=[PythonInteractiveAction(_make_lab(watch=True))],
         )
 
         def _docs():
@@ -872,6 +982,7 @@ if not P.RUNNING_IN_CI:
         if shutil.which("sphinx-autobuild"):
             yield dict(
                 name="docs",
+                doc="serve docs, watch (some) sources, livereload (when it can)",
                 uptodate=[lambda: False],
                 file_dep=[P.DOCS_BUILDINFO],
                 actions=[PythonInteractiveAction(_docs)],
@@ -883,7 +994,8 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
     def task_binder():
         """get to a working interactive state"""
         return dict(
-            file_dep=[P.OK / "lab", P.OK / "setup_py"], actions=[lambda: print("OK")]
+            file_dep=[P.OK / "setup_lab", P.OK / "setup_py"],
+            actions=[lambda: print("OK")],
         )
 
 
@@ -901,9 +1013,8 @@ if not P.BUILDING_IN_CI:
             *P.ATEST_PY,
             *P.ALL_TS,
             *P.ALL_IPYNB,
-            P.LAB_INDEX,
             P.SCRIPTS / "_atest.py",
-            P.OK / "lab",
+            P.OK / "setup_lab",
         ]
 
         if not P.RUNNING_IN_CI:

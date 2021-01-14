@@ -1,0 +1,5 @@
+{
+  "packageManager": "python",
+  "packageName": "wxyz_tpl_jinja",
+  "uninstallInstructions": "Use `pip/conda uninstall wxyz_tpl_jinja`"
+}

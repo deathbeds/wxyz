@@ -2,9 +2,9 @@
 
 Get [Mambaforge][]. Create/activate a dev environment from a [lockfile][], list tasks.
 
-    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.8-2.2.lock
+    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.8-3.0.lock
     source activate envs/docs
-    doit list
+    doit list --status
 
 [mambaforge]: https://github.com/conda-forge/miniforge/releases
 [lockfile]: ./.github/locks
@@ -68,8 +68,10 @@ Code style is enforced by a number of python, typescript and miscellaneous files
 ## Updating lockfiles
 
 The lockfiles in `.github/locks` are created in a separate environment from the main
-development environment to avoid a `conda` dependency.
+development environment to avoid a `conda` dependency. `mamba` is recommended, as
+many solutions are run.
 
     mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.8-.lock
     source envs/lock/bin/activate
-    doit lock
+    doit list --all --status
+    CONDA_EXE=mamba CONDARC=.github/.condarc doit -n8 lock

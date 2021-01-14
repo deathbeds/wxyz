@@ -3,7 +3,7 @@ import { Widget } from '@lumino/widgets';
 
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
-import { NAME, VERSION } from '.';
+import { NAME, VERSION } from './constants';
 
 import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 

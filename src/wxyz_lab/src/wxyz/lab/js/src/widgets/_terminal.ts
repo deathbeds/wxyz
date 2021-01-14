@@ -1,7 +1,7 @@
 import { Widget } from '@lumino/widgets';
 import { Signal } from '@lumino/signaling';
 import { Message } from '@lumino/messaging';
-import { JupyterPhosphorWidget } from '@jupyter-widgets/base/lib/widget';
+import { JupyterPhosphorWidget } from '@jupyter-widgets/base';
 
 export class TerminalPhosphorWidget extends JupyterPhosphorWidget {
   private _resized = new Signal<TerminalPhosphorWidget, Widget.ResizeMessage>(

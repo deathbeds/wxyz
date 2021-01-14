@@ -3,17 +3,23 @@ import { JSONExt } from '@lumino/coreutils';
 import { BoxView } from '@jupyter-widgets/controls';
 
 import { RenderedMarkdown } from '@jupyterlab/rendermime';
-import * as _schemaform from '@deathbeds/jupyterlab-rjsf/lib/schemaform';
 import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 
-import { lazyLoader } from '@deathbeds/wxyz-core/lib/widgets/lazy';
-import { WXYZBox } from '@deathbeds/wxyz-core/lib/widgets/_base';
-import { NAME, VERSION } from '..';
-import { SchemaFormModel } from '@deathbeds/jupyterlab-rjsf/lib/schemaform/model';
+import { WXYZBox } from '@deathbeds/wxyz-core';
+import { NAME, VERSION } from '../constants';
 
-const _dbjrjsf = lazyLoader(
-  async () => await import('@deathbeds/jupyterlab-rjsf/lib/schemaform')
-);
+/* order matters (maybe) on these imports, and might be causing downstream errors
+  akin to
+  https://github.com/webpack/webpack/issues/11444#issuecomment-691334372
+*/
+// first the upstream
+import rjsf from '@rjsf/core';
+// the default...
+import {
+  SchemaForm,
+  ALL_CUSTOM_UI,
+  SchemaFormModel,
+} from '@deathbeds/jupyterlab-rjsf';
 
 const FORM_CLASS = 'jp-WXYZ-JSONSchemaForm';
 const INNER_CLASS = 'jp-WXYZ-JSONSchemaForm-Inner';
@@ -67,28 +73,27 @@ export class JSONSchemaFormModel extends WXYZBox {
   set errors(errors) {
     this.set('errors', errors);
   }
+
+  get theRJSF() {
+    return rjsf;
+  }
 }
 
 export class JSONSchemaFormView extends BoxView {
   private _idPrefix: string;
   private _lastEmitted: any;
-  private _form: _schemaform.SchemaForm;
+  private _form: SchemaForm;
   static _rendermime: IRenderMimeRegistry;
 
   render() {
     this._idPrefix = `id-wxyz-json-schema-form-${Private.nextId()}`;
     this.pWidget.addClass(FORM_CLASS);
-    _dbjrjsf
-      .load()
-      .then(() => {
-        this.m.on(
-          'change:schema change:ui_schema change:value',
-          this.rerender,
-          this
-        );
-        this.rerender().catch(console.warn);
-      })
-      .catch(console.warn);
+    this.m.on(
+      'change:schema change:ui_schema change:value',
+      this.rerender,
+      this
+    );
+    setTimeout(async () => await this.rerender(), 100);
   }
 
   get m() {
@@ -103,8 +108,8 @@ export class JSONSchemaFormView extends BoxView {
     const { m } = this;
     const { formData, schema, uiSchema } = m;
 
-    if (!this._form) {
-      return await this.initForm();
+    if (this._form == null) {
+      await this.initForm();
     }
 
     const changed = m.changedAttributes();
@@ -141,12 +146,7 @@ export class JSONSchemaFormView extends BoxView {
 
   async initForm() {
     const { m, onChange, idPrefix } = this;
-    const { SchemaForm } = _dbjrjsf.get();
     const { formData, schema, uiSchema } = m;
-
-    const { ALL_CUSTOM_UI } = await import(
-      '@deathbeds/jupyterlab-rjsf/lib/fields'
-    );
 
     let options: SchemaFormModel.IOptions = {};
 
@@ -166,7 +166,7 @@ export class JSONSchemaFormView extends BoxView {
         uiSchema,
         onChange,
         idPrefix,
-        ...ALL_CUSTOM_UI,
+        ...(await ALL_CUSTOM_UI()),
       },
       options
     );

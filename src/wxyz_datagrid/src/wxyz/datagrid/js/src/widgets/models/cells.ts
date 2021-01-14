@@ -2,7 +2,7 @@ import { CellRenderer, TextRenderer } from '@lumino/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 
-import { WXYZ } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { WXYZ } from '@deathbeds/wxyz-core';
 
 export interface IChildChangedFunc {
   (): void;

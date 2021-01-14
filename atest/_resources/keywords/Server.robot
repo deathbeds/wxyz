@@ -33,7 +33,7 @@ Setup Server and Browser
     Set Global Variable    ${SERVER}    ${server}
     Open JupyterLab
     ${script} =    Get Element Attribute    id:jupyter-config-data    innerHTML
-    ${config} =    Evaluate    __import__("json").loads("""\n${script.replace("\\", "\\\\")}\n""")
+    ${config} =    Evaluate    __import__("json").loads(r"""${script}""")
     Set Global Variable    ${PAGE CONFIG}    ${config}
     Set Global Variable    ${LAB VERSION}    ${config["appVersion"]}
 
@@ -41,7 +41,7 @@ Create Lab Launch Command
     [Arguments]    ${root}
     [Documentation]    Create a JupyterLab CLI shell string, escaping for traitlets
     ${WORKSPACES DIR} =    Set Variable    ${OUTPUT DIR}${/}workspaces
-    ${app args} =    Set Variable    --no-browser --debug --NotebookApp.base_url\='${URL PREFIX}' --port\=${PORT} --NotebookApp.token\='${TOKEN}'
+    ${app args} =    Set Variable    --no-browser --debug --ServerApp.base_url\='${URL PREFIX}' --port\=${PORT} --ServerApp.token\='${TOKEN}' --ExtensionApp.open_browser\=False --ServerApp.open_browser\=False
     ${path args} =    Set Variable    --LabApp.user_settings_dir\='${SETTINGS DIR.replace('\\', '\\\\')}' --LabApp.workspaces_dir\='${WORKSPACES DIR.replace('\\', '\\\\')}'
     ${cmd} =    Set Variable
     ...    jupyter-lab ${app args} ${path args}
@@ -49,8 +49,8 @@ Create Lab Launch Command
 
 Create Notebok Server Config
     [Arguments]    ${home}
-    [Documentation]    Copies in notebook server config file to disables npm/build checks
-    Copy File    ${FIXTURES}${/}${NBSERVER CONF}    ${home}${/}${NBSERVER CONF}
+    [Documentation]    Copies in jupyter server config file to disable npm/build checks
+    Copy File    ${FIXTURES}${/}${JPSERVER CONF}    ${home}${/}${JPSERVER CONF}
 
 Initialize User Settings
     Set Suite Variable    ${SETTINGS DIR}    ${OUTPUT DIR}${/}user-settings    children=${True}
@@ -58,6 +58,9 @@ Initialize User Settings
     ...    {"styleActiveLine": true}
     Create File    ${SETTINGS DIR}${/}@jupyterlab${/}extensionmanager-extension${/}plugin.jupyterlab-settings
     ...    {"enabled": false}
+    Create File
+    ...    ${SETTINGS DIR}${/}@jupyterlab${/}apputils-extension${/}palette.jupyterlab-settings
+    ...    {"modal": false}
 
 Tear Down Everything
     Close All Browsers

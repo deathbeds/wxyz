@@ -1,4 +1,4 @@
-import { WXYZ } from '@deathbeds/wxyz-core/lib/widgets/_base';
+import { WXYZ } from '@deathbeds/wxyz-core';
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 import { DataGridModel, DataGridView } from './datagrid';
 import { StyleGrid } from './pwidgets/stylegrid';

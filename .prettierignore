@@ -1,10 +1,15 @@
 .conda-packages/
+.yarn-packages/
+*.db
+*.xml
 **/__pycache__/
 **/.pytest_cache/
+**/*.egg-info/
 **/build/
 **/dist/
+**/labextension/
 **/lib/
 **/node_modules/
 **/notebooks/Design/
+atest/output/
 envs/
-lab/

@@ -33,7 +33,7 @@ https://conda.anaconda.org/conda-forge/noarch/pycparser-2.20-pyh9f0ad1d_2.tar.bz
 https://conda.anaconda.org/conda-forge/win-64/python_abi-3.8-1_cp38.tar.bz2#18ced0580562dca07ae039050748cc50
 https://conda.anaconda.org/conda-forge/noarch/six-1.15.0-pyh9f0ad1d_0.tar.bz2#1eec421f0f1f39e579e44e4a5ce646a2
 https://conda.anaconda.org/conda-forge/noarch/toml-0.10.2-pyhd8ed1ab_0.tar.bz2#f832c45a477c78bebd107098db465095
-https://conda.anaconda.org/conda-forge/noarch/tqdm-4.55.2-pyhd8ed1ab_0.tar.bz2#088a81d97e99f367d7003f97576f5753
+https://conda.anaconda.org/conda-forge/noarch/tqdm-4.56.0-pyhd8ed1ab_0.tar.bz2#63018cb9f2c144516a081028651ed4ed
 https://conda.anaconda.org/conda-forge/win-64/certifi-2020.12.5-py38haa244fe_1.tar.bz2#0ff61c01f4afa91e32fa891796268c46
 https://conda.anaconda.org/conda-forge/win-64/cffi-1.14.4-py38hd8c33c5_1.tar.bz2#2eafaa5f8f4f7e43cfb6dbee50bcb792
 https://conda.anaconda.org/conda-forge/win-64/chardet-4.0.0-py38haa244fe_1.tar.bz2#9bbdbfa107dd56c65935bc1843dcce87
@@ -44,11 +44,11 @@ https://conda.anaconda.org/conda-forge/win-64/markupsafe-1.1.1-py38h294d835_3.ta
 https://conda.anaconda.org/conda-forge/win-64/pycosat-0.6.3-py38h294d835_1006.tar.bz2#57dd729b2ae969adabb336759879d678
 https://conda.anaconda.org/conda-forge/win-64/pywin32-228-py38h294d835_1.tar.bz2#fae86b45408edef485cbda0e9ef466c8
 https://conda.anaconda.org/conda-forge/win-64/pyyaml-5.3.1-py38h294d835_2.tar.bz2#cd5961cdcb5862492194d116738da5f6
-https://conda.anaconda.org/conda-forge/win-64/ruamel_yaml-0.15.80-py38hab1e662_1003.tar.bz2#9711d987f308f1bbe57cda60be49d520
+https://conda.anaconda.org/conda-forge/win-64/ruamel_yaml-0.15.80-py38h294d835_1003.tar.bz2#e3353ee69348585b5f5df2c9b70cddad
 https://conda.anaconda.org/conda-forge/win-64/win_inet_pton-1.1.0-py38haa244fe_2.tar.bz2#6ebb62fd7f9ad919a8e43548e1163130
 https://conda.anaconda.org/conda-forge/win-64/wincertstore-0.2-py38haa244fe_1006.tar.bz2#3d25df9e81ec24db2d91b7b477860a01
 https://conda.anaconda.org/conda-forge/win-64/brotlipy-0.7.0-py38hab1e662_1001.tar.bz2#2d6f5a730bc180307463869c63ac0cdd
-https://conda.anaconda.org/conda-forge/win-64/cryptography-3.3.1-py38hd8c33c5_0.tar.bz2#b950bc33679bdeac0f8e2a68a0f1aa3c
+https://conda.anaconda.org/conda-forge/win-64/cryptography-3.3.1-py38hd8c33c5_1.tar.bz2#f621eec16739574c0ee07eaebd94069e
 https://conda.anaconda.org/conda-forge/win-64/menuinst-1.4.16-py38h32f6830_1.tar.bz2#924d596c7cc3f4967844902456fd1bdb
 https://conda.anaconda.org/conda-forge/win-64/pysocks-1.7.1-py38haa244fe_3.tar.bz2#8fac4219dff4b3204e424f219660565c
 https://conda.anaconda.org/conda-forge/win-64/setuptools-49.6.0-py38haa244fe_3.tar.bz2#c104ed0b1f9f55efcf872c4af2a6036a

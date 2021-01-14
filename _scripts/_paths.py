@@ -49,6 +49,8 @@ CONDA_PLATFORM = "win-64" if WIN else "osx-64" if OSX else "linux-64"
 
 CONDA_CMD = "mamba" if not WIN and shutil.which("mamba") else "conda"
 JLPM = shutil.which("jlpm")
+LERNA_EXEC = [JLPM, "lerna", "exec", "--stream"]
+LAB_EXT = ["jupyter", "labextension"]
 
 PY_VER = "".join(map(str, sys.version_info[:2]))
 
@@ -111,6 +113,7 @@ SRC_IGNORE_PATTERNS = [
     "node_modules/",
     "*.egg-info/",
     "output/",
+    "labextension/",
 ]
 # these are actual packages
 ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
@@ -164,7 +167,6 @@ def ALL_SPELL_DOCS():
 SPELL_LANGS = "en-GB,en_US"
 DICTIONARY = DOCS / "dictionary.txt"
 ROBOT_OUT = TEST_OUT / "robot"
-LAB = ROOT / "lab"
 
 ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
@@ -216,18 +218,12 @@ TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in P
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
-LABEXT_TXT = ROOT / ".binder" / "labex.txt"
-THIRD_PARTY_EXTENSIONS = sorted(
-    [
-        line.strip()
-        for line in LABEXT_TXT.read_text(encoding="utf-8").strip().splitlines()
-        if line.strip() and not line.strip().startswith("#")
-    ]
-)
+TS_META_BUILD = ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
+TS_ALL_BUILD = [p / "lib" / ".tsbuildinfo" for p in TS_SRC]
+
 WXYZ_LAB_EXTENSIONS = [
     tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
 ]
-ALL_LABEXTENSIONS = [*THIRD_PARTY_EXTENSIONS, *WXYZ_LAB_EXTENSIONS]
 ALL_TS = sorted(
     sum(
         [
@@ -245,9 +241,6 @@ TS_TARBALLS = [
     / f"""deathbeds-{tsp_json["name"].split("/")[-1]}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
-
-
-LAB_INDEX = LAB / "static" / "index.html"
 
 SDISTS = {
     pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
@@ -316,8 +309,11 @@ ALL_ROBOT = [*ATEST.rglob("*.robot")]
 PY_README_TXT = """
 # `{{ metadata.name }}`
 
-[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif %}
+[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif
+%} [![docs-badge][docs]]
 
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 [pypi-badge]: https://img.shields.io/pypi/v/{{ metadata.name }}
 [pypi]: https://pypi.org/project/{{ metadata.name.replace("_", "-") }}
 {% if js_pkg %}
@@ -331,40 +327,62 @@ PY_README_TXT = """
 
 > Prerequisites:
 > - `python {{ options.python_requires }}`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `jupyterlab >=3,<4`
+
 ```bash
 pip install {{ metadata.name }}
-{%- if js_pkg %}
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
-{%- for dep in js_pkg.devDependencies -%}
-{% if "@deathbeds" in dep %} {{ dep }}{% endif %}
-{%- endfor %} {{ name }}
-{% endif %}```
+```
 """
 
-PY_README_TMPL = jinja2.Template(PY_README_TXT)
+PY_README_TMPL = jinja2.Template(PY_README_TXT.strip())
 
 TS_README_TXT = """
 # `{{ name }}`
 
 {% set py = jupyterlab.discovery.server.base.name %}
 
-[![pypi-badge][]][pypi] [![npm-badge][]][npm]
+[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/{{ py }}
 [pypi]: https://pypi.org/project/{{ py.replace("_", "-") }}
 [npm-badge]: https://img.shields.io/npm/v/{{ name }}
 [npm]: https://www.npmjs.com/package/{{ name }}
+[docs-badge]: https://img.shields.io/badge/docs-pages-black
+[docs]: https://deathbeds.github.io/wxyz
 
 > {{ description }}
 
-## Installation
+**If you just want to _use_ `{{ name }}` in JupyterLab 3**
+
+```bash
+pip install {{ py }}  # or conda, or mamba
+```
+
+## Developer Installation
+
+The public API of the widgets in `{{ name }}` are not yet fully documented.
+However, it's likely that you can:
+
+```bash
+jlpm add {{ name }}
+```
+
+and then, in your widget extension:
+
+```ts
+import wxyz from '{{ name }}';
+
+console.log(wxyz); // and see _something_
+```
+
+## Legacy Installation (Pre-JupyterLab 2)
+
+> _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
 > - `python >=3.6`
-> - `nodejs >=10`
-> - `jupyterlab >=2,<3`
+> - `nodejs >=12`
+> - `jupyterlab >=3,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
@@ -375,7 +393,7 @@ pip install {{ jupyterlab.discovery.server.base.name }}
 ```
 """
 
-TS_README_TMPL = jinja2.Template(TS_README_TXT)
+TS_README_TMPL = jinja2.Template(TS_README_TXT.strip())
 
 
 PY_LINT_CMDS = [
@@ -442,6 +460,80 @@ Classes
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
+
+
+PY_SETUP_TEXT = '''
+"""generated setup for wxyz_{{ wxyz_name }}, do not edit by hand"""
+import json
+from pathlib import Path
+WXYZ_NAME = "{{ wxyz_name }}"
+
+HERE = Path(__file__).parent
+JS_PKG = HERE / f"src/wxyz/{WXYZ_NAME}/js/package.json"
+
+__jspackage__ = json.loads(JS_PKG.read_text(encoding="utf-8"))
+
+
+HERE = Path(__file__).parent
+EXT_NAME = __jspackage__["name"]
+
+EXT_FILES = {}
+
+SHARE = f"share/jupyter/labextensions/{EXT_NAME}"
+
+EXT = HERE / f"src/wxyz/{WXYZ_NAME}/labextension"
+
+for ext_path in [EXT] + [d for d in EXT.rglob("*") if d.is_dir()]:
+    if ext_path == EXT:
+        target = str(SHARE)
+    else:
+        target = f"{SHARE}/{ext_path.relative_to(EXT)}"
+    EXT_FILES[target] = [
+        str(p.relative_to(HERE).as_posix())
+        for p in ext_path.glob("*")
+        if not p.is_dir()
+    ]
+
+ALL_FILES = sum(EXT_FILES.values(), [])
+
+assert (
+    len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
+), "expected _exactly one_ remoteEntry.*.js"
+
+EXT_FILES[SHARE] += [f"src/wxyz/{WXYZ_NAME}/install.json"]
+
+SETUP_ARGS=dict(
+    version=__jspackage__["version"],
+    data_files=[
+        (str(k), list(map(str, v))) for k, v in EXT_FILES.items()
+    ]
+)
+
+if __name__ == "__main__":
+    import setuptools
+    setuptools.setup(**SETUP_ARGS)
+'''
+PY_SETUP_TEMPLATE = jinja2.Template(PY_SETUP_TEXT.strip())
+
+
+INSTALL_JSON_TEXT = """{
+  "packageManager": "python",
+  "packageName": "wxyz_{{ wxyz_name }}",
+  "uninstallInstructions": "Use `pip/conda uninstall wxyz_{{ wxyz_name }}`"
+}"""
+INSTALL_JSON_TEMPLATE = jinja2.Template(INSTALL_JSON_TEXT.strip())
+
+MANIFEST_TEXT = """
+# generated python data file manifest for wxyz_{{ wxyz_name }}, do not edit by hand
+include             README.md
+include             src/wxyz/{{ wxyz_name }}/js/package.json
+include             src/wxyz/{{ wxyz_name }}/js/LICENSE.txt
+include             src/wxyz/{{ wxyz_name }}/js/README.md
+recursive-include   src/wxyz/{{ wxyz_name }}/labextension *.*
+global-exclude      .ipynb_checkpoints
+global-exclude      node_modules
+"""
+MANIFEST_TEMPLATE = jinja2.Template(MANIFEST_TEXT.strip())
 
 PYREVERSE = [
     "pyreverse",
