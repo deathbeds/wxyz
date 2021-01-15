@@ -4,7 +4,7 @@ import * as widgets from '@jupyter-widgets/base';
 import * as controls from '@jupyter-widgets/controls';
 import { JSONExt } from '@lumino/coreutils';
 
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 import { WXYZ, WXYZBox, createModel } from '@deathbeds/wxyz-core';
 
 const CSS = {
