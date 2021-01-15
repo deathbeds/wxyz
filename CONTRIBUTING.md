@@ -76,7 +76,7 @@ Each notebook should:
 ### Robot Framework Testing
 
 Where appropriate, individual components should be tested with Robot Framework
-tests. Ideal tests include thoroughly excercising the demo notebooks as a user would.
+tests. Ideal tests include thoroughly exercising the demo notebooks as a user would.
 
     doit robot
 
