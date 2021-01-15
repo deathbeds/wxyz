@@ -6,7 +6,7 @@ import { unpack_models as deserialize } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 import { DockLayout } from '@lumino/widgets';
 
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 
 import {
   JupyterPhosphorDockPanelWidget,

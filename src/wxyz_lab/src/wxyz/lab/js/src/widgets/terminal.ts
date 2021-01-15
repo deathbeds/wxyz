@@ -4,7 +4,7 @@ import { DOMWidgetView, DOMWidgetModel } from '@jupyter-widgets/base';
 
 import $ from 'jquery';
 
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 
 import { TerminalPhosphorWidget } from './_terminal';
 

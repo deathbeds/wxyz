@@ -8,7 +8,7 @@ import {
 import { TextareaModel } from '@jupyter-widgets/controls';
 
 import { WXYZ } from '@deathbeds/wxyz-core';
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 
 import { Mode } from '@jupyterlab/codemirror';
 

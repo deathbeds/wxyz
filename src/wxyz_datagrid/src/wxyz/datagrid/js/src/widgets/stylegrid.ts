@@ -2,7 +2,7 @@ import { WXYZ } from '@deathbeds/wxyz-core';
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
 import { DataGridModel, DataGridView } from './datagrid';
 import { StyleGrid } from './pwidgets/stylegrid';
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 
 const CSS = {
   STYLE_GRID: 'jp-WXYZ-StyleGrid',

@@ -5,7 +5,7 @@
 import { Widget } from '@lumino/widgets';
 import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';

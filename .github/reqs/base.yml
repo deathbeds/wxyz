@@ -13,5 +13,6 @@ dependencies:
   - pip
   - python
   - twine
-  # remove at some point
+  # TODO: remove at some point
   - jedi <0.18.0
+  - nbformat >=5,!=5.1.0,!=5.1.1

@@ -25,4 +25,3 @@ dependencies:
   - hvplot
   - ipycytoscape
   - ipylab
-  - jupyterlab-classic

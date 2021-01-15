@@ -48,6 +48,10 @@
       "@deathbeds/wxyz-core": {
         "bundled": false,
         "singleton": true
+      },
+      "codemirror": {
+        "bundled": false,
+        "singleton": true
       }
     }
   },

@@ -1,4 +1,6 @@
-import __package__ from '../package.json';
+export * from './constants';
+export * from './widgets';
 
-export const NAME = __package__.name;
-export const VERSION = __package__.version;
+export async function loadYamlEMode() {
+  return await import('./modes');
+}

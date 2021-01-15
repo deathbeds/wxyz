@@ -1,6 +1,6 @@
 import * as widgets from '@jupyter-widgets/base';
 
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 import { WXYZ } from '@deathbeds/wxyz-core';
 
 export class FooModel extends widgets.DOMWidgetModel {

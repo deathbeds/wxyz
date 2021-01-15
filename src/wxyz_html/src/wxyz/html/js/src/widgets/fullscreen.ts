@@ -4,7 +4,7 @@ import { Platform } from '@lumino/domutils';
 
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 
-import { NAME, VERSION } from '..';
+import { NAME, VERSION } from '../constants';
 
 const FULL_CLASS = 'jp-WXYZ-Fullscreen';
 
