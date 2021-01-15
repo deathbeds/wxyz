@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wxyz.lab.widget_editor &#8212; WXYZ 0.5.0 documentation</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .header-style {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="canonical" href="http://127.0.0.1:8080/_modules/wxyz/lab/widget_editor.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+      
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-fluid">
+
+    <a class="navbar-brand" href="../../../index.html">
+    
+      <img src="../../../_static/wxyz.svg" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../gallery.html">Gallery</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../widgets.html">Python API</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../developing.html">Contributing to wxyz</a>
+        </li>
+        
+        
+      </ul>
+
+
+      <form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/deathbeds/wxyz" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+    
+
+    <div class="container-fluid">
+      <div class="row">
+
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+                <div class="bd-toc">
+                  
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+                  
+                </div>
+            </div>
+            
+          
+
+          
+          <!-- no toc -->
+          
+
+          
+          
+          
+          <main class="col-12 col-md-9 col-xl-9 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for wxyz.lab.widget_editor</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; Text editing widgets</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">LabBase</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">module_name</span><span class="p">,</span> <span class="n">module_version</span>
+
+
+<div class="viewcode-block" id="EditorModeInfo"><a class="viewcode-back" href="../../../widgets/lab.html#wxyz.lab.EditorModeInfo">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">EditorModeInfo</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;CodeMirror modes known to the frontend&quot;&quot;&quot;</span>
+
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;EditorModeInfoModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_model_module</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_model_module_version</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="n">module_version</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">modes</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Tuple</span><span class="p">()</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EditorConfig"><a class="viewcode-back" href="../../../widgets/lab.html#wxyz.lab.EditorConfig">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">EditorConfig</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;JSON-compatible CodeMirror configuration options.&quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=C0301</span>
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;EditorConfigModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_model_module</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_model_module_version</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="n">module_version</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># the part between these comments will be rewritten</span>
+    <span class="c1"># BEGIN SCHEMAGEN:TRAITS IEditorConfiguration @61e400d051e0be2c3d80ab6bbc304e616b0dce7729d13c64396b21352cf10855</span>
+    <span class="n">autofocus</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Can be used to make CodeMirror focus itself on initialization. Defaults to off. When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused, or it has an autofocus attribute and no other element is focused.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cursorBlinkRate</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Half - period in milliseconds used for cursor blinking. The default blink rate is 530ms.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cursorHeight</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Determines the height of the cursor. Default is 1 , meaning it spans the whole height of the line. For some fonts (and by some tastes) a smaller height (for example 0.85), which causes the cursor to not reach all the way to the bottom of the line, looks better&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dragDrop</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Controls whether drag-and - drop is enabled. On by default.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">electricChars</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Configures whether the editor should re-indent the current line when a character is typed that might change its proper indentation (only works if the mode supports indentation). Default is true.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">firstLineNumber</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;At which number to start counting lines. Default is 1.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">fixedGutter</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Determines whether the gutter scrolls along with the content horizontally (false) or whether it stays fixed during horizontal scrolling (true, the default).&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">flattenSpans</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;By default, CodeMirror will combine adjacent tokens into a single span if they have the same class. This will result in a simpler DOM tree, and thus perform better. With some kinds of styling(such as rounded corners), this will change the way the document looks. You can set this option to false to disable this behavior.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">foldGutter</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gutters</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Enum</span><span class="p">([</span><span class="kc">None</span><span class="p">])],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Can be used to add extra gutters (beyond or instead of the line number gutter). Should be an array of CSS class names, each of which defines a width (and optionally a background), and which will be used to draw the background of the gutters. May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">historyEventDelay</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;The period of inactivity (in milliseconds) that will cause a new history event to be started when typing or deleting. Defaults to 500.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">indentUnit</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;How many spaces a block (whatever that means in the edited language) should be indented. The default is 2.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">indentWithTabs</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Whether, when indenting, the first N*tabSize spaces should be replaced by N tabs. Default is false.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">keyMap</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Configures the keymap to use. The default is &quot;default&quot;, which is the only keymap defined in codemirror.js itself. Extra keymaps are found in the keymap directory. See the section on keymaps for more information.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lineNumbers</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Whether to show line numbers to the left of the editor.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lineWrapping</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll).&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">maxHighlightLength</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;When highlighting long lines, in order to stay responsive, the editor will give up and simply style the rest of the line as plain text when it reaches a certain position. The default is 10000. You can set this to Infinity to turn off this behavior.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;string|object. The mode to use. When not given, this will default to the first mode that was loaded. It may be a string, which either simply names the mode or is a MIME type associated with the mode. Alternatively, it may be an object containing configuration options for the mode, with a name property that names the mode (for example {name: &quot;javascript&quot;, json: true}).&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">placeholder</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Optional value to be used in conjunction with CodeMirror’s placeholder add-on.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pollInterval</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Indicates how quickly CodeMirror should poll its input textarea for changes(when focused). Most input is captured by events, but some things, like IME input on some browsers, don&#39;t generate events that allow CodeMirror to properly detect it. Thus, it polls. Default is 100 milliseconds.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">readOnly</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s2">&quot;nocursor&quot;</span><span class="p">)],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;boolean|string. This disables editing of the editor content by the user. If the special value &quot;nocursor&quot; is given (instead of simply true), focusing of the editor is also disallowed.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">rtlMoveVisually</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text is visual (pressing the left arrow moves the cursor left) or logical (pressing the left arrow moves to the next lower index in the string, which is visually right in right-to-left text). The default is false on Windows, and true on other platforms.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">scrollbarStyle</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Chooses a scrollbar implementation. The default is &quot;native&quot;, showing native scrollbars. The core library also provides the &quot;null&quot; style, which completely hides the scrollbars. Addons can implement additional scrollbar models.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">showCursorWhenSelecting</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Whether the cursor should be drawn when a selection is active. Defaults to false.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">smartIndent</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Whether to use the context-sensitive indentation that the mode provides (or just indent the same as the line before). Defaults to true.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tabSize</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;The width of a tab character. Defaults to 4.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tabindex</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;The tab index to assign to the editor. If not given, no tab index will be assigned.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">theme</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded. The default is &quot;default&quot;.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">undoDepth</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;The maximum number of undo levels that the editor stores. Defaults to 40.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">viewportMargin</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Specifies the amount of lines that are rendered above and below the part of the document that&#39;s currently scrolled into view. This affects the amount of updates needed when scrolling, and the amount of work that such an update does. You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered, and thus the browser&#39;s text search works on it. This will have bad effects on performance of big documents.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">workDelay</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;See workTime.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">workTime</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">()],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Highlighting is done by a pseudo background - thread that will work for workTime milliseconds, and then use timeout to sleep for workDelay milliseconds. The defaults are 200 and 300, you can change these options to make the highlighting more or less aggressive.&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+    <span class="c1"># END SCHEMAGEN:TRAITS</span>
+
+
+<div class="viewcode-block" id="Editor"><a class="viewcode-back" href="../../../widgets/lab.html#wxyz.lab.Editor">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">Editor</span><span class="p">(</span><span class="n">LabBase</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">Textarea</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A basic editor&quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=no-member</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Any</span><span class="p">()</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;EditorModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_view_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;EditorView&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">config</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">trait_types</span><span class="o">.</span><span class="n">InstanceDict</span><span class="p">(</span><span class="n">EditorConfig</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span>
+        <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">W</span><span class="o">.</span><span class="n">widget_serialization</span>
+    <span class="p">)</span>
+
+    <span class="n">scroll_y</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">scroll_x</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, WXYZ Contributors.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

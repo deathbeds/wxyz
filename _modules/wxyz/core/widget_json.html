@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wxyz.core.widget_json &#8212; WXYZ 0.5.0 documentation</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .header-style {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="canonical" href="http://127.0.0.1:8080/_modules/wxyz/core/widget_json.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+      
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-fluid">
+
+    <a class="navbar-brand" href="../../../index.html">
+    
+      <img src="../../../_static/wxyz.svg" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../gallery.html">Gallery</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../widgets.html">Python API</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../developing.html">Contributing to wxyz</a>
+        </li>
+        
+        
+      </ul>
+
+
+      <form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/deathbeds/wxyz" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+    
+
+    <div class="container-fluid">
+      <div class="row">
+
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+                <div class="bd-toc">
+                  
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+                  
+                </div>
+            </div>
+            
+          
+
+          
+          <!-- no toc -->
+          
+
+          
+          
+          
+          <main class="col-12 col-md-9 col-xl-9 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for wxyz.core.widget_json</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; Widgets for working with JSON</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># pylint: disable=no-self-use</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">jsonpointer</span>
+<span class="kn">import</span> <span class="nn">jsonschema</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Fn</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">W</span>
+
+
+<div class="viewcode-block" id="JSON"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.JSON">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">JSON</span><span class="p">(</span><span class="n">Fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A JSON parsing functional widget&quot;&quot;&quot;</span>
+
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;JSONModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">List</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">()],</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="JSON.the_function"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.JSON.the_function">[docs]</a>    <span class="k">def</span> <span class="nf">the_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;parse some JSON&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">source</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="UnJSON"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.UnJSON">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">UnJSON</span><span class="p">(</span><span class="n">Fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A JSON dumping functional widget&quot;&quot;&quot;</span>
+
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;UnJSONModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Union</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">List</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Float</span><span class="p">(),</span> <span class="n">T</span><span class="o">.</span><span class="n">Bool</span><span class="p">()],</span> <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">indent</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">_observed_traits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;indent&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="UnJSON.the_function"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.UnJSON.the_function">[docs]</a>    <span class="k">def</span> <span class="nf">the_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">indent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;dump some JSON&quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">indent</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;indent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">indent</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="JSONPointer"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.JSONPointer">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">JSONPointer</span><span class="p">(</span><span class="n">Fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A JSON pointer resolver&quot;&quot;&quot;</span>
+
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;JSONPointerModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pointer</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">_observed_traits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="JSONPointer.the_function"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.JSONPointer.the_function">[docs]</a>    <span class="k">def</span> <span class="nf">the_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">pointer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;point at some json&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">jsonpointer</span><span class="o">.</span><span class="n">resolve_pointer</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">pointer</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="JSONSchema"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.JSONSchema">[docs]</a><span class="nd">@W</span><span class="o">.</span><span class="n">register</span>
+<span class="k">class</span> <span class="nc">JSONSchema</span><span class="p">(</span><span class="n">Fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A JSON schema validator&quot;&quot;&quot;</span>
+
+    <span class="n">_model_name</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Unicode</span><span class="p">(</span><span class="s2">&quot;JSONSchemaModel&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">_observed_traits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;schema&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="JSONSchema.the_function"><a class="viewcode-back" href="../../../widgets/core.html#wxyz.core.JSONSchema.the_function">[docs]</a>    <span class="k">def</span> <span class="nf">the_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;validate some JSON&quot;&quot;&quot;</span>
+        <span class="n">jsonschema</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">source</span></div></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, WXYZ Contributors.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

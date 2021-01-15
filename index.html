@@ -1,1 +1,428 @@
-<h1>wxyz</h1>
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WXYZ Documentation &#8212; WXYZ 0.5.0 documentation</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .header-style {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+    </style>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="canonical" href="http://127.0.0.1:8080/index.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Gallery" href="gallery.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+      
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-fluid">
+
+    <a class="navbar-brand" href="#">
+    
+      <img src="_static/wxyz.svg" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="gallery.html">Gallery</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="widgets.html">Python API</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="developing.html">Contributing to wxyz</a>
+        </li>
+        
+        
+      </ul>
+
+
+      <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/deathbeds/wxyz" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+    
+
+    <div class="container-fluid">
+      <div class="row">
+
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+                <div class="bd-toc">
+                  
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#" class="nav-link">WXYZ Documentation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#wxyz" class="nav-link">wxyz</a><ul class="nav section-nav flex-column visible">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#install-and-use" class="nav-link">Install and Use</a><ul class="nav section-nav flex-column visible">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#strongly-discouraged" class="nav-link">Strongly Discouraged</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#motivation" class="nav-link">Motivation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#uninstall" class="nav-link">Uninstall</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#alternatives" class="nav-link">Alternatives</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/deathbeds/wxyz/edit/master/index.ipynb">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+                  
+                </div>
+            </div>
+            
+          
+
+          
+          <!-- no toc -->
+          
+
+          
+          
+          
+          <main class="col-12 col-md-9 col-xl-9 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="wxyz-documentation">
+<h1>WXYZ Documentation<a class="headerlink" href="#wxyz-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#screenshots">Screenshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery.html#wxyz-in-notebooks">WXYZ in Notebooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="widgets/core.html">wxyz.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/datagrid.html">wxyz.datagrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/dvcs.html">wxyz.dvcs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/html.html">wxyz.html</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/json_e.html">wxyz.json_e</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/json_schema_form.html">wxyz.json_schema_form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/jsonld.html">wxyz.jsonld</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/lab.html">wxyz.lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/notebooks.html">wxyz.notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/svg.html">wxyz.svg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/tpl_jinja.html">wxyz.tpl_jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets/yaml.html">wxyz.yaml</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributing to wxyz</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#use-doit">Use doit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#code-style">Code Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing.html#updating-lockfiles">Updating lockfiles</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="wxyz">
+<h1>wxyz<a class="headerlink" href="#wxyz" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Experimental <a class="reference external" href="https://jupyter.org/widgets">Widgets</a> for <a class="reference external" href="https://github.com/jupyterlab/jupyterlab">JupyterLab</a>.</p>
+</div></blockquote>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>build</p></th>
+<th class="text-align:center head"><p>demo</p></th>
+<th class="text-align:center head"><p>docs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p><a class="reference external" href="https://dev.azure.com/nickbollweg/deathbeds/_build/latest?definitionId=6&amp;branchName=master"><img alt="build-badge" src="https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=master" /></a></p></td>
+<td class="text-align:center"><p><a class="reference external" href="https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb"><img alt="binder-badge" src="https://mybinder.org/badge_logo.svg" /></a></p></td>
+<td class="text-align:center"><p><a class="reference external" href="https://deathbeds.github.io/wxyz">DOCS</a> — <a class="reference external" href="https://github.com/deathbeds/wxyz/blob/master/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb">EXAMPLES</a> — <a class="reference external" href="https://github.com/deathbeds/wxyz/blob/master/CHANGELOG.md">CHANGELOG</a> — <a class="reference external" href="https://github.com/deathbeds/wxyz/blob/master/CONTRIBUTING.md">CONTRIBUTING</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="install-and-use">
+<h2>Install and Use<a class="headerlink" href="#install-and-use" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">or</span> <span class="pre">conda</span> <span class="pre">install</span> <span class="pre">W</span></code></p></th>
+<th class="text-align:right head"><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">wxyz.Y</span></code></p></th>
+<th class="text-align:left head"><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">Z</span></code></p></th>
+<th class="head"><p><em>powered by</em></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">core</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">JSON</span></code><br/><code class="docutils literal notranslate"><span class="pre">UnJSON</span></code><br/></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jsonpointer</span></code><br/><code class="docutils literal notranslate"><span class="pre">jsonschema</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_datagrid</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">datagrid</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">DataGrid</span></code><br/><code class="docutils literal notranslate"><span class="pre">GridStyle</span></code><br/><code class="docutils literal notranslate"><span class="pre">SelectGrid</span></code><br/><code class="docutils literal notranslate"><span class="pre">StyleGrid</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_html</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">html</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">AlphaColorPicker</span></code><br/><code class="docutils literal notranslate"><span class="pre">File</span></code><br/><code class="docutils literal notranslate"><span class="pre">FileBox</span></code><br/><code class="docutils literal notranslate"><span class="pre">FullScreen</span></code><br/><code class="docutils literal notranslate"><span class="pre">JSONFile</span></code><br/><code class="docutils literal notranslate"><span class="pre">TextFile</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_dvcs</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">dvcs</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">repos.repo_git.Git</span></code><br/><code class="docutils literal notranslate"><span class="pre">Watcher</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gitpython</span></code><br/><code class="docutils literal notranslate"><span class="pre">watchgod</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_json_e</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">json_e</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">JSONE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jsone</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_json_schema_form</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">json_schema_form</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">JSONSchemaForm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_jsonld</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">jsonld</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">Compact</span></code><br/><code class="docutils literal notranslate"><span class="pre">Expand</span></code><br/><code class="docutils literal notranslate"><span class="pre">Flatten</span></code><br/><code class="docutils literal notranslate"><span class="pre">Frame</span></code><br/><code class="docutils literal notranslate"><span class="pre">Normalize</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pyld</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_lab</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">lab</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">DockBox</span></code><br/><code class="docutils literal notranslate"><span class="pre">DockPop</span></code><br/><code class="docutils literal notranslate"><span class="pre">Editor</span></code><br/><code class="docutils literal notranslate"><span class="pre">Markdown</span></code><br/><code class="docutils literal notranslate"><span class="pre">Terminal</span></code><br/><code class="docutils literal notranslate"><span class="pre">ModeInfo</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jupyterlab</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_svg</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">svg</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">SVGBox</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_tpl_jinja</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">tpl_jinja</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">Template</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jinja2</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">wxyz_yaml</span></code></p></td>
+<td class="text-align:right"><p><code class="docutils literal notranslate"><span class="pre">yaml</span></code></p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">YAML</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pyyaml</span></code><br/><code class="docutils literal notranslate"><span class="pre">wxyz_core</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="strongly-discouraged">
+<h3>Strongly Discouraged<a class="headerlink" href="#strongly-discouraged" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">wxyz_notebooks</span></code>, not <strong>recommended for production use</strong>, requires all of the
+<code class="docutils literal notranslate"><span class="pre">wxyz_*</span></code> packages.</p>
+<p>Some <em><code class="docutils literal notranslate"><span class="pre">extra(s)</span></code> dangerous</em> dependencies are available as well</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install wxyz_notebooks              <span class="c1"># wxyz_*</span>
+pip install wxyz_notebooks<span class="o">[</span>binder<span class="o">]</span>      <span class="c1"># everything used on binder demos, used in tests</span>
+pip install wxyz_notebooks<span class="o">[</span>thirdparty<span class="o">]</span>  <span class="c1"># some casually co-tested third-party packages</span>
+pip install wxyz_notebooks<span class="o">[</span>all<span class="o">]</span>         <span class="c1"># everything. it&#39;s a lot. good luck.</span>
+</pre></div>
+</div>
+<p>It is unknown whether the heavier dependencies will continue to work in the future
+and may carry <em>very specific version pins</em> which might not be solveable with any old:</p>
+<ul class="simple">
+<li><p>operating system</p></li>
+<li><p>version of python</p></li>
+<li><p>package manager</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wxyz</span></code> contains a number of “missing pieces” from the <a class="reference external" href="https://github.com/jupyter-widgets/ipywidgets">ipywidgets</a> toolbox.
+It is made up of a number of packages for Python and the browser, in <a class="reference external" href="https://github.com/deathbeds/wxyz">this repo</a>.
+While many create <em>pixels on the page</em>, some are focused around configurably
+transforming the <a class="reference external" href="https://github.com/ipython/traitlets">traitlets</a> of one widget to another, in the <em>kernel</em>, the
+<em>browser</em> or <em>both</em>.</p>
+</div>
+<div class="section" id="uninstall">
+<h2>Uninstall<a class="headerlink" href="#uninstall" title="Permalink to this headline">¶</a></h2>
+<p>We’re sad to see you go!</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> to uninstall any <code class="docutils literal notranslate"><span class="pre">wxyz_*</span></code> packages.</p>
+</div>
+<div class="section" id="alternatives">
+<h2>Alternatives<a class="headerlink" href="#alternatives" title="Permalink to this headline">¶</a></h2>
+<p>If you don’t like <code class="docutils literal notranslate"><span class="pre">wxyz</span></code>, that’s fine! There are a number of related tools that
+might be better suited to your needs.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/formulas/">formulas</a></p>
+<ul>
+<li><p>a python-side re-implementation of an Excel/LibreOffice reactive functional
+programming model</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/mwcraig/ipyevents">ipyevents</a></p>
+<ul>
+<li><p>fine-grained DOM event control</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/jtpio/ipylab">ipylab</a></p>
+<ul>
+<li><p>a number of similar utilities as parts of <code class="docutils literal notranslate"><span class="pre">wxyz.lab</span></code>, and nice
+support for commands, and additional <a class="reference external" href="https://github.com/jupyterlab/lumino">lumino</a> primitives, e.g. <code class="docutils literal notranslate"><span class="pre">SplitPanel</span></code></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/jpmorganchase/ipyregulartable">ipyregulartable</a></p>
+<ul>
+<li><p>a high-performance datagrid solution, supporting pandas <code class="docutils literal notranslate"><span class="pre">MultiIndex</span></code>-type
+data</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://pypi.org/project/jupyter-starters/">jupyter-starters</a></p>
+<ul>
+<li><p>wizard-style project templates, driven by simple configuration, JSON Schema
+or notebooks</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/fcollonval/jupyterlab-tour">jupyterlab-tour</a></p>
+<ul>
+<li><p>a pleasant “guided tour” of JupyterLab via CSS selectors and JSON Schema</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='right-next' id="next-link" href="gallery.html" title="next page">Gallery</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, WXYZ Contributors.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

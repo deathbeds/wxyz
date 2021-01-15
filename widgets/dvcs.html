@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wxyz.dvcs &#8212; WXYZ 0.5.0 documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .header-style {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="canonical" href="http://127.0.0.1:8080/widgets/dvcs.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="wxyz.html" href="html.html" />
+    <link rel="prev" title="wxyz.datagrid" href="datagrid.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+      
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-fluid">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <img src="../_static/wxyz.svg" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../gallery.html">Gallery</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../widgets.html">Python API</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../developing.html">Contributing to wxyz</a>
+        </li>
+        
+        
+      </ul>
+
+
+      <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      
+
+      <ul class="navbar-nav">
+        
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/deathbeds/wxyz" target="_blank" rel="noopener">
+              <span><i class="fab fa-github-square"></i></span>
+            </a>
+          </li>
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+    
+
+    <div class="container-fluid">
+      <div class="row">
+
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="core.html">wxyz.core</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="datagrid.html">wxyz.datagrid</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">wxyz.dvcs</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="html.html">wxyz.html</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="json_e.html">wxyz.json_e</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="json_schema_form.html">wxyz.json_schema_form</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="jsonld.html">wxyz.jsonld</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="lab.html">wxyz.lab</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="notebooks.html">wxyz.notebooks</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="svg.html">wxyz.svg</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="tpl_jinja.html">wxyz.tpl_jinja</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="yaml.html">wxyz.yaml</a>
+                </li>
+            
+          
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+                <div class="bd-toc">
+                  
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/deathbeds/wxyz/edit/master/widgets/dvcs.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+                  
+                </div>
+            </div>
+            
+          
+
+          
+          <!-- no toc -->
+          
+
+          
+          
+          
+          <main class="col-12 col-md-9 col-xl-9 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-wxyz.dvcs">
+<span id="wxyz-dvcs"></span><h1>wxyz.dvcs<a class="headerlink" href="#module-wxyz.dvcs" title="Permalink to this headline">¶</a></h1>
+<p>DVCS widgets</p>
+<dl class="py class">
+<dt id="wxyz.dvcs.Brancher">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Brancher</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_heads.html#Brancher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Brancher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget_box.HBox</span></code></p>
+<p>Create a new branch from the current commit</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.Brancher.create">
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_heads.html#Brancher.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Brancher.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>actually create the new branch</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.Committer">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Committer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_commits.html#Committer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Committer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget_box.VBox</span></code></p>
+<p>Create commits with a message</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.Committer.change_btn_desc">
+<code class="sig-name descname">change_btn_desc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">changes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_commits.html#Committer.change_btn_desc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Committer.change_btn_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>update button description</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Committer.commit">
+<code class="sig-name descname">commit</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_commits.html#Committer.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Committer.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>actually commit</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.Git">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Git</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wxyz.dvcs.repos.repo_base.Repo</span></code></p>
+<p>A git repository widget</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.add_remote">
+<code class="sig-name descname">add_remote</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.Git.add_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a new reference to a remote repository</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.branch">
+<code class="sig-name descname">branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">'HEAD'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>create and checkout a new branch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.checkout">
+<code class="sig-name descname">checkout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.checkout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.checkout" title="Permalink to this definition">¶</a></dt>
+<dd><p>checkout a named reference</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.commit">
+<code class="sig-name descname">commit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a commit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.merge">
+<code class="sig-name descname">merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ref</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a merge commit on the active branch with the given ref</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.revert">
+<code class="sig-name descname">revert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ref</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.revert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.revert" title="Permalink to this definition">¶</a></dt>
+<dd><p>restore to a committish</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.stage">
+<code class="sig-name descname">stage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.stage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>stage a single path to the index</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.track">
+<code class="sig-name descname">track</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.Git.track" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a tracker for the given widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Git.unstage">
+<code class="sig-name descname">unstage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_git.html#Git.unstage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Git.unstage" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove a path from the index</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.HeadPicker">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">HeadPicker</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_heads.html#HeadPicker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.HeadPicker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget_box.HBox</span></code></p>
+<p>a simple dropdown-based picker of current DVCS heads</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.HeadPicker.checkout">
+<code class="sig-name descname">checkout</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_heads.html#HeadPicker.checkout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.HeadPicker.checkout" title="Permalink to this definition">¶</a></dt>
+<dd><p>check out a ref</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.HeadPicker.refresh">
+<code class="sig-name descname">refresh</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_heads.html#HeadPicker.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.HeadPicker.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>refresh the heads</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.HeadStatus">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">HeadStatus</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_heads.html#HeadStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.HeadStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget_box.HBox</span></code></p>
+<p>a status bar</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.JSONDictTracker">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">JSONDictTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_json.html#JSONDictTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wxyz.dvcs.trackers.tracker_base.DictTracker</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">wxyz.dvcs.trackers.tracker_base.ExecutorTracker</span></code></p>
+<p>sync a widget’s traits to single JSON file on disk</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.detect_tracker">
+<em class="property">classmethod </em><code class="sig-name descname">detect_tracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">base_cls</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.detect_tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>naive tracker finder… needs something cleverer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.dict_from_widget">
+<code class="sig-name descname">dict_from_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.dict_from_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a JSON-ready dict from a widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.loop">
+<em class="property">property </em><code class="sig-name descname">loop</code><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current event loop, if available</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.on_file_change">
+<em class="property">async </em><code class="sig-name descname">on_file_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.on_file_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>react to a file change</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.on_file_change_sync">
+<code class="sig-name descname">on_file_change_sync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_json.html#JSONDictTracker.on_file_change_sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.on_file_change_sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform JSON reading in thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.on_user_change">
+<em class="property">async </em><code class="sig-name descname">on_user_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.on_user_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>react to a user change</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.on_user_change_sync">
+<code class="sig-name descname">on_user_change_sync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_json.html#JSONDictTracker.on_user_change_sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.on_user_change_sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform JSON writing on thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.JSONDictTracker.widget_from_dict">
+<code class="sig-name descname">widget_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.JSONDictTracker.widget_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>update a widget from a dict</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.Remoter">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Remoter</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_remotes.html#Remoter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Remoter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget_box.VBox</span></code></p>
+<p>Adds remotes</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.Repo">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Repo</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_base.html#Repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget.Widget</span></code></p>
+<p>base class for a DVCS repo</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.Repo.add_remote">
+<code class="sig-name descname">add_remote</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_base.html#Repo.add_remote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Repo.add_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a new reference to a remote repository</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Repo.track">
+<code class="sig-name descname">track</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/repos/repo_base.html#Repo.track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Repo.track" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a tracker for the given widget</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.TimeTraveler">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">TimeTraveler</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/tools/tool_timetravel.html#TimeTraveler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.TimeTraveler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget_box.HBox</span></code></p>
+<p>Show a selection widget</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.Tracker">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Tracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_base.html#Tracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget.Widget</span></code></p>
+<p>base class for trackers</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.Tracker.detect_tracker">
+<em class="property">classmethod </em><code class="sig-name descname">detect_tracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">base_cls</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_base.html#Tracker.detect_tracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Tracker.detect_tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>naive tracker finder… needs something cleverer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Tracker.loop">
+<em class="property">property </em><code class="sig-name descname">loop</code><a class="headerlink" href="#wxyz.dvcs.Tracker.loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current event loop, if available</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Tracker.on_file_change">
+<em class="property">async </em><code class="sig-name descname">on_file_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_base.html#Tracker.on_file_change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Tracker.on_file_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>react to a file changing on disk</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.Tracker.on_user_change">
+<em class="property">async </em><code class="sig-name descname">on_user_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_base.html#Tracker.on_user_change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Tracker.on_user_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>react to a user changing a widget</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.Watcher">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">Watcher</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/widget_watch.html#Watcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.Watcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ipywidgets.widgets.widget.Widget</span></code></p>
+<p>A lightweight watcher</p>
+<p>TODO: expose more bits</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wxyz.dvcs.YAMLDictTracker">
+<em class="property">class </em><code class="sig-prename descclassname">wxyz.dvcs.</code><code class="sig-name descname">YAMLDictTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/wxyz/dvcs/trackers/tracker_yaml.html#YAMLDictTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wxyz.dvcs.trackers.tracker_json.JSONDictTracker</span></code></p>
+<p>sync a widget’s traits to single YAML file on disk</p>
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.detect_tracker">
+<em class="property">classmethod </em><code class="sig-name descname">detect_tracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">base_cls</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.detect_tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>naive tracker finder… needs something cleverer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.dict_from_widget">
+<code class="sig-name descname">dict_from_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.dict_from_widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a JSON-ready dict from a widget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.loop">
+<em class="property">property </em><code class="sig-name descname">loop</code><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current event loop, if available</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.on_file_change">
+<em class="property">async </em><code class="sig-name descname">on_file_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.on_file_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>react to a file change</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.on_file_change_sync">
+<code class="sig-name descname">on_file_change_sync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.on_file_change_sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform JSON reading in thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.on_user_change">
+<em class="property">async </em><code class="sig-name descname">on_user_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.on_user_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>react to a user change</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.on_user_change_sync">
+<code class="sig-name descname">on_user_change_sync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.on_user_change_sync" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform JSON writing on thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wxyz.dvcs.YAMLDictTracker.widget_from_dict">
+<code class="sig-name descname">widget_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">content</span></em><span class="sig-paren">)</span><a class="headerlink" href="#wxyz.dvcs.YAMLDictTracker.widget_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>update a widget from a dict</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><object data="../_images/graphviz-7cf83ce5beceb003318a74cffe64f9dd6ff99552.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph &quot;classes_dvcs&quot; {
+
+            graph [fontname = &quot;sans-serif&quot;];
+            node [fontname = &quot;sans-serif&quot;];
+            edge [fontname = &quot;sans-serif&quot;];
+            
+charset=&quot;utf-8&quot;
+rankdir=BT
+&quot;0&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/base.py.DVCSBase|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}&quot;, shape=&quot;record&quot;];
+&quot;1&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/repos/repo_base.py.Remote|auto_fetch : Bool\lexecutor : ThreadPoolExecutor\lheads\lheads : Dict\lname : Unicode\lurl : Unicode\l|__init__()\l_on_auto_fetch(_change)\lfetch()\lpush(ref)\l}&quot;, shape=&quot;record&quot;];
+&quot;2&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/repos/repo_base.py.Repo|_change_link : NoneType\l_change_link : NoneType, directional_link\l_remote_cls\l_trackers\l_trackers\l_watcher : Instance\l_watcher : NoneType\lchanges : Tuple\ldirty : Bool\lexecutor : ThreadPoolExecutor\lhead : Unicode\lhead_hash : Unicode\lhead_history : Tuple\lheads : Dict\lremotes : Dict\lremotes : dict\lurl : Unicode\lwatching : Bool\lworking_dir : Instance\l|__init__(working_dir)\l_default_changes()\l_on_watch_changes(changes)\l_on_watching(change)\ladd_remote(name, url)\ltrack()\l}&quot;, shape=&quot;record&quot;];
+&quot;3&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/repos/repo_git.py.Git|_git : Instance\l_git : Repo\l_ref_watcher : Instance\l_remote_cls\l_watcher\ldirty : bool\lhead\lhead_hash\lhead_history : list\lheads\lremotes : dict\l|_default_head()\l_initialize_watcher()\l_on_head_changed(change)\l_on_path(change)\l_on_ref_change(_change)\l_on_watch_changes()\l_update_head_history()\l_update_heads()\l_update_remotes()\lbranch(name, ref)\lcheckout(name)\lcommit(message)\lmerge(ref)\lrevert(ref)\lstage(path)\lunstage(path)\l}&quot;, shape=&quot;record&quot;];
+&quot;4&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/repos/repo_git.py.GitRemote|_remote\l_remote : Instance\llocal : Instance\l|__init__()\l_fetch()\l_update_heads()\lpush(ref)\l}&quot;, shape=&quot;record&quot;];
+&quot;5&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/repos/repo_git.py._GitRefWatcher|\l|should_watch_dir(entry)\l}&quot;, shape=&quot;record&quot;];
+&quot;6&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/tools/tool_commits.py.Committer|_dom_classes\lchildren : list\lcommit_btn : Instance\lmessage : Instance\lrepo : Instance\lwatch : Instance\l|__init__()\l_default_commit_btn()\l_default_message()\l_default_watch()\lchange_btn_desc(changes)\lcommit()\l}&quot;, shape=&quot;record&quot;];
+&quot;7&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/tools/tool_heads.py.Brancher|_repo_link : NoneType\lbranch_name : Instance\lchildren : list\lcreate_btn : Instance\lrepo : Instance\l|__init__()\l_default_branch_name()\l_default_create_btn()\lcreate()\l}&quot;, shape=&quot;record&quot;];
+&quot;8&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/tools/tool_heads.py.HeadPicker|_repo_link : NoneType\l_repo_link : NoneType, directional_link\lcheckout_btn : Instance\lchildren : list\lpicker : Instance\lrefresh_btn : Instance\lrepo : Instance\l|__init__()\l_default_checkout_btn()\l_default_picker()\l_default_refresh_btn()\l_format_head_options(heads)\l_on_repo_changed(change)\l_update_picker_value()\lcheckout()\lrefresh()\l}&quot;, shape=&quot;record&quot;];
+&quot;9&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/tools/tool_heads.py.HeadStatus|children : list\lhtml : Instance\lrepo : Instance\ltemplate : Instance\l|__init__()\l_default_template()\l_on_repo_update(_change)\l}&quot;, shape=&quot;record&quot;];
+&quot;10&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/tools/tool_remotes.py.Remoter|_remotes_link : NoneType\l_remotes_link : directional_link\lchildren : list\lfetch_btn : Instance\lhead : Unicode\lheads : Instance\lmerge_btn : Instance\lpush_btn : Instance\lremote : Unicode\lremotes : Instance\lrepo : Instance\l|__init__()\l_default_fetch_btn()\l_default_heads()\l_default_merge_btn()\l_default_push_btn()\l_default_remotes()\l_on_fetch_click()\l_on_merge_click()\l_on_push_click()\l_on_remote(change)\l_on_repo(change)\l_update_head_options(change)\l_update_remote_options(remotes)\l}&quot;, shape=&quot;record&quot;];
+&quot;11&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/tools/tool_timetravel.py.TimeTraveler|_commits_cls : SelectionSlider\l_dom_classes\l_option_tmpl : Template\lchildren : list\lcommits : Instance\lenable_chk : Instance\lenabled : Bool\lrepo : Instance\l|__init__()\l_default_enable_chk()\l_make_default_commits()\l_on_change_commit(change)\l_on_head_hash_change(_change)\l_update_history_options(history)\l}&quot;, shape=&quot;record&quot;];
+&quot;12&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/trackers/tracker_base.py.DictTracker|\l|dict_from_widget()\lwidget_from_dict(content)\l}&quot;, shape=&quot;record&quot;];
+&quot;13&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/trackers/tracker_base.py.ExecutorTracker|executor : ThreadPoolExecutor\l|on_file_change()\lon_file_change_sync()\lon_user_change()\lon_user_change_sync()\l}&quot;, shape=&quot;record&quot;];
+&quot;14&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/trackers/tracker_base.py.Tracker|__extension__ : NoneType\l_idle_after\l_idle_after : NoneType\lencoding : Unicode\lloop\lpath : Instance\ltracked_traits\ltracked_widget : Instance\luser_idle_interval : Float\l|_changed_tracked_traits(change)\l_changed_tracked_widget(change)\l_on_file_change(change)\l_on_user_change(change)\ldetect_tracker(cls, path, base_cls)\lon_file_change()\lon_user_change()\l}&quot;, shape=&quot;record&quot;];
+&quot;15&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/trackers/tracker_json.py.JSONDictTracker|__extension__ : str\l|_read(text)\l_write(widget_dict)\lon_file_change_sync()\lon_user_change_sync()\l}&quot;, shape=&quot;record&quot;];
+&quot;16&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/trackers/tracker_yaml.py.YAMLDictTracker|__extension__ : str\l|_read(text)\l_write(widget_dict)\l}&quot;, shape=&quot;record&quot;];
+&quot;17&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/widget_watch.py.Watcher|_stop : Event, NoneType\l_stop : Instance\l_watcher_cls : Any\lchanges : NoneType\lchanges : Tuple\lpath : Instance\lwatching : Bool\l|__init__(path)\l_changes(changes)\l_default_changes()\l_on_watching(change)\l_watch()\l}&quot;, shape=&quot;record&quot;];
+&quot;18&quot; [label=&quot;{/home/runner/work/wxyz/wxyz/envs/_base/lib/python3.8/site-packages/wxyz/dvcs/widget_watch.py._JupyterWatcher|\l|should_watch_dir(entry)\l}&quot;, shape=&quot;record&quot;];
+&quot;19&quot; [label=&quot;{ipywidgets.widgets.domwidget.DOMWidget|_dom_classes\l_dom_classes\l_model_name : Unicode\llayout\l|_repr_keys()\ladd_class(className)\lremove_class(className)\l}&quot;, shape=&quot;record&quot;];
+&quot;20&quot; [label=&quot;{ipywidgets.widgets.widget.LoggingHasTraits|log : Instance\l|_log_default()\l}&quot;, shape=&quot;record&quot;];
+&quot;21&quot; [label=&quot;{ipywidgets.widgets.widget.Widget|_display_callbacks : Instance\l_holding_sync : bool\l_holding_sync : bool\l_ipython_display_ : NoneType\l_model_id\l_model_module : Unicode\l_model_module_version : Unicode\l_model_name : Unicode\l_msg_callbacks : Instance\l_property_lock : Dict\l_property_lock : dict\l_states_to_send : Set\l_view_count : Int\l_view_module : Unicode\l_view_module_version : Unicode\l_view_name : Unicode\l_widget_construction_callback : NoneType\lcomm : Instance\lcomm : NoneType, Comm\lkeys : List\lmodel_id\lwidget_types : WidgetRegistry\lwidgets : dict\l|__del__()\l__init__()\l__repr__()\l_call_widget_constructed(widget)\l_comm_changed(change)\l_compare(a, b)\l_default_keys()\l_gen_repr_from_keys(keys)\l_get_embed_state(drop_defaults)\l_handle_custom_msg(content, buffers)\l_handle_displayed()\l_handle_msg(msg)\l_ipython_display_()\l_is_numpy(x)\l_lock_property()\l_repr_keys()\l_send(msg, buffers)\l_should_send_property(key, value)\l_trait_from_json(x)\l_trait_to_json(x)\ladd_traits()\lclose()\lclose_all(cls)\lget_manager_state(drop_defaults, widgets)\lget_state(key, drop_defaults)\lget_view_spec()\lhandle_comm_opened(comm, msg)\lhold_sync()\lnotify_change(change)\lon_displayed(callback, remove)\lon_msg(callback, remove)\lon_widget_constructed(callback)\lopen()\lsend(content, buffers)\lsend_state(key)\lset_state(sync_data)\l}&quot;, shape=&quot;record&quot;];
+&quot;22&quot; [label=&quot;{ipywidgets.widgets.widget_box.Box|_model_name : Unicode\l_view_name : Unicode\lbox_style : CaselessStrEnum\lchildren\l|__init__(children)\l_fire_children_displayed()\l}&quot;, shape=&quot;record&quot;];
+&quot;23&quot; [label=&quot;{ipywidgets.widgets.widget_box.HBox|_model_name : Unicode\l_view_name : Unicode\l|}&quot;, shape=&quot;record&quot;];
+&quot;24&quot; [label=&quot;{ipywidgets.widgets.widget_box.VBox|_model_name : Unicode\l_view_name : Unicode\l|}&quot;, shape=&quot;record&quot;];
+&quot;25&quot; [label=&quot;{ipywidgets.widgets.widget_core.CoreWidget|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}&quot;, shape=&quot;record&quot;];
+&quot;26&quot; [label=&quot;{traitlets.traitlets.HasDescriptors|\l|__new__()\lsetup_instance()\l}&quot;, shape=&quot;record&quot;];
+&quot;27&quot; [label=&quot;{traitlets.traitlets.HasTraits|__class__\l__dict__\l_cross_validation_lock : bool\l_trait_notifiers : dict\lcross_validation_lock\lnotify_change\l|__getstate__()\l__init__()\l__setstate__(state)\l_add_notifiers(handler, name, type)\l_get_trait_default_generator(name)\l_notify_observers(event)\l_notify_trait(name, old_value, new_value)\l_register_validator(handler, names)\l_remove_notifiers(handler, name, type)\ladd_traits()\lclass_own_trait_events(cls, name)\lclass_own_traits(cls)\lclass_trait_names(cls)\lclass_traits(cls)\lhas_trait(name)\lhold_trait_notifications()\lnotify_change(change)\lobserve(handler, names, type)\lon_trait_change(handler, name, remove)\lset_trait(name, value)\lsetup_instance()\ltrait_defaults()\ltrait_events(cls, name)\ltrait_has_value(name)\ltrait_metadata(traitname, key, default)\ltrait_names()\ltrait_values()\ltraits()\lunobserve(handler, names, type)\lunobserve_all(name)\l}&quot;, shape=&quot;record&quot;];
+&quot;28&quot; [label=&quot;{watchgod.watcher.AllWatcher|files : dict\lroot_path\l|__init__(root_path)\l_walk(path, changes, new_files)\l_walk_dir(dir_path, changes, new_files)\l_watch_file(path, changes, new_files)\lcheck()\lshould_watch_dir(entry)\lshould_watch_file(entry)\l}&quot;, shape=&quot;record&quot;];
+&quot;29&quot; [label=&quot;{watchgod.watcher.DefaultDirWatcher|ignored_dirs : set\l|should_watch_dir(entry)\l}&quot;, shape=&quot;record&quot;];
+&quot;30&quot; [label=&quot;{wxyz.core.base.Base|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\lclosable : Bool\ldescription : Unicode\lerror : CUnicode\licon_class : Unicode\l|}&quot;, shape=&quot;record&quot;];
+&quot;31&quot; [label=&quot;{wxyz.core.base.WXYZBase|_model_module : Unicode\l_model_module_version : Unicode\l_view_module : Unicode\l_view_module_version : Unicode\l|}&quot;, shape=&quot;record&quot;];
+&quot;0&quot; -&gt; &quot;30&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;1&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;2&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;5&quot; -&gt; &quot;29&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;6&quot; -&gt; &quot;24&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;7&quot; -&gt; &quot;23&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;8&quot; -&gt; &quot;23&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;9&quot; -&gt; &quot;23&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;10&quot; -&gt; &quot;24&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;11&quot; -&gt; &quot;23&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;12&quot; -&gt; &quot;14&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;13&quot; -&gt; &quot;14&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;14&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;17&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;18&quot; -&gt; &quot;29&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;19&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;20&quot; -&gt; &quot;27&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;21&quot; -&gt; &quot;20&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;22&quot; -&gt; &quot;19&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;22&quot; -&gt; &quot;25&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;23&quot; -&gt; &quot;22&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;24&quot; -&gt; &quot;22&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;25&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;27&quot; -&gt; &quot;26&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;29&quot; -&gt; &quot;28&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;30&quot; -&gt; &quot;31&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;31&quot; -&gt; &quot;21&quot; [arrowhead=&quot;empty&quot;, arrowtail=&quot;none&quot;];
+&quot;1&quot; -&gt; &quot;2&quot; [arrowhead=&quot;diamond&quot;, arrowtail=&quot;none&quot;, fontcolor=&quot;green&quot;, label=&quot;_remote_cls&quot;, style=&quot;solid&quot;];
+}</p></object></div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="datagrid.html" title="previous page">wxyz.datagrid</a>
+    <a class='right-next' id="next-link" href="html.html" title="next page">wxyz.html</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2021, WXYZ Contributors.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
