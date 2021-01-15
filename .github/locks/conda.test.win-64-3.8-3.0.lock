@@ -1,5 +1,5 @@
 # platform: win-64
-# env_hash: 9a93d68d295b5b510bd50cc3d978ad0f1b8c24a55fec4a9e0779a0608853f7cf
+# env_hash: 29d5656dcce6d10dd8527f43586d4c1c018beae2d614d0e486598590fbf52526
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/win-64/git-2.30.0-h57928b3_0.tar.bz2#42cafe38cf1038cba7465b9a816f9883
 https://conda.anaconda.org/conda-forge/noarch/nomkl-1.0-h5ca1d4c_0.tar.bz2#9a66894dfd07c4510beb6b3f9672ccc0
@@ -219,7 +219,7 @@ https://conda.anaconda.org/conda-forge/win-64/imagecodecs-2021.1.11-py38h1ceb79b
 https://conda.anaconda.org/conda-forge/noarch/imageio-2.9.0-py_0.tar.bz2#62ad9e579278e777d4abaa8c9312b6a7
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.1.2-pyh9f0ad1d_0.tar.bz2#2cbd910890bb328e8959246a1e16fac7
 https://conda.anaconda.org/conda-forge/win-64/matplotlib-base-3.3.3-py38h34ddff4_0.tar.bz2#8d2180013c805f7f841484b7d0ac385e
-https://conda.anaconda.org/conda-forge/noarch/nbformat-5.1.0-pyhd8ed1ab_0.tar.bz2#4ed0a33e44d7e14a22f71113f09511f1
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.8-py_0.tar.bz2#12aaf0d8795a5c375757b49a08e011a2
 https://conda.anaconda.org/conda-forge/win-64/numba-0.52.0-py38h4c96930_0.tar.bz2#4a48c9f98fdbac8848494229d194a4bc
 https://conda.anaconda.org/conda-forge/win-64/pandas-1.2.0-py38h4c96930_1.tar.bz2#55ffd9d0cc43b397a0b3d2e033c1e112
 https://conda.anaconda.org/conda-forge/win-64/pylint-2.6.0-py38h32f6830_1.tar.bz2#56b889e135b61ee716d2397f53f6abc5

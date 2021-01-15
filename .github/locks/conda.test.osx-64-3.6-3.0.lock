@@ -1,5 +1,5 @@
 # platform: osx-64
-# env_hash: dc548997a9e98fdad8c2f02c9005ca99ece307c13adde0857eb2098302faef48
+# env_hash: e257bcc89c39cd08735958674f5fe4bf2507a5461e6203368c05d26e3bd663e4
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/osx-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2#96dd44c2471a638fb9cdc40aa2573d1b
 https://conda.anaconda.org/conda-forge/osx-64/bzip2-1.0.8-hc929b4f_4.tar.bz2#521b82c700a64bac7d8da27539422e91
@@ -240,7 +240,7 @@ https://conda.anaconda.org/conda-forge/osx-64/anyio-2.0.2-py36h79c6626_4.tar.bz2
 https://conda.anaconda.org/conda-forge/osx-64/bokeh-2.2.3-py36h79c6626_0.tar.bz2#63bd0ca18c943d98c29d0f948c8f569a
 https://conda.anaconda.org/conda-forge/noarch/importnb-0.7.0-pyhd8ed1ab_0.tar.bz2#73d3885a2fc883f4d19bc7b70baa37d2
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.1.2-pyh9f0ad1d_0.tar.bz2#2cbd910890bb328e8959246a1e16fac7
-https://conda.anaconda.org/conda-forge/noarch/nbformat-5.1.0-pyhd8ed1ab_0.tar.bz2#4ed0a33e44d7e14a22f71113f09511f1
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.8-py_0.tar.bz2#12aaf0d8795a5c375757b49a08e011a2
 https://conda.anaconda.org/conda-forge/osx-64/pylint-2.6.0-py36h9f0ad1d_1.tar.bz2#7015ab091ac7f216fb1168ce76a6e1e3
 https://conda.anaconda.org/conda-forge/osx-64/pytest-6.2.1-py36h79c6626_1.tar.bz2#84d1b1e84947d710053abedeb48cc85f
 https://conda.anaconda.org/conda-forge/noarch/readme_renderer-27.0-pyh9f0ad1d_0.tar.bz2#38446dff7f69efd3fab98ab4dc68c0c8

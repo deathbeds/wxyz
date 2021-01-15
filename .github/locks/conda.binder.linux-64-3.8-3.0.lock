@@ -1,5 +1,5 @@
 # platform: linux-64
-# env_hash: b25c4dc73e6e96f23cde8bb1710b4df3439acdba749d66190b8bdb7fa9775fb8
+# env_hash: d28eb037c642d6981e298e459fbc6ce3966ef267ae2ce36f570836c798027dc1
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2#23b8f98a355030331f40d0245492f715
@@ -233,7 +233,7 @@ https://conda.anaconda.org/conda-forge/noarch/certipy-0.1.3-py_0.tar.bz2#2348671
 https://conda.anaconda.org/conda-forge/noarch/jupyter_telemetry-0.1.0-pyhd8ed1ab_1.tar.bz2#bb9ebdb6d5aa2622484aff1faceee181
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.1.2-pyh9f0ad1d_0.tar.bz2#2cbd910890bb328e8959246a1e16fac7
 https://conda.anaconda.org/conda-forge/linux-64/keyring-21.8.0-py38h578d9bd_0.tar.bz2#0358a7702293487e431c89625d416c24
-https://conda.anaconda.org/conda-forge/noarch/nbformat-5.1.0-pyhd8ed1ab_0.tar.bz2#4ed0a33e44d7e14a22f71113f09511f1
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.8-py_0.tar.bz2#12aaf0d8795a5c375757b49a08e011a2
 https://conda.anaconda.org/conda-forge/noarch/readme_renderer-27.0-pyh9f0ad1d_0.tar.bz2#38446dff7f69efd3fab98ab4dc68c0c8
 https://conda.anaconda.org/conda-forge/linux-64/scikit-learn-0.24.0-py38h658cfdd_0.tar.bz2#0f511b4166fb52772afb9b05fb695f83
 https://conda.anaconda.org/conda-forge/noarch/urllib3-1.26.2-pyhd8ed1ab_0.tar.bz2#8bb930d172961c9ba9ffd6e10a64b844
