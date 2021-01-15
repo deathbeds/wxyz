@@ -1,5 +1,5 @@
 # platform: linux-64
-# env_hash: b312df30a54288cf2ff79b322af68ce376c31a87b869040baa2c909c31ee07d2
+# env_hash: 91fecfa70084a551d29758dfcf1b9548cd1f7894d701081959d2b4a056bd84f0
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2#23b8f98a355030331f40d0245492f715
@@ -371,5 +371,4 @@ https://conda.anaconda.org/conda-forge/noarch/ipycytoscape-1.2.0-pyhd8ed1ab_0.ta
 https://conda.anaconda.org/conda-forge/noarch/ipylab-0.4.1-pyhd8ed1ab_0.tar.bz2#c48a8785da83bbddfc2e5e9173a656a1
 https://conda.anaconda.org/conda-forge/noarch/ipympl-0.6.2-pyhd8ed1ab_0.tar.bz2#fd94fe44ff7117af3bdc4b98098f8111
 https://conda.anaconda.org/conda-forge/noarch/jupyter-sphinx-0.3.2-py_0.tar.bz2#9ae5148b076ddba22552ddb57a4c22ee
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab-classic-0.1.2-pyhd8ed1ab_0.tar.bz2#1ba9135530eba24ef877abdeb5b00620
 https://conda.anaconda.org/conda-forge/noarch/myst-nb-0.10.1-py_0.tar.bz2#7e0b1188f876c469a6eaf31f5798233a
