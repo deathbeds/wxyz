@@ -48,7 +48,7 @@ https://conda.anaconda.org/conda-forge/osx-64/tk-8.6.10-h0419947_1.tar.bz2#9a79a
 https://conda.anaconda.org/conda-forge/osx-64/zeromq-4.3.3-h74dc148_3.tar.bz2#365c52e91cb00d96d15bef9eddf9f7f8
 https://conda.anaconda.org/conda-forge/osx-64/zfp-0.5.5-h046ec9c_4.tar.bz2#c922f80fe4695b780d87ef69c12b002c
 https://conda.anaconda.org/conda-forge/osx-64/brunsli-0.1-h046ec9c_0.tar.bz2#28d47920c95b85499c9a61994cc49b87
-https://conda.anaconda.org/conda-forge/osx-64/freetype-2.10.4-h3f75d11_0.tar.bz2#84d0ef8511d5754eab4e6af79fb5d5b3
+https://conda.anaconda.org/conda-forge/osx-64/freetype-2.10.4-h4cff582_1.tar.bz2#5a136a432c6062362cd7990c514bd8d6
 https://conda.anaconda.org/conda-forge/osx-64/gettext-0.19.8.1-h7937167_1005.tar.bz2#52fd84c5cc5d61a6e05885f44d033efa
 https://conda.anaconda.org/conda-forge/osx-64/krb5-1.17.2-h60d9502_0.tar.bz2#abf2add2a1ade1920b25a8f3327a1aa0
 https://conda.anaconda.org/conda-forge/osx-64/libblas-3.9.0-7_mkl.tar.bz2#fbc6e62f458182d79035f965e9cc85fe
@@ -240,7 +240,7 @@ https://conda.anaconda.org/conda-forge/osx-64/anyio-2.0.2-py36h79c6626_4.tar.bz2
 https://conda.anaconda.org/conda-forge/osx-64/bokeh-2.2.3-py36h79c6626_0.tar.bz2#63bd0ca18c943d98c29d0f948c8f569a
 https://conda.anaconda.org/conda-forge/noarch/importnb-0.7.0-pyhd8ed1ab_0.tar.bz2#73d3885a2fc883f4d19bc7b70baa37d2
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.1.2-pyh9f0ad1d_0.tar.bz2#2cbd910890bb328e8959246a1e16fac7
-https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.8-py_0.tar.bz2#12aaf0d8795a5c375757b49a08e011a2
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.1.0-pyhd8ed1ab_0.tar.bz2#4ed0a33e44d7e14a22f71113f09511f1
 https://conda.anaconda.org/conda-forge/osx-64/pylint-2.6.0-py36h9f0ad1d_1.tar.bz2#7015ab091ac7f216fb1168ce76a6e1e3
 https://conda.anaconda.org/conda-forge/osx-64/pytest-6.2.1-py36h79c6626_1.tar.bz2#84d1b1e84947d710053abedeb48cc85f
 https://conda.anaconda.org/conda-forge/noarch/readme_renderer-27.0-pyh9f0ad1d_0.tar.bz2#38446dff7f69efd3fab98ab4dc68c0c8
@@ -258,7 +258,7 @@ https://conda.anaconda.org/conda-forge/noarch/pytest-cov-2.10.1-pyh9f0ad1d_0.tar
 https://conda.anaconda.org/conda-forge/noarch/pytest-forked-1.2.0-pyh9f0ad1d_0.tar.bz2#d4bc635ac7fd58559a6f1a1f78354818
 https://conda.anaconda.org/conda-forge/noarch/requests-2.25.1-pyhd3deb0d_0.tar.bz2#ae687aba31a1c400192a86a2e993ffdc
 https://conda.anaconda.org/conda-forge/noarch/scikit-mdr-0.4.4-py_1.tar.bz2#9ce428157b9f31e2d1f4e48b93556159
-https://conda.anaconda.org/conda-forge/osx-64/selenium-3.141.0-py36h9de38fb_1002.tar.bz2#3f34632ea9d9dc52fbf35b43f81fe615
+https://conda.anaconda.org/conda-forge/osx-64/selenium-3.141.0-py36h20b66c6_1002.tar.bz2#903154f4cde0ce4c549dff8e2cfcd6fd
 https://conda.anaconda.org/conda-forge/noarch/skrebate-0.61-pyh9f0ad1d_0.tar.bz2#a75047ba4c76ae7d75fb9b44f9b1a705
 https://conda.anaconda.org/conda-forge/noarch/yellowbrick-1.2-pyh9f0ad1d_0.tar.bz2#3eef320f403216b68eba3a6424f96b9c
 https://conda.anaconda.org/conda-forge/noarch/dask-glm-0.2.0-py_1.tar.bz2#7c9c5295a0499bf56bbf084578618af5
@@ -287,7 +287,7 @@ https://conda.anaconda.org/conda-forge/noarch/nbclassic-0.2.6-pyhd8ed1ab_0.tar.b
 https://conda.anaconda.org/conda-forge/osx-64/widgetsnbextension-3.5.1-py36h79c6626_4.tar.bz2#4fd4c9e381f16caf01d9a5244eeea563
 https://conda.anaconda.org/conda-forge/noarch/hvplot-0.7.0-pyhd3deb0d_0.tar.bz2#b2e8747e6b00559ed461c979766a2ed7
 https://conda.anaconda.org/conda-forge/noarch/ipywidgets-7.6.3-pyhd3deb0d_0.tar.bz2#536a9ed6d9e740f2b83d1a3c388e4388
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.4-pyhd8ed1ab_0.tar.bz2#f196ddf31157a9d42e724fde26790330
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.5-pyhd8ed1ab_0.tar.bz2#4824b73d683d4efb2f3dfb352b24544a
 https://conda.anaconda.org/conda-forge/noarch/bqplot-0.12.21-pyhd8ed1ab_0.tar.bz2#1f804e7d3cd16071e4c4e81567d529ce
 https://conda.anaconda.org/conda-forge/noarch/dask-labextension-5.0.0-pyhd8ed1ab_0.tar.bz2#912033f0b7f96ecb2bb73a24333541e2
 https://conda.anaconda.org/conda-forge/noarch/ipycytoscape-1.2.0-pyhd8ed1ab_0.tar.bz2#2246dd9d1101ac92688e7d942fd86ed4

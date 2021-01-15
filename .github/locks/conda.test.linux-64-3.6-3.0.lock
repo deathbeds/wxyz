@@ -61,7 +61,7 @@ https://conda.anaconda.org/conda-forge/linux-64/readline-8.0-he28a2e2_2.tar.bz2#
 https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.10-h21135ba_1.tar.bz2#c647f70aa7e3d4cc4e029cc1c9a99953
 https://conda.anaconda.org/conda-forge/linux-64/zeromq-4.3.3-h58526e2_3.tar.bz2#6272fa8d98bd79c7978da0f7d2bb28da
 https://conda.anaconda.org/conda-forge/linux-64/zstd-1.4.8-hdf46e1d_0.tar.bz2#9e4943915c2bc43144da348d0c1b1e6b
-https://conda.anaconda.org/conda-forge/linux-64/freetype-2.10.4-h7ca028e_0.tar.bz2#1e6bf409916fdf455a5bb8627b626285
+https://conda.anaconda.org/conda-forge/linux-64/freetype-2.10.4-h0708190_1.tar.bz2#4a06f2ac2e5bfae7b6b245171c3f07aa
 https://conda.anaconda.org/conda-forge/linux-64/krb5-1.17.2-h926e7f8_0.tar.bz2#926325c11478d6e781e76072c117763b
 https://conda.anaconda.org/conda-forge/linux-64/libglib-2.66.4-h164308a_1.tar.bz2#d320eec766d1f41b94b75a09e020ed32
 https://conda.anaconda.org/conda-forge/linux-64/libtiff-4.2.0-hdc55705_0.tar.bz2#f1406324f1d02fa26447a0a0f2dd0107
@@ -248,7 +248,7 @@ https://conda.anaconda.org/conda-forge/linux-64/bokeh-2.2.3-py36h5fab9bb_0.tar.b
 https://conda.anaconda.org/conda-forge/noarch/importnb-0.7.0-pyhd8ed1ab_0.tar.bz2#73d3885a2fc883f4d19bc7b70baa37d2
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.1.2-pyh9f0ad1d_0.tar.bz2#2cbd910890bb328e8959246a1e16fac7
 https://conda.anaconda.org/conda-forge/linux-64/keyring-21.8.0-py36h5fab9bb_0.tar.bz2#699881f67874c81dcffc91ba31fd70e0
-https://conda.anaconda.org/conda-forge/noarch/nbformat-5.0.8-py_0.tar.bz2#12aaf0d8795a5c375757b49a08e011a2
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.1.0-pyhd8ed1ab_0.tar.bz2#4ed0a33e44d7e14a22f71113f09511f1
 https://conda.anaconda.org/conda-forge/linux-64/pylint-2.6.0-py36h9f0ad1d_1.tar.bz2#58b667768ed6e546d707aa02deeaf344
 https://conda.anaconda.org/conda-forge/linux-64/pytest-6.2.1-py36h5fab9bb_1.tar.bz2#cf7e4966b7d8e85aa3529bfb3c733ffc
 https://conda.anaconda.org/conda-forge/noarch/readme_renderer-27.0-pyh9f0ad1d_0.tar.bz2#38446dff7f69efd3fab98ab4dc68c0c8
@@ -266,7 +266,7 @@ https://conda.anaconda.org/conda-forge/noarch/pytest-cov-2.10.1-pyh9f0ad1d_0.tar
 https://conda.anaconda.org/conda-forge/noarch/pytest-forked-1.2.0-pyh9f0ad1d_0.tar.bz2#d4bc635ac7fd58559a6f1a1f78354818
 https://conda.anaconda.org/conda-forge/noarch/requests-2.25.1-pyhd3deb0d_0.tar.bz2#ae687aba31a1c400192a86a2e993ffdc
 https://conda.anaconda.org/conda-forge/noarch/scikit-mdr-0.4.4-py_1.tar.bz2#9ce428157b9f31e2d1f4e48b93556159
-https://conda.anaconda.org/conda-forge/linux-64/selenium-3.141.0-py36h8c4c3a4_1002.tar.bz2#e63596de1519b98c94617c4ba8e3b327
+https://conda.anaconda.org/conda-forge/linux-64/selenium-3.141.0-py36h8f6f2f9_1002.tar.bz2#f747ac92d0e42c2d11b3655f2afe0436
 https://conda.anaconda.org/conda-forge/noarch/skrebate-0.61-pyh9f0ad1d_0.tar.bz2#a75047ba4c76ae7d75fb9b44f9b1a705
 https://conda.anaconda.org/conda-forge/noarch/yellowbrick-1.2-pyh9f0ad1d_0.tar.bz2#3eef320f403216b68eba3a6424f96b9c
 https://conda.anaconda.org/conda-forge/noarch/dask-glm-0.2.0-py_1.tar.bz2#7c9c5295a0499bf56bbf084578618af5
@@ -295,7 +295,7 @@ https://conda.anaconda.org/conda-forge/noarch/nbclassic-0.2.6-pyhd8ed1ab_0.tar.b
 https://conda.anaconda.org/conda-forge/linux-64/widgetsnbextension-3.5.1-py36h5fab9bb_4.tar.bz2#6919ca2c4ddec0166a900910d54ded67
 https://conda.anaconda.org/conda-forge/noarch/hvplot-0.7.0-pyhd3deb0d_0.tar.bz2#b2e8747e6b00559ed461c979766a2ed7
 https://conda.anaconda.org/conda-forge/noarch/ipywidgets-7.6.3-pyhd3deb0d_0.tar.bz2#536a9ed6d9e740f2b83d1a3c388e4388
-https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.4-pyhd8ed1ab_0.tar.bz2#f196ddf31157a9d42e724fde26790330
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.5-pyhd8ed1ab_0.tar.bz2#4824b73d683d4efb2f3dfb352b24544a
 https://conda.anaconda.org/conda-forge/noarch/bqplot-0.12.21-pyhd8ed1ab_0.tar.bz2#1f804e7d3cd16071e4c4e81567d529ce
 https://conda.anaconda.org/conda-forge/noarch/dask-labextension-5.0.0-pyhd8ed1ab_0.tar.bz2#912033f0b7f96ecb2bb73a24333541e2
 https://conda.anaconda.org/conda-forge/noarch/ipycytoscape-1.2.0-pyhd8ed1ab_0.tar.bz2#2246dd9d1101ac92688e7d942fd86ed4
