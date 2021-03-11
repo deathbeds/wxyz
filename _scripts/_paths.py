@@ -81,13 +81,14 @@ class ENV:
     base = REQS / "base.yml"
     binder = REQS / "binder.yml"
     docs = REQS / "docs.yml"
+    future = REQS / "future.yml"
     lint = REQS / "lint.yml"
     lock = REQS / "lock.yml"
+    tpot = REQS / "tpot.yml"
+    unix = REQS / "unix.yml"
+    unix_tpot = REQS / "unix_tpot.yml"
     utest = REQS / "utest.yml"
     win = REQS / "win.yml"
-    unix = REQS / "unix.yml"
-    tpot = REQS / "tpot.yml"
-    unix_tpot = REQS / "unix_tpot.yml"
     win_tpot = REQS / "win_tpot.yml"
     WXYZ = REQS.glob("wxyz_*.yml")
 
