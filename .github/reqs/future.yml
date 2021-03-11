@@ -1,0 +1,17 @@
+name: wxyz-future
+
+channels:
+  - https://conda.anaconda.org/conda-forge
+  - nodefaults
+
+dependencies:
+  - bqplot
+  - datashader
+  - formulas-all
+  - hvplot
+  - ipycytoscape
+  - ipydatagrid
+  - ipylab
+  - jupyterlab-tour
+  - pythreejs
+

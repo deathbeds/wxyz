@@ -102,14 +102,14 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
         yield make_lock_task(
             "binder",
-            [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
+            [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.future, P.ENV.binder],
             {},
             *binder_args,
         )
 
         yield make_lock_task(
             "docs",
-            [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
+            [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.future, P.ENV.docs],
             {},
             *binder_args,
         )
