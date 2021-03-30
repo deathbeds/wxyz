@@ -8,3 +8,4 @@ dependencies:
   - jupyterhub-singleuser
   - nbresuse
   - nbgitpuller
+  - jupyterlab-tour
