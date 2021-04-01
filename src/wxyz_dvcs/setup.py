@@ -1,5 +1,6 @@
 """generated setup for wxyz_dvcs, do not edit by hand"""
 import json
+import sys
 from pathlib import Path
 
 WXYZ_NAME = "dvcs"
@@ -32,9 +33,10 @@ for ext_path in [EXT] + [d for d in EXT.rglob("*") if d.is_dir()]:
 
 ALL_FILES = sum(EXT_FILES.values(), [])
 
-assert (
-    len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
-), "expected _exactly one_ remoteEntry.*.js"
+if "sdist" in sys.argv or "bdist_wheel" in sys.argv:
+    assert (
+        len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
+    ), "expected _exactly one_ remoteEntry.*.js"
 
 EXT_FILES[SHARE] += [f"src/wxyz/{WXYZ_NAME}/install.json"]
 
