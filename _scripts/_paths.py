@@ -380,7 +380,7 @@ console.log(wxyz); // and see _something_
 > _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
-> - `python >=3.6`
+> - `python >=3.7`
 > - `nodejs >=12`
 > - `jupyterlab >=3,<4`
 

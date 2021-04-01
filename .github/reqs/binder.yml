@@ -9,3 +9,4 @@ dependencies:
   - nbresuse
   - nbgitpuller
   - jupyterlab-tour
+  - jupyter-starters

@@ -13,7 +13,7 @@
 
 > Prerequisites:
 >
-> - `python >=3.6`
+> - `python >=3.7`
 > - `jupyterlab >=3,<4`
 
 ```bash

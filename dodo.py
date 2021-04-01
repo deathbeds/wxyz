@@ -566,7 +566,6 @@ if not P.BUILDING_IN_CI:
                         "auto",
                         "-o",
                         f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
-                        "--no-coverage-upload",
                         *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
                     ],
                     cwd=P.PY_SRC / "wxyz_notebooks",

@@ -25,3 +25,4 @@ dependencies:
   - hvplot
   - ipycytoscape
   - ipylab
+  - ipyelk
