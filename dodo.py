@@ -281,20 +281,25 @@ else:
             targets=[P.OK / "setup_lab"],
             actions=[
                 U.okit("setup_lab", remove=True),
-                *[
-                    [
-                        "jupyter",
-                        "labextension",
-                        "develop",
-                        "--overwrite",
-                        f"wxyz.{p.parent.name}",
-                    ]
-                    for p in P.WXYZ_LAB_EXTENSIONS
-                ],
+                *[(_make_develop, [p.parent]) for p in P.WXYZ_LAB_EXTENSIONS],
                 ["jupyter", "labextension", "list"],
                 U.okit("setup_lab"),
             ],
         )
+
+
+def _make_develop(path):
+    args = [
+        *P.PYM,
+        "_scripts._hacked_labextension",
+        "develop",
+        "--debug",
+        "--overwrite",
+        f"wxyz.{path.name}",
+    ]
+    # py_path = path.parent.parent.parent
+    # raise Exception(args)
+    return subprocess.call(args) == 0
 
 
 def _make_linters(label, files):
