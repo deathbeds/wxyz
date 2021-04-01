@@ -240,7 +240,9 @@ jobs:
 
       - name: doit (docs)
         if: ${{ matrix.lockname == 'docs' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 docs
+        env:
+          TESTING_IN_CI: 0
+        run: source "${CONDA}/bin/activate" ./envs/_base && doit -n4 docs || doit docs
 
       - name: upload (docs)
         uses: actions/upload-artifact@v2
