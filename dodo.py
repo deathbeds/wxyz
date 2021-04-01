@@ -795,10 +795,6 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             yield task
             widget_index_deps += task["targets"]
 
-            task = _make_dot(setup_py)
-            yield task
-            widget_index_deps += task["targets"]
-
         yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:

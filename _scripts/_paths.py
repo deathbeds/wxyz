@@ -453,10 +453,6 @@ PY_RST_TEMPLATE_TXT = """{{ stars }}
    :exclude-members: {{ exclude_members }}
 
 
-Classes
--------
-
-.. graphviz:: dot/classes_{{ name }}.dot
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
