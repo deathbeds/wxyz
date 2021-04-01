@@ -4,6 +4,8 @@ channels:
   - https://conda.anaconda.org/conda-forge
 
 dependencies:
+  - codecov
+  - nbval
   - pytest
   - pytest-cov
   - pytest-xdist
