@@ -121,7 +121,7 @@ ALL_SRC_PY = sorted(
     [
         py
         for py in PY_SRC.rglob("*.py")
-        if all([p not in str(py.as_posix()) for p in SRC_IGNORE_PATTERNS])
+        if all(p not in str(py.as_posix()) for p in SRC_IGNORE_PATTERNS)
     ]
 )
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY, DOCS_CONF_PY])
@@ -300,7 +300,7 @@ ALL_PRETTIER = sorted(
             *SRC.rglob("*.ts"),
             *SRC.rglob("*.yml"),
         ]
-        if all([p not in str(pretty.as_posix()) for p in SRC_IGNORE_PATTERNS])
+        if all(p not in str(pretty.as_posix()) for p in SRC_IGNORE_PATTERNS)
     }
 )
 

@@ -100,7 +100,7 @@ def expand_gh_matrix(matrix):
         # if any of these match, skip yield
         for exc in exclude or []:
             should_yield = should_yield and not (
-                all([m.get(k) == v for k, v in exc.items()])
+                all(m.get(k) == v for k, v in exc.items())
             )
 
         if should_yield:
@@ -113,4 +113,5 @@ def iter_matrix(matrix, keys=None):
     keys = keys or ["conda-subdir", "python-version", "lab"]
 
     for key in expand_gh_matrix(matrix):
-        yield tuple([key[k] for k in keys])
+        matrix_key = [key[k] for k in keys]
+        yield tuple(matrix_key)
