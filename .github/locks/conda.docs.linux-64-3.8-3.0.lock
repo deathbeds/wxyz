@@ -1,5 +1,5 @@
 # platform: linux-64
-# env_hash: 0a9475b7267327cbbbb281169f39f62ae5cbb0b0bb566607bb633276186f600d
+# env_hash: f7368c7b8fe1f6e433eef856a43b373b11c19db28f8d82c3d8ff52efbc083fed
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2#23b8f98a355030331f40d0245492f715
@@ -226,7 +226,7 @@ https://conda.anaconda.org/conda-forge/linux-64/msgpack-python-1.0.2-py38h1fd143
 https://conda.anaconda.org/conda-forge/linux-64/multidict-5.1.0-py38h497a2fe_1.tar.bz2#144fb43891d7bef0e353fb160ddd39bd
 https://conda.anaconda.org/conda-forge/noarch/multipledispatch-0.6.0-py_0.tar.bz2#1073dc92c8f247d94ac14dd79ca0bbec
 https://conda.anaconda.org/conda-forge/linux-64/mypy_extensions-0.4.3-py38h578d9bd_3.tar.bz2#2821575c3884edf40e02cf1966e1c504
-https://conda.anaconda.org/conda-forge/linux-64/numpy-1.20.2-py38h9894fe3_0.tar.bz2#d159afa37685037c73461e8f2fa22e50
+https://conda.anaconda.org/conda-forge/linux-64/numpy-1.19.5-py38h18fd61f_1.tar.bz2#93747adf1f986f2887d3c113c3bb99d7
 https://conda.anaconda.org/conda-forge/noarch/packaging-20.9-pyh44b312d_0.tar.bz2#be69a38e912054a62dc82cc3c7711a64
 https://conda.anaconda.org/conda-forge/noarch/partd-1.2.0-pyhd8ed1ab_0.tar.bz2#0c32f563d7f22e3a34c95cad8cc95651
 https://conda.anaconda.org/conda-forge/noarch/pexpect-4.8.0-pyh9f0ad1d_2.tar.bz2#5909e7b978141dd80d28dbf9de627827

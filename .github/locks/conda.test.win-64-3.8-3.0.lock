@@ -1,5 +1,5 @@
 # platform: win-64
-# env_hash: 6510e04764ab624bbfbf8394982e20bb78093744fdbf529c48ff0bdca25e1d3d
+# env_hash: 2b6979279f91d6c3ea31c791a5ca3163600a0727f0701854629c982c46eeffe9
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/win-64/git-2.30.2-h57928b3_1.tar.bz2#93ba948d1accba14e23b550e968f3d63
 https://conda.anaconda.org/conda-forge/noarch/nomkl-1.0-h5ca1d4c_0.tar.bz2#9a66894dfd07c4510beb6b3f9672ccc0
@@ -208,7 +208,7 @@ https://conda.anaconda.org/conda-forge/noarch/jupyter-packaging-0.10.1-pyhd8ed1a
 https://conda.anaconda.org/conda-forge/noarch/jupyter_client-6.1.12-pyhd8ed1ab_0.tar.bz2#f58b38ddb9f94fa3cafea4ba2b17f93b
 https://conda.anaconda.org/conda-forge/win-64/keyring-23.0.1-py38haa244fe_0.tar.bz2#cd20ca30b91f5a925e3e0aed273355e7
 https://conda.anaconda.org/conda-forge/noarch/networkx-2.5-py_0.tar.bz2#d836ad8453c22192357707026ca21653
-https://conda.anaconda.org/conda-forge/win-64/numpy-1.20.2-py38h09042cb_0.tar.bz2#7a5fef1cfaf6f254d979ad4111c31bc5
+https://conda.anaconda.org/conda-forge/win-64/numpy-1.19.5-py38h0cc643e_1.tar.bz2#58365ddd5d312985522631ad03fcc5a8
 https://conda.anaconda.org/conda-forge/noarch/pip-21.1.1-pyhd8ed1ab_0.tar.bz2#e0bad1330c3575222d221e7679a36a0a
 https://conda.anaconda.org/conda-forge/noarch/pygments-2.9.0-pyhd8ed1ab_0.tar.bz2#a2d9bba43c9b80a42b0ccb9afd7223c2
 https://conda.anaconda.org/conda-forge/noarch/pyopenssl-20.0.1-pyhd8ed1ab_0.tar.bz2#92371c25994d0f5d28a01c1fb75ebf86
