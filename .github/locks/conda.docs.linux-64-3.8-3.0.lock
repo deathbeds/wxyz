@@ -1,5 +1,5 @@
 # platform: linux-64
-# env_hash: b233cb578d39b35f23d9e773621dd562e946541a909722f2b15dfe6dc9722a2b
+# env_hash: 0a9475b7267327cbbbb281169f39f62ae5cbb0b0bb566607bb633276186f600d
 @EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/_py-xgboost-mutex-2.0-cpu_0.tar.bz2#23b8f98a355030331f40d0245492f715
@@ -178,7 +178,6 @@ https://conda.anaconda.org/conda-forge/noarch/smmap-3.0.5-pyh44b312d_0.tar.bz2#3
 https://conda.anaconda.org/conda-forge/noarch/snowballstemmer-2.1.0-pyhd8ed1ab_0.tar.bz2#f1d64c0cf0eedf655a96ccdc1573c05a
 https://conda.anaconda.org/conda-forge/noarch/sortedcontainers-2.3.0-pyhd8ed1ab_0.tar.bz2#2f5b87cd0bdf1822b62e40909f471db4
 https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.0.1-py_1.tar.bz2#aa1db70848c19bace567ba39a157f508
-https://conda.anaconda.org/conda-forge/noarch/spectate-1.0.1-pyhd8ed1ab_0.tar.bz2#33e8cb574899a6790ace9692e9de22d6
 https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-applehelp-1.0.2-py_0.tar.bz2#20b2eaeaeea4ef9a9a0d99770620fd09
 https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-devhelp-1.0.2-py_0.tar.bz2#68e01cac9d38d0e717cd5c87bc3d2cc9
 https://conda.anaconda.org/conda-forge/noarch/sphinxcontrib-htmlhelp-1.0.3-py_0.tar.bz2#4508a40465ebf0105e52f7194f299411
@@ -386,7 +385,6 @@ https://conda.anaconda.org/conda-forge/noarch/ipywidgets-7.6.3-pyhd3deb0d_0.tar.
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab-3.0.14-pyhd8ed1ab_0.tar.bz2#a40aa8ef6258bf7c2ef42ecd97701b74
 https://conda.anaconda.org/conda-forge/noarch/bqplot-0.12.26-pyhd8ed1ab_0.tar.bz2#19255264fc5c08e734cf6595ccf990bb
 https://conda.anaconda.org/conda-forge/noarch/dask-labextension-5.0.1-pyhd8ed1ab_1.tar.bz2#08196a3509bb10869c2ae06b198ea477
-https://conda.anaconda.org/conda-forge/noarch/ipycytoscape-1.2.1-pyhd8ed1ab_0.tar.bz2#420b748790b435cf9f54fb7d764bdb04
 https://conda.anaconda.org/conda-forge/noarch/ipyelk-1.0.0-pyhd8ed1ab_0.tar.bz2#d75fed3e3e35ef7a2061c7c69fe98aa3
 https://conda.anaconda.org/conda-forge/noarch/ipylab-0.4.1-pyhd8ed1ab_0.tar.bz2#c48a8785da83bbddfc2e5e9173a656a1
 https://conda.anaconda.org/conda-forge/noarch/ipympl-0.7.0-pyhd8ed1ab_0.tar.bz2#2ab6d9f0d8943fb66694748bbfae959b
