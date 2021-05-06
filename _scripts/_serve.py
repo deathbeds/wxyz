@@ -32,7 +32,7 @@ class CacheStaticHandler(web.StaticFileHandler):
         return int(1e10)
 
     async def get(self, url, include_body=True) -> None:
-        """get, but handles index.html """
+        """get, but handles index.html"""
         root = Path(SETTINGS["static_path"])
         path = root / url
         if path.is_dir():
