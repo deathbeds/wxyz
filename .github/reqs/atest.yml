@@ -6,7 +6,7 @@ channels:
 dependencies:
   - firefox =78
   - geckodriver
-  - robotframework >=3.2
+  - robotframework >=4
   - robotframework-lint
   - robotframework-pabot
   - robotframework-seleniumlibrary

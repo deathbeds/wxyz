@@ -19,8 +19,6 @@ env:
   # mamba cruft
   FORGE_URL: https://github.com/conda-forge/miniforge/releases/download
   CONDA_EXE: mamba
-  FORGE: Mambaforge
-  FORGE_VERSION: 4.10.0-0
   MAMBA_NO_BANNER: 1
 
 jobs:
@@ -196,11 +194,10 @@ jobs:
       - name: setup (mamba)
         uses: conda-incubator/setup-miniconda@v2
         with:
-          use-only-tar-bz2: true
           condarc-file: .github/.condarc
+          miniforge-variant: Mambaforge
           use-mamba: true
-          installer-url: |
-            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+          use-only-tar-bz2: true
 
       - name: mamba (env, unix)
         if: ${{ matrix.os != 'windows' }}

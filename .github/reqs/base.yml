@@ -2,7 +2,6 @@ name: wxyz-base
 
 channels:
   - https://conda.anaconda.org/conda-forge
-  - nodefaults
 
 dependencies:
   - bs4
