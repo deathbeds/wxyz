@@ -90,8 +90,8 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "github_url": "https://github.com/deathbeds/wxyz",
     "use_edit_page_button": True,
-    "search_bar_position": "navbar",
     "show_toc_level": 4,
+    "navbar_end": ["navbar-icon-links.html", "search-field.html"],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
