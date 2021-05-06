@@ -813,7 +813,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             yield dict(
                 name="sphinx",
                 doc="build the HTML site",
-                actions=[["sphinx-build", "-b", "html", "docs", "build/docs"]],
+                actions=[["sphinx-build", "-j8", "-b", "html", "docs", "build/docs"]],
                 file_dep=[
                     *P.ALL_SETUP_CFG,
                     *P.ALL_SRC_PY,
@@ -977,6 +977,8 @@ if not P.RUNNING_IN_CI:
                 p = subprocess.Popen(
                     [
                         "sphinx-autobuild",
+                        "-a",
+                        "-j8",
                         "--re-ignore",
                         r"'*\.ipynb_checkpoints*'",
                         P.DOCS,

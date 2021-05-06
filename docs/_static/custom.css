@@ -167,3 +167,18 @@ i.fab {
 a.headerlink {
   color: var(--wxyz-brand-color0) !important;
 }
+
+
+@media (min-width: 1200px) {
+  .container,
+  .container-xl {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 960px) {
+  #navbar-center {
+    display: flex;
+    align-items: baseline;
+  }
+}
