@@ -26,4 +26,4 @@ dependencies:
   - ipylab
   - ipyelk
   # for yellowbrick
-  - pandas <1.20
+  - numpy <1.20
