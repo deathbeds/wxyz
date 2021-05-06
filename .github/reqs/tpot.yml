@@ -23,6 +23,7 @@ dependencies:
   - bqplot
   - datashader
   - hvplot
-  - ipycytoscape
   - ipylab
   - ipyelk
+  # for yellowbrick
+  - pandas <1.20
