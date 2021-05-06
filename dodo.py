@@ -281,20 +281,25 @@ else:
             targets=[P.OK / "setup_lab"],
             actions=[
                 U.okit("setup_lab", remove=True),
-                *[
-                    [
-                        "jupyter",
-                        "labextension",
-                        "develop",
-                        "--overwrite",
-                        f"wxyz.{p.parent.name}",
-                    ]
-                    for p in P.WXYZ_LAB_EXTENSIONS
-                ],
+                *[(_make_develop, [p.parent]) for p in P.WXYZ_LAB_EXTENSIONS],
                 ["jupyter", "labextension", "list"],
                 U.okit("setup_lab"),
             ],
         )
+
+
+def _make_develop(path):
+    args = [
+        *P.PYM,
+        "_scripts._hacked_labextension",
+        "develop",
+        "--debug",
+        "--overwrite",
+        f"wxyz.{path.name}",
+    ]
+    # py_path = path.parent.parent.parent
+    # raise Exception(args)
+    return subprocess.call(args) == 0
 
 
 def _make_linters(label, files):
@@ -561,7 +566,6 @@ if not P.BUILDING_IN_CI:
                         "auto",
                         "-o",
                         f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
-                        "--no-coverage-upload",
                         *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
                     ],
                     cwd=P.PY_SRC / "wxyz_notebooks",
@@ -791,10 +795,6 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             yield task
             widget_index_deps += task["targets"]
 
-            task = _make_dot(setup_py)
-            yield task
-            widget_index_deps += task["targets"]
-
         yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:
@@ -813,7 +813,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             yield dict(
                 name="sphinx",
                 doc="build the HTML site",
-                actions=[["sphinx-build", "-b", "html", "docs", "build/docs"]],
+                actions=[["sphinx-build", "-j8", "-b", "html", "docs", "build/docs"]],
                 file_dep=[
                     *P.ALL_SETUP_CFG,
                     *P.ALL_SRC_PY,
@@ -977,6 +977,8 @@ if not P.RUNNING_IN_CI:
                 p = subprocess.Popen(
                     [
                         "sphinx-autobuild",
+                        "-a",
+                        "-j8",
                         "--re-ignore",
                         r"'*\.ipynb_checkpoints*'",
                         P.DOCS,

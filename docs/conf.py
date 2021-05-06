@@ -51,7 +51,7 @@ sitemap_url_scheme = "{link}"
 html_favicon = "_static/favicon.ico"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ["_templates"]
+# templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -90,8 +90,8 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "github_url": "https://github.com/deathbeds/wxyz",
     "use_edit_page_button": True,
-    "search_bar_position": "navbar",
     "show_toc_level": 4,
+    "navbar_end": ["navbar-icon-links.html", "search-field.html"],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

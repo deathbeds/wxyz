@@ -19,8 +19,6 @@ env:
   # mamba cruft
   FORGE_URL: https://github.com/conda-forge/miniforge/releases/download
   CONDA_EXE: mamba
-  FORGE: Mambaforge
-  FORGE_VERSION: 4.9.2-5
   MAMBA_NO_BANNER: 1
 
 jobs:
@@ -131,7 +129,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python-version: ['3.6', '3.8']
+        python-version: ['3.7', '3.8']
         lab: ['3.0']
         include:
           - os: ubuntu
@@ -196,10 +194,10 @@ jobs:
       - name: setup (mamba)
         uses: conda-incubator/setup-miniconda@v2
         with:
-          use-only-tar-bz2: true
           condarc-file: .github/.condarc
-          installer-url: |
-            ${{ env.FORGE_URL }}/${{ env.FORGE_VERSION }}/${{ env.FORGE }}-${{ env.FORGE_VERSION }}-${{ matrix.forge-ext }}
+          miniforge-variant: Mambaforge
+          use-mamba: true
+          use-only-tar-bz2: true
 
       - name: mamba (env, unix)
         if: ${{ matrix.os != 'windows' }}
@@ -239,7 +237,9 @@ jobs:
 
       - name: doit (docs)
         if: ${{ matrix.lockname == 'docs' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 docs
+        env:
+          TESTING_IN_CI: 0
+        run: source "${CONDA}/bin/activate" ./envs/_base && doit -n4 docs || doit docs
 
       - name: upload (docs)
         uses: actions/upload-artifact@v2

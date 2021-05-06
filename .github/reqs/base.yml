@@ -2,7 +2,6 @@ name: wxyz-base
 
 channels:
   - https://conda.anaconda.org/conda-forge
-  - nodefaults
 
 dependencies:
   - bs4
@@ -13,6 +12,3 @@ dependencies:
   - pip
   - python
   - twine
-  # TODO: remove at some point
-  - jedi <0.18.0
-  - nbformat >=5,!=5.1.0,!=5.1.1

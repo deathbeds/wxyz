@@ -2,9 +2,12 @@ name: wxyz-binder
 
 channels:
   - https://conda.anaconda.org/conda-forge
-  - nodefaults
 
 dependencies:
+  - jupyter-lsp-python-lsp-server
+  - jupyter-starters
   - jupyterhub-singleuser
-  - nbresuse
+  - jupyterlab-lsp
+  - jupyterlab-tour
   - nbgitpuller
+  - nbresuse

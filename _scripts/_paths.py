@@ -121,7 +121,7 @@ ALL_SRC_PY = sorted(
     [
         py
         for py in PY_SRC.rglob("*.py")
-        if all([p not in str(py.as_posix()) for p in SRC_IGNORE_PATTERNS])
+        if all(p not in str(py.as_posix()) for p in SRC_IGNORE_PATTERNS)
     ]
 )
 ALL_PY = sorted([DODO, *SCRIPTS.glob("*.py"), *ALL_SRC_PY, DOCS_CONF_PY])
@@ -300,7 +300,7 @@ ALL_PRETTIER = sorted(
             *SRC.rglob("*.ts"),
             *SRC.rglob("*.yml"),
         ]
-        if all([p not in str(pretty.as_posix()) for p in SRC_IGNORE_PATTERNS])
+        if all(p not in str(pretty.as_posix()) for p in SRC_IGNORE_PATTERNS)
     }
 )
 
@@ -380,7 +380,7 @@ console.log(wxyz); // and see _something_
 > _This approach is no longer recommended, and is **not tested**_
 
 > Prerequisites:
-> - `python >=3.6`
+> - `python >=3.7`
 > - `nodejs >=12`
 > - `jupyterlab >=3,<4`
 
@@ -453,10 +453,6 @@ PY_RST_TEMPLATE_TXT = """{{ stars }}
    :exclude-members: {{ exclude_members }}
 
 
-Classes
--------
-
-.. graphviz:: dot/classes_{{ name }}.dot
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
@@ -465,6 +461,7 @@ PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
 PY_SETUP_TEXT = '''
 """generated setup for wxyz_{{ wxyz_name }}, do not edit by hand"""
 import json
+import sys
 from pathlib import Path
 WXYZ_NAME = "{{ wxyz_name }}"
 
@@ -496,9 +493,10 @@ for ext_path in [EXT] + [d for d in EXT.rglob("*") if d.is_dir()]:
 
 ALL_FILES = sum(EXT_FILES.values(), [])
 
-assert (
-    len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
-), "expected _exactly one_ remoteEntry.*.js"
+if "sdist" in sys.argv or "bdist_wheel" in sys.argv:
+    assert (
+        len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
+    ), "expected _exactly one_ remoteEntry.*.js"
 
 EXT_FILES[SHARE] += [f"src/wxyz/{WXYZ_NAME}/install.json"]
 

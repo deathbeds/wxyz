@@ -21,7 +21,7 @@ class _GitRefWatcher(DefaultDirWatcher):
 
 
 class GitRemote(Remote):
-    """ a git remote """
+    """a git remote"""
 
     local = T.Instance(Repo)
     _remote = T.Instance(G.Remote, allow_none=True)

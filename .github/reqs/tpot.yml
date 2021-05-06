@@ -23,5 +23,7 @@ dependencies:
   - bqplot
   - datashader
   - hvplot
-  - ipycytoscape
   - ipylab
+  - ipyelk
+  # for yellowbrick
+  - numpy <1.20
