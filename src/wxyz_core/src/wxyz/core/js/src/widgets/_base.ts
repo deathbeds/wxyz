@@ -87,9 +87,9 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
   defaults() {
     return {
       ...super.defaults(),
-      source: (null as unknown) as T,
-      value: (null as unknown) as U,
-      error: (null as unknown) as string,
+      source: null as unknown as T,
+      value: null as unknown as U,
+      error: null as unknown as string,
       mode: 'both',
     };
   }
@@ -103,7 +103,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
 
   async theFunction(source: T): Promise<U> {
     console.error('undeFned', source);
-    return (null as unknown) as U;
+    return null as unknown as U;
   }
 
   get theSource(): T {
