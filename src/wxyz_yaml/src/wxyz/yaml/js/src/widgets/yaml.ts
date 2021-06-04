@@ -17,8 +17,8 @@ export class YAMLModel extends JSONModel {
   }
 
   async theFunction(source: string): Promise<any> {
-    const { safeLoad } = _yaml.get() || (await _yaml.load());
-    return safeLoad(source);
+    const { load, FAILSAFE_SCHEMA } = _yaml.get() || (await _yaml.load());
+    return load(source, { schema: FAILSAFE_SCHEMA });
   }
 }
 
@@ -39,7 +39,10 @@ export class UnYAMLModel extends UnJSONModel {
   }
 
   async theFunction(source: string) {
-    const { safeDump } = _yaml.get() || (await _yaml.load());
-    return safeDump(source, { indent: this.get('indent') });
+    const { dump, FAILSAFE_SCHEMA } = _yaml.get() || (await _yaml.load());
+    return dump(source, {
+      indent: this.get('indent'),
+      schema: FAILSAFE_SCHEMA,
+    });
   }
 }
