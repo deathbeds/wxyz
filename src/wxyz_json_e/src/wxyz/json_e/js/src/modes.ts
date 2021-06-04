@@ -4,7 +4,8 @@ import 'codemirror/mode/yaml/yaml';
 
 const RE_OP0 = /(then|else|from|each\([^)]+\))(?=:)/;
 const RE_OP1 = /\$(flattenDeep|mergeDeep)/;
-const RE_OP2 = /\$(eval|json|if|then|else|flatten|fromNow|let|map|match|merge|sort|switch|reverse)(?=:)/;
+const RE_OP2 =
+  /\$(eval|json|if|then|else|flatten|fromNow|let|map|match|merge|sort|switch|reverse)(?=:)/;
 const RE_EX = /\$\{[^\}]*\}/;
 const RE_END = /\$|(then|else|from|each\(.*\)):/;
 

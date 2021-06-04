@@ -8,7 +8,7 @@
   },
   "description": "metapackage for building @deathbeds/wxyz (probably won't install)",
   "devDependencies": {
-    "typescript": "~4.0.2"
+    "typescript": "~4.3.2"
   },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
@@ -47,5 +47,5 @@
     "watch": "jlpm build --watch --preserveWatchOutput"
   },
   "types": "lib/index.d.ts",
-  "version": "0.5.0"
+  "version": "0.5.1"
 }

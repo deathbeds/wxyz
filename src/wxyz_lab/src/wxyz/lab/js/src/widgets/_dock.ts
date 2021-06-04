@@ -179,7 +179,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
     if (this._view) {
       this._view.remove();
     }
-    this._view = (null as unknown) as DOMWidgetView;
+    this._view = null as unknown as DOMWidgetView;
   }
 
   insertWidget(i: number, widget: Widget) {
@@ -190,13 +190,8 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
       return;
     }
     function onTitle() {
-      const {
-        description,
-        icon_class,
-        closable,
-        _view_name,
-        _model_name,
-      } = view.model.attributes;
+      const { description, icon_class, closable, _view_name, _model_name } =
+        view.model.attributes;
       widget.title.label = description || _view_name || _model_name;
       widget.title.iconClass = `jp-Icon-16 ${icon_class || 'jp-CircleIcon'}`;
       widget.title.closable = closable != null ? closable : true;

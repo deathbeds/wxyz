@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.5.0 (unreleased)
+## 0.5.1
+
+- maintenance release, bumps versions
+
+## 0.5.0
 
 > Supports JupyterLab 3.x ([#42])
 

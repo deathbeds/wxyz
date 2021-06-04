@@ -7,22 +7,22 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "dependencies": {
-    "jsonld": "^1.5.1"
+    "jsonld": "^5.2.0"
   },
   "description": "experimental Jupyter widgets for JSON-LD",
   "devDependencies": {
-    "@types/jsonld": "^1.5.1",
+    "@types/jsonld": "^1.5.5",
     "@jupyter-widgets/base": "4",
     "@jupyter-widgets/controls": "3",
     "@jupyter-widgets/jupyterlab-manager": "3",
     "@jupyterlab/builder": "^3.0.1",
-    "@deathbeds/wxyz-core": "^0.5.0",
+    "@deathbeds/wxyz-core": "^0.5.1",
     "@jupyterlab/rendermime": "3",
     "@lumino/application": "^1.13.1",
     "@lumino/widgets": "^1.16.1",
     "@types/codemirror": "^0.0.71",
     "@types/node": "^10.11.6",
-    "typescript": "~4.0.2"
+    "typescript": "~4.3.2"
   },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
@@ -72,5 +72,5 @@
     "url": "https://github.com/deathbeds/wxyz"
   },
   "types": "lib/index.d.ts",
-  "version": "0.5.0"
+  "version": "0.5.1"
 }
