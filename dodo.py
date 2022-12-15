@@ -133,7 +133,7 @@ if not P.TESTING_IN_CI:
             file_dep=[P.ROOT_PACKAGE],
             targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[
-                ["jlpm", "--prefer-offline", "--ignore-optional"],
+                ["jlpm", "--prefer-offline", "--ignore-optional", "--ignore-scripts", "--registry=https://registry.npmjs.org"],
                 ["jlpm", "yarn-deduplicate", "--strategy", "fewer", "--fail"],
                 ["jlpm", "lerna", "bootstrap"],
             ],
