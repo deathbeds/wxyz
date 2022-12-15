@@ -9,7 +9,8 @@ dependencies:
   - doit
   - importnb
   - ipywidgets >=8,<9
-  - jupyterlab
+  - jupyterlab >=3,<4
   - pip
   - python
   - twine
+  - flit
