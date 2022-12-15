@@ -1,7 +1,8 @@
 name: wxyz-tpot
 
 channels:
-  - https://conda.anaconda.org/conda-forge
+  - conda-forge
+  - nodefaults
 
 dependencies:
   - cycler

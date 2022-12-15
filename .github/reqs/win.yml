@@ -1,7 +1,7 @@
 name: wxyz-win
 
 channels:
-  - https://conda.anaconda.org/conda-forge
-  - https://conda.anaconda.org/msys2
+  - conda-forge
+  - nodefaults
 
 dependencies: []

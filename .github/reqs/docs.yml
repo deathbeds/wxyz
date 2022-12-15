@@ -1,24 +1,21 @@
 name: wxyz-docs
 
 channels:
-  - https://conda.anaconda.org/conda-forge
+  - conda-forge
+  - nodefaults
 
 dependencies:
   - cairosvg
   - hunspell
   - hunspell-en
   - myst-nb
-  - nodejs >=12,!=13.*,!=15.*
+  - nodejs >=16,!=17.*,<19
   - pydata-sphinx-theme
   - pytest-check-links >=0.4.4,!=4.3.3
   - python-graphviz
-  - recommonmark
-  - requests_cache
+  - requests-cache
   - sphinx-autobuild
   - sphinx-autodoc-typehints
   - sphinx-copybutton
-  - sphinx-markdown-tables
   - sphinx-sitemap
   - tabulate
-  # TODO: fix upstream
-  - sqlalchemy >=1.3.12,<1.4

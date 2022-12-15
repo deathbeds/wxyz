@@ -1,7 +1,8 @@
 name: wxyz-unix-tpot
 
 channels:
-  - https://conda.anaconda.org/conda-forge
+  - conda-forge
+  - nodefaults
 
 dependencies:
   - pytorch-cpu
