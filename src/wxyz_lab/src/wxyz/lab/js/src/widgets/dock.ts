@@ -59,7 +59,7 @@ export class DockBoxView extends BoxView {
     Promise.all(this.children_views.views)
       .then(async () => {
         if (originalLayout != null) {
-          await (this.pWidget as any).onLayoutModelChanged(originalLayout);
+          await (this.luminoWidget as any).onLayoutModelChanged(originalLayout);
         }
         this._childrenInitialized = true;
       })
@@ -69,15 +69,15 @@ export class DockBoxView extends BoxView {
   }
 
   _createElement(tagName: string) {
-    this.pWidget = new JupyterPhosphorDockPanelWidget({ view: this }) as any;
-    this.pWidget.node.addEventListener('click', async (evt: MouseEvent) => {
+    this.luminoWidget = new JupyterPhosphorDockPanelWidget({ view: this }) as any;
+    this.luminoWidget.node.addEventListener('click', async (evt: MouseEvent) => {
       if (Platform.accelKey(evt) && evt.shiftKey) {
         if (screenfull && screenfull.isEnabled) {
           await screenfull.request(this.el);
         }
       }
     });
-    return this.pWidget.node;
+    return this.luminoWidget.node;
   }
 }
 
@@ -93,7 +93,7 @@ export class DockPopModel extends BoxModel {
 export class DockPopView extends BoxView {
   _createElement(tagName: string) {
     let pWidget = new JupyterLabPhosphorDockPanelWidget({ view: this }) as any;
-    this.pWidget = pWidget;
+    this.luminoWidget = pWidget;
     pWidget.app = (DockPopView as any)['app'];
     return pWidget.node;
   }

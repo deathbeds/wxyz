@@ -191,7 +191,7 @@ export class FileView extends widgets.DOMWidgetView {
   }
 
   render() {
-    this.pWidget.addClass('jp-RenderedHTMLCommon');
+    this.luminoWidget.addClass('jp-RenderedHTMLCommon');
     this.anchor = document.createElement('a');
     this.anchor.target = '_blank';
     this.el.appendChild(this.anchor);
@@ -278,17 +278,17 @@ export class FileBoxView extends controls.BoxView {
   onDragOver(evt: DragEvent) {
     evt.stopPropagation();
     evt.preventDefault();
-    this.pWidget.addClass(CSS.FILE_BOX_OVER);
+    this.luminoWidget.addClass(CSS.FILE_BOX_OVER);
   }
 
   onDragLeave(_: DragEvent) {
-    this.pWidget.removeClass(CSS.FILE_BOX_OVER);
+    this.luminoWidget.removeClass(CSS.FILE_BOX_OVER);
   }
 
   onDrop(evt: DragEvent) {
     evt.stopPropagation();
     evt.preventDefault();
-    this.pWidget.removeClass(CSS.FILE_BOX_OVER);
+    this.luminoWidget.removeClass(CSS.FILE_BOX_OVER);
     this._input.files = evt.dataTransfer.files;
     this.onInputChange().catch(console.warn);
   }

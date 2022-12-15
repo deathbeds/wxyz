@@ -81,8 +81,8 @@ export class SVGBoxView extends BoxView {
   private _zoomer: d3.Selection<any, any, any, any>;
 
   _createElement(tagname: string) {
-    this.pWidget = new SVGPanelWidget({ view: this });
-    return this.pWidget.node;
+    this.luminoWidget = new SVGPanelWidget({ view: this });
+    return this.luminoWidget.node;
   }
 
   initialize(options: any) {
@@ -91,7 +91,7 @@ export class SVGBoxView extends BoxView {
       .style('position', 'relative')
       .style('text-align', 'center');
     d3.select(window).on('', _.bind(this.update, this));
-    this.pWidget.addClass(CSS.SVG);
+    this.luminoWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
     this.model.on('change:zoom_lock', this.zoomLock, this);
     this.model.on(
@@ -106,9 +106,9 @@ export class SVGBoxView extends BoxView {
 
   zoomLock() {
     if (this.model.get('zoom_lock')) {
-      this.pWidget.addClass(CSS.ZOOM_LOCK);
+      this.luminoWidget.addClass(CSS.ZOOM_LOCK);
     } else {
-      this.pWidget.removeClass(CSS.ZOOM_LOCK);
+      this.luminoWidget.removeClass(CSS.ZOOM_LOCK);
     }
   }
 

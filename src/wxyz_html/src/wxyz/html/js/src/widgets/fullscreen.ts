@@ -32,7 +32,7 @@ export class FullscreenModel extends BoxModel {
 export class FullscreenView extends BoxView {
   initialize(options: any) {
     super.initialize(options);
-    this.pWidget.addClass(FULL_CLASS);
+    this.luminoWidget.addClass(FULL_CLASS);
   }
   events() {
     return {

@@ -90,10 +90,11 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             if "linux-64" in task_args:
                 binder_args = task_args
             matrix_envs = list(test_envs)
+
             if "win-64" in task_args:
-                matrix_envs += [P.ENV.tpot, P.ENV.win, P.ENV.win_tpot]
+                matrix_envs += [P.ENV.win]
             else:
-                matrix_envs += [P.ENV.tpot, P.ENV.unix, P.ENV.unix_tpot]
+                matrix_envs += [P.ENV.unix]
 
             yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
@@ -102,14 +103,14 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
 
         yield make_lock_task(
             "binder",
-            [*base_envs, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.binder],
+            [*base_envs, P.ENV.binder],
             {},
             *binder_args,
         )
 
         yield make_lock_task(
             "docs",
-            [*test_envs, P.ENV.lint, P.ENV.tpot, P.ENV.unix_tpot, P.ENV.docs],
+            [*test_envs, P.ENV.lint, P.ENV.docs],
             {},
             *binder_args,
         )

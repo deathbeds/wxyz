@@ -145,7 +145,7 @@ export class EditorView extends DOMWidgetView {
 
   render() {
     super.render();
-    this.pWidget.addClass(EDITOR_CLASS);
+    this.luminoWidget.addClass(EDITOR_CLASS);
     this._editor = CodeMirror(this.el);
     this._editor.on('change', () => {
       this.model.set('value', this._editor.getValue());
@@ -168,7 +168,7 @@ export class EditorView extends DOMWidgetView {
       if (config != null) {
         this.some_config_changed({ changed: config.to_codemirror() });
       }
-      this.pWidget.node.addEventListener('keyup', this.handle_keys);
+      this.luminoWidget.node.addEventListener('keyup', this.handle_keys);
     }, 1);
 
     this.config_changed();

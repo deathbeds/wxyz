@@ -40,8 +40,8 @@ export class DataGridView extends BoxView {
     this.addGridBehaviors(this._grid);
     this._grid.view = this;
     this.model.on('change:value', this.onValue, this);
-    this.pWidget.addWidget(this._grid);
-    this.pWidget.addClass(CSS.DATA_GRID);
+    this.luminoWidget.addWidget(this._grid);
+    this.luminoWidget.addClass(CSS.DATA_GRID);
     this.onValue();
   }
 

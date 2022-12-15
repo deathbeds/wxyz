@@ -46,7 +46,7 @@ export class SelectGridView extends StyleGridView {
   initialize(options: any) {
     options.createGrid = () => this.createGrid();
     super.initialize(options);
-    this.pWidget.addClass(CSS.SELECT_GRID);
+    this.luminoWidget.addClass(CSS.SELECT_GRID);
     this.model.on('change:selections', this.onModelSelectionsChanged, this);
   }
 

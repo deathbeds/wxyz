@@ -1,9 +1,0 @@
-name: wxyz-win-tpot
-
-channels:
-  - conda-forge
-  - nodefaults
-
-dependencies:
-  - nomkl
-  - tpot <0.11.6

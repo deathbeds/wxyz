@@ -101,12 +101,12 @@ export class TerminalView extends DOMWidgetView {
   private _wasInitialized = false;
 
   _setElement(el: HTMLElement) {
-    if (this.pWidget) {
-      this.pWidget.dispose();
+    if (this.luminoWidget) {
+      this.luminoWidget.dispose();
     }
     this.$el = el instanceof $ ? el : $(el);
     this.el = this.$el[0];
-    this.pWidget = new TerminalPhosphorWidget({
+    this.luminoWidget = new TerminalPhosphorWidget({
       node: el,
       view: this,
     });
@@ -138,17 +138,17 @@ export class TerminalView extends DOMWidgetView {
 
   render() {
     super.render();
-    this.pWidget.addClass(TERMINAL_CLASS);
+    this.luminoWidget.addClass(TERMINAL_CLASS);
 
     this._term = new Xterm(this.getOptions());
     this._fitAddon = new FitAddon();
     this._term.loadAddon(this._fitAddon);
 
-    if (this.pWidget.isVisible) {
+    if (this.luminoWidget.isVisible) {
       this.onInit();
     } else {
       setTimeout(() => this.onInit(), 200);
-      this.pWidget.shown.connect(this.onResize, this);
+      this.luminoWidget.shown.connect(this.onResize, this);
     }
   }
 
@@ -156,7 +156,7 @@ export class TerminalView extends DOMWidgetView {
     if (this._wasInitialized) {
       return;
     }
-    this._term.open(this.pWidget.node);
+    this._term.open(this.luminoWidget.node);
 
     this.model.on(
       'change:rows change:cols change:fit',
@@ -187,8 +187,8 @@ export class TerminalView extends DOMWidgetView {
       return true;
     });
 
-    this.pWidget.resized.connect(this.onResize, this);
-    this.pWidget.disposed.connect(this.onDispose, this);
+    this.luminoWidget.resized.connect(this.onResize, this);
+    this.luminoWidget.disposed.connect(this.onDispose, this);
     this.onResize();
     this.model.set(
       'active_terminals',
@@ -200,8 +200,8 @@ export class TerminalView extends DOMWidgetView {
 
   onDispose() {
     this._term.dispose();
-    this.pWidget.resized.disconnect(this.onResize, this);
-    this.pWidget.disposed.disconnect(this.onDispose, this);
+    this.luminoWidget.resized.disconnect(this.onResize, this);
+    this.luminoWidget.disposed.disconnect(this.onDispose, this);
     this.model.set('active_terminals', this.model.get('active_terminals') - 1);
   }
 

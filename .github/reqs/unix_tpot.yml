@@ -1,8 +1,0 @@
-name: wxyz-unix-tpot
-
-channels:
-  - conda-forge
-  - nodefaults
-
-dependencies:
-  - pytorch-cpu
