@@ -29,7 +29,7 @@ jobs:
       matrix:
         os: [ubuntu]
         python-version: ['3.11']
-        lab: ['3.0']
+        lab: ['3.1']
         include:
           - os: ubuntu
             conda-subdir: linux-64
@@ -130,7 +130,7 @@ jobs:
       matrix:
         os: [ubuntu, macos, windows]
         python-version: ['3.8', '3.11']
-        lab: ['3.0']
+        lab: ['3.1']
         include:
           - os: ubuntu
             conda-subdir: linux-64
