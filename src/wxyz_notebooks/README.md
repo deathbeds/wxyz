@@ -104,13 +104,13 @@ might be better suited to your needs.
   - a pleasant "guided tour" of JupyterLab via CSS selectors and JSON Schema
 
 [binder-badge]: https://mybinder.org/badge_logo.svg
-[binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/main?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
 [docs]: https://deathbeds.github.io/wxyz
-[build-badge]: https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=master
-[build]: https://dev.azure.com/nickbollweg/deathbeds/_build/latest?definitionId=6&branchName=master
-[changelog]: https://github.com/deathbeds/wxyz/blob/master/CHANGELOG.md
-[contributing]: https://github.com/deathbeds/wxyz/blob/master/CONTRIBUTING.md
-[examples]: https://github.com/deathbeds/wxyz/blob/master/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[build-badge]: https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=main
+[build]: https://dev.azure.com/nickbollweg/deathbeds/_build/latest?definitionId=6&branchName=main
+[changelog]: https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md
+[contributing]: https://github.com/deathbeds/wxyz/blob/main/CONTRIBUTING.md
+[examples]: https://github.com/deathbeds/wxyz/blob/main/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
 [formulas]: https://pypi.org/project/formulas/
 [ipyevents]: https://github.com/mwcraig/ipyevents
 [ipylab]: https://github.com/jtpio/ipylab
