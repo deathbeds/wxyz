@@ -41,7 +41,6 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
             for extra_args in [[], ["--no-mamba"]]:
                 args = [
                     "conda-lock",
-                    "--mamba",
                     "--kind=explicit",
                     "--platform",
                     platform_,

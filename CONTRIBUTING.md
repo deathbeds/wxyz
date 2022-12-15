@@ -2,7 +2,7 @@
 
 Get [Mambaforge][]. Start a dev environment from a [lockfile][], list tasks, launch Lab:
 
-    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.8-3.0.lock
+    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.11-3.5.lock
     source activate envs/docs
     doit list --status --all
     doit lab
@@ -93,7 +93,7 @@ The lockfiles in `.github/locks` are created in a separate environment from the 
 development environment to avoid a `conda` dependency. `mamba` is recommended, as
 many solutions are run.
 
-    mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.8-.lock
+    mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.11-.lock
     source envs/lock/bin/activate
     doit list --all --status
     CONDA_EXE=mamba CONDARC=.github/.condarc doit -n8 lock
