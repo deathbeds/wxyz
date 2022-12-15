@@ -12,9 +12,9 @@
   "description": "experimental Jupyter widgets for JSON Schema Form",
   "devDependencies": {
     "@rjsf/core": "~2.4.0",
-    "@jupyter-widgets/base": "4",
-    "@jupyter-widgets/controls": "3",
-    "@jupyter-widgets/jupyterlab-manager": "3",
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
     "@jupyterlab/builder": "^3.0.1",
     "@deathbeds/wxyz-core": "^0.5.1",
     "@blueprintjs/core": "*",

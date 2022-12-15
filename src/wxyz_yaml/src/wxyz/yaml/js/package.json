@@ -11,9 +11,9 @@
   },
   "description": "experimental Jupyter widgets for YAML",
   "devDependencies": {
-    "@jupyter-widgets/base": "4",
-    "@jupyter-widgets/controls": "3",
-    "@jupyter-widgets/jupyterlab-manager": "3",
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
     "@deathbeds/wxyz-core": "^0.5.1",
     "@jupyterlab/builder": "^3.0.1",
     "@types/js-yaml": "^4.0.1 ",
