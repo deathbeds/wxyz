@@ -47,5 +47,5 @@
     "watch": "jlpm build --watch --preserveWatchOutput"
   },
   "types": "lib/index.d.ts",
-  "version": "0.5.1"
+  "version": "0.6.0"
 }
