@@ -134,6 +134,7 @@ if not P.TESTING_IN_CI:
             targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[
                 ["jlpm", "--prefer-offline", "--ignore-optional"],
+                ["jlpm", "yarn-deduplicate", "--strategy", "fewer", "--fail"],
                 ["jlpm", "lerna", "bootstrap"],
             ],
         )
