@@ -7,10 +7,10 @@ channels:
 dependencies:
   - bs4
   - doit
+  - flit >=3.7.1
   - importnb
   - ipywidgets >=8,<9
   - jupyterlab >=3,<4
   - pip
   - python
   - twine
-  - flit
