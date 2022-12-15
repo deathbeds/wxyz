@@ -7,9 +7,6 @@
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
   "description": "metapackage for building @deathbeds/wxyz (probably won't install)",
-  "devDependencies": {
-    "typescript": "~4.9.4"
-  },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"

@@ -15,11 +15,7 @@
     "@jupyterlab/builder": "^3.5.0",
     "@jupyterlab/rendermime": "3",
     "@deathbeds/wxyz-core": "^0.6.0",
-    "@lumino/application": "^1.13.1",
-    "@lumino/datagrid": "^0.16.1",
-    "@lumino/widgets": "^1.16.1",
-    "@types/node": "^10.11.6",
-    "typescript": "~4.9.4"
+    "@types/node": "^10.11.6"
   },
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
@@ -49,10 +45,6 @@
         "singleton": true
       },
       "@jupyter-widgets/controls": {
-        "bundled": false,
-        "singleton": true
-      },
-      "@lumino/datagrid": {
         "bundled": false,
         "singleton": true
       }
