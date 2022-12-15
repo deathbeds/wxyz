@@ -6,13 +6,17 @@ channels:
 
 dependencies:
   - cairosvg
+  - docutils >=0.19
+  - doit
   - hunspell
   - hunspell-en
   - myst-nb
   - nodejs >=16,!=17.*,<19
+  - pkginfo
   - pydata-sphinx-theme
   - pytest-check-links >=0.4.4,!=4.3.3
   - python-graphviz
+  - python-libarchive-c
   - requests-cache
   - sphinx-autobuild
   - sphinx-autodoc-typehints
