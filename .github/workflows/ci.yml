@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu]
-        python-version: ['3.8']
+        python-version: ['3.11']
         lab: ['3.0']
         include:
           - os: ubuntu
@@ -40,23 +40,23 @@ jobs:
     env:
       BUILDING_IN_CI: 1
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # configure builtin providers
       - name: setup (python)
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
       - name: setup (node)
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '18'
 
       # restore caches
       - name: cache (pip)
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: |
@@ -65,14 +65,14 @@ jobs:
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-pip-
 
       - name: cache (node)
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache-node-modules
         with:
           path: '**/node_modules'
           key: ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-build-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
 
       - name: cache (yarn)
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         id: cache-yarn-packages
         with:
@@ -96,7 +96,7 @@ jobs:
           pip check
 
       - name: upload (pip freeze)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wxyz ${{ github.run_number }} build pip freeze
           path: ./build/pip/
@@ -112,7 +112,7 @@ jobs:
         if: always()
 
       - name: upload (dist)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
@@ -151,7 +151,7 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: lock
         id: lock
@@ -166,7 +166,7 @@ jobs:
             ) }}"
 
       - name: cache (conda)
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -177,7 +177,7 @@ jobs:
 
       - name: cache (yarn)
         if: ${{ matrix.lockname == 'docs' }}
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: .yarn-packages
           key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock', '.yarnrc') }}
@@ -186,7 +186,7 @@ jobs:
             ${{ env.CACHE_EPOCH }}-yarn-
 
       - name: download (dist)
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: wxyz ${{ github.run_number }} dist
           path: ./dist
@@ -222,14 +222,14 @@ jobs:
         run: .github/win.bat
 
       - name: upload (atest)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: atest/output
 
       - name: upload (widgets)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
@@ -242,14 +242,14 @@ jobs:
         run: source "${CONDA}/bin/activate" ./envs/_base && doit -n4 docs || doit docs
 
       - name: upload (docs)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ matrix.lockname == 'docs' }}
         with:
           name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
           path: build/docs
 
       - name: cache (links)
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         if: ${{ matrix.lockname == 'docs' }}
         with:
           path: build/check_links
