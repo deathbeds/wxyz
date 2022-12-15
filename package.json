@@ -25,7 +25,9 @@
     "printWidth": 88
   },
   "resolutions": {
-    "verdaccio": "file:_scripts/not-a-package"
+    "verdaccio": "file:_scripts/not-a-package",
+    "typescript": "~4.9.4",
+    "prettier": "^2.8.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.46.1",

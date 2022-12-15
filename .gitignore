@@ -9,6 +9,7 @@ _*_repo_/
 .vscode/
 .yarn-packages/
 *.egg-info
+*.log
 *.tgz
 **/labextension/
 **/static/
