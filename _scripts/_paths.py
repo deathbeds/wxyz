@@ -12,10 +12,13 @@ from pathlib import Path
 
 import jinja2
 
+import yaml
+
 try:
-    import yaml
-except ImportError:
-    import ruamel_yaml as yaml
+    import tomllib
+except:
+    import tomli as tomllib
+
 
 try:
     from colorama import init
@@ -103,17 +106,17 @@ DODO = ROOT / "dodo.py"
 PYLINTRC = ROOT / ".pylintrc"
 
 SRC_IGNORE_PATTERNS = [
-    ".ipynb_checkpoints/",
-    "build/",
-    "dist/",
-    "lib/",
-    "node_modules/",
-    "*.egg-info/",
-    "output/",
-    "labextension/",
+    "/.ipynb_checkpoints/",
+    "/build/",
+    "/dist/",
+    "/lib/",
+    "/node_modules/",
+    "/*.egg-info/",
+    "/output/",
+    "/_d/",
 ]
 # these are actual packages
-ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
+ALL_PYPROJECT_TOML = sorted(PY_SRC.glob("*/pyproject.toml"))
 ALL_SRC_PY = sorted(
     [
         py
@@ -169,36 +172,19 @@ ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
 ATEST_PY = sorted(ATEST.rglob("*.py"))
 
-PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
-PY_VERSION = {
-    pys: json.loads(
-        next((pys.parent / "src" / "wxyz").glob("*/js/package.json")).read_text(
-            encoding="utf-8"
-        )
-    )["version"]
-    for pys in PY_SETUP
-}
-PY_DEP = {
-    pys.parent.name: [
-        other.parent.name
-        for other in PY_SETUP
-        if pys.parent.name in (other.parent / "setup.cfg").read_text(encoding="utf-8")
-        and pys != other
-    ]
-    for pys in PY_SETUP
-}
+PY_PROJ = {p: tomllib.loads(p.read_text(encoding="utf-8")) for p in ALL_PYPROJECT_TOML}
+PY_VERSION = {ppt: pptd["project"]["version"] for ppt, pptd in PY_PROJ.items()}
 PY_DEV_REQS = BUILD / "requirements-dev.txt"
 
 PY_DOCS_DOT = [
     DOCS
-    / "widgets"
-    / "dot"
-    / f"""classes_{py_setup.parent.name.replace("wxyz_", "")}.dot"""
-    for py_setup in PY_SETUP
+    / "widgets/dot"
+    / f"""classes_{ppt.parent.name.replace("wxyz_", "")}.dot"""
+    for ppt in PY_PROJ
 ]
 PY_DOCS_RST = [
-    DOCS / "widgets" / f"""{py_setup.parent.name.replace("wxyz_", "")}.rst"""
-    for py_setup in PY_SETUP
+    DOCS / f"""widgets/{ppt.parent.name.replace("wxyz_", "")}.rst"""
+    for ppt in PY_PROJ
 ]
 
 
@@ -240,6 +226,12 @@ TS_TARBALLS = [
     / f"""deathbeds-{tsp_json["name"].split("/")[-1]}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
+TS_D_PACKAGE_JSON = {
+    SRC / tsp_json["jupyterlab"]["discovery"]["server"]["base"]["name"]:
+    tsp / tsp_json["jupyterlab"]["outputDir"] / "package.json"
+    for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
+    if "jupyterlab" in tsp_json
+}
 
 SDISTS = {
     pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
@@ -312,7 +304,7 @@ PY_README_TXT = """
 %} [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
+[docs]: https://wxyz.rtfd.io
 [pypi-badge]: https://img.shields.io/pypi/v/{{ metadata.name }}
 [pypi]: https://pypi.org/project/{{ metadata.name.replace("_", "-") }}
 {% if js_pkg %}
@@ -326,7 +318,7 @@ PY_README_TXT = """
 
 > Prerequisites:
 > - `python {{ options.python_requires }}`
-> - `jupyterlab >=3,<4`
+> - `jupyterlab >=3.1,<4`
 
 ```bash
 pip install {{ metadata.name }}
@@ -347,7 +339,7 @@ TS_README_TXT = """
 [npm-badge]: https://img.shields.io/npm/v/{{ name }}
 [npm]: https://www.npmjs.com/package/{{ name }}
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
+[docs]: https://wxyz.rtfd.io
 
 > {{ description }}
 
@@ -380,8 +372,8 @@ console.log(wxyz); // and see _something_
 
 > Prerequisites:
 > - `python >=3.8`
-> - `nodejs >=12`
-> - `jupyterlab >=3,<4`
+> - `nodejs >=18`
+> - `jupyterlab >=3.1,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
@@ -411,7 +403,7 @@ PY_LINT_CMDS = [
 
 
 LINT_GROUPS = {
-    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
+    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_PROJ
 }
 
 LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
@@ -421,19 +413,19 @@ SCHEMA = BUILD / "schema"
 # these schema update files in-place
 
 
-SCHEMA_TS_CM_OPTIONS = SRC / "wxyz_lab/src/wxyz/lab/js/src/widgets/_cm_options.ts"
+SCHEMA_TS_CM_OPTIONS = PACKAGES / "wxyz-lab/src/widgets/_cm_options.ts"
 
 SCHEMA_TS_DG_STYLE = (
-    SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts"
+    PACKAGES / "wxyz-datagrid/src/widgets/_datagrid_styles.ts"
 )
 
 SCHEMA_WIDGETS = {
     SCHEMA_TS_CM_OPTIONS: [
-        SRC / "wxyz_lab/src/wxyz/lab/js/src/widgets/editor.ts",
+        PACKAGES / "wxyz-lab/src/widgets/editor.ts",
         SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
     ],
     SCHEMA_TS_DG_STYLE: [
-        SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/pwidgets/stylegrid.ts",
+        PACKAGES / "wxyz-datagrid/src/widgets/pwidgets/stylegrid.ts",
         SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],
 }
@@ -455,82 +447,6 @@ PY_RST_TEMPLATE_TXT = """{{ stars }}
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
-
-
-PY_SETUP_TEXT = '''
-"""generated setup for wxyz_{{ wxyz_name }}, do not edit by hand"""
-import json
-import sys
-from pathlib import Path
-WXYZ_NAME = "{{ wxyz_name }}"
-
-HERE = Path(__file__).parent
-JS_PKG = HERE / f"src/wxyz/{WXYZ_NAME}/js/package.json"
-
-__jspackage__ = json.loads(JS_PKG.read_text(encoding="utf-8"))
-
-
-HERE = Path(__file__).parent
-EXT_NAME = __jspackage__["name"]
-
-EXT_FILES = {}
-
-SHARE = f"share/jupyter/labextensions/{EXT_NAME}"
-
-EXT = HERE / f"src/wxyz/{WXYZ_NAME}/labextension"
-
-for ext_path in [EXT] + [d for d in EXT.rglob("*") if d.is_dir()]:
-    if ext_path == EXT:
-        target = str(SHARE)
-    else:
-        target = f"{SHARE}/{ext_path.relative_to(EXT)}"
-    EXT_FILES[target] = [
-        str(p.relative_to(HERE).as_posix())
-        for p in ext_path.glob("*")
-        if not p.is_dir()
-    ]
-
-ALL_FILES = sum(EXT_FILES.values(), [])
-
-if "sdist" in sys.argv or "bdist_wheel" in sys.argv:
-    assert (
-        len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
-    ), "expected _exactly one_ remoteEntry.*.js"
-
-EXT_FILES[SHARE] += [f"src/wxyz/{WXYZ_NAME}/install.json"]
-
-SETUP_ARGS=dict(
-    version=__jspackage__["version"],
-    data_files=[
-        (str(k), list(map(str, v))) for k, v in EXT_FILES.items()
-    ]
-)
-
-if __name__ == "__main__":
-    import setuptools
-    setuptools.setup(**SETUP_ARGS)
-'''
-PY_SETUP_TEMPLATE = jinja2.Template(PY_SETUP_TEXT.strip())
-
-
-INSTALL_JSON_TEXT = """{
-  "packageManager": "python",
-  "packageName": "wxyz_{{ wxyz_name }}",
-  "uninstallInstructions": "Use `pip/conda uninstall wxyz_{{ wxyz_name }}`"
-}"""
-INSTALL_JSON_TEMPLATE = jinja2.Template(INSTALL_JSON_TEXT.strip())
-
-MANIFEST_TEXT = """
-# generated python data file manifest for wxyz_{{ wxyz_name }}, do not edit by hand
-include             README.md
-include             src/wxyz/{{ wxyz_name }}/js/package.json
-include             src/wxyz/{{ wxyz_name }}/js/LICENSE.txt
-include             src/wxyz/{{ wxyz_name }}/js/README.md
-recursive-include   src/wxyz/{{ wxyz_name }}/labextension *.*
-global-exclude      .ipynb_checkpoints
-global-exclude      node_modules
-"""
-MANIFEST_TEMPLATE = jinja2.Template(MANIFEST_TEXT.strip())
 
 PYREVERSE = [
     "pyreverse",

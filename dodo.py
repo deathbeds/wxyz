@@ -168,72 +168,6 @@ if P.RUNNING_IN_CI:
 
 else:
 
-    def _make_ext_data_files(ext):
-        """ensure a single extension's data_files are set up properly"""
-        wxyz_name = ext.parent.name
-        py_pkg = ext.parent.parent.parent.parent
-        package_json = ext / "package.json"
-        package_data = P.TS_PACKAGE_CONTENT[package_json]
-        setup_py = py_pkg / "setup.py"
-        manifest_in = py_pkg / "MANIFEST.in"
-        install_json = ext.parent / "install.json"
-
-        yield dict(
-            name=f"{wxyz_name}:setup.py",
-            uptodate=[config_changed(P.PY_SETUP_TEXT)],
-            file_dep=[package_json],
-            targets=[setup_py],
-            actions=[
-                lambda: [
-                    setup_py.write_text(
-                        P.PY_SETUP_TEMPLATE.render(wxyz_name=wxyz_name, **package_data)
-                    ),
-                    None,
-                ][-1],
-                ["isort", setup_py],
-                ["black", setup_py],
-            ],
-        )
-
-        yield dict(
-            name=f"{wxyz_name}:manifest.in",
-            uptodate=[config_changed(P.MANIFEST_TEXT)],
-            file_dep=[package_json],
-            targets=[manifest_in],
-            actions=[
-                lambda: [
-                    manifest_in.write_text(
-                        P.MANIFEST_TEMPLATE.render(wxyz_name=wxyz_name, **package_data)
-                    ),
-                    None,
-                ][-1]
-            ],
-        )
-
-        yield dict(
-            name=f"{wxyz_name}:install.json",
-            uptodate=[config_changed(P.INSTALL_JSON_TEXT)],
-            file_dep=[package_json],
-            targets=[install_json],
-            actions=[
-                lambda: [
-                    install_json.write_text(
-                        P.INSTALL_JSON_TEMPLATE.render(
-                            wxyz_name=wxyz_name, **package_data
-                        )
-                    ),
-                    None,
-                ][-1]
-            ],
-        )
-
-    if not P.RUNNING_IN_BINDER:
-
-        def task_data_files():
-            """ensure data_files are set up properly"""
-            for ext in P.WXYZ_LAB_EXTENSIONS:
-                yield from _make_ext_data_files(ext)
-
     def task_setup_py_dev():
         """ensure local packages are installed and editable"""
 
@@ -247,7 +181,7 @@ else:
         yield dict(
             name="reqs_txt",
             targets=[P.PY_DEV_REQS],
-            file_dep=[*P.ALL_SETUP_CFG, *P.PY_SETUP],
+            file_dep=[*P.ALL_PYPROJECT_TOML],
             actions=[write_reqs_txt],
         )
 
@@ -421,41 +355,30 @@ if not P.RUNNING_IN_CI:
                 yield task
 
 
-def _make_pydist(setup_py):
+def _make_pydist(pyproj):
     """build python release artifacts"""
-    pkg = setup_py.parent
-    src = [*(pkg / "src/wxyz").glob("*")][0]
+    pkg = pyproj.parent
     file_dep = [
-        setup_py,
-        pkg / "setup.cfg",
-        pkg / "MANIFEST.in",
-        pkg / "README.md",
-        src / "js" / P.LICENSE_NAME,
-        *sorted((pkg / "src").rglob("*.py")),
+        pyproj,
+        pkg / P.LICENSE_NAME,
+        *sorted((pkg / "src").rglob("*.py"))
     ]
 
-    if src.name != "notebooks":
-        file_dep += [src / "labextension/package.json"]
+    if pkg in P.TS_D_PACKAGE_JSON:
+        file_dep += [P.TS_D_PACKAGE_JSON[pkg]]
 
-    def _action(output):
-        """build a single task so we can run in the cwd"""
-        args = [P.PY, "setup.py", output, "--dist-dir", P.DIST]
-        return lambda: U.call(args, cwd=pkg) == 0
+    wheel, sdist = P.WHEELS[pkg.name], P.SDISTS[pkg.name]
 
     yield dict(
         name=pkg.name,
         doc=f"build {pkg.name} distributions",
         file_dep=file_dep,
         actions=[
-            lambda: [
-                shutil.rmtree(pkg / sub, ignore_errors=True)
-                for sub in ["build", f"{pkg.name}.egg-info"]
-            ]
-            and None,
-            _action("sdist"),
-            _action("bdist_wheel"),
+            (U.call, ["flit", "build"], {"cwd": pkg}),
+            (U.copy_one, [pkg / f"dist/{sdist.name}", sdist]),
+            (U.copy_one, [pkg / f"dist/{wheel.name}", wheel]),
         ],
-        targets=[P.WHEELS[pkg.name], P.SDISTS[pkg.name]],
+        targets=[wheel, sdist],
     )
 
 
@@ -463,8 +386,8 @@ if not P.TESTING_IN_CI:
 
     def task_dist():
         """make pypi distributions"""
-        for pys in P.PY_SETUP:
-            yield _make_pydist(pys)
+        for ppt in P.ALL_PYPROJECT_TOML:
+            yield _make_pydist(ppt)
 
     def task_hash_dist():
         """make a hash bundle of the dist artifacts"""
@@ -492,10 +415,11 @@ if not P.TESTING_IN_CI:
 
 
 def _make_lab_ext_build(ext):
-    target = ext.parent / "labextension" / "package.json"
+    tsp_json = P.TS_PACKAGE_CONTENT[ext / "package.json"]
+    target = ext / tsp_json["jupyterlab"]["outputDir"] / "package.json"
 
     yield dict(
-        name=f"""ext:{ext.parent.name}""".replace("/", "_"),
+        name=f"""ext:{ext.name}""".replace("/", "_"),
         file_dep=[
             ext / "lib" / ".tsbuildinfo",
             ext / "README.md",
@@ -579,16 +503,13 @@ if not P.BUILDING_IN_CI:
         )
 
 
-def _make_py_readme(setup_py):
-    pkg = setup_py.parent
-    setup_cfg = pkg / "setup.cfg"
+def _make_py_readme(py_proj):
+    pkg = py_proj.parent
 
     readme = pkg / "README.md"
 
     def _write():
-        parser = ConfigParser()
-        parser.read(setup_cfg)
-        context = {s: dict(parser[s]) for s in parser.sections()}
+        context = {**P.PY_PROJ[py_proj]}
 
         for package_json in P.TS_PACKAGE_CONTENT.values():
             lab = package_json.get("jupyterlab")
@@ -615,7 +536,7 @@ def _make_py_readme(setup_py):
             _write,
             ["jlpm", "--silent", "prettier", "--write", "--list-different", readme],
         ],
-        file_dep=[P.README, setup_cfg],
+        file_dep=[P.README, py_proj],
         targets=[readme],
     )
 
@@ -639,7 +560,7 @@ def _make_ts_readme(package_json):
         )
 
     return dict(
-        name=f"readme:ts:{pkg.parent.name}",
+        name=f"readme:ts:{pkg.name}",
         uptodate=[config_changed(P.TS_README_TXT)],
         actions=[
             _write,
@@ -790,19 +711,18 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
         """make the docs right"""
         widget_index_deps = []
 
-        for setup_py in P.PY_SETUP:
-            yield _make_py_readme(setup_py)
+        for py_proj in P.PY_PROJ:
+            yield _make_py_readme(py_proj)
 
-            task = _make_py_rst(setup_py)
+            task = _make_py_rst(py_proj)
             yield task
             widget_index_deps += task["targets"]
 
         yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:
-            if package_json.parent.parent.name == "notebooks":
-                continue
-            yield _make_ts_readme(package_json)
+            if "notebooks" not in package_json.parent.name:
+                yield _make_ts_readme(package_json)
 
         yield dict(
             name="favicon",
@@ -817,7 +737,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
                 doc="build the HTML site",
                 actions=[["sphinx-build", "-j8", "-b", "html", "docs", "build/docs"]],
                 file_dep=[
-                    *P.ALL_SETUP_CFG,
+                    *P.ALL_PYPROJECT_TOML,
                     *P.ALL_SRC_PY,
                     *P.DOCS_DOT,
                     *P.DOCS_IPYNB,
@@ -1048,7 +968,7 @@ if not (P.BUILDING_IN_CI or P.TESTING_IN_CI):
             file_dep=[
                 *P.ALL_SRC_PY,
                 *P.ALL_MD,
-                *P.ALL_SETUP_CFG,
+                *P.ALL_PYPROJECT_TOML,
                 P.POSTBUILD,
                 P.SCRIPTS / "_integrity.py",
             ],
