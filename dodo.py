@@ -147,6 +147,16 @@ def task_setup_ts():
         ],
     )
 
+def task_licenses():
+    """put licenses everywhere"""
+    for path in [*P.ALL_PYPROJECT_TOML, *P.TS_PACKAGE]:
+        license = path.parent / P.LICENSE.name
+        yield dict(
+            name=path.parent.name,
+            file_dep=[P.LICENSE],
+            targets=[license],
+            actions=[(U.copy_one, [P.LICENSE, license])]
+        )
 
 def task_setup_py():
     """setup python packages"""
@@ -525,10 +535,8 @@ def _make_py_readme(py_proj):
 def _make_ts_readme(package_json):
     pkg = package_json.parent
     readme = pkg / "README.md"
-    license_ = pkg / P.LICENSE_NAME
 
     def _write():
-        license_.write_text(P.LICENSE.read_text(encoding="utf-8"))
         context = json.loads(package_json.read_text(encoding="utf-8"))
         readme.write_text(
             "\n\n".join(
@@ -548,7 +556,7 @@ def _make_ts_readme(package_json):
             ["jlpm", "prettier", "--write", "--list-different", readme],
         ],
         file_dep=[P.README, package_json],
-        targets=[readme, license_],
+        targets=[readme],
     )
 
 
