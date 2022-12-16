@@ -598,7 +598,7 @@ def _make_widget_index(file_dep):
             """```{toctree}\n""",
             """:maxdepth: 3\n""",
             *[
-                "widgets/{}\n".format(d.stem.replace("wxyz_", ""))
+                f"""widgets/{d.stem.replace("wxyz_", "")}""" + "\n"
                 for d in file_dep
                 if d.suffix == ".rst"
             ],
@@ -809,6 +809,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("pytest-check-link
 if not P.RUNNING_IN_CI:
 
     def _make_lab(watch=False):
+        # pylint: disable=consider-using-with
         def _lab():
             if watch:
                 print(">>> Starting typescript watcher...", flush=True)
