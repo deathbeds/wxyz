@@ -210,16 +210,18 @@ YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 
-TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in PY_SETUP]
+PACKAGES = ROOT / "packages"
+TS_PACKAGE = sorted(PACKAGES.glob("*/package.json"))
 
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
-TS_META_BUILD = ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
+TS_META = PACKAGES / "wxyz-meta"
+TS_META_BUILD = PACKAGES / "wxyz-meta/lib/.tsbuildinfo"
 TS_ALL_BUILD = [p / "lib" / ".tsbuildinfo" for p in TS_SRC]
 
 WXYZ_LAB_EXTENSIONS = [
-    tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
+    tsp.parent for tsp in TS_PACKAGE if tsp.parent != TS_META
 ]
 ALL_TS = sorted(
     sum(

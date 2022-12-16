@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../../../../tsconfig.json",
+  "extends": "../../tsconfigbase.json",
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "../lib",
@@ -9,7 +9,7 @@
   "references": [
     { "path": "../" },
     {
-      "path": "../../../../../../wxyz_core/src/wxyz/core/js"
+      "path": "../../wxyz-core/src"
     }
   ]
 }
