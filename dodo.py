@@ -356,7 +356,7 @@ def _make_pydist(pyproj):
         doc=f"build {pkg.name} distributions",
         file_dep=file_dep,
         actions=[
-            (U.call, ["flit", "build"], {"cwd": pkg}),
+            (U.call, [["flit", "build"]], {"cwd": pkg}),
             (U.copy_one, [pkg / f"dist/{sdist.name}", sdist]),
             (U.copy_one, [pkg / f"dist/{wheel.name}", wheel]),
         ],
@@ -364,36 +364,40 @@ def _make_pydist(pyproj):
     )
 
 
-if not P.TESTING_IN_CI:
+def task_dist():
+    """make pypi distributions"""
+    if P.TESTING_IN_CI:
+        return
 
-    def task_dist():
-        """make pypi distributions"""
-        for ppt in P.ALL_PYPROJECT_TOML:
-            yield _make_pydist(ppt)
+    for ppt in P.ALL_PYPROJECT_TOML:
+        yield _make_pydist(ppt)
 
-    def task_hash_dist():
-        """make a hash bundle of the dist artifacts"""
 
-        def _run_hash():
-            # mimic sha256sum CLI
-            if P.SHA256SUMS.exists():
-                P.SHA256SUMS.unlink()
+def task_hash_dist():
+    """make a hash bundle of the dist artifacts"""
+    if P.TESTING_IN_CI:
+        return
 
-            lines = []
+    def _run_hash():
+        # mimic sha256sum CLI
+        if P.SHA256SUMS.exists():
+            P.SHA256SUMS.unlink()
 
-            for p in P.HASH_DEPS:
-                if p.parent != P.DIST:
-                    tgt = P.DIST / p.name
-                    if tgt.exists():
-                        tgt.unlink()
-                    shutil.copy2(p, tgt)
-                lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
+        lines = []
 
-            output = "\n".join(lines)
-            print(output)
-            P.SHA256SUMS.write_text(output)
+        for p in P.HASH_DEPS:
+            if p.parent != P.DIST:
+                tgt = P.DIST / p.name
+                if tgt.exists():
+                    tgt.unlink()
+                shutil.copy2(p, tgt)
+            lines += ["  ".join([sha256(p.read_bytes()).hexdigest(), p.name])]
 
-        return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
+        output = "\n".join(lines)
+        print(output)
+        P.SHA256SUMS.write_text(output)
+
+    return dict(actions=[_run_hash], file_dep=P.HASH_DEPS, targets=[P.SHA256SUMS])
 
 
 def _make_lab_ext_build(ext):
