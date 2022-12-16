@@ -12,7 +12,7 @@
     { "path": "../../wxyz-datagrid/src" },
     { "path": "../../wxyz-dvcs/src" },
     { "path": "../../wxyz-html/src" },
-    {"path": "../../wxyz-json-schema-form/src"},
+    { "path": "../../wxyz-json-schema-form/src" },
     { "path": "../../wxyz-json-e/src" },
     { "path": "../../wxyz-jsonld/src" },
     { "path": "../../wxyz-lab/src" },

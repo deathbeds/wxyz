@@ -7,7 +7,7 @@
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-core
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-core
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
+[docs]: https://wxyz.rtfd.io
 
 > Experimental Jupyter widgets for JSON and evented transformations
 
@@ -41,8 +41,8 @@ console.log(wxyz); // and see _something_
 > Prerequisites:
 >
 > - `python >=3.8`
-> - `nodejs >=12`
-> - `jupyterlab >=3,<4`
+> - `nodejs >=18`
+> - `jupyterlab >=3.1,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core

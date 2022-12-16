@@ -228,7 +228,7 @@ TS_TARBALLS = [
 ]
 TS_D_PACKAGE_JSON = {
     SRC / tsp_json["jupyterlab"]["discovery"]["server"]["base"]["name"]:
-    tsp / tsp_json["jupyterlab"]["outputDir"] / "package.json"
+    (tsp / tsp_json["jupyterlab"]["outputDir"] / "package.json").resolve()
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
     if "jupyterlab" in tsp_json
 }
@@ -298,30 +298,30 @@ ALL_PRETTIER = sorted(
 ALL_ROBOT = [*ATEST.rglob("*.robot")]
 
 PY_README_TXT = """
-# `{{ metadata.name }}`
+# `{{ project.name }}`
 
 [![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif
 %} [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/{{ metadata.name }}
-[pypi]: https://pypi.org/project/{{ metadata.name.replace("_", "-") }}
+[pypi-badge]: https://img.shields.io/pypi/v/{{ project.name }}
+[pypi]: https://pypi.org/project/{{ project.name.replace("_", "-") }}
 {% if js_pkg %}
 [npm-badge]: https://img.shields.io/npm/v/{{ js_pkg.name }}
 [npm]: https://www.npmjs.com/package/{{ js_pkg.name }}
 {% endif %}
 
-> {{ metadata.description }}
+> {{ project.description }}
 
 ## Installation
 
 > Prerequisites:
-> - `python {{ options.python_requires }}`
+> - `python {{ project["requires-python"] }}`
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install {{ metadata.name }}
+pip install {{ project.name }}
 ```
 """
 

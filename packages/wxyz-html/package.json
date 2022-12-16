@@ -1,29 +1,45 @@
 {
-  "author": {
-    "email": "",
-    "name": "wxyz contributors"
-  },
+  "name": "@deathbeds/wxyz-html",
+  "version": "0.6.0",
+  "description": "experimental Jupyter widgets for HTML5",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
-  "dependencies": {
-    "screenfull": "^5.1.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
   },
-  "description": "experimental Jupyter widgets for HTML5",
-  "devDependencies": {
-    "@jupyter-widgets/base": "6",
-    "@jupyter-widgets/controls": "5",
-    "@jupyter-widgets/jupyterlab-manager": "5",
-    "@jupyterlab/builder": "^3.5.0",
-    "@deathbeds/wxyz-core": "^0.6.0",
-    "@jupyterlab/rendermime": "3",
-    "@types/node": "^10.11.6"
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": ""
   },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
-  "homepage": "https://deathbeds.github.io/wxyz",
+  "dependencies": {
+    "screenfull": "^5.1.0"
+  },
+  "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.6.0",
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyterlab/builder": "^3.5.0",
+    "@jupyterlab/rendermime": "3",
+    "@types/node": "^10.11.6"
+  },
   "jupyterlab": {
     "extension": "lib/plugin",
     "discovery": {
@@ -51,21 +67,5 @@
         "singleton": true
       }
     }
-  },
-  "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension",
-    "jupyter-widgets",
-    "widgets"
-  ],
-  "license": "BSD-3-Clause",
-  "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-html",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/deathbeds/wxyz"
-  },
-  "types": "lib/index.d.ts",
-  "version": "0.6.0"
+  }
 }

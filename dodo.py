@@ -33,6 +33,9 @@ DOIT_CONFIG = {
     "reporter": U.Reporter,
 }
 
+os.environ.update(
+    PIP_NO_BUILD_ISOLATION="1"
+)
 
 def task_release():
     """run all tasks, except re-locking and docs"""
@@ -187,13 +190,7 @@ else:
 
         yield dict(
             name="pip",
-            file_dep=[
-                P.PY_DEV_REQS,
-                *[
-                    p.parent / "labextension" / "package.json"
-                    for p in P.WXYZ_LAB_EXTENSIONS
-                ],
-            ],
+            file_dep=[P.PY_DEV_REQS, *P.TS_D_PACKAGE_JSON.values()],
             targets=[P.OK / "setup_py"],
             actions=[
                 U.okit("setup_py", remove=True),
@@ -288,21 +285,6 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             ],
         )
 
-        yield dict(
-            name="eslint",
-            file_dep=[
-                P.YARN_INTEGRITY,
-                P.YARN_LOCK,
-                P.OK / "prettier",
-                *sum([[*p.rglob("*.ts")] for p in P.TS_SRC], []),
-            ],
-            targets=[P.OK / "eslint"],
-            actions=[
-                U.okit("eslint", remove=True),
-                ["jlpm", "lint:eslint"],
-                U.okit("eslint"),
-            ],
-        )
 
         yield dict(
             name="robot",
@@ -416,7 +398,7 @@ if not P.TESTING_IN_CI:
 
 def _make_lab_ext_build(ext):
     tsp_json = P.TS_PACKAGE_CONTENT[ext / "package.json"]
-    target = ext / tsp_json["jupyterlab"]["outputDir"] / "package.json"
+    target = (ext / tsp_json["jupyterlab"]["outputDir"] / "package.json").resolve()
 
     yield dict(
         name=f"""ext:{ext.name}""".replace("/", "_"),
@@ -442,7 +424,7 @@ if not P.TESTING_IN_CI:
         file_dep = [P.YARN_LOCK, *P.TS_PACKAGE, *P.ALL_TS]
 
         if not P.BUILDING_IN_CI:
-            file_dep += [P.OK / "prettier", P.OK / "eslint"]
+            file_dep += [P.OK / "prettier"]
 
         yield dict(
             name="tsc",
@@ -721,7 +703,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
         yield _make_widget_index(widget_index_deps)
 
         for package_json in P.TS_PACKAGE:
-            if "notebooks" not in package_json.parent.name:
+            if "meta" not in package_json.parent.name:
                 yield _make_ts_readme(package_json)
 
         yield dict(

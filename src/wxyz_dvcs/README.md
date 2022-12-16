@@ -3,7 +3,7 @@
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
+[docs]: https://wxyz.rtfd.io
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_dvcs
 [pypi]: https://pypi.org/project/wxyz-dvcs
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-dvcs
@@ -16,7 +16,7 @@
 > Prerequisites:
 >
 > - `python >=3.8`
-> - `jupyterlab >=3,<4`
+> - `jupyterlab >=3.1,<4`
 
 ```bash
 pip install wxyz_dvcs

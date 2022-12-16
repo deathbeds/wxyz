@@ -1,4 +1,0 @@
-{
-  "extends": "./tsconfig",
-  "include": ["src/wxyz_*/src/wxyz/*/js/src/**/*"]
-}

@@ -7,7 +7,7 @@
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-html
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-html
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
+[docs]: https://wxyz.rtfd.io
 
 > experimental Jupyter widgets for HTML5
 
@@ -41,8 +41,8 @@ console.log(wxyz); // and see _something_
 > Prerequisites:
 >
 > - `python >=3.8`
-> - `nodejs >=12`
-> - `jupyterlab >=3,<4`
+> - `nodejs >=18`
+> - `jupyterlab >=3.1,<4`
 
 ```bash
 jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-html

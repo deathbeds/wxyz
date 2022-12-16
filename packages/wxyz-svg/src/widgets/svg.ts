@@ -1,8 +1,5 @@
 // porting https://github.com/openseat/ipylayoutwidgets/blob/master/ipylayoutwidgets/static/ipylayoutwidgets/js/SVGLayoutBoxView.js
 
-/* eslint consistent-this: "off" */
-
-/* eslint @typescript-eslint/no-this-alias: "off" */
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';

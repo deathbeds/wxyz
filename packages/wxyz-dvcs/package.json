@@ -1,26 +1,42 @@
 {
-  "author": {
-    "email": "",
-    "name": "wxyz contributors"
-  },
+  "name": "@deathbeds/wxyz-dvcs",
+  "version": "0.6.0",
+  "description": "experimental Jupyter widgets for working with data in revision control",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
-  "dependencies": {},
-  "description": "experimental Jupyter widgets for working with data in revision control",
-  "devDependencies": {
-    "@jupyter-widgets/base": "6",
-    "@jupyter-widgets/controls": "5",
-    "@jupyter-widgets/jupyterlab-manager": "5",
-    "@jupyterlab/builder": "^3.5.0",
-    "@deathbeds/wxyz-core": "^0.6.0",
-    "@types/node": "^10.11.6"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
   },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": ""
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
-  "homepage": "https://deathbeds.github.io/wxyz",
+  "dependencies": {},
+  "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.6.0",
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyterlab/builder": "^3.5.0",
+    "@types/node": "^10.11.6"
+  },
   "jupyterlab": {
     "extension": "lib/plugin",
     "discovery": {
@@ -48,21 +64,5 @@
         "singleton": true
       }
     }
-  },
-  "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension",
-    "jupyter-widgets",
-    "widgets"
-  ],
-  "license": "BSD-3-Clause",
-  "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-dvcs",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/deathbeds/wxyz"
-  },
-  "types": "lib/index.d.ts",
-  "version": "0.6.0"
+  }
 }

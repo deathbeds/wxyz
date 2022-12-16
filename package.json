@@ -1,28 +1,28 @@
 {
-  "private": true,
   "version": "0.6.0",
+  "private": true,
   "description": "experimental widgets",
-  "main": "index.js",
   "repository": "https://github.com/deathbeds/wxyz",
-  "author": "deadpixels@googlegroups.com",
   "license": "BSD-3-Clause",
+  "author": "deadpixels@googlegroups.com",
+  "main": "index.js",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "scripts": {
     "bootstrap": "jlpm --prefer-offline && jlpm clean && lerna bootstrap && jlpm build",
-    "clean": "lerna exec --parallel --stream rimraf lib *.tgz",
     "build": "jlpm build:ts && jlpm build:ext && jlpm build:tgz",
-    "build:ts": "lerna run --parallel --stream build",
     "build:ext": "lerna exec --stream --ignore @deathbeds/wxyz-meta -- jupyter labextension build .",
     "build:tgz": "lerna exec --parallel --stream npm pack",
-    "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml,yaml}\" \"./{src,.github}/**/*.{ts,json,md,yml,yaml,css,yaml}\"",
-    "lint:eslint": "eslint --config .eslintrc.js --ext .js,.jsx,.ts,.tsx --fix src/wxyz_*/src/wxyz/*/js/src",
-    "lint": "jlpm lint:prettier && jlpm lint:eslint",
+    "build:ts": "lerna run --parallel --stream build",
+    "clean": "lerna exec --parallel --stream rimraf lib *.tgz",
+    "lint": "jlpm lint:prettier",
+    "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml,yaml}\" \"./{src,.github,packages}/**/*.{ts,json,md,yml,yaml,css,yaml}\"",
     "watch": "lerna run --parallel --stream watch"
   },
   "prettier": {
-    "singleQuote": true,
-    "tabWidth": 2,
-    "proseWrap": "always",
-    "printWidth": 88,
     "importOrder": [
       "^@lumino/(.*)$",
       "^@jupyterlab/(.*)$",
@@ -32,41 +32,33 @@
       "^[./]",
       "^!"
     ],
-    "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true,
     "importOrderParserPlugins": [
       "classProperties",
       "decorators-legacy",
       "jsx",
       "typescript"
-    ]
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "printWidth": 88,
+    "proseWrap": "always",
+    "singleQuote": true,
+    "tabWidth": 2
   },
   "resolutions": {
-    "verdaccio": "file:_scripts/not-a-package",
+    "prettier": "^2.8.1",
     "typescript": "~4.9.4",
-    "prettier": "^2.8.1"
+    "verdaccio": "file:_scripts/not-a-package"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^27.1.7",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.11",
-    "eslint": "^8.29.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
     "fstream": "^1.0.12",
     "jquery": "^3.6.2",
     "lerna": "^6.1.0",
     "prettier": "^2.8.1",
+    "prettier-plugin-packagejson": "^2.3.0",
     "ts-json-schema-generator": "^1.1.2",
-    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
-    "yarn-deduplicate": "^6.0.1",
     "typescript": "~4.9.4",
-    "prettier-plugin-packagejson": "^2.3.0"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+    "yarn-deduplicate": "^6.0.1"
   }
 }

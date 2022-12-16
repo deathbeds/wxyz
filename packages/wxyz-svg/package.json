@@ -1,17 +1,38 @@
 {
-  "author": {
-    "email": "",
-    "name": "wxyz contributors"
-  },
+  "name": "@deathbeds/wxyz-svg",
+  "version": "0.6.0",
+  "description": "experimental Jupyter widgets for SVG",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": ""
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
+    "LICENSE.txt"
+  ],
   "dependencies": {
     "d3-drag": "^2.0.0",
     "d3-selection": "^2.0.0",
     "d3-zoom": "^2.0.0"
   },
-  "description": "experimental Jupyter widgets for SVG",
   "devDependencies": {
     "@jupyter-widgets/base": "6",
     "@jupyter-widgets/controls": "5",
@@ -23,11 +44,6 @@
     "@types/d3-zoom": "^2.0.0",
     "@types/node": "^10.11.6"
   },
-  "files": [
-    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
-    "LICENSE.txt"
-  ],
-  "homepage": "https://deathbeds.github.io/wxyz",
   "jupyterlab": {
     "extension": "lib/plugin",
     "discovery": {
@@ -67,21 +83,5 @@
         "singleton": true
       }
     }
-  },
-  "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension",
-    "jupyter-widgets",
-    "widgets"
-  ],
-  "license": "BSD-3-Clause",
-  "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-svg",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/deathbeds/wxyz"
-  },
-  "types": "lib/index.d.ts",
-  "version": "0.6.0"
+  }
 }

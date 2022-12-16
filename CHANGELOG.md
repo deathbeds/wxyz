@@ -6,7 +6,7 @@
 - many widgets supported in [JupyterLite]
 - reduced package sizes
 
-[JupyterLite]: jupyterlite.readthedocs.io
+[jupyterlite]: jupyterlite.readthedocs.io
 
 ## 0.5.1
 

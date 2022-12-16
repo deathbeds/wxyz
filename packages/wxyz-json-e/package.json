@@ -1,31 +1,47 @@
 {
-  "author": {
-    "email": "",
-    "name": "wxyz contributors"
-  },
+  "name": "@deathbeds/wxyz-json-e",
+  "version": "0.6.0",
+  "description": "experimental Jupyter widgets for JSON-E",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
   "bugs": {
     "url": "https://github.com/deathbeds/wxyz/issues"
   },
-  "dependencies": {
-    "json-e": "^4.4.1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
   },
-  "description": "experimental Jupyter widgets for JSON-E",
-  "devDependencies": {
-    "@jupyter-widgets/base": "6",
-    "@jupyter-widgets/controls": "5",
-    "@jupyter-widgets/jupyterlab-manager": "5",
-    "@deathbeds/wxyz-core": "^0.6.0",
-    "@jupyterlab/builder": "^3.5.0",
-    "@types/js-yaml": "^3.12.0",
-    "@types/node": "^10.11.6",
-    "@types/codemirror": "^0.0.71",
-    "codemirror": "*"
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": ""
   },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map}",
     "LICENSE.txt"
   ],
-  "homepage": "https://deathbeds.github.io/wxyz",
+  "dependencies": {
+    "json-e": "^4.4.1"
+  },
+  "devDependencies": {
+    "@deathbeds/wxyz-core": "^0.6.0",
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyterlab/builder": "^3.5.0",
+    "@types/codemirror": "^0.0.71",
+    "@types/js-yaml": "^3.12.0",
+    "@types/node": "^10.11.6",
+    "codemirror": "*"
+  },
   "jupyterlab": {
     "extension": "lib/plugin",
     "discovery": {
@@ -53,21 +69,5 @@
         "singleton": true
       }
     }
-  },
-  "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension",
-    "jupyter-widgets",
-    "widgets"
-  ],
-  "license": "BSD-3-Clause",
-  "main": "lib/index.js",
-  "name": "@deathbeds/wxyz-json-e",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/deathbeds/wxyz"
-  },
-  "types": "lib/index.d.ts",
-  "version": "0.6.0"
+  }
 }
