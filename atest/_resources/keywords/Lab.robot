@@ -80,9 +80,10 @@ Ensure Sidebar Is Closed
 Open Context Menu for File
     [Arguments]    ${file}
     Ensure File Browser is Open
-    Click Element    css:button[title="Refresh File List"]
+    Click Element    css:button[data-command="filebrowser:refresh"]
     ${selector} =    Set Variable    xpath://span[@class='jp-DirListing-itemText']/span\[text() = '${file}']
-    Wait Until Page Contains Element    ${selector}
+    Wait Until Element Is Visible    ${selector}
+    Click Element    ${selector}
     Open Context Menu    ${selector}
 
 Rename Jupyter File
@@ -105,7 +106,9 @@ Open ${file} in ${editor}
     Open Context Menu for File    ${file}
     Mouse Over    ${MENU OPEN WITH}
     Wait Until Page Contains Element    ${editor}
+    Capture Page Screenshot
     Mouse Over    ${editor}
+    Capture Page Screenshot
     Click Element    ${editor}
 
 Clean Up After Working With File

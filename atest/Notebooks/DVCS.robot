@@ -16,8 +16,8 @@ ${XP COMMIT BTN}            xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit
 ${XP COMMIT MSG}            xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-msg")]/input
 ${XP PG TEXTAREA}           xpath://*[contains(@class, "jp-wxyz-dvcs-playground-textarea")]/textarea
 ${XP PG BOX}                xpath://*[contains(@class, "jp-wxyz-dvcs-playground-box")]
-${CSS SLIDER}               css:.ui-slider-handle
-${CSS ENABLE TIMETRAVEL}    css:input[title="Time Travel"]
+${CSS SLIDER}               css:.widget-slider .noUi-handle
+${CSS ENABLE TIMETRAVEL}    css:.jp-wxyz-dvcs-timetravel input
 
 
 *** Test Cases ***

@@ -29,6 +29,7 @@ Setup Server and Browser
     Set Global Variable    ${NEXT LAB}    ${NEXT LAB.__add__(1)}
     Set Global Variable    ${LAB LOG}    ${OUTPUT DIR}${/}lab-${PABOT ID}-${NEXT LAB}.log
     Set Global Variable    ${PREVIOUS LAB LOG LENGTH}    0
+    Set Environment Variable    JUPYTER_CONFIG_DIR    ${home}
     ${server} =    Start Process    ${cmd}    shell=yes    env:HOME=${home}    cwd=${home}    stdout=${LAB LOG}
     ...    stderr=STDOUT
     Set Global Variable    ${SERVER}    ${server}
