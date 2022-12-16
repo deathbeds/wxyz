@@ -1,6 +1,10 @@
 import { BasicKeyHandler, BasicMouseHandler, DataGrid } from '@lumino/datagrid';
 
-import { unpack_models as deserialize, WidgetModel, WidgetView } from '@jupyter-widgets/base';
+import {
+  WidgetModel,
+  WidgetView,
+  unpack_models as deserialize,
+} from '@jupyter-widgets/base';
 import { BoxView } from '@jupyter-widgets/controls';
 
 import { WXYZBox } from '@deathbeds/wxyz-core';
@@ -33,7 +37,7 @@ export class DataGridView extends BoxView {
   protected _grid: DataGridView.IViewedGrid;
 
   initialize(parameters: DataGridView.IOptions) {
-    parameters = {createGrid: DataGridView.createGrid, ...parameters};
+    parameters = { createGrid: DataGridView.createGrid, ...parameters };
     super.initialize(parameters);
     this._grid = parameters.createGrid();
     this.addGridBehaviors(this._grid);
@@ -68,7 +72,7 @@ export namespace DataGridView {
   export interface IViewedGrid extends DataGrid {
     view: DataGridView;
   }
-  export interface IOptions extends WidgetView.IInitializeParameters<WidgetModel>{
+  export interface IOptions extends WidgetView.IInitializeParameters<WidgetModel> {
     createGrid: () => IViewedGrid;
   }
 }

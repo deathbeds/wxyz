@@ -101,7 +101,7 @@ def task_lock():
         yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
 
     for conda_platform in P.ALL_CONDA_PLATFORMS:
-        yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
+        yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, P.LOCK_PY)
 
     yield make_lock_task(
         "binder",
@@ -968,7 +968,7 @@ def task_integrity():
         ],
         actions=[
             U.okit("integrity", remove=True),
-            [*P.PYM, "_scripts._integrity"],
+            [P.PY, P.SCRIPTS / "_integrity.py"],
             U.okit("integrity"),
         ],
         targets=[P.OK / "integrity"],

@@ -3,7 +3,7 @@ set -eux
 
 export CONDARC=".github/.condarc"
 export MAMBA_NO_BANNER="1"
-export LOCKFILE=".github/locks/conda.binder.linux-64-3.8-3.0.lock"
+export LOCKFILE=".github/locks/conda.binder.linux-64-3.11-3.5.lock"
 
 time mamba create --yes --prefix "${NB_PYTHON_PREFIX}" --file "${LOCKFILE}"
 

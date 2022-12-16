@@ -1,6 +1,5 @@
 """ integrity checks for the wxyz repo
 """
-import re
 
 # pylint: disable=redefined-outer-name
 import sys
@@ -9,12 +8,13 @@ from pathlib import Path
 
 import pytest
 
-from . import _paths as P
-
 PYTEST_INI = """
 [pytest]
 junit_family = xunit2
 """
+
+sys.path += [Path(__file__).parent]
+P = __import__("_paths")
 
 
 @pytest.fixture(scope="module")
@@ -60,26 +60,6 @@ def test_binder_locks(postbuild):
 def test_readme_py_pkgs(pkg, readme_text):
     """Are all of the python packages mentioned in the readme?"""
     assert pkg in readme_text
-
-
-@pytest.mark.parametrize(
-    "pkg_name,pkg_path",
-    [[setup_py.parent.name, setup_py.parent] for setup_py in P.PY_VERSION],
-)
-def test_manifest(pkg_name, pkg_path):
-    """are manifest files proper?"""
-    manifest = pkg_path / "MANIFEST.in"
-    manifest_txt = manifest.read_text(encoding="utf-8")
-
-    assert re.findall(
-        r"include .*js/LICENSE.txt", manifest_txt
-    ), f"{pkg_name} missing nested license in {manifest}"
-    assert re.findall(
-        r"global-exclude\s+.ipynb_checkpoints", manifest_txt
-    ), f"{pkg_name} missing checkpoint exclude in {manifest}"
-    assert re.findall(
-        r"global-exclude\s+node_modules", manifest_txt
-    ), f"{pkg_name} missing node_modules exclude in {manifest}"
 
 
 def check_integrity():

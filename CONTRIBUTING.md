@@ -1,8 +1,8 @@
 # Contributing to wxyz
 
-Get [Mambaforge][]. Start a dev environment from a [lockfile][], list tasks, launch Lab:
+Get [Mambaforge]. Start a dev environment from a [lockfile], list tasks, launch Lab:
 
-    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.11-3.5.lock
+    mamba create --prefix envs/docs --file .github/locks/conda.binder.linux-64-3.11-3.5.lock
     source activate envs/docs
     doit list --status --all
     doit lab
@@ -96,4 +96,4 @@ solutions are run.
     mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.11-.lock
     source envs/lock/bin/activate
     doit list --all --status
-    CONDA_EXE=mamba CONDARC=.github/.condarc doit -n8 lock
+    CONDA_EXE=mamba CONDARC=.github/.condarc doit -n4 lock

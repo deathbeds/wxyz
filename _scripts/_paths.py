@@ -72,6 +72,7 @@ LOCKS = GITHUB / "locks"
 REQS = GITHUB / "reqs"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
+LOCK_PY = "3.11"
 
 POSTBUILD = ROOT / ".binder" / "postBuild"
 
