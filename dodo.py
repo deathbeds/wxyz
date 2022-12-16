@@ -227,25 +227,10 @@ def task_setup_py():
         targets=[P.OK / "setup_lab"],
         actions=[
             U.okit("setup_lab", remove=True),
-            *[(_make_develop, [p.parent]) for p in P.WXYZ_LAB_EXTENSIONS],
             ["jupyter", "labextension", "list"],
             U.okit("setup_lab"),
         ],
     )
-
-
-def _make_develop(path):
-    args = [
-        *P.PYM,
-        "_scripts._hacked_labextension",
-        "develop",
-        "--debug",
-        "--overwrite",
-        f"wxyz.{path.name}",
-    ]
-    # py_path = path.parent.parent.parent
-    # raise Exception(args)
-    return subprocess.call(args) == 0
 
 
 def _make_linters(label, files):
@@ -496,6 +481,14 @@ def task_nbtest():
     )
 
 
+def _get_py_module(js_pkg_data):
+    """maybe get the deeply-nested python module name"""
+    try:
+        return js_pkg_data["jupyterlab"]["discovery"]["server"]["base"]["name"]
+    except KeyError:
+        return None
+
+
 def _make_py_readme(py_proj):
     pkg = py_proj.parent
 
@@ -505,10 +498,7 @@ def _make_py_readme(py_proj):
         context = {**P.PY_PROJ[py_proj]}
 
         for package_json in P.TS_PACKAGE_CONTENT.values():
-            lab = package_json.get("jupyterlab")
-            if lab is None:
-                continue
-            if pkg.name == lab["discovery"]["server"]["base"]["name"]:
+            if pkg.name == _get_py_module(package_json):
                 context["js_pkg"] = package_json
                 break
 
@@ -543,10 +533,7 @@ def _make_py_version(py_proj):
         context = {**P.PY_PROJ[py_proj]}
 
         for package_json in P.TS_PACKAGE_CONTENT.values():
-            lab = package_json.get("jupyterlab")
-            if lab is None:
-                continue
-            if pkg.name == lab["discovery"]["server"]["base"]["name"]:
+            if pkg.name == _get_py_module(package_json):
                 context["js_pkg"] = package_json
                 break
 
