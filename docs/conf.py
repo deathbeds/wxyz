@@ -26,7 +26,6 @@ release = wxyz.core.__version__
 # -- General configuration ---------------------------------------------------
 extensions = [
     "myst_nb",
-    "sphinx_markdown_tables",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.coverage",

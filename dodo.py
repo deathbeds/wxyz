@@ -33,7 +33,10 @@ DOIT_CONFIG = {
     "reporter": U.Reporter,
 }
 
-os.environ.update(PIP_NO_BUILD_ISOLATION="1")
+os.environ.update(
+    PIP_NO_BUILD_ISOLATION="1",
+    PYDEVD_DISABLE_FILE_VALIDATION="1",
+)
 
 
 def task_release():
