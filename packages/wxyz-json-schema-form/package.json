@@ -54,7 +54,7 @@
         ]
       }
     },
-    "outputDir": "../src/wxyz_json_schema_form/src/json_schema_form/_d/share/jupyter/labextensions/@deathbeds/wxyz-json-schema-form",
+    "outputDir": "../../src/wxyz_json_schema_form/src/json_schema_form/_d/share/jupyter/labextensions/@deathbeds/wxyz-json-schema-form",
     "sharedPackages": {
       "@jupyter-widgets/base": {
         "bundled": false,

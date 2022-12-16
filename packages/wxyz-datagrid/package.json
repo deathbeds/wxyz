@@ -53,7 +53,7 @@
         ]
       }
     },
-    "outputDir": "../src/wxyz_datagrid/src/datagrid/_d/share/jupyter/labextensions/@deathbeds/wxyz-datagrid",
+    "outputDir": "../../src/wxyz_datagrid/src/datagrid/_d/share/jupyter/labextensions/@deathbeds/wxyz-datagrid",
     "sharedPackages": {
       "@jupyter-widgets/base": {
         "bundled": false,
