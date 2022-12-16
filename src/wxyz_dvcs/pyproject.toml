@@ -47,7 +47,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.dvcs"
 
 [tool.flit.sdist]
-include = ["src/wxyz/dvcs/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/dvcs/_d"
+directory = "src/_d"

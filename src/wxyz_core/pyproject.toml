@@ -47,7 +47,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.core"
 
 [tool.flit.sdist]
-include = ["src/wxyz/core/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/core/_d"
+directory = "src/_d"

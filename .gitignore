@@ -1,6 +1,6 @@
 __pycache__/
 _*_repo_/
-src/*/src/wxyz/*/_d/
+src/**/_d/
 .conda-packages/
 .coverage
 .doit*

@@ -46,7 +46,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.svg"
 
 [tool.flit.sdist]
-include = ["src/wxyz/svg/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/svg/_d"
+directory = "src/_d"

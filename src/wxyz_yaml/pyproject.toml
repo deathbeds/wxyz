@@ -47,7 +47,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.yaml"
 
 [tool.flit.sdist]
-include = ["src/wxyz/yaml/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/yaml/_d"
+directory = "src/_d"

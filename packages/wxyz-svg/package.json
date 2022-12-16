@@ -57,7 +57,7 @@
         ]
       }
     },
-    "outputDir": "../../src/wxyz_svg/src/wxyz/svg/_d/share/jupyter/labextensions/@deathbeds/wxyz-svg",
+    "outputDir": "../../src/wxyz_svg/src/_d/share/jupyter/labextensions/@deathbeds/wxyz-svg",
     "sharedPackages": {
       "@jupyter-widgets/base": {
         "bundled": false,

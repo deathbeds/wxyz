@@ -49,7 +49,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.datagrid"
 
 [tool.flit.sdist]
-include = ["src/wxyz/datagrid/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/datagrid/_d"
+directory = "src/_d"

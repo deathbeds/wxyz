@@ -46,7 +46,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.tpl_jinja"
 
 [tool.flit.sdist]
-include = ["src/wxyz/tpl_jinja/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/tpl_jinja/_d"
+directory = "src/_d"

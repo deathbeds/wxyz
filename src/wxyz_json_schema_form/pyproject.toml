@@ -46,7 +46,7 @@ Source = "https://github.com/deathbeds/wxyz"
 name = "wxyz.json_schema_form"
 
 [tool.flit.sdist]
-include = ["src/wxyz/json_schema_form/_d"]
+include = ["src/_d"]
 
 [tool.flit.external-data]
-directory = "src/wxyz/json_schema_form/_d"
+directory = "src/_d"
