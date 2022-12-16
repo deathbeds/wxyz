@@ -485,8 +485,7 @@ def task_nbtest():
                 ],
                 cwd=P.PY_SRC / "wxyz_notebooks",
                 env=env,
-            )
-            == 0,
+            ),
             U.okit("nbtest"),
         ],
     )

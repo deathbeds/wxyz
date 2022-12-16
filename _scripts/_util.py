@@ -18,7 +18,7 @@ def call(args, **kwargs):
     if kwargs.get("cwd"):
         kwargs["cwd"] = str(kwargs["cwd"])
 
-    return subprocess.call([*map(str, args)], **kwargs)
+    return subprocess.call([*map(str, args)], **kwargs) == 0
 
 
 def okit(name, remove=False):
