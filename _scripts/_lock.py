@@ -4,8 +4,10 @@
 
 import collections
 import itertools
+import typing
 import subprocess
 import tempfile
+import textwrap
 from pathlib import Path
 
 from doit.tools import config_changed
@@ -16,6 +18,23 @@ from . import _paths as P
 
 CHN = "channels"
 DEP = "dependencies"
+EXPLICIT = "@EXPLICIT"
+
+
+def _lock_comment(env_yamls: typing.List[Path]) -> str:
+    deps = []
+    for env_file in reversed(env_yamls):
+        found_deps = False
+        for line in env_file.read_text(encoding="utf-8").strip().splitlines():
+            line = line.strip()
+            if line.startswith("dependencies"):
+                found_deps = True
+            if not found_deps:
+                continue
+            if line.startswith("- "):
+                deps += [line]
+    comment = textwrap.indent("\n".join(sorted(set(deps))), "# ")
+    return comment
 
 
 def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
@@ -35,6 +54,14 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
     file_dep = [*all_envs]
 
     def _lock():
+        header = "\n".join([_lock_comment(all_envs), EXPLICIT]).strip()
+
+        if lockfile.exists():
+            lock_text = lockfile.read_text(encoding="utf-8")
+            if lock_text.startswith(header):
+                print(f"\t\t- {lockfile.name} is up-to-date (delete to force)")
+                return True
+
         with tempfile.TemporaryDirectory() as td:
             tdp = Path(td)
             rc = 1
@@ -56,12 +83,13 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
 
             tmp_lock = tdp / f"conda-{platform_}.lock"
             tmp_lock_txt = tmp_lock.read_text(encoding="utf-8")
-            tmp_lock_lines = tmp_lock_txt.splitlines()
-            urls = [line for line in tmp_lock_lines if line.startswith("https://")]
-            print(len(urls), "urls")
             if not lockfile.parent.exists():
                 lockfile.parent.mkdir()
-            lockfile.write_text(tmp_lock_txt)
+            lockfile.write_text("\n".join([
+                header,
+                tmp_lock_txt.split(EXPLICIT)[1].strip(),
+                ""
+            ]))
 
     return dict(
         name=lockfile.name,
