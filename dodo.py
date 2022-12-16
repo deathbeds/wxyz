@@ -148,12 +148,10 @@ def task_setup_ts():
     )
 
 
-if P.RUNNING_IN_CI:
+def task_setup_py():
+    """setup python packages"""
+    if P.RUNNING_IN_CI:
 
-    def task_setup_py_ci():
-        """CI: setup python packages from wheels"""
-        if P.RUNNING_IN_CI:
-            return
         return dict(
             file_dep=[*P.WHEELS.values()],
             targets=[P.OK / "setup_py", P.OK / "setup_lab"],
@@ -175,58 +173,53 @@ if P.RUNNING_IN_CI:
             ],
         )
 
-else:
-
-    def task_setup_py_dev():
-        """ensure local packages are installed and editable"""
-
-        def write_reqs_txt():
-            """write out a requirements file so everything can be installed in one go"""
-            P.BUILD.exists() or P.BUILD.mkdir()
-            P.PY_DEV_REQS.write_text(
-                "\n".join(
-                    [f"-e {p.parent.relative_to(P.ROOT)}" for p in P.ALL_PYPROJECT_TOML]
-                )
+    def write_reqs_txt():
+        """write out a requirements file so everything can be installed in one go"""
+        P.BUILD.exists() or P.BUILD.mkdir()
+        P.PY_DEV_REQS.write_text(
+            "\n".join(
+                [f"-e {p.parent.relative_to(P.ROOT)}" for p in P.ALL_PYPROJECT_TOML]
             )
-
-        yield dict(
-            name="reqs_txt",
-            targets=[P.PY_DEV_REQS],
-            file_dep=[*P.ALL_PYPROJECT_TOML],
-            actions=[write_reqs_txt],
         )
 
-        yield dict(
-            name="pip",
-            file_dep=[P.PY_DEV_REQS, *P.TS_D_PACKAGE_JSON.values()],
-            targets=[P.OK / "setup_py"],
-            actions=[
-                U.okit("setup_py", remove=True),
-                [
-                    *P.PIP,
-                    "install",
-                    "--no-deps",
-                    "--ignore-installed",
-                    "-r",
-                    P.PY_DEV_REQS,
-                ],
-                [*P.PIP, "freeze"],
-                [*P.PIP, "check"],
-                U.okit("setup_py"),
+    yield dict(
+        name="reqs_txt",
+        targets=[P.PY_DEV_REQS],
+        file_dep=[*P.ALL_PYPROJECT_TOML],
+        actions=[write_reqs_txt],
+    )
+
+    yield dict(
+        name="pip",
+        file_dep=[P.PY_DEV_REQS, *P.TS_D_PACKAGE_JSON.values()],
+        targets=[P.OK / "setup_py"],
+        actions=[
+            U.okit("setup_py", remove=True),
+            [
+                *P.PIP,
+                "install",
+                "--no-deps",
+                "--ignore-installed",
+                "-r",
+                P.PY_DEV_REQS,
             ],
-        )
+            [*P.PIP, "freeze"],
+            [*P.PIP, "check"],
+            U.okit("setup_py"),
+        ],
+    )
 
-        yield dict(
-            name="lab",
-            file_dep=[P.PY_DEV_REQS, P.OK / "setup_py"],
-            targets=[P.OK / "setup_lab"],
-            actions=[
-                U.okit("setup_lab", remove=True),
-                *[(_make_develop, [p.parent]) for p in P.WXYZ_LAB_EXTENSIONS],
-                ["jupyter", "labextension", "list"],
-                U.okit("setup_lab"),
-            ],
-        )
+    yield dict(
+        name="lab",
+        file_dep=[P.PY_DEV_REQS, P.OK / "setup_py"],
+        targets=[P.OK / "setup_lab"],
+        actions=[
+            U.okit("setup_lab", remove=True),
+            *[(_make_develop, [p.parent]) for p in P.WXYZ_LAB_EXTENSIONS],
+            ["jupyter", "labextension", "list"],
+            U.okit("setup_lab"),
+        ],
+    )
 
 
 def _make_develop(path):
