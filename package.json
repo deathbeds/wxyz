@@ -65,7 +65,18 @@
   },
   "workspaces": {
     "packages": [
-      "src/wxyz_*/src/wxyz/*/js"
+      "src/wxyz_core/src/wxyz/core/js",
+      "src/wxyz_datagrid/src/wxyz/datagrid/js",
+      "src/wxyz_dvcs/src/wxyz/dvcs/js",
+      "src/wxyz_html/src/wxyz/html/js",
+      "src/wxyz_json_e/src/wxyz/json_e/js",
+      "src/wxyz_json_schema_form/src/wxyz/json_schema_form/js",
+      "src/wxyz_jsonld/src/wxyz/jsonld/js",
+      "src/wxyz_lab/src/wxyz/lab/js",
+      "src/wxyz_notebooks/src/wxyz/notebooks/js",
+      "src/wxyz_svg/src/wxyz/svg/js",
+      "src/wxyz_tpl_jinja/src/wxyz/tpl_jinja/js",
+      "src/wxyz_yaml/src/wxyz/yaml/js"
     ]
   }
 }
