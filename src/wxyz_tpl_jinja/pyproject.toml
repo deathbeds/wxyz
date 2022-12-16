@@ -1,0 +1,49 @@
+[build-system]
+requires = [
+    "flit_core >=3.7.1,<4",
+]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "wxyz_tpl_jinja"
+version = "0.6.0"
+description = "experimental Jupyter widgets for Jinja2 templates"
+readme = "README.md"
+keywords = [
+    "Interactive",
+]
+authors = [
+    { email = "ripxl@googlegroups.com", name = "wxyz contributors" },
+]
+classifiers = [
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 3",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    "wxyz_core",
+]
+requires-python = ">=3.8"
+
+[project.license]
+file = "LICENSE.txt"
+
+[project.urls]
+"Bug Tracker" = "https://github.com/deathbeds/wxyz/issues"
+Changelog = "https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md"
+Documentation = "https://wxyz.rtfd.io"
+Source = "https://github.com/deathbeds/wxyz"
+
+[tool.flit]
+sdist = "src/wxyz/tpl_jinja/_d"
+
+[tool.flit.external-data]
+directory = "src/wxyz/tpl_jinja/_d"
