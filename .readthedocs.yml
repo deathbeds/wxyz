@@ -14,4 +14,4 @@ sphinx:
   configuration: docs/conf.py
 
 conda:
-  environment: .binder/environment.yml
+  environment: docs/rtd.yml

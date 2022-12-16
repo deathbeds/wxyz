@@ -480,3 +480,13 @@ PYREVERSE = [
     # # we want widgets
     # "--ancestor", "ipywidgets.Box"
 ]
+
+RTD_ENV = DOCS / "rtd.yml"
+RTD_ENV_TXT = """
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:{% for dep in deps %}
+  - {{ dep }}{% endfor %}
+"""
+RTD_ENV_TMPL = jinja2.Template(RTD_ENV_TXT)

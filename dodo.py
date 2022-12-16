@@ -3,11 +3,11 @@
     this should be executed from within an environment created from
     the .github/locks/conda.*.lock appropriate for your platform. See CONTRIBUTING.md.
 """
-import json
-import os
-
 # pylint: disable=expression-not-assigned,W0511,too-many-lines
 # pylint: disable=inconsistent-return-statements
+
+import json
+import os
 import shutil
 import subprocess
 import time
@@ -23,7 +23,7 @@ from doit.tools import PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P
 from _scripts import _util as U
-from _scripts._lock import iter_matrix, make_lock_task
+from _scripts._lock import iter_matrix, lock_to_env, make_lock_task
 
 DOIT_CONFIG = {
     "backend": "sqlite3",
@@ -113,11 +113,19 @@ def task_lock():
         *binder_args,
     )
 
-    yield make_lock_task(
+    docs_task = make_lock_task(
         "docs",
         [*test_envs, P.ENV.lint, P.ENV.docs],
         {},
         *binder_args,
+    )
+    yield docs_task
+
+    yield dict(
+        name="rtd",
+        file_dep=docs_task["targets"],
+        actions=[(lock_to_env, [docs_task["targets"][0], P.RTD_ENV])],
+        targets=[P.RTD_ENV],
     )
 
 
