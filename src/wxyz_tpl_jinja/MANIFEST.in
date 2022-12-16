@@ -1,8 +1,0 @@
-# generated python data file manifest for wxyz_tpl_jinja, do not edit by hand
-include             README.md
-include             src/wxyz/tpl_jinja/js/package.json
-include             src/wxyz/tpl_jinja/js/LICENSE.txt
-include             src/wxyz/tpl_jinja/js/README.md
-recursive-include   src/wxyz/tpl_jinja/labextension *.*
-global-exclude      .ipynb_checkpoints
-global-exclude      node_modules

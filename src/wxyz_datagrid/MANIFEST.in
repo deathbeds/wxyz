@@ -1,8 +1,0 @@
-# generated python data file manifest for wxyz_datagrid, do not edit by hand
-include             README.md
-include             src/wxyz/datagrid/js/package.json
-include             src/wxyz/datagrid/js/LICENSE.txt
-include             src/wxyz/datagrid/js/README.md
-recursive-include   src/wxyz/datagrid/labextension *.*
-global-exclude      .ipynb_checkpoints
-global-exclude      node_modules

@@ -1,8 +1,0 @@
-# generated python data file manifest for wxyz_core, do not edit by hand
-include             README.md
-include             src/wxyz/core/js/package.json
-include             src/wxyz/core/js/LICENSE.txt
-include             src/wxyz/core/js/README.md
-recursive-include   src/wxyz/core/labextension *.*
-global-exclude      .ipynb_checkpoints
-global-exclude      node_modules
