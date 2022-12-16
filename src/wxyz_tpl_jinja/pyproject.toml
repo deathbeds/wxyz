@@ -42,6 +42,9 @@ Changelog = "https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md"
 Documentation = "https://wxyz.rtfd.io"
 Source = "https://github.com/deathbeds/wxyz"
 
+[tool.flit.module]
+name = "wxyz.tpl_jinja"
+
 [tool.flit.sdist]
 include = ["src/wxyz/tpl_jinja/_d"]
 

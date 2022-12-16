@@ -52,8 +52,5 @@ Changelog = "https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md"
 Documentation = "https://wxyz.rtfd.io"
 Source = "https://github.com/deathbeds/wxyz"
 
-[tool.flit.sdist]
-include = ["src/wxyz/notebooks/_d"]
-
-[tool.flit.external-data]
-directory = "src/wxyz/notebooks/_d"
+[tool.flit.module]
+name = "wxyz.notebooks"
