@@ -1,6 +1,6 @@
 """ DVCS widgets
 """
-from ._version import __version__, module_name
+from ._version import __prefix__, __version__, module_name
 from .repos.repo_base import Repo
 from .tools.tool_commits import Committer
 from .tools.tool_heads import Brancher, HeadPicker, HeadStatus
@@ -11,6 +11,7 @@ from .trackers.tracker_json import JSONDictTracker
 from .widget_watch import Watcher
 
 __all__ = [
+    "_jupyter_labextension_paths",
     "__version__",
     "Brancher",
     "Committer",
@@ -42,4 +43,4 @@ except ImportError:
 
 
 def _jupyter_labextension_paths():
-    return [{"src": "labextension", "dest": module_name}]
+    return [dict(src=str(__prefix__), dest=module_name)]
