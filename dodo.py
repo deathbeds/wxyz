@@ -147,16 +147,18 @@ def task_setup_ts():
         ],
     )
 
+
 def task_licenses():
     """put licenses everywhere"""
     for path in [*P.ALL_PYPROJECT_TOML, *P.TS_PACKAGE]:
-        license = path.parent / P.LICENSE.name
+        license_ = path.parent / P.LICENSE.name
         yield dict(
             name=path.parent.name,
             file_dep=[P.LICENSE],
-            targets=[license],
-            actions=[(U.copy_one, [P.LICENSE, license])]
+            targets=[license_],
+            actions=[(U.copy_one, [P.LICENSE, license_])],
         )
+
 
 def task_setup_py():
     """setup python packages"""
