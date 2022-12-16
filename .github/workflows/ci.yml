@@ -128,6 +128,9 @@ jobs:
     env:
       TESTING_IN_CI: 1
       ATEST_RETRIES: 1
+      LOCKFILE: |-
+        .github/locks/conda.${{ matrix.lockname }}-${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}.lock
+
     strategy:
       # TODO: remove
       fail-fast: false
@@ -160,24 +163,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: lock
-        id: lock
-        run: |
-          echo "::set-output name=lockfile::${{
-            format(
-              '.github/locks/conda.{0}.{1}-{2}-{3}.lock',
-              matrix.lockname,
-              matrix.conda-subdir,
-              matrix.python-version,
-              matrix.lab
-            ) }}"
-
       - name: cache (conda)
         uses: actions/cache@v3
         with:
           path: ~/conda_pkgs_dir
           key: |
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{ hashFiles(env.LOCKFILE) }}
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
 
@@ -208,15 +199,13 @@ jobs:
       - name: mamba (env, unix)
         if: ${{ matrix.os != 'windows' }}
         run:
-          mamba info --json && mamba create -p ./envs/_base test --file "${{
-          steps.lock.outputs.lockfile }}"
+          mamba info --json mamba create -p ./envs/_base test --file "${{ env.LOCKFILE
+          }}"
 
       - name: mamba (env, win)
         if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
-        run:
-          mamba info --json && mamba create -p ./envs/_base --file "${{
-          steps.lock.outputs.lockfile }}"
+        run: mamba info --json mamba create -p ./envs/_base --file "${{ env.LOCKFILE }}"
 
       - name: doit (lint)
         if: ${{ matrix.lockname == 'docs' }}
@@ -273,7 +262,7 @@ jobs:
         with:
           path: build/check_links
           key: |
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-${{ hashFiles(env.LOCKFILE) }}
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-
 
