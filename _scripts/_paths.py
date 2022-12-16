@@ -26,16 +26,22 @@ try:
 except ImportError:
     pass
 
-RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
-RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
+
+def _get_boolish(name, default="false"):
+    return bool(json.loads(os.environ.get(name, default).lower()))
+
+
+RUNNING_IN_CI = _get_boolish("RUNNING_IN_CI")
+RUNNING_IN_BINDER = _get_boolish("RUNNING_IN_BINDER")
 
 # avoid certain checks etc
-BUILDING_IN_CI = bool(json.loads(os.environ.get("BUILDING_IN_CI", "false")))
+BUILDING_IN_CI = _get_boolish("BUILDING_IN_CI")
 
 # generally avoid re-building assetc, checks.
-TESTING_IN_CI = bool(json.loads(os.environ.get("TESTING_IN_CI", "false")))
+TESTING_IN_CI = _get_boolish("TESTING_IN_CI")
 
-RUNNING_IN_GITHUB = bool(json.loads(os.environ.get("RUNNING_IN_GITHUB", "false")))
+RUNNING_IN_GITHUB = _get_boolish("RUNNING_IN_GITHUB")
+RTD = _get_boolish("READTHEDOCS")
 
 PY = Path(sys.executable)
 PYM = [PY, "-m"]

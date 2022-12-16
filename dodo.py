@@ -189,7 +189,7 @@ def task_setup_py():
                     *P.WHEELS.values(),
                 ],
                 [*P.PIP, "freeze"],
-                [*P.PIP, "check"],
+                *([] if P.RTD else [[*P.PIP, "check"]]),
                 U.okit("setup_py"),
                 ["jupyter", "labextension", "list"],
                 U.okit("setup_lab"),
