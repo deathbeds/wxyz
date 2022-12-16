@@ -45,7 +45,7 @@ export class FileModel extends widgets.DOMWidgetModel {
       mime_type: 'text/plain',
       last_modified: +new Date(),
       size: 0,
-      value: null,
+      value: null as any,
     };
   }
 

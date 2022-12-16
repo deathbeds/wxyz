@@ -45,7 +45,7 @@ console.log(wxyz); // and see _something_
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-json-schema-form
+jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-json-schema-form
 pip install wxyz_json_schema_form
 ```
 

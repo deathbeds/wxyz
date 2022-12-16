@@ -45,7 +45,7 @@ console.log(wxyz); // and see _something_
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-html
+jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-html
 pip install wxyz_html
 ```
 

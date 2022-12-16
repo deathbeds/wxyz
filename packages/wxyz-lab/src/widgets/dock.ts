@@ -36,9 +36,9 @@ export class DockBoxModel extends BoxModel {
       _model_name: DockBoxModel.model_name,
       _view_name: DockBoxModel.view_name,
       dock_layout: null as DockLayout.AreaConfig,
-      tab_size: null,
-      border: null,
-      hide_tabs: null,
+      tab_size: null as any,
+      border: null as any,
+      hide_tabs: null as any,
     };
   }
 }
@@ -92,9 +92,9 @@ export class DockPopModel extends BoxModel {
 
 export class DockPopView extends BoxView {
   _createElement(tagName: string) {
-    let pWidget = new JupyterLabPhosphorDockPanelWidget({ view: this }) as any;
-    this.luminoWidget = pWidget;
-    pWidget.app = (DockPopView as any)['app'];
-    return pWidget.node;
+    let lmWidget = new JupyterLabPhosphorDockPanelWidget({ view: this }) as any;
+    this.luminoWidget = lmWidget;
+    lmWidget.app = (DockPopView as any)['app'];
+    return lmWidget.node;
   }
 }

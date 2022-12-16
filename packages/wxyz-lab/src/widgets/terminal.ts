@@ -6,7 +6,7 @@ import { DOMWidgetModel, DOMWidgetView } from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '../constants';
 
-import { TerminalPhosphorWidget } from './_terminal';
+import { TerminalLuminoWidget } from './_terminal';
 
 const TRAITS = {
   allow_transparency: 'allowTransparency',
@@ -88,7 +88,7 @@ export class TerminalModel extends DOMWidgetModel {
 export class TerminalView extends DOMWidgetView {
   static view_name = 'TerminalView';
 
-  pWidget: TerminalPhosphorWidget;
+  luminoWidget: TerminalLuminoWidget;
 
   protected _term: Xterm;
   protected _fitAddon: FitAddon;
@@ -100,7 +100,7 @@ export class TerminalView extends DOMWidgetView {
     }
     this.$el = el instanceof $ ? el : $(el);
     this.el = this.$el[0];
-    this.luminoWidget = new TerminalPhosphorWidget({
+    this.luminoWidget = new TerminalLuminoWidget({
       node: el,
       view: this,
     });

@@ -1,6 +1,6 @@
 import { BasicKeyHandler, BasicMouseHandler, DataGrid } from '@lumino/datagrid';
 
-import { unpack_models as deserialize } from '@jupyter-widgets/base';
+import { unpack_models as deserialize, WidgetModel, WidgetView } from '@jupyter-widgets/base';
 import { BoxView } from '@jupyter-widgets/controls';
 
 import { WXYZBox } from '@deathbeds/wxyz-core';
@@ -32,11 +32,10 @@ export class DataGridModel extends WXYZBox {
 export class DataGridView extends BoxView {
   protected _grid: DataGridView.IViewedGrid;
 
-  initialize(options: DataGridView.IOptions) {
-    super.initialize(options);
-    const createGrid = options.createGrid || this.createGrid;
-    super.initialize(options);
-    this._grid = createGrid();
+  initialize(parameters: DataGridView.IOptions) {
+    parameters = {createGrid: DataGridView.createGrid, ...parameters};
+    super.initialize(parameters);
+    this._grid = parameters.createGrid();
     this.addGridBehaviors(this._grid);
     this._grid.view = this;
     this.model.on('change:value', this.onValue, this);
@@ -45,7 +44,7 @@ export class DataGridView extends BoxView {
     this.onValue();
   }
 
-  protected createGrid(): DataGridView.IViewedGrid {
+  protected static createGrid(): DataGridView.IViewedGrid {
     return new DataGrid() as DataGridView.IViewedGrid;
   }
 
@@ -69,7 +68,7 @@ export namespace DataGridView {
   export interface IViewedGrid extends DataGrid {
     view: DataGridView;
   }
-  export interface IOptions {
+  export interface IOptions extends WidgetView.IInitializeParameters<WidgetModel>{
     createGrid: () => IViewedGrid;
   }
 }

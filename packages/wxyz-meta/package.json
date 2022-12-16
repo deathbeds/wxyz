@@ -32,7 +32,7 @@
     "build": "tsc -b src",
     "watch": "jlpm build --watch --preserveWatchOutput"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@deathbeds/wxyz-core": "file:../wxyz-core",
     "@deathbeds/wxyz-datagrid": "file:../wxyz-datagrid",
     "@deathbeds/wxyz-dvcs": "file:../wxyz-dvcs",
@@ -42,7 +42,7 @@
     "@deathbeds/wxyz-jsonld": "file:../wxyz-jsonld",
     "@deathbeds/wxyz-lab": "file:../wxyz-lab",
     "@deathbeds/wxyz-svg": "file:../wxyz-svg",
-    "@deathbeds/wxyz-tpl-nunjucks": "file:../wxyz-nunjucks",
+    "@deathbeds/wxyz-tpl-nunjucks": "file:../wxyz-tpl-nunjucks",
     "@deathbeds/wxyz-yaml": "file:../wxyz-yaml"
   }
 }

@@ -2,12 +2,12 @@ import { Message } from '@lumino/messaging';
 import { Signal } from '@lumino/signaling';
 import { Widget } from '@lumino/widgets';
 
-import { JupyterPhosphorWidget } from '@jupyter-widgets/base';
+import { JupyterLuminoWidget } from '@jupyter-widgets/base';
 
-export class TerminalPhosphorWidget extends JupyterPhosphorWidget {
-  private _resized = new Signal<TerminalPhosphorWidget, Widget.ResizeMessage>(this);
+export class TerminalLuminoWidget extends JupyterLuminoWidget {
+  private _resized = new Signal<TerminalLuminoWidget, Widget.ResizeMessage>(this);
 
-  private _shown = new Signal<TerminalPhosphorWidget, Message>(this);
+  private _shown = new Signal<TerminalLuminoWidget, Message>(this);
   get resized() {
     return this._resized;
   }

@@ -29,11 +29,11 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "@deathbeds/jupyterlab-rjsf": "^1.0.2"
+    "@deathbeds/jupyterlab-rjsf": "^1.0.2",
+    "@deathbeds/wxyz-core": "^0.6.0"
   },
   "devDependencies": {
     "@blueprintjs/core": "*",
-    "@deathbeds/wxyz-core": "^0.6.0",
     "@jupyter-widgets/base": "6",
     "@jupyter-widgets/controls": "5",
     "@jupyter-widgets/jupyterlab-manager": "5",

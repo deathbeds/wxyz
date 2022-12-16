@@ -28,7 +28,9 @@
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@deathbeds/wxyz-core": "^0.6.0"
+  },
   "devDependencies": {
     "@deathbeds/wxyz-core": "^0.6.0",
     "@jupyter-widgets/base": "6",

@@ -29,10 +29,10 @@
     "LICENSE.txt"
   ],
   "dependencies": {
+    "@deathbeds/wxyz-core": "^0.6.0",
     "jsonld": "^5.2.0"
   },
   "devDependencies": {
-    "@deathbeds/wxyz-core": "^0.6.0",
     "@jupyter-widgets/base": "6",
     "@jupyter-widgets/controls": "5",
     "@jupyter-widgets/jupyterlab-manager": "5",

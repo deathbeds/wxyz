@@ -8,7 +8,7 @@ import { DockPanelSvg } from '@jupyterlab/ui-components';
 import {
   DOMWidgetModel,
   DOMWidgetView,
-  JupyterPhosphorWidget,
+  JupyterLuminoWidget,
 } from '@jupyter-widgets/base';
 
 export const CSS = {
@@ -23,7 +23,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
   private _style: HTMLStyleElement;
   private _defaultSpacing: number;
 
-  constructor(options: JupyterPhosphorWidget.IOptions & DockPanel.IOptions) {
+  constructor(options: JupyterLuminoWidget.IOptions & DockPanel.IOptions) {
     let view = options.view;
     delete options.view;
     super(options);
@@ -168,7 +168,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
 
   processMessage(msg: Message) {
     super.processMessage(msg);
-    this._view.processPhosphorMessage(msg);
+    this._view.processLuminoMessage(msg);
   }
 
   dispose() {

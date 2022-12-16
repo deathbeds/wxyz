@@ -45,7 +45,7 @@ console.log(wxyz); // and see _something_
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-tpl-nunjucks
+jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-tpl-nunjucks
 pip install wxyz_tpl_jinja
 ```
 

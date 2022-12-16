@@ -1,5 +1,4 @@
 // porting https://github.com/openseat/ipylayoutwidgets/blob/master/ipylayoutwidgets/static/ipylayoutwidgets/js/SVGLayoutBoxView.js
-
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';
@@ -7,7 +6,7 @@ import _ from 'lodash';
 import { Widget } from '@lumino/widgets';
 
 import { DOMWidgetModel } from '@jupyter-widgets/base';
-import { JupyterPhosphorPanelWidget } from '@jupyter-widgets/base';
+import { JupyterLuminoPanelWidget } from '@jupyter-widgets/base';
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '../constants';
@@ -66,7 +65,7 @@ export class SVGBoxModel extends BoxModel {
   }
 }
 
-class SVGPanelWidget extends JupyterPhosphorPanelWidget {
+class SVGPanelWidget extends JupyterLuminoPanelWidget {
   onResize(msg: Widget.ResizeMessage) {
     super.onResize(msg);
     (this as any)._view.resize();
@@ -149,7 +148,7 @@ export class SVGBoxView extends BoxView {
 
   loadSVG(): void {
     const view = this;
-    const el = this.el.parentNode;
+    const el = this.el.parentNode as HTMLElement;
     const areaAttr = this.model.get('area_attr');
 
     this._lastSVG = this.model.get('svg');
@@ -227,7 +226,7 @@ export class SVGBoxView extends BoxView {
       // TODO: fix this
       layout.call(this._zoom as any);
     }
-    const el = this.el.parentNode;
+    const el = this.el.parentNode as HTMLElement;
     if (!el) {
       return;
     }

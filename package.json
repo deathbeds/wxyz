@@ -1,4 +1,5 @@
 {
+  "name": "@deathbeds/wxyz-top",
   "version": "0.6.0",
   "private": true,
   "description": "experimental widgets",
@@ -16,7 +17,7 @@
     "build": "jlpm build:ts && jlpm build:ext && jlpm build:tgz",
     "build:ext": "lerna exec --stream --ignore @deathbeds/wxyz-meta -- jupyter labextension build .",
     "build:tgz": "lerna exec --parallel --stream npm pack",
-    "build:ts": "lerna run --parallel --stream build",
+    "build:ts": "lerna run build",
     "clean": "lerna exec --parallel --stream rimraf lib *.tgz",
     "lint": "jlpm lint:prettier",
     "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml,yaml}\" \"./{src,.github,packages}/**/*.{ts,json,md,yml,yaml,css,yaml}\"",
@@ -47,8 +48,7 @@
   },
   "resolutions": {
     "prettier": "^2.8.1",
-    "typescript": "~4.9.4",
-    "verdaccio": "file:_scripts/not-a-package"
+    "typescript": "~4.9.4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",

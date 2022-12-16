@@ -51,13 +51,12 @@ export class StyleGridModel extends DataGridModel {
 export class StyleGridView extends DataGridView {
   model: StyleGridModel;
 
-  protected createGrid() {
+  protected static createGrid() {
     return new StyleGrid();
   }
 
-  initialize(options: any) {
-    options.createGrid = () => this.createGrid();
-    super.initialize(options);
+  initialize(parameters: DataGridView.IOptions) {
+    super.initialize({ createGrid: StyleGridView.createGrid, ...parameters });
     this.luminoWidget.addClass(CSS.STYLE_GRID);
   }
 }

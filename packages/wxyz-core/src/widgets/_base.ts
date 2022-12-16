@@ -59,7 +59,7 @@ export class Model<T> extends DOMWidgetModel {
       icon_class: 'jp-CircleIcon',
       description: 'An Undescribed Widget',
       closable: true,
-    };
+    } as any;
   }
 }
 

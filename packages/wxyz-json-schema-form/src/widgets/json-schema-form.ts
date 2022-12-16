@@ -41,7 +41,7 @@ export class JSONSchemaFormModel extends WXYZBox {
       value: {} as any,
       schema: {} as any,
       ui_schema: {} as any,
-      errors: [],
+      errors: [] as any[],
     };
   }
 
