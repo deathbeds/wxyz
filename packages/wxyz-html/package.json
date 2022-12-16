@@ -52,7 +52,7 @@
         ]
       }
     },
-    "outputDir": "../../src/wxyz_html/src/html/_d/share/jupyter/labextensions/@deathbeds/wxyz-html",
+    "outputDir": "../../src/wxyz_html/src/wxyz/html/_d/share/jupyter/labextensions/@deathbeds/wxyz-html",
     "sharedPackages": {
       "@jupyter-widgets/base": {
         "bundled": false,
