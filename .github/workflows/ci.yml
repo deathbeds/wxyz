@@ -129,7 +129,7 @@ jobs:
       TESTING_IN_CI: 1
       ATEST_RETRIES: 1
       LOCKFILE: |-
-        .github/locks/conda.${{ matrix.lockname }}-${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}.lock
+        .github/locks/conda.${{ matrix.lockname }}.${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}.lock
 
     strategy:
       # TODO: remove
