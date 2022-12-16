@@ -263,3 +263,7 @@ jobs:
         run: |-
           source "${CONDA}/bin/activate" ./envs/_base TESTING_IN_CI=0 doit -n4 spell
           checklinks || doit spell checklinks
+
+      - name: Rename uncached conda packages
+        shell: bash
+        run: mv "${CONDA_PKGS_DIR}" "${CONDA_PKGS_DIR}_do_not_cache"
