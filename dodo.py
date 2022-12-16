@@ -534,6 +534,33 @@ def _make_py_readme(py_proj):
     )
 
 
+def _make_py_version(py_proj):
+    pkg = py_proj.parent
+
+    version_py = next(pkg.glob("src/wxyz/*/_version.py"))
+
+    def _write():
+        context = {**P.PY_PROJ[py_proj]}
+
+        for package_json in P.TS_PACKAGE_CONTENT.values():
+            lab = package_json.get("jupyterlab")
+            if lab is None:
+                continue
+            if pkg.name == lab["discovery"]["server"]["base"]["name"]:
+                context["js_pkg"] = package_json
+                break
+
+        version_py.write_text(P.PY_VERSION_TMPL.render(**context).strip())
+
+    return dict(
+        name=f"version:py:{pkg.name}",
+        uptodate=[config_changed(P.PY_VERSION_TXT)],
+        actions=[_write],
+        file_dep=[py_proj],
+        targets=[version_py],
+    )
+
+
 def _make_ts_readme(package_json):
     pkg = package_json.parent
     readme = pkg / "README.md"
@@ -703,6 +730,7 @@ def task_docs():
 
     for py_proj in P.PY_PROJ:
         yield _make_py_readme(py_proj)
+        yield _make_py_version(py_proj)
 
         task = _make_py_rst(py_proj)
         yield task

@@ -1,9 +1,5 @@
-""" some constants
-"""
-# pylint: disable=invalid-name,unreachable
-import json
-from pathlib import Path
+"""source of truth for wxyz_notebooks version info"""
+from importlib.metadata import version
 
-HERE = Path(__file__).parent
-__jspackage__ = json.loads((HERE / "js/package.json").read_text(encoding="utf-8"))
-__version__ = __jspackage__["version"]
+NAME = "wxyz_notebooks"
+__version__ = version(NAME)
