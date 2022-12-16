@@ -163,15 +163,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: cache (conda)
-        uses: actions/cache@v3
-        with:
-          path: ~/conda_pkgs_dir
-          key: |-
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{ hashFiles(env.LOCKFILE) }}
-          restore-keys: |-
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
-
       - name: cache (yarn)
         if: ${{ matrix.lockname == 'docs' }}
         uses: actions/cache@v3
@@ -194,7 +185,6 @@ jobs:
           condarc-file: .github/.condarc
           miniforge-variant: Mambaforge
           use-mamba: true
-          use-only-tar-bz2: true
 
       - name: mamba (env, unix)
         if: ${{ matrix.os != 'windows' }}
