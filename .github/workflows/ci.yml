@@ -120,9 +120,8 @@ jobs:
           path: ./dist
 
   test:
-    name:
-      ${{ matrix.lockname }} ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{
-      matrix.lab }}
+    name: |-
+      ${{ matrix.lockname }} ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
     needs: [build]
     runs-on: ${{ matrix.os }}-latest
     env:
@@ -189,14 +188,12 @@ jobs:
       - name: mamba (env, unix)
         if: ${{ matrix.os != 'windows' }}
         run: |-
-          mamba info --json
           mamba create -p ./envs/_base test --file "${{ env.LOCKFILE }}"
 
       - name: mamba (env, win)
         if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
         run: |-
-          mamba info --json
           mamba create -p ./envs/_base --file "${{ env.LOCKFILE }}"
 
       - name: doit (lint)
