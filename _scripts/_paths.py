@@ -11,7 +11,6 @@ import sys
 from pathlib import Path
 
 import jinja2
-
 import yaml
 
 try:
@@ -177,14 +176,11 @@ PY_VERSION = {ppt: pptd["project"]["version"] for ppt, pptd in PY_PROJ.items()}
 PY_DEV_REQS = BUILD / "requirements-dev.txt"
 
 PY_DOCS_DOT = [
-    DOCS
-    / "widgets/dot"
-    / f"""classes_{ppt.parent.name.replace("wxyz_", "")}.dot"""
+    DOCS / "widgets/dot" / f"""classes_{ppt.parent.name.replace("wxyz_", "")}.dot"""
     for ppt in PY_PROJ
 ]
 PY_DOCS_RST = [
-    DOCS / f"""widgets/{ppt.parent.name.replace("wxyz_", "")}.rst"""
-    for ppt in PY_PROJ
+    DOCS / f"""widgets/{ppt.parent.name.replace("wxyz_", "")}.rst""" for ppt in PY_PROJ
 ]
 
 
@@ -206,9 +202,7 @@ TS_META = PACKAGES / "wxyz-meta"
 TS_META_BUILD = PACKAGES / "wxyz-meta/lib/.tsbuildinfo"
 TS_ALL_BUILD = [p / "lib" / ".tsbuildinfo" for p in TS_SRC]
 
-WXYZ_LAB_EXTENSIONS = [
-    tsp.parent for tsp in TS_PACKAGE if tsp.parent != TS_META
-]
+WXYZ_LAB_EXTENSIONS = [tsp.parent for tsp in TS_PACKAGE if tsp.parent != TS_META]
 ALL_TS = sorted(
     sum(
         [
@@ -227,8 +221,10 @@ TS_TARBALLS = [
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
 TS_D_PACKAGE_JSON = {
-    SRC / tsp_json["jupyterlab"]["discovery"]["server"]["base"]["name"]:
-    (tsp / tsp_json["jupyterlab"]["outputDir"] / "package.json").resolve()
+    SRC
+    / tsp_json["jupyterlab"]["discovery"]["server"]["base"]["name"]: (
+        tsp.parent / tsp_json["jupyterlab"]["outputDir"] / "package.json"
+    ).resolve()
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
     if "jupyterlab" in tsp_json
 }
@@ -403,7 +399,7 @@ PY_LINT_CMDS = [
 
 
 LINT_GROUPS = {
-    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_PROJ
+    ppt.parent.name: sorted((ppt.parent / "src").rglob("*.py")) for ppt in PY_PROJ
 }
 
 LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
@@ -415,9 +411,7 @@ SCHEMA = BUILD / "schema"
 
 SCHEMA_TS_CM_OPTIONS = PACKAGES / "wxyz-lab/src/widgets/_cm_options.ts"
 
-SCHEMA_TS_DG_STYLE = (
-    PACKAGES / "wxyz-datagrid/src/widgets/_datagrid_styles.ts"
-)
+SCHEMA_TS_DG_STYLE = PACKAGES / "wxyz-datagrid/src/widgets/_datagrid_styles.ts"
 
 SCHEMA_WIDGETS = {
     SCHEMA_TS_CM_OPTIONS: [

@@ -1,8 +1,8 @@
 """ utilities for doit
 """
 # pylint: disable=expression-not-assigned
-import subprocess
 import shutil
+import subprocess
 from datetime import datetime
 
 from doit.reporter import ConsoleReporter
@@ -36,6 +36,7 @@ def okit(name, remove=False):
 
     return _ok
 
+
 def copy_one(src, dest):
     if dest.is_dir():
         shutil.rmtree(dest)
@@ -49,6 +50,7 @@ def copy_one(src, dest):
         shutil.copytree(src, dest)
     else:
         shutil.copy2(src, dest)
+
 
 class Reporter(ConsoleReporter):
     """a fancy reporter"""

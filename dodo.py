@@ -10,7 +10,6 @@ import os
 import shutil
 import subprocess
 import time
-from configparser import ConfigParser
 from hashlib import sha256
 
 try:
@@ -33,9 +32,8 @@ DOIT_CONFIG = {
     "reporter": U.Reporter,
 }
 
-os.environ.update(
-    PIP_NO_BUILD_ISOLATION="1"
-)
+os.environ.update(PIP_NO_BUILD_ISOLATION="1")
+
 
 def task_release():
     """run all tasks, except re-locking and docs"""
@@ -136,7 +134,13 @@ if not P.TESTING_IN_CI:
             file_dep=[P.ROOT_PACKAGE],
             targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
             actions=[
-                ["jlpm", "--prefer-offline", "--ignore-optional", "--ignore-scripts", "--registry=https://registry.npmjs.org"],
+                [
+                    "jlpm",
+                    "--prefer-offline",
+                    "--ignore-optional",
+                    "--ignore-scripts",
+                    "--registry=https://registry.npmjs.org",
+                ],
                 ["jlpm", "yarn-deduplicate", "--strategy", "fewer", "--fail"],
                 ["jlpm", "lerna", "bootstrap"],
             ],
@@ -168,7 +172,6 @@ if P.RUNNING_IN_CI:
             ],
         )
 
-
 else:
 
     def task_setup_py_dev():
@@ -178,7 +181,9 @@ else:
             """write out a requirements file so everything can be installed in one go"""
             P.BUILD.exists() or P.BUILD.mkdir()
             P.PY_DEV_REQS.write_text(
-                "\n".join([f"-e {p.parent.relative_to(P.ROOT)}" for p in P.ALL_PYPROJECT_TOML])
+                "\n".join(
+                    [f"-e {p.parent.relative_to(P.ROOT)}" for p in P.ALL_PYPROJECT_TOML]
+                )
             )
 
         yield dict(
@@ -285,7 +290,6 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             ],
         )
 
-
         yield dict(
             name="robot",
             file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
@@ -340,11 +344,7 @@ if not P.RUNNING_IN_CI:
 def _make_pydist(pyproj):
     """build python release artifacts"""
     pkg = pyproj.parent
-    file_dep = [
-        pyproj,
-        pkg / P.LICENSE_NAME,
-        *sorted((pkg / "src").rglob("*.py"))
-    ]
+    file_dep = [pyproj, pkg / P.LICENSE_NAME, *sorted((pkg / "src").rglob("*.py"))]
 
     if pkg in P.TS_D_PACKAGE_JSON:
         file_dep += [P.TS_D_PACKAGE_JSON[pkg]]
