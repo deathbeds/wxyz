@@ -1,6 +1,5 @@
 __pycache__/
 _*_repo_/
-src/**/_d/
 .conda-packages/
 .coverage
 .doit*
@@ -10,6 +9,7 @@ src/**/_d/
 .vscode/
 .yarn-packages/
 *.egg-info
+*.isorted
 *.log
 *.tgz
 **/labextension/
@@ -23,5 +23,6 @@ dist/
 envs/
 lib/
 node_modules/
+src/**/_d/
 untitled*
 Untitled*

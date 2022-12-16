@@ -4,10 +4,10 @@
 
 import collections
 import itertools
-import typing
 import subprocess
 import tempfile
 import textwrap
+import typing
 from pathlib import Path
 
 from doit.tools import config_changed
@@ -85,11 +85,11 @@ def make_lock_task(kind_, env_files, config, platform_, python_, lab_=None):
             tmp_lock_txt = tmp_lock.read_text(encoding="utf-8")
             if not lockfile.parent.exists():
                 lockfile.parent.mkdir()
-            lockfile.write_text("\n".join([
-                header,
-                tmp_lock_txt.split(EXPLICIT)[1].strip(),
-                ""
-            ]))
+            lockfile.write_text(
+                "\n".join([header, tmp_lock_txt.split(EXPLICIT)[1].strip(), ""])
+            )
+
+        return True
 
     return dict(
         name=lockfile.name,

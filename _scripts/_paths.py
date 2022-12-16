@@ -389,8 +389,7 @@ PY_VERSION_TXT = '''
 """source of truth for {{ project["name"] }} version info"""
 from importlib.metadata import version
 
-{% if js_pkg %}
-import sys
+{% if js_pkg %}import sys
 from pathlib import Path
 
 module_name = "{{ js_pkg["name"] }}"
@@ -398,15 +397,14 @@ module_version = "{{ js_pkg["version"] }}"
 
 HERE = Path(__file__).parent
 
-IN_TREE = (
-    HERE / f"../../../_d/share/jupyter/labextensions/{module_name}"
-).resolve()
-IN_PREFIX = Path(sys.prefix) / f"share/jupyter/labextensions/{module_name}"
+SHARE = "share/jupyter/labextensions"
+IN_TREE = (HERE / "../../../_d" / SHARE / module_name).resolve()
+IN_PREFIX = Path(sys.prefix) / SHARE / module_name
 
 __prefix__ = IN_TREE if IN_TREE.exists() else IN_PREFIX
-{% endif %}
 
-NAME = "{{ project["name"] }}"
+
+{% endif %}NAME = "{{ project["name"] }}"
 __version__ = version(NAME)
 '''
 
