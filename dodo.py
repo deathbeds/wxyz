@@ -7,6 +7,7 @@ import json
 import os
 
 # pylint: disable=expression-not-assigned,W0511,too-many-lines
+# pylint: disable=inconsistent-return-statements
 import shutil
 import subprocess
 import time
@@ -60,97 +61,99 @@ def task_release():
     )
 
 
-if not P.RUNNING_IN_CI:
-
-    @create_after("docs")
-    def task_all():
-        """like release, but also builds docs (no locks)"""
-        return dict(
-            file_dep=[P.SHA256SUMS, P.OK / "release"],
-            task_dep=["spell", "checklinks"],
-            actions=[lambda: print("OK to docs")],
-        )
-
-
-if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
-
-    def task_lock():
-        """lock conda envs so they don't need to be solved in CI
-        This should be run semi-frequently (e.g. after merge to `main`).
-        Requires `conda-lock` CLI to be available
-
-        TODO: this should be more deriveable directly from a file tree structure
-              that matches a github actions schema
-        """
-
-        base_envs = [P.ENV.base, *P.ENV.WXYZ]
-        test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
-        binder_args = None
-
-        for task_args in iter_matrix(P.CI_TEST_MATRIX):
-            if "linux-64" in task_args:
-                binder_args = task_args
-            matrix_envs = list(test_envs)
-
-            if "win-64" in task_args:
-                matrix_envs += [P.ENV.win]
-            else:
-                matrix_envs += [P.ENV.unix]
-
-            yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
-
-        for conda_platform in P.ALL_CONDA_PLATFORMS:
-            yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
-
-        yield make_lock_task(
-            "binder",
-            [*base_envs, P.ENV.binder],
-            {},
-            *binder_args,
-        )
-
-        yield make_lock_task(
-            "docs",
-            [*test_envs, P.ENV.lint, P.ENV.docs],
-            {},
-            *binder_args,
-        )
+@create_after("docs")
+def task_all():
+    """like release, but also builds docs (no locks)"""
+    if P.RUNNING_IN_CI:
+        return
+    return dict(
+        file_dep=[P.SHA256SUMS, P.OK / "release"],
+        task_dep=["spell", "checklinks"],
+        actions=[lambda: print("OK to docs")],
+    )
 
 
-if not P.TESTING_IN_CI:
+def task_lock():
+    """lock conda envs so they don't need to be solved in CI
+    This should be run semi-frequently (e.g. after merge to `main`).
+    Requires `conda-lock` CLI to be available
 
-    def task_setup_ts():
-        """set up typescript environment"""
-        dep_types = ["devDependencies", "dependencies", "peerDependencies"]
-        return dict(
-            uptodate=[
-                config_changed(
-                    {
-                        pkg["name"]: {dep: pkg.get(dep) for dep in dep_types}
-                        for pkg in P.TS_PACKAGE_CONTENT.values()
-                    }
-                )
+    TODO: this should be more deriveable directly from a file tree structure
+            that matches a github actions schema
+    """
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+        return
+
+    base_envs = [P.ENV.base, *P.ENV.WXYZ]
+    test_envs = [*base_envs, P.ENV.utest, P.ENV.atest, P.ENV.lint]
+    binder_args = None
+
+    for task_args in iter_matrix(P.CI_TEST_MATRIX):
+        if "linux-64" in task_args:
+            binder_args = task_args
+        matrix_envs = list(test_envs)
+
+        if "win-64" in task_args:
+            matrix_envs += [P.ENV.win]
+        else:
+            matrix_envs += [P.ENV.unix]
+
+        yield make_lock_task("test", matrix_envs, P.CI_TEST_MATRIX, *task_args)
+
+    for conda_platform in P.ALL_CONDA_PLATFORMS:
+        yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, "3.8")
+
+    yield make_lock_task(
+        "binder",
+        [*base_envs, P.ENV.binder],
+        {},
+        *binder_args,
+    )
+
+    yield make_lock_task(
+        "docs",
+        [*test_envs, P.ENV.lint, P.ENV.docs],
+        {},
+        *binder_args,
+    )
+
+
+def task_setup_ts():
+    """set up typescript environment"""
+    if P.TESTING_IN_CI:
+        return
+    dep_types = ["devDependencies", "dependencies", "peerDependencies"]
+    return dict(
+        uptodate=[
+            config_changed(
+                {
+                    pkg["name"]: {dep: pkg.get(dep) for dep in dep_types}
+                    for pkg in P.TS_PACKAGE_CONTENT.values()
+                }
+            )
+        ],
+        file_dep=[P.ROOT_PACKAGE],
+        targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
+        actions=[
+            [
+                "jlpm",
+                "--prefer-offline",
+                "--ignore-optional",
+                "--ignore-scripts",
+                "--registry=https://registry.npmjs.org",
             ],
-            file_dep=[P.ROOT_PACKAGE],
-            targets=[P.YARN_INTEGRITY, P.YARN_LOCK],
-            actions=[
-                [
-                    "jlpm",
-                    "--prefer-offline",
-                    "--ignore-optional",
-                    "--ignore-scripts",
-                    "--registry=https://registry.npmjs.org",
-                ],
-                ["jlpm", "yarn-deduplicate", "--strategy", "fewer", "--fail"],
-                ["jlpm", "lerna", "bootstrap"],
-            ],
-        )
+            ["jlpm", "yarn-deduplicate", "--strategy", "fewer", "--fail"],
+            ["jlpm", "lerna", "bootstrap"],
+        ],
+    )
 
 
 if P.RUNNING_IN_CI:
 
     def task_setup_py_ci():
         """CI: setup python packages from wheels"""
+        if P.RUNNING_IN_CI:
+            return
         return dict(
             file_dep=[*P.WHEELS.values()],
             targets=[P.OK / "setup_py", P.OK / "setup_lab"],
@@ -263,44 +266,45 @@ def _make_linters(label, files):
         next_prev = []
 
 
-if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
+def task_lint():
+    """detect and (hopefully) correct code style/formatting"""
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+        return
 
-    def task_lint():
-        """detect and (hopefully) correct code style/formatting"""
-        for label, files in P.LINT_GROUPS.items():
-            for linter in _make_linters(label, files):
-                yield linter
+    for label, files in P.LINT_GROUPS.items():
+        for linter in _make_linters(label, files):
+            yield linter
 
-        yield dict(
-            name="prettier:core",
-            uptodate=[config_changed(P.README.read_text(encoding="utf-8"))],
-            file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
-            actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
-            targets=[P.README],
-        )
+    yield dict(
+        name="prettier:core",
+        uptodate=[config_changed(P.README.read_text(encoding="utf-8"))],
+        file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK],
+        actions=[["jlpm", "prettier", "--write", "--list-different", P.README]],
+        targets=[P.README],
+    )
 
-        yield dict(
-            name="prettier:rest",
-            file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
-            targets=[P.OK / "prettier"],
-            actions=[
-                U.okit("prettier", remove=True),
-                ["jlpm", "lint:prettier"],
-                U.okit("prettier"),
-            ],
-        )
+    yield dict(
+        name="prettier:rest",
+        file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
+        targets=[P.OK / "prettier"],
+        actions=[
+            U.okit("prettier", remove=True),
+            ["jlpm", "lint:prettier"],
+            U.okit("prettier"),
+        ],
+    )
 
-        yield dict(
-            name="robot",
-            file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
-            targets=[P.OK / "robot_lint"],
-            actions=[
-                U.okit("robot_dry_run", remove=True),
-                [*P.PYM, "robotidy", *P.ALL_ROBOT],
-                [*ATEST, "--dryrun"],
-                U.okit("robot_lint"),
-            ],
-        )
+    yield dict(
+        name="robot",
+        file_dep=[*P.ALL_ROBOT, *P.ATEST_PY],
+        targets=[P.OK / "robot_lint"],
+        actions=[
+            U.okit("robot_dry_run", remove=True),
+            [*P.PYM, "robotidy", *P.ALL_ROBOT],
+            [*ATEST, "--dryrun"],
+            U.okit("robot_lint"),
+        ],
+    )
 
 
 def _make_schema(source, targets):
@@ -332,13 +336,14 @@ def _make_schema(source, targets):
         )
 
 
-if not P.RUNNING_IN_CI:
+def task_schema():
+    """update code files from schema"""
+    if P.RUNNING_IN_CI:
+        return
 
-    def task_schema():
-        """update code files from schema"""
-        for source, targets in P.SCHEMA_WIDGETS.items():
-            for task in _make_schema(source, targets):
-                yield task
+    for source, targets in P.SCHEMA_WIDGETS.items():
+        for task in _make_schema(source, targets):
+            yield task
 
 
 def _make_pydist(pyproj):
@@ -420,73 +425,71 @@ def _make_lab_ext_build(ext):
     )
 
 
-if not P.TESTING_IN_CI:
+def task_ts():
+    """build typescript components"""
+    if P.TESTING_IN_CI:
+        return
 
-    def task_ts():
-        """build typescript components"""
+    file_dep = [P.YARN_LOCK, *P.TS_PACKAGE, *P.ALL_TS]
 
-        file_dep = [P.YARN_LOCK, *P.TS_PACKAGE, *P.ALL_TS]
+    if not P.BUILDING_IN_CI:
+        file_dep += [P.OK / "prettier"]
 
-        if not P.BUILDING_IN_CI:
-            file_dep += [P.OK / "prettier"]
+    yield dict(
+        name="tsc",
+        file_dep=file_dep,
+        targets=P.TS_ALL_BUILD,
+        actions=[["jlpm", "build:ts"]],
+    )
 
-        yield dict(
-            name="tsc",
-            file_dep=file_dep,
-            targets=P.TS_ALL_BUILD,
-            actions=[["jlpm", "build:ts"]],
-        )
+    yield dict(
+        name="pack",
+        file_dep=[
+            P.TS_META_BUILD,
+            *P.TS_READMES,
+            *P.TS_LICENSES,
+        ],
+        actions=[["jlpm", "build:tgz"]],
+        targets=[*P.TS_TARBALLS],
+    )
 
-        yield dict(
-            name="pack",
-            file_dep=[
-                P.TS_META_BUILD,
-                *P.TS_READMES,
-                *P.TS_LICENSES,
-            ],
-            actions=[["jlpm", "build:tgz"]],
-            targets=[*P.TS_TARBALLS],
-        )
-
-        for ext in P.WXYZ_LAB_EXTENSIONS:
-            for task in _make_lab_ext_build(ext):
-                yield task
+    for ext in P.WXYZ_LAB_EXTENSIONS:
+        for task in _make_lab_ext_build(ext):
+            yield task
 
 
-if not P.BUILDING_IN_CI:
+def task_nbtest():
+    """smoke test all notebooks with nbconvert"""
+    if P.BUILDING_IN_CI:
+        return
 
-    def task_nbtest():
-        """smoke test all notebooks with nbconvert"""
+    env = dict(os.environ)
+    env.update(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT))
 
-        env = dict(os.environ)
-        env.update(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT))
-
-        return dict(
-            file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
-            targets=[P.OK / "nbtest"],
-            actions=[
-                lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][
-                    -1
+    return dict(
+        file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
+        targets=[P.OK / "nbtest"],
+        actions=[
+            lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][-1],
+            U.okit("nbtest", True),
+            lambda: U.call(
+                [
+                    *P.PYM,
+                    "pytest",
+                    "-vv",
+                    "-n",
+                    "auto",
+                    "-o",
+                    f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
+                    *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
                 ],
-                U.okit("nbtest", True),
-                lambda: U.call(
-                    [
-                        *P.PYM,
-                        "pytest",
-                        "-vv",
-                        "-n",
-                        "auto",
-                        "-o",
-                        f"junit_suite_name=nbtest_{P.OS}_{P.PY_VER}",
-                        *os.environ.get("WXYZ_PYTEST_ARGS", "").split("  "),
-                    ],
-                    cwd=P.PY_SRC / "wxyz_notebooks",
-                    env=env,
-                )
-                == 0,
-                U.okit("nbtest"),
-            ],
-        )
+                cwd=P.PY_SRC / "wxyz_notebooks",
+                env=env,
+            )
+            == 0,
+            U.okit("nbtest"),
+        ],
+    )
 
 
 def _make_py_readme(py_proj):
@@ -690,50 +693,50 @@ def _make_dot(setup_py):
     )
 
 
-if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
+def task_docs():
+    """make the docs right"""
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+        return
+    widget_index_deps = []
 
-    def task_docs():
-        """make the docs right"""
-        widget_index_deps = []
+    for py_proj in P.PY_PROJ:
+        yield _make_py_readme(py_proj)
 
-        for py_proj in P.PY_PROJ:
-            yield _make_py_readme(py_proj)
+        task = _make_py_rst(py_proj)
+        yield task
+        widget_index_deps += task["targets"]
 
-            task = _make_py_rst(py_proj)
-            yield task
-            widget_index_deps += task["targets"]
+    yield _make_widget_index(widget_index_deps)
 
-        yield _make_widget_index(widget_index_deps)
+    for package_json in P.TS_PACKAGE:
+        if "meta" not in package_json.parent.name:
+            yield _make_ts_readme(package_json)
 
-        for package_json in P.TS_PACKAGE:
-            if "meta" not in package_json.parent.name:
-                yield _make_ts_readme(package_json)
+    yield dict(
+        name="favicon",
+        actions=[[*P.PYM, "_scripts._favicon"]],
+        file_dep=[P.DOCS_LOGO],
+        targets=[P.DOCS_FAVICON],
+    )
 
+    if shutil.which("sphinx-build"):
         yield dict(
-            name="favicon",
-            actions=[[*P.PYM, "_scripts._favicon"]],
-            file_dep=[P.DOCS_LOGO],
-            targets=[P.DOCS_FAVICON],
+            name="sphinx",
+            doc="build the HTML site",
+            actions=[["sphinx-build", "-j8", "-b", "html", "docs", "build/docs"]],
+            file_dep=[
+                *P.ALL_PYPROJECT_TOML,
+                *P.ALL_SRC_PY,
+                *P.DOCS_DOT,
+                *P.DOCS_IPYNB,
+                *P.DOCS_STATIC.rglob("*"),
+                *P.DOCS_TEMPLATES,
+                *P.PY_DOCS_RST,
+                P.DOCS_CONF_PY,
+                P.OK / "setup_py",
+            ],
+            targets=[P.DOCS_BUILDINFO],
         )
-
-        if shutil.which("sphinx-build"):
-            yield dict(
-                name="sphinx",
-                doc="build the HTML site",
-                actions=[["sphinx-build", "-j8", "-b", "html", "docs", "build/docs"]],
-                file_dep=[
-                    *P.ALL_PYPROJECT_TOML,
-                    *P.ALL_SRC_PY,
-                    *P.DOCS_DOT,
-                    *P.DOCS_IPYNB,
-                    *P.DOCS_STATIC.rglob("*"),
-                    *P.DOCS_TEMPLATES,
-                    *P.PY_DOCS_RST,
-                    P.DOCS_CONF_PY,
-                    P.OK / "setup_py",
-                ],
-                targets=[P.DOCS_BUILDINFO],
-            )
 
 
 def _make_spell(path):
@@ -763,204 +766,208 @@ def _make_spell(path):
     )
 
 
-if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("hunspell"):
+@create_after("docs")
+def task_spell():
+    """check spelling of built HTML site"""
+    if (P.TESTING_IN_CI or P.BUILDING_IN_CI) or not shutil.which("hunspell"):
+        return
 
-    @create_after("docs")
-    def task_spell():
-        """check spelling of built HTML site"""
-        if shutil.which("hunspell"):
-            for path in P.ALL_SPELL_DOCS():
-                yield _make_spell(path)
+    for path in P.ALL_SPELL_DOCS():
+        yield _make_spell(path)
 
 
-if not (P.TESTING_IN_CI or P.BUILDING_IN_CI) and shutil.which("pytest-check-links"):
+@create_after("docs")
+def task_checklinks():
+    """check whether links in built docs are valid"""
+    if (P.TESTING_IN_CI or P.BUILDING_IN_CI) or not shutil.which("pytest-check-links"):
+        return
 
-    @create_after("docs")
-    def task_checklinks():
-        """check whether links in built docs are valid"""
-        key = "check_links"
-        args = [
-            "pytest-check-links",
-            "-o",
-            "junit_suite_name=checklinks",
-            "--check-anchors",
-            "--check-links-cache",
-            "--check-links-cache-name=build/check_links/cache",
-            # a few days seems reasonable
-            f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
-            # might be able to relax this, eventually
-            "-k",
-            "not (master or carousel)",
-        ]
-        return dict(
-            uptodate=[config_changed(dict(args=args))],
-            actions=[
-                U.okit(key, remove=True),
-                lambda: (P.BUILD / "check_links/cache").mkdir(
-                    parents=True, exist_ok=True
-                ),
-                [
-                    *args,
-                    P.DOCS_OUT,
-                ],
-                U.okit(key),
+    key = "check_links"
+    args = [
+        "pytest-check-links",
+        "-o",
+        "junit_suite_name=checklinks",
+        "--check-anchors",
+        "--check-links-cache",
+        "--check-links-cache-name=build/check_links/cache",
+        # a few days seems reasonable
+        f"--check-links-cache-expire-after={60 * 60 * 24 * 3}",
+        # might be able to relax this, eventually
+        "-k",
+        "not (master or carousel)",
+    ]
+    return dict(
+        uptodate=[config_changed(dict(args=args))],
+        actions=[
+            U.okit(key, remove=True),
+            lambda: (P.BUILD / "check_links/cache").mkdir(parents=True, exist_ok=True),
+            [
+                *args,
+                P.DOCS_OUT,
             ],
-            file_dep=[*P.ALL_SPELL_DOCS()],
-            targets=[P.OK / key],
+            U.okit(key),
+        ],
+        file_dep=[*P.ALL_SPELL_DOCS()],
+        targets=[P.OK / key],
+    )
+
+
+def _make_lab(watch=False):
+    # pylint: disable=consider-using-with
+    def _lab():
+        if watch:
+            print(">>> Starting typescript watcher...", flush=True)
+            ts = subprocess.Popen(["jlpm", "watch"])
+
+            ext_watchers = [
+                subprocess.Popen([*P.LAB_EXT, "watch", "."], cwd=str(p))
+                for p in P.WXYZ_LAB_EXTENSIONS
+            ]
+
+            print(">>> Waiting a bit to JupyterLab...", flush=True)
+            time.sleep(3)
+        print(">>> Starting JupyterLab...", flush=True)
+        lab = subprocess.Popen(
+            [*P.JPY, "lab", "--no-browser", "--debug"],
+            stdin=subprocess.PIPE,
         )
 
-
-if not P.RUNNING_IN_CI:
-
-    def _make_lab(watch=False):
-        # pylint: disable=consider-using-with
-        def _lab():
-            if watch:
-                print(">>> Starting typescript watcher...", flush=True)
-                ts = subprocess.Popen(["jlpm", "watch"])
-
-                ext_watchers = [
-                    subprocess.Popen([*P.LAB_EXT, "watch", "."], cwd=str(p))
-                    for p in P.WXYZ_LAB_EXTENSIONS
-                ]
-
-                print(">>> Waiting a bit to JupyterLab...", flush=True)
-                time.sleep(3)
-            print(">>> Starting JupyterLab...", flush=True)
-            lab = subprocess.Popen(
-                [*P.JPY, "lab", "--no-browser", "--debug"],
-                stdin=subprocess.PIPE,
+        try:
+            print(">>> Waiting for JupyterLab to exit (Ctrl+C)...", flush=True)
+            lab.wait()
+        except KeyboardInterrupt:
+            print(
+                f""">>> {"Watch" if watch else "Run"} canceled by user!""",
+                flush=True,
             )
-
-            try:
-                print(">>> Waiting for JupyterLab to exit (Ctrl+C)...", flush=True)
+        finally:
+            print(">>> Stopping watchers...", flush=True)
+            if watch:
+                [x.terminate() for x in ext_watchers]
+                ts.terminate()
+            lab.terminate()
+            lab.communicate(b"y\n")
+            if watch:
+                ts.wait()
                 lab.wait()
-            except KeyboardInterrupt:
+                [x.wait() for x in ext_watchers]
                 print(
-                    f""">>> {"Watch" if watch else "Run"} canceled by user!""",
+                    ">>> Stopped watchers! maybe check process monitor...",
                     flush=True,
                 )
+
+        return True
+
+    return _lab
+
+
+def task_lab():
+    """start JupyterLab, no funny stuff (Note: Single Ctrl+C stops)"""
+    if P.RUNNING_IN_CI:
+        return
+
+    yield dict(
+        name="serve",
+        uptodate=[lambda: False],
+        file_dep=[P.OK / "setup_lab"],
+        actions=[PythonInteractiveAction(_make_lab())],
+    )
+
+
+def task_watch():
+    """watch typescript sources, launch JupyterLab, rebuilding as files change"""
+    if P.RUNNING_IN_CI:
+        return
+
+    yield dict(
+        name="lab",
+        uptodate=[lambda: False],
+        file_dep=[P.OK / "setup_lab"],
+        actions=[PythonInteractiveAction(_make_lab(watch=True))],
+    )
+
+    def _docs():
+        p = None
+        args = [
+            "sphinx-autobuild",
+            "-a",
+            "-j8",
+            "--re-ignore",
+            r"'*\.ipynb_checkpoints*'",
+            P.DOCS,
+            P.DOCS_OUT,
+        ]
+        with subprocess.Popen(args) as p:
+            try:
+                p.wait()
             finally:
-                print(">>> Stopping watchers...", flush=True)
-                if watch:
-                    [x.terminate() for x in ext_watchers]
-                    ts.terminate()
-                lab.terminate()
-                lab.communicate(b"y\n")
-                if watch:
-                    ts.wait()
-                    lab.wait()
-                    [x.wait() for x in ext_watchers]
-                    print(
-                        ">>> Stopped watchers! maybe check process monitor...",
-                        flush=True,
-                    )
+                p.terminate()
+                p.wait()
 
-            return True
-
-        return _lab
-
-    def task_lab():
-        """start JupyterLab, no funny stuff (Note: Single Ctrl+C stops)"""
+    if shutil.which("sphinx-autobuild"):
         yield dict(
-            name="serve",
+            name="docs",
+            doc="serve docs, watch (some) sources, livereload (when it can)",
             uptodate=[lambda: False],
-            file_dep=[P.OK / "setup_lab"],
-            actions=[PythonInteractiveAction(_make_lab())],
+            file_dep=[P.DOCS_BUILDINFO],
+            actions=[PythonInteractiveAction(_docs)],
         )
 
-    def task_watch():
-        """watch typescript sources, launch JupyterLab, rebuilding as files change"""
 
-        yield dict(
-            name="lab",
-            uptodate=[lambda: False],
-            file_dep=[P.OK / "setup_lab"],
-            actions=[PythonInteractiveAction(_make_lab(watch=True))],
-        )
-
-        def _docs():
-            p = None
-            args = [
-                "sphinx-autobuild",
-                "-a",
-                "-j8",
-                "--re-ignore",
-                r"'*\.ipynb_checkpoints*'",
-                P.DOCS,
-                P.DOCS_OUT,
-            ]
-            with subprocess.Popen(args) as p:
-                try:
-                    p.wait()
-                finally:
-                    p.terminate()
-                    p.wait()
-
-        if shutil.which("sphinx-autobuild"):
-            yield dict(
-                name="docs",
-                doc="serve docs, watch (some) sources, livereload (when it can)",
-                uptodate=[lambda: False],
-                file_dep=[P.DOCS_BUILDINFO],
-                actions=[PythonInteractiveAction(_docs)],
-            )
-
-
-if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
-
-    def task_binder():
-        """get to a working interactive state"""
-        return dict(
-            file_dep=[P.OK / "setup_lab", P.OK / "setup_py"],
-            actions=[lambda: print("OK")],
-        )
+def task_binder():
+    """get to a working interactive state"""
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+        return
+    return dict(
+        file_dep=[P.OK / "setup_lab", P.OK / "setup_py"],
+        actions=[lambda: print("OK")],
+    )
 
 
 ATEST = [P.PY, "-m", "_scripts._atest"]
 
 
-if not P.BUILDING_IN_CI:
+def task_robot():
+    """test in browser with robot framework"""
+    if P.BUILDING_IN_CI:
+        return
 
-    def task_robot():
-        """test in browser with robot framework"""
+    file_dep = [
+        *P.ALL_ROBOT,
+        *P.ALL_SRC_PY,
+        *P.ATEST_PY,
+        *P.ALL_TS,
+        *P.ALL_IPYNB,
+        P.SCRIPTS / "_atest.py",
+        P.OK / "setup_lab",
+    ]
 
-        file_dep = [
-            *P.ALL_ROBOT,
+    if not P.RUNNING_IN_CI:
+        file_dep += [P.OK / "robot_lint"]
+
+    return dict(
+        file_dep=sorted(file_dep),
+        actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
+        targets=[P.OK / "robot"],
+    )
+
+
+def task_integrity():
+    """check various sources of version and documentation issues"""
+    if P.BUILDING_IN_CI or P.TESTING_IN_CI:
+        return
+    return dict(
+        file_dep=[
             *P.ALL_SRC_PY,
-            *P.ATEST_PY,
-            *P.ALL_TS,
-            *P.ALL_IPYNB,
-            P.SCRIPTS / "_atest.py",
-            P.OK / "setup_lab",
-        ]
-
-        if not P.RUNNING_IN_CI:
-            file_dep += [P.OK / "robot_lint"]
-
-        return dict(
-            file_dep=sorted(file_dep),
-            actions=[U.okit("robot", remove=True), [*ATEST], U.okit("robot")],
-            targets=[P.OK / "robot"],
-        )
-
-
-if not (P.BUILDING_IN_CI or P.TESTING_IN_CI):
-
-    def task_integrity():
-        """check various sources of version and documentation issues"""
-        return dict(
-            file_dep=[
-                *P.ALL_SRC_PY,
-                *P.ALL_MD,
-                *P.ALL_PYPROJECT_TOML,
-                P.POSTBUILD,
-                P.SCRIPTS / "_integrity.py",
-            ],
-            actions=[
-                U.okit("integrity", remove=True),
-                [*P.PYM, "_scripts._integrity"],
-                U.okit("integrity"),
-            ],
-            targets=[P.OK / "integrity"],
-        )
+            *P.ALL_MD,
+            *P.ALL_PYPROJECT_TOML,
+            P.POSTBUILD,
+            P.SCRIPTS / "_integrity.py",
+        ],
+        actions=[
+            U.okit("integrity", remove=True),
+            [*P.PYM, "_scripts._integrity"],
+            U.okit("integrity"),
+        ],
+        targets=[P.OK / "integrity"],
+    )
