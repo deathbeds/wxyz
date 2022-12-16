@@ -175,7 +175,7 @@ else:
             """write out a requirements file so everything can be installed in one go"""
             P.BUILD.exists() or P.BUILD.mkdir()
             P.PY_DEV_REQS.write_text(
-                "\n".join([f"-e {p.parent.relative_to(P.ROOT)}" for p in P.PY_SETUP])
+                "\n".join([f"-e {p.parent.relative_to(P.ROOT)}" for p in P.ALL_PYPROJECT_TOML])
             )
 
         yield dict(

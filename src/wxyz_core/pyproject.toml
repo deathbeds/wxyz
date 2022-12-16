@@ -43,8 +43,8 @@ Changelog = "https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md"
 Documentation = "https://wxyz.rtfd.io"
 Source = "https://github.com/deathbeds/wxyz"
 
-[tool.flit]
-sdist = "src/wxyz/core/_d"
+[tool.flit.sdist]
+include = ["src/wxyz/core/_d"]
 
 [tool.flit.external-data]
 directory = "src/wxyz/core/_d"
