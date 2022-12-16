@@ -176,6 +176,7 @@ def task_setup_py():
     if P.RUNNING_IN_CI:
 
         yield dict(
+            name="ci",
             file_dep=[*P.WHEELS.values()],
             targets=[P.OK / "setup_py", P.OK / "setup_lab"],
             actions=[
@@ -207,14 +208,14 @@ def task_setup_py():
             )
 
         yield dict(
-            name="reqs_txt",
+            name="dev:reqs_txt",
             targets=[P.PY_DEV_REQS],
             file_dep=[*P.ALL_PYPROJECT_TOML],
             actions=[write_reqs_txt],
         )
 
         yield dict(
-            name="pip",
+            name="dev:pip",
             file_dep=[P.PY_DEV_REQS, *P.TS_D_PACKAGE_JSON.values()],
             targets=[P.OK / "setup_py"],
             actions=[
@@ -234,7 +235,7 @@ def task_setup_py():
         )
 
         yield dict(
-            name="lab",
+            name="dev:lab",
             file_dep=[P.PY_DEV_REQS, P.OK / "setup_py"],
             targets=[P.OK / "setup_lab"],
             actions=[
