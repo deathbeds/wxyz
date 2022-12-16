@@ -33,7 +33,7 @@
         ]
       }
     },
-    "outputDir": "../labextension",
+    "outputDir": "../src/wxyz_dvcs/src/dvcs/_d/share/jupyter/labextensions/@deathbeds/wxyz-dvcs",
     "sharedPackages": {
       "@jupyter-widgets/base": {
         "bundled": false,

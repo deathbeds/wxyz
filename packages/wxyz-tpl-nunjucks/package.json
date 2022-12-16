@@ -36,7 +36,7 @@
         ]
       }
     },
-    "outputDir": "../labextension",
+    "outputDir": "../src/wxyz_tpl_jinja/src/tpl_jinja/_d/share/jupyter/labextensions/@deathbeds/wxyz-tpl-nunjucks",
     "sharedPackages": {
       "@jupyter-widgets/base": {
         "bundled": false,
