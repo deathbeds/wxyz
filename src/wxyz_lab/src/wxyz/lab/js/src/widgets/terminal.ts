@@ -1,14 +1,12 @@
-import { Terminal as Xterm, ITerminalOptions } from 'xterm';
-
-import { DOMWidgetView, DOMWidgetModel } from '@jupyter-widgets/base';
-
 import $ from 'jquery';
+import { ITerminalOptions, Terminal as Xterm } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+
+import { DOMWidgetModel, DOMWidgetView } from '@jupyter-widgets/base';
 
 import { NAME, VERSION } from '../constants';
 
 import { TerminalPhosphorWidget } from './_terminal';
-
-import { FitAddon } from 'xterm-addon-fit';
 
 const TRAITS = {
   allow_transparency: 'allowTransparency',
@@ -44,11 +42,7 @@ const TERMINAL_CLASS = 'jp-WXYZ-Terminal';
 // const JP_TERMINAL_CLASS = 'jp-Terminal';
 // const JP_TERMINAL_BODY_CLASS = 'jp-Terminal-body';
 
-function _makeListener(
-  view: TerminalView,
-  traitName: string,
-  attrName: string
-) {
+function _makeListener(view: TerminalView, traitName: string, attrName: string) {
   view.model.on(`change:${traitName}`, () =>
     view.setTermOption(attrName, view.model.get(traitName))
   );
@@ -158,11 +152,7 @@ export class TerminalView extends DOMWidgetView {
     }
     this._term.open(this.luminoWidget.node);
 
-    this.model.on(
-      'change:rows change:cols change:fit',
-      this.onModelResize,
-      this
-    );
+    this.model.on('change:rows change:cols change:fit', this.onModelResize, this);
 
     this.model.on('msg:custom', this.onCustomMessage, this);
     this.model.on('change:theme', this.onTheme, this);
@@ -190,10 +180,7 @@ export class TerminalView extends DOMWidgetView {
     this.luminoWidget.resized.connect(this.onResize, this);
     this.luminoWidget.disposed.connect(this.onDispose, this);
     this.onResize();
-    this.model.set(
-      'active_terminals',
-      (this.model.get('active_terminals') || 0) + 1
-    );
+    this.model.set('active_terminals', (this.model.get('active_terminals') || 0) + 1);
     this._wasInitialized = true;
     this.touch();
   }

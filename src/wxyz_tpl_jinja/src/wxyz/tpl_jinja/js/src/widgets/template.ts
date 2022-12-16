@@ -1,7 +1,4 @@
-import {
-  WidgetModel,
-  unpack_models as deserialize,
-} from '@jupyter-widgets/base';
+import { WidgetModel, unpack_models as deserialize } from '@jupyter-widgets/base';
 
 import { FnModel } from '@deathbeds/wxyz-core';
 import { lazyLoader } from '@deathbeds/wxyz-core';
@@ -12,11 +9,7 @@ const _nunjucks = lazyLoader(async () => {
   return nj;
 });
 
-export class TemplateModel extends FnModel<
-  string,
-  string,
-  TemplateModel.ITraits
-> {
+export class TemplateModel extends FnModel<string, string, TemplateModel.ITraits> {
   static model_name = 'TemplateModel';
   static serializers = { ...FnModel.serializers, context: { deserialize } };
 
@@ -76,11 +69,7 @@ export class TemplateModel extends FnModel<
 }
 
 export namespace TemplateModel {
-  export type TContext =
-    | WidgetModel
-    | Record<string, unknown>
-    | Array<any>
-    | null;
+  export type TContext = WidgetModel | Record<string, unknown> | Array<any> | null;
   export interface ITraits extends FnModel.ITraits<string, string> {
     context: TContext;
   }

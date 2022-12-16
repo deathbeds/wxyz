@@ -1,15 +1,19 @@
 // porting https://github.com/openseat/ipylayoutwidgets/blob/master/ipylayoutwidgets/static/ipylayoutwidgets/js/SVGLayoutBoxView.js
-/* eslint consistent-this: "off" */
-/* eslint @typescript-eslint/no-this-alias: "off" */
 
-import { Widget } from '@lumino/widgets';
-import { DOMWidgetModel } from '@jupyter-widgets/base';
-import { BoxModel, BoxView } from '@jupyter-widgets/controls';
-import { NAME, VERSION } from '../constants';
+/* eslint consistent-this: "off" */
+
+/* eslint @typescript-eslint/no-this-alias: "off" */
 import * as d3 from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 import _ from 'lodash';
+
+import { Widget } from '@lumino/widgets';
+
+import { DOMWidgetModel } from '@jupyter-widgets/base';
 import { JupyterPhosphorPanelWidget } from '@jupyter-widgets/base';
+import { BoxModel, BoxView } from '@jupyter-widgets/controls';
+
+import { NAME, VERSION } from '../constants';
 
 type TDims = {
   height: number;
@@ -94,11 +98,7 @@ export class SVGBoxView extends BoxView {
     this.luminoWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
     this.model.on('change:zoom_lock', this.zoomLock, this);
-    this.model.on(
-      'change:zoom_x change:zoom_y change:zoom_k',
-      this.onZoom,
-      this
-    );
+    this.model.on('change:zoom_x change:zoom_y change:zoom_k', this.onZoom, this);
     super.initialize(options);
     this.update(options);
     setTimeout(() => this.resize(), 11);
@@ -183,9 +183,7 @@ export class SVGBoxView extends BoxView {
           // tslint:enable
         }
       );
-      const root = layout
-        .append('g')
-        .attr('id', `${CSS.LAYOUT}-ROOT-${view.cid}`);
+      const root = layout.append('g').attr('id', `${CSS.LAYOUT}-ROOT-${view.cid}`);
 
       children.each(function () {
         // tslint:disable

@@ -1,8 +1,11 @@
-import { WXYZ } from '@deathbeds/wxyz-core';
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
+
+import { WXYZ } from '@deathbeds/wxyz-core';
+
+import { NAME, VERSION } from '../constants';
+
 import { DataGridModel, DataGridView } from './datagrid';
 import { StyleGrid } from './pwidgets/stylegrid';
-import { NAME, VERSION } from '../constants';
 
 const CSS = {
   STYLE_GRID: 'jp-WXYZ-StyleGrid',

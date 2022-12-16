@@ -1,9 +1,10 @@
-import { unpack_models as deserialize } from '@jupyter-widgets/base';
-import { BasicSelectionModel } from '@lumino/datagrid';
-import { SelectGrid } from './pwidgets/selectgrid';
-import { JSONExt } from '@lumino/coreutils';
-
 import { toArray } from '@lumino/algorithm';
+import { JSONExt } from '@lumino/coreutils';
+import { BasicSelectionModel } from '@lumino/datagrid';
+
+import { unpack_models as deserialize } from '@jupyter-widgets/base';
+
+import { SelectGrid } from './pwidgets/selectgrid';
 import { StyleGridModel, StyleGridView } from './stylegrid';
 
 const CSS = {
@@ -52,10 +53,7 @@ export class SelectGridView extends StyleGridView {
 
   protected onValue() {
     if (this._grid.selectionModel) {
-      this._grid.selectionModel.changed.disconnect(
-        this.onGridSelectionChanged,
-        this
-      );
+      this._grid.selectionModel.changed.disconnect(this.onGridSelectionChanged, this);
     }
     super.onValue();
 
@@ -63,10 +61,7 @@ export class SelectGridView extends StyleGridView {
     if (dataModel != null) {
       const selectionModel = new BasicSelectionModel({ dataModel });
       this._grid.selectionModel = selectionModel;
-      this._grid.selectionModel.changed.connect(
-        this.onGridSelectionChanged,
-        this
-      );
+      this._grid.selectionModel.changed.connect(this.onGridSelectionChanged, this);
     }
   }
 

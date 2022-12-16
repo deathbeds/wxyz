@@ -1,25 +1,22 @@
-import { JSONExt } from '@lumino/coreutils';
-
-import { BoxView } from '@jupyter-widgets/controls';
-
-import { RenderedMarkdown } from '@jupyterlab/rendermime';
-import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
-
-import { WXYZBox } from '@deathbeds/wxyz-core';
-import { NAME, VERSION } from '../constants';
-
 /* order matters (maybe) on these imports, and might be causing downstream errors
   akin to
   https://github.com/webpack/webpack/issues/11444#issuecomment-691334372
 */
 // first the upstream
 import rjsf from '@rjsf/core';
+
+import { JSONExt } from '@lumino/coreutils';
+
+import { RenderedMarkdown } from '@jupyterlab/rendermime';
+import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
+
+import { BoxView } from '@jupyter-widgets/controls';
+
 // the default...
-import {
-  SchemaForm,
-  ALL_CUSTOM_UI,
-  SchemaFormModel,
-} from '@deathbeds/jupyterlab-rjsf';
+import { ALL_CUSTOM_UI, SchemaForm, SchemaFormModel } from '@deathbeds/jupyterlab-rjsf';
+import { WXYZBox } from '@deathbeds/wxyz-core';
+
+import { NAME, VERSION } from '../constants';
 
 const FORM_CLASS = 'jp-WXYZ-JSONSchemaForm';
 const INNER_CLASS = 'jp-WXYZ-JSONSchemaForm-Inner';
@@ -88,11 +85,7 @@ export class JSONSchemaFormView extends BoxView {
   render() {
     this._idPrefix = `id-wxyz-json-schema-form-${Private.nextId()}`;
     this.luminoWidget.addClass(FORM_CLASS);
-    this.m.on(
-      'change:schema change:ui_schema change:value',
-      this.rerender,
-      this
-    );
+    this.m.on('change:schema change:ui_schema change:value', this.rerender, this);
     setTimeout(async () => await this.rerender(), 100);
   }
 

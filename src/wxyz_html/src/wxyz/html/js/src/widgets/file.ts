@@ -1,11 +1,13 @@
 import { toArray } from '@lumino/algorithm';
+import { JSONExt } from '@lumino/coreutils';
 import { Debouncer } from '@lumino/polling';
+
 import * as widgets from '@jupyter-widgets/base';
 import * as controls from '@jupyter-widgets/controls';
-import { JSONExt } from '@lumino/coreutils';
+
+import { WXYZ, WXYZBox, createModel } from '@deathbeds/wxyz-core';
 
 import { NAME, VERSION } from '../constants';
-import { WXYZ, WXYZBox, createModel } from '@deathbeds/wxyz-core';
 
 const CSS = {
   FILE_BOX: 'jp-WXYZ-FileBox',
@@ -262,11 +264,7 @@ export class FileBoxView extends controls.BoxView {
     const t = this.makeTarget();
     this.el.appendChild(i);
     this.el.appendChild(t);
-    this.model.on(
-      'change:multiple change:accept',
-      this.onInputAttributes,
-      this
-    );
+    this.model.on('change:multiple change:accept', this.onInputAttributes, this);
     this.onInputAttributes();
   }
 

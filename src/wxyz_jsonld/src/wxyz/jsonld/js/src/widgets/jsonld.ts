@@ -1,15 +1,11 @@
 import * as jsonld from 'jsonld';
 import { Context, Frame, JsonLdArray } from 'jsonld/jsonld-spec';
 
-import { JSONLDBase } from './_jsonld';
-
 import { TObject } from '@deathbeds/wxyz-core';
 
-export class ExpandModel extends JSONLDBase<
-  TObject,
-  JsonLdArray,
-  ExpandModel.ITraits
-> {
+import { JSONLDBase } from './_jsonld';
+
+export class ExpandModel extends JSONLDBase<TObject, JsonLdArray, ExpandModel.ITraits> {
   static model_name = 'ExpandModel';
 
   defaults() {
@@ -23,11 +19,7 @@ export class ExpandModel extends JSONLDBase<
   }
 }
 
-export class CompactModel extends JSONLDBase<
-  TObject,
-  TObject,
-  CompactModel.ITraits
-> {
+export class CompactModel extends JSONLDBase<TObject, TObject, CompactModel.ITraits> {
   static model_name = 'CompactModel';
 
   defaults() {
@@ -49,11 +41,7 @@ export class CompactModel extends JSONLDBase<
   }
 }
 
-export class FlattenModel extends JSONLDBase<
-  TObject,
-  TObject,
-  FlattenModel.ITraits
-> {
+export class FlattenModel extends JSONLDBase<TObject, TObject, FlattenModel.ITraits> {
   static model_name = 'FlattenModel';
 
   defaults() {
@@ -75,11 +63,7 @@ export class FlattenModel extends JSONLDBase<
   }
 }
 
-export class FrameModel extends JSONLDBase<
-  TObject,
-  TObject,
-  FrameModel.ITraits
-> {
+export class FrameModel extends JSONLDBase<TObject, TObject, FrameModel.ITraits> {
   static model_name = 'FrameModel';
 
   defaults() {
@@ -134,22 +118,19 @@ export namespace ExpandModel {
 }
 
 export namespace CompactModel {
-  export interface ITraits<V = TObject, W = TObject>
-    extends JSONLDBase.ITraits<V, W> {
+  export interface ITraits<V = TObject, W = TObject> extends JSONLDBase.ITraits<V, W> {
     context: Context;
   }
 }
 
 export namespace FlattenModel {
-  export interface ITraits<V = TObject, W = TObject>
-    extends JSONLDBase.ITraits<V, W> {
+  export interface ITraits<V = TObject, W = TObject> extends JSONLDBase.ITraits<V, W> {
     context: Context;
   }
 }
 
 export namespace FrameModel {
-  export interface ITraits<V = TObject, W = TObject>
-    extends JSONLDBase.ITraits<V, W> {
+  export interface ITraits<V = TObject, W = TObject> extends JSONLDBase.ITraits<V, W> {
     frame: Context;
   }
 }

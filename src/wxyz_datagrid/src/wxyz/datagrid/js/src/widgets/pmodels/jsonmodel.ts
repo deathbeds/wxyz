@@ -1,4 +1,5 @@
-import { JSONModel, DataModel } from '@lumino/datagrid';
+import { DataModel, JSONModel } from '@lumino/datagrid';
+
 import { WidgetModel } from '@jupyter-widgets/base';
 
 export class WXYZJSONModel extends JSONModel {

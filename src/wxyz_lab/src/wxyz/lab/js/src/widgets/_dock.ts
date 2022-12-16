@@ -1,13 +1,14 @@
 import { toArray } from '@lumino/algorithm';
-import { Message } from '@lumino/messaging';
 import { Application } from '@lumino/application';
-import { DockPanel, DockLayout, Widget } from '@lumino/widgets';
+import { Message } from '@lumino/messaging';
+import { DockLayout, DockPanel, Widget } from '@lumino/widgets';
+
 import { DockPanelSvg } from '@jupyterlab/ui-components';
 
 import {
-  JupyterPhosphorWidget,
-  DOMWidgetView,
   DOMWidgetModel,
+  DOMWidgetView,
+  JupyterPhosphorWidget,
 } from '@jupyter-widgets/base';
 
 export const CSS = {
@@ -88,8 +89,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
   }
 
   async onLayoutModelChanged(dockLayout?: any) {
-    dockLayout =
-      dockLayout != null ? dockLayout : this._view.model.get('dock_layout');
+    dockLayout = dockLayout != null ? dockLayout : this._view.model.get('dock_layout');
     let main = this.jWidgetsToArea(dockLayout);
     if (main) {
       this.restoreLayout({ main });
@@ -196,10 +196,7 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
       widget.title.iconClass = `jp-Icon-16 ${icon_class || 'jp-CircleIcon'}`;
       widget.title.closable = closable != null ? closable : true;
     }
-    view.model.on(
-      'change:description change:icon_class change:closable',
-      onTitle
-    );
+    view.model.on('change:description change:icon_class change:closable', onTitle);
     onTitle();
   }
 }

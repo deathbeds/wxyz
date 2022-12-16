@@ -69,7 +69,8 @@ jobs:
         id: cache-node-modules
         with:
           path: '**/node_modules'
-          key: ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-build-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
+          key: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-node-build-${{ hashFiles('yarn.lock', '.gitub/reqs/pip-build.txt') }}
 
       - name: cache (yarn)
         uses: actions/cache@v3
@@ -77,7 +78,8 @@ jobs:
         id: cache-yarn-packages
         with:
           path: .yarn-packages
-          key: ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          key: |
+            ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-yarn-${{ runner.os }}-
             ${{ env.CACHE_EPOCH }}-yarn-
@@ -118,7 +120,9 @@ jobs:
           path: ./dist
 
   test:
-    name: ${{ matrix.lockname }} ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{ matrix.lab }}
+    name:
+      ${{ matrix.lockname }} ${{ matrix.conda-subdir }}-${{ matrix.python-version }}-${{
+      matrix.lab }}
     needs: [build]
     runs-on: ${{ matrix.os }}-latest
     env:
@@ -172,9 +176,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/conda_pkgs_dir
-          key:
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{
-            hashFiles(steps.lock.outputs.lockfile) }}
+          key: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-conda-${{ matrix.python-version }}-
 
@@ -204,20 +207,27 @@ jobs:
 
       - name: mamba (env, unix)
         if: ${{ matrix.os != 'windows' }}
-        run: mamba info --json && mamba create -p ./envs/_base test --file "${{ steps.lock.outputs.lockfile }}"
+        run:
+          mamba info --json && mamba create -p ./envs/_base test --file "${{
+          steps.lock.outputs.lockfile }}"
 
       - name: mamba (env, win)
         if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
-        run: mamba info --json && mamba create -p ./envs/_base --file "${{ steps.lock.outputs.lockfile }}"
+        run:
+          mamba info --json && mamba create -p ./envs/_base --file "${{
+          steps.lock.outputs.lockfile }}"
 
       - name: doit (lint)
         if: ${{ matrix.lockname == 'docs' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 lint
+        run:
+          source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 lint
 
       - name: doit (test, unix)
         if: ${{ matrix.os != 'windows' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && doit setup_py_ci nbtest robot || doit setup_py_ci nbtest robot
+        run:
+          source "${CONDA}/bin/activate" ./envs/_base && doit setup_py_ci nbtest robot
+          || doit setup_py_ci nbtest robot
 
       - name: doit (test, windows)
         if: ${{ matrix.os == 'windows' }}
@@ -228,14 +238,18 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          name:
+            wxyz ${{ github.run_number }} atest ${{ matrix.conda-subdir }} ${{
+            matrix.python }} ${{ matrix.lab }}
           path: atest/output
 
       - name: upload (widgets)
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          name:
+            wxyz ${{ github.run_number }} nbwidgets ${{ matrix.conda-subdir }} ${{
+            matrix.python }} ${{ matrix.lab }}
           path: ./build/nbwidgets
 
       - name: doit (docs)
@@ -248,7 +262,9 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ matrix.lockname == 'docs' }}
         with:
-          name: wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{ matrix.python }} ${{ matrix.lab }}
+          name:
+            wxyz ${{ github.run_number }} docs ${{ matrix.conda-subdir }} ${{
+            matrix.python }} ${{ matrix.lab }}
           path: build/docs
 
       - name: cache (links)
@@ -256,12 +272,13 @@ jobs:
         if: ${{ matrix.lockname == 'docs' }}
         with:
           path: build/check_links
-          key:
-            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-${{
-            hashFiles(steps.lock.outputs.lockfile) }}
+          key: |
+            ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-${{ hashFiles(steps.lock.outputs.lockfile) }}
           restore-keys: |
             ${{ env.CACHE_EPOCH }}-${{ runner.os }}-links-${{ matrix.python-version }}-
 
       - name: check (spelling, checklinks)
         if: ${{ matrix.lockname == 'docs' }}
-        run: source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 spell checklinks || doit spell checklinks
+        run:
+          source "${CONDA}/bin/activate" ./envs/_base && TESTING_IN_CI=0 doit -n4 spell
+          checklinks || doit spell checklinks

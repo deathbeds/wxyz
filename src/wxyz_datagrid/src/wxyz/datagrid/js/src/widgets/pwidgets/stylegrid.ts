@@ -1,20 +1,16 @@
 import { DataGrid } from '@lumino/datagrid';
-import { GridStyleModel } from '..';
 
 // TODO: fix circular references
 import { DataGridView } from '../datagrid';
 import { CellRendererModel } from '../models/cells';
 
+import { GridStyleModel } from '..';
+
 interface IHasChanged {
   changed: { [key: string]: any };
 }
 
-const SIZES = [
-  'row_size',
-  'column_size',
-  'row_header_size',
-  'column_header_size',
-];
+const SIZES = ['row_size', 'column_size', 'row_header_size', 'column_header_size'];
 
 const WATCHED_STYLES = [
   // the part between these comments will be rewritten

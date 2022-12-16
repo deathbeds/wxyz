@@ -3,11 +3,7 @@ import marked from 'marked';
 
 import { FnModel } from '@deathbeds/wxyz-core';
 
-export class MarkdownModel extends FnModel<
-  string,
-  string,
-  MarkdownModel.ITraits
-> {
+export class MarkdownModel extends FnModel<string, string, MarkdownModel.ITraits> {
   static model_name = 'MarkdownModel';
 
   defaults() {

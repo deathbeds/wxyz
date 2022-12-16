@@ -1,10 +1,10 @@
-import { BoxView } from '@jupyter-widgets/controls';
-
 import { BasicKeyHandler, BasicMouseHandler, DataGrid } from '@lumino/datagrid';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
+import { BoxView } from '@jupyter-widgets/controls';
 
 import { WXYZBox } from '@deathbeds/wxyz-core';
+
 import { WXYZJSONModel } from './pmodels/jsonmodel';
 
 const CSS = {

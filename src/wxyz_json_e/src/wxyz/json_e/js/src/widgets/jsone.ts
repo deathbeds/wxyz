@@ -1,6 +1,8 @@
-import { FnModel, TObject } from '@deathbeds/wxyz-core';
-import { JSONExt } from '@lumino/coreutils';
 import jsone from 'json-e';
+
+import { JSONExt } from '@lumino/coreutils';
+
+import { FnModel, TObject } from '@deathbeds/wxyz-core';
 
 export class JSONEModel extends FnModel<TObject, any, JSONEModel.ITraits> {
   static model_name = 'JSONEModel';

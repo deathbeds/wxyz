@@ -7,9 +7,7 @@ export class SelectGrid extends StyleGrid {
   protected _scrollLock = false;
 
   protected onBeforeAttach(msg: Message): void {
-    ['touchmove', 'mouseup'].forEach((evt) =>
-      this.node.addEventListener(evt, this)
-    );
+    ['touchmove', 'mouseup'].forEach((evt) => this.node.addEventListener(evt, this));
     super.onBeforeAttach(msg);
   }
 
@@ -110,11 +108,7 @@ export class SelectGrid extends StyleGrid {
   protected onSetView() {
     super.onSetView();
     this.view.model.on('change:viewport', this.onModelViewport, this);
-    this.view.model.on(
-      'change:scroll_x change:scroll_y',
-      this.onModelScroll,
-      this
-    );
+    this.view.model.on('change:scroll_x change:scroll_y', this.onModelScroll, this);
     this.onModelScroll();
     this.onModelViewport();
   }

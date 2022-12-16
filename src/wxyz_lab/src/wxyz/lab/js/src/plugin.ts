@@ -3,8 +3,9 @@ import { Widget } from '@lumino/widgets';
 
 import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
 
-import { NAME, VERSION } from './constants';
 import '../style/index.css';
+
+import { NAME, VERSION } from './constants';
 
 const EXTENSION_ID = `${NAME}:plugin`;
 

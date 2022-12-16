@@ -1,16 +1,16 @@
 import screenfull from 'screenfull';
+
 import { Platform } from '@lumino/domutils';
+import { DockLayout } from '@lumino/widgets';
 
 import { unpack_models as deserialize } from '@jupyter-widgets/base';
-
 import { BoxModel, BoxView } from '@jupyter-widgets/controls';
-import { DockLayout } from '@lumino/widgets';
 
 import { NAME, VERSION } from '../constants';
 
 import {
-  JupyterPhosphorDockPanelWidget,
   JupyterLabPhosphorDockPanelWidget,
+  JupyterPhosphorDockPanelWidget,
 } from './_dock';
 
 export class DockBoxModel extends BoxModel {

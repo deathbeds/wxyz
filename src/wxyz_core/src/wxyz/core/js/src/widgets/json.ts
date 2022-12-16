@@ -1,5 +1,5 @@
-import jsonpointer from 'jsonpointer';
 import Ajv from 'ajv';
+import jsonpointer from 'jsonpointer';
 
 import { FnModel, TObject } from './_base';
 
@@ -46,9 +46,7 @@ export class UnJSONModel extends FnModel<any, string, UnJSONModel.ITraits> {
 
   async theFunction(source: any) {
     const indent: number = this.get('indent');
-    return indent
-      ? JSON.stringify(source, null, indent)
-      : JSON.stringify(source);
+    return indent ? JSON.stringify(source, null, indent) : JSON.stringify(source);
   }
 }
 
@@ -79,11 +77,7 @@ namespace JSONPointerModel {
   }
 }
 
-export class JSONSchemaModel extends FnModel<
-  TObject,
-  TObject,
-  JSONSchema.ITraits
-> {
+export class JSONSchemaModel extends FnModel<TObject, TObject, JSONSchema.ITraits> {
   static model_name = 'JSONSchemaModel';
 
   defaults() {

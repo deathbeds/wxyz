@@ -1,16 +1,15 @@
 import CodeMirror from 'codemirror';
 
 import { Platform } from '@lumino/domutils';
-import {
-  DOMWidgetView,
-  unpack_models as deserialize,
-} from '@jupyter-widgets/base';
+
+import { Mode } from '@jupyterlab/codemirror';
+
+import { DOMWidgetView, unpack_models as deserialize } from '@jupyter-widgets/base';
 import { TextareaModel } from '@jupyter-widgets/controls';
 
 import { WXYZ } from '@deathbeds/wxyz-core';
-import { NAME, VERSION } from '../constants';
 
-import { Mode } from '@jupyterlab/codemirror';
+import { NAME, VERSION } from '../constants';
 
 interface IHasChanged {
   changed: { [key: string]: any };
@@ -20,7 +19,7 @@ const EDITOR_CLASS = 'jp-WXYZ-Editor';
 
 const WATCHED_OPTIONS = [
   // the part between these comments will be rewritten
-  // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration @61e400d051e0be2c3d80ab6bbc304e616b0dce7729d13c64396b21352cf10855
+  // BEGIN SCHEMAGEN:PROPERTIES IEditorConfiguration @52d354740197f8a5c9dc2366c001d0bdcbc0f6e7d7a977a28d9bdff1baad0592
   'autofocus',
   'cursorBlinkRate',
   'cursorHeight',
@@ -155,11 +154,7 @@ export class EditorView extends DOMWidgetView {
 
     this.model.on('change:value', this.value_changed, this);
     this.model.on('change:config', this.config_changed, this);
-    this.model.on(
-      'change:scroll_x change:scroll_y',
-      this.on_scroll_change,
-      this
-    );
+    this.model.on('change:scroll_x change:scroll_y', this.on_scroll_change, this);
 
     setTimeout(() => {
       this._editor.refresh();

@@ -23,7 +23,7 @@ class EditorConfig(W.Widget):
     _model_module_version = T.Unicode(module_version).tag(sync=True)
 
     # the part between these comments will be rewritten
-    # BEGIN SCHEMAGEN:TRAITS IEditorConfiguration @61e400d051e0be2c3d80ab6bbc304e616b0dce7729d13c64396b21352cf10855
+    # BEGIN SCHEMAGEN:TRAITS IEditorConfiguration @52d354740197f8a5c9dc2366c001d0bdcbc0f6e7d7a977a28d9bdff1baad0592
     autofocus = T.Bool(
         help="""Can be used to make CodeMirror focus itself on initialization. Defaults to off. When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused, or it has an autofocus attribute and no other element is focused.""",
         allow_none=True,

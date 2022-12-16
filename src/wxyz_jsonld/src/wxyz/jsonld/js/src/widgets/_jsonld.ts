@@ -32,8 +32,7 @@ export class JSONLDBase<T, U, V extends FnModel.ITraits<T, U>> extends FnModel<
 }
 
 export namespace JSONLDBase {
-  export interface ITraits<T = TObject, U = TObject>
-    extends FnModel.ITraits<T, U> {
+  export interface ITraits<T = TObject, U = TObject> extends FnModel.ITraits<T, U> {
     expandContext: Context;
   }
 }

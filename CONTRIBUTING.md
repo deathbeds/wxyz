@@ -12,7 +12,8 @@ Get [Mambaforge][]. Start a dev environment from a [lockfile][], list tasks, lau
 
 ## Use doit
 
-Local development and continuous integration are both driven by [pydoit](https://pydoit.org/contents.html).
+Local development and continuous integration are both driven by
+[pydoit](https://pydoit.org/contents.html).
 
 ### View all doit commands
 
@@ -26,8 +27,8 @@ Local development and continuous integration are both driven by [pydoit](https:/
 
     doit
 
-> This actually runs the `binder` task, which is used in `postBuild` for the
-> interactive demo
+> This actually runs the `binder` task, which is used in `postBuild` for the interactive
+> demo
 
 The equivalent of _starting_ Binder is:
 
@@ -42,9 +43,8 @@ The equivalent of _starting_ Binder is:
     doit release
     doit docs
 
-> This is two un-coupled `doit` runs, so that it possible to replace notebook
-> widget data or screenshots "hot" without worry too much about where they came
-> from.
+> This is two un-coupled `doit` runs, so that it possible to replace notebook widget
+> data or screenshots "hot" without worry too much about where they came from.
 
 ### Live Development
 
@@ -63,8 +63,8 @@ Semi-incompatibly, you can live run the docs build process (with some limitation
 
 ### Notebooks
 
-Tests are primarily captured as executable notebooks imported or linked to from
-the [notebook index](src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb).
+Tests are primarily captured as executable notebooks imported or linked to from the
+[notebook index](src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb).
 
 Each notebook should:
 
@@ -75,23 +75,23 @@ Each notebook should:
 
 ### Robot Framework Testing
 
-Where appropriate, individual components should be tested with Robot Framework
-tests. Ideal tests include thoroughly exercising the demo notebooks as a user would.
+Where appropriate, individual components should be tested with Robot Framework tests.
+Ideal tests include thoroughly exercising the demo notebooks as a user would.
 
     doit robot
 
 ## Code Style
 
-Code style is enforced by a number of python, typescript and miscellaneous files
-(e.g. YAML, JSON).
+Code style is enforced by a number of python, typescript and miscellaneous files (e.g.
+YAML, JSON).
 
     doit lint*
 
 ## Updating lockfiles
 
 The lockfiles in `.github/locks` are created in a separate environment from the main
-development environment to avoid a `conda` dependency. `mamba` is recommended, as
-many solutions are run.
+development environment to avoid a `conda` dependency. `mamba` is recommended, as many
+solutions are run.
 
     mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.11-.lock
     source envs/lock/bin/activate

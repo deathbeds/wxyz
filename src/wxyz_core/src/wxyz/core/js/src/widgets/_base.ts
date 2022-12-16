@@ -1,11 +1,7 @@
-import {
-  WidgetModel,
-  DOMWidgetModel,
-  ISerializers,
-} from '@jupyter-widgets/base';
-import { BoxModel } from '@jupyter-widgets/controls';
-
 import { JSONExt } from '@lumino/coreutils';
+
+import { DOMWidgetModel, ISerializers, WidgetModel } from '@jupyter-widgets/base';
+import { BoxModel } from '@jupyter-widgets/controls';
 
 import { NAME, VERSION } from '../constants';
 
@@ -111,7 +107,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
   }
   set theSource(src: T) {
     this.set('source', src);
-    this.save();
+    void this.save();
   }
 
   get theValue(): U {
@@ -119,7 +115,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
   }
   set theValue(val: U) {
     this.set('value', val);
-    this.save();
+    void this.save();
   }
 
   get theError(): string {
@@ -128,7 +124,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
 
   set theError(err: string) {
     this.set('error', err);
-    this.save();
+    void this.save();
   }
 
   get theMode(): FnModel.TMode {
@@ -137,7 +133,7 @@ export class FnModel<T, U, V extends FnModel.ITraits<T, U>> extends Model<V> {
 
   set theMode(mode) {
     this.set('mode', mode);
-    this.save();
+    void this.save();
   }
 
   protected async theSourceChanged() {
