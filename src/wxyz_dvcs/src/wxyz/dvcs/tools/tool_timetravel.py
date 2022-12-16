@@ -19,7 +19,7 @@ DEFAULT_OPTION_TMPL = """
 class TimeTraveler(W.HBox):
     """Show a selection widget"""
 
-    # pylint: disable=no-self-use,unused-argument
+    # pylint: disable=unused-argument
     repo = T.Instance(Repo)
     commits = T.Instance(W.DOMWidget)
     enabled = T.Bool(default_value=False)

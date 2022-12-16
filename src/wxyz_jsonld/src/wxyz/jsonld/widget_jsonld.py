@@ -1,6 +1,6 @@
 """ Widgets for working with JSON
 """
-# pylint: disable=no-self-use,redefined-builtin
+# pylint: disable=redefined-builtin
 from pyld import jsonld
 
 from wxyz.core.base import Fn, T, W

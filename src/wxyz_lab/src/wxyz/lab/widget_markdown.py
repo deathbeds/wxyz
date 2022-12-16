@@ -1,6 +1,5 @@
 """ Widgets for working with markdown
 """
-# pylint: disable=no-self-use
 from nbconvert.filters.markdown import markdown2html_mistune
 
 from wxyz.core.base import Fn

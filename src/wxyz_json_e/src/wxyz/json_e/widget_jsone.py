@@ -1,6 +1,6 @@
 """ Widgets for working with JSON
 """
-# pylint: disable=no-self-use,redefined-builtin,too-many-ancestors
+# pylint: disable=redefined-builtin,too-many-ancestors
 from copy import deepcopy
 
 import jsone

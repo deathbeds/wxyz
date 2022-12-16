@@ -11,7 +11,7 @@ CSS_PREFIX = "jp-wxyz-dvcs-tool-commit"
 class Committer(W.VBox):
     """Create commits with a message"""
 
-    # pylint: disable=no-self-use,unused-argument
+    # pylint: disable=unused-argument
     repo = T.Instance(Repo)
     watch = T.Instance(W.DOMWidget)
     message = T.Instance(W.Text)

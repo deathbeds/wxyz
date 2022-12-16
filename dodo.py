@@ -628,28 +628,27 @@ def _make_dot(setup_py):
         if "notebooks" not in name:
             modules += [f"{module}.base"]
 
-        proc = subprocess.Popen(
+        with subprocess.Popen(
             [*P.PYREVERSE, "-p", name, *modules],
             cwd=out,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-        )
+        ) as proc:
+            pstdout, pstderr = proc.communicate()
 
-        pstdout, pstderr = proc.communicate()
-
-        if proc.returncode != 0:
-            raise RuntimeError(
-                "\n".join(
-                    [
-                        "stdout:\n",
-                        pstdout.decode("utf-8"),
-                        "\nstderr:\n",
-                        pstderr.decode("utf-8"),
-                        "-----",
-                        f"ERROR {proc.returncode}",
-                    ]
+            if proc.returncode != 0:
+                raise RuntimeError(
+                    "\n".join(
+                        [
+                            "stdout:\n",
+                            pstdout.decode("utf-8"),
+                            "\nstderr:\n",
+                            pstderr.decode("utf-8"),
+                            "-----",
+                            f"ERROR {proc.returncode}",
+                        ]
+                    )
                 )
-            )
 
         ugly_packages = out / f"packages_{name}.dot"
         if ugly_packages.exists():
@@ -877,22 +876,21 @@ if not P.RUNNING_IN_CI:
 
         def _docs():
             p = None
-            try:
-                p = subprocess.Popen(
-                    [
-                        "sphinx-autobuild",
-                        "-a",
-                        "-j8",
-                        "--re-ignore",
-                        r"'*\.ipynb_checkpoints*'",
-                        P.DOCS,
-                        P.DOCS_OUT,
-                    ]
-                )
-                p.wait()
-            finally:
-                p.terminate()
-                p.wait()
+            args = [
+                "sphinx-autobuild",
+                "-a",
+                "-j8",
+                "--re-ignore",
+                r"'*\.ipynb_checkpoints*'",
+                P.DOCS,
+                P.DOCS_OUT,
+            ]
+            with subprocess.Popen(args) as p:
+                try:
+                    p.wait()
+                finally:
+                    p.terminate()
+                    p.wait()
 
         if shutil.which("sphinx-autobuild"):
             yield dict(

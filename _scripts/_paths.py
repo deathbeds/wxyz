@@ -15,7 +15,7 @@ import yaml
 
 try:
     import tomllib
-except:
+except ImportError:
     import tomli as tomllib
 
 

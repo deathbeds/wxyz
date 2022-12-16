@@ -49,7 +49,7 @@ class Repo(W.Widget):
 
     executor = ThreadPoolExecutor(max_workers=1)
 
-    # pylint: disable=no-self-use,unused-argument
+    # pylint: disable=unused-argument
     working_dir = T.Instance(Path)
     url = T.Unicode()
     watching = T.Bool(default_value=False)

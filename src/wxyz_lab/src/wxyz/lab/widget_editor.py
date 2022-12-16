@@ -1,5 +1,6 @@
 """ Text editing widgets
 """
+# noqa: E501
 from .base import LabBase, T, W, module_name, module_version
 
 

@@ -38,6 +38,7 @@ def okit(name, remove=False):
 
 
 def copy_one(src, dest):
+    """copy a file (ensuring parents)"""
     if dest.is_dir():
         shutil.rmtree(dest)
     elif dest.exists():
@@ -77,9 +78,9 @@ class Reporter(ConsoleReporter):
             sec = str(delta.seconds).rjust(7)
         self.outstream.write(f"{sec}s {emoji} {task.title()} {emoji}\n")
 
-    def add_failure(self, task, exception):
+    def add_failure(self, task, fail):
         """special failure"""
-        super().add_failure(task, exception)
+        super().add_failure(task, fail)
         self.outtro(task, "⭕")
 
     def add_success(self, task):
