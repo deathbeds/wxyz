@@ -1,12 +1,16 @@
 *** Settings ***
-Documentation     Basic all-or-nothing run of index notebook
-Suite Setup       Setup Suite For Screenshots    notebook-index
-Resource          ../_resources/keywords/Browser.robot
-Resource          ../_resources/keywords/Lab.robot
-Resource          ../_resources/keywords/WXYZ.robot
+Documentation       Basic all-or-nothing run of index notebook
+
+Resource            ../_resources/keywords/Browser.robot
+Resource            ../_resources/keywords/Lab.robot
+Resource            ../_resources/keywords/WXYZ.robot
+
+Suite Setup         Setup Suite For Screenshots    notebook-index
+
 
 *** Variables ***
-${SCREENS}        ${SCREENS ROOT}${/}notebook-index
+${SCREENS}      ${SCREENS ROOT}${/}notebook-index
+
 
 *** Test Cases ***
 Index

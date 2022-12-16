@@ -1,20 +1,24 @@
 *** Settings ***
-Documentation     Distributed Version Control
-Suite Setup       Setup Suite For Screenshots    notebook-dvcs
-Resource          ../_resources/keywords/Browser.robot
-Resource          ../_resources/keywords/Lab.robot
-Resource          ../_resources/keywords/WXYZ.robot
+Documentation       Distributed Version Control
+
+Resource            ../_resources/keywords/Browser.robot
+Resource            ../_resources/keywords/Lab.robot
+Resource            ../_resources/keywords/WXYZ.robot
+
+Suite Setup         Setup Suite For Screenshots    notebook-dvcs
+
 
 *** Variables ***
-${SCREENS}        ${SCREENS ROOT}${/}notebook-dvcs
-${GIT I}          Git I
-${XP COMMITTER}    xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-box")]
-${XP COMMIT BTN}    xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-btn")]
-${XP COMMIT MSG}    xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-msg")]/input
-${XP PG TEXTAREA}    xpath://*[contains(@class, "jp-wxyz-dvcs-playground-textarea")]/textarea
-${XP PG BOX}      xpath://*[contains(@class, "jp-wxyz-dvcs-playground-box")]
-${CSS SLIDER}     css:.ui-slider-handle
+${SCREENS}                  ${SCREENS ROOT}${/}notebook-dvcs
+${GIT I}                    Git I
+${XP COMMITTER}             xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-box")]
+${XP COMMIT BTN}            xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-btn")]
+${XP COMMIT MSG}            xpath://*[contains(@class, "jp-wxyz-dvcs-tool-commit-msg")]/input
+${XP PG TEXTAREA}           xpath://*[contains(@class, "jp-wxyz-dvcs-playground-textarea")]/textarea
+${XP PG BOX}                xpath://*[contains(@class, "jp-wxyz-dvcs-playground-box")]
+${CSS SLIDER}               css:.ui-slider-handle
 ${CSS ENABLE TIMETRAVEL}    css:input[title="Time Travel"]
+
 
 *** Test Cases ***
 Git I
@@ -41,6 +45,7 @@ Git I
     Wait Until Keyword Succeeds    5x    0.5s    Git Box Should Not Be    ${canary}
     Capture Element Screenshot    ${XP PG BOX}    50-after-time-travel.png
     [Teardown]    Clean up after Working with file    ${GIT I}.ipynb
+
 
 *** Keywords ***
 Commit

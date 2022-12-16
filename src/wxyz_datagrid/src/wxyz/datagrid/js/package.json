@@ -15,6 +15,7 @@
     "@jupyterlab/builder": "^3.5.0",
     "@jupyterlab/rendermime": "3",
     "@deathbeds/wxyz-core": "^0.6.0",
+    "@lumino/datagrid": "^0.36.6",
     "@types/node": "^10.11.6"
   },
   "files": [
@@ -45,6 +46,10 @@
         "singleton": true
       },
       "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@lumino/datagrid": {
         "bundled": false,
         "singleton": true
       }

@@ -1546,6 +1546,21 @@
   resolved "https://registry.npmjs.org/@lumino/coreutils/-/coreutils-1.12.1.tgz#79860c9937483ddf6cda87f6c2b9da8eb1a5d768"
   integrity sha512-JLu3nTHzJk9N8ohZ85u75YxemMrmDzJdNgZztfP7F7T7mxND3YVNCkJG35a6aJ7edu1sIgCjBxOvV+hv27iYvQ==
 
+"@lumino/datagrid@^0.36.6":
+  version "0.36.6"
+  resolved "https://registry.npmjs.org/@lumino/datagrid/-/datagrid-0.36.6.tgz#14fa00a16c04df10c36b96692b02d75af76e40c4"
+  integrity sha512-oVqFw//iuo5q/Bw3PhzA/MQFdBwz4JG9pL3zqUmLnRMIn23gXiwhBsLFBbNQbJHB/1YE477PPyypO8LErVsEcw==
+  dependencies:
+    "@lumino/algorithm" "^1.9.2"
+    "@lumino/coreutils" "^1.12.1"
+    "@lumino/disposable" "^1.10.3"
+    "@lumino/domutils" "^1.8.2"
+    "@lumino/dragdrop" "^1.14.3"
+    "@lumino/keyboard" "^1.8.2"
+    "@lumino/messaging" "^1.10.3"
+    "@lumino/signaling" "^1.11.0"
+    "@lumino/widgets" "^1.36.0"
+
 "@lumino/disposable@^1.10.0", "@lumino/disposable@^1.10.1", "@lumino/disposable@^1.10.3":
   version "1.10.3"
   resolved "https://registry.npmjs.org/@lumino/disposable/-/disposable-1.10.3.tgz#c9778204f997605b00dab342029d488196d4baef"

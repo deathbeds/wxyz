@@ -1,9 +1,10 @@
 *** Settings ***
-Library           OperatingSystem
-Library           SeleniumLibrary
-Resource          Browser.robot
-Resource          ../variables/Lab.robot
-Resource          ../variables/Browser.robot
+Library     OperatingSystem
+Library     SeleniumLibrary
+Resource    Browser.robot
+Resource    ../variables/Lab.robot
+Resource    ../variables/Browser.robot
+
 
 *** Keywords ***
 Open JupyterLab
@@ -40,25 +41,25 @@ Wait For All Cells To Run
     Wait Until Element is Visible    ${JLAB XP KERNEL IDLE}    timeout=${timeout}
 
 Click JupyterLab Menu
-    [Arguments]    ${label}
     [Documentation]    Click a top-level JupyterLab menu bar item with by ``label``,
     ...    e.g. File, Help, etc.
+    [Arguments]    ${label}
     ${xpath} =    Set Variable    ${JLAB XP TOP}${JLAB XP MENU LABEL}\[text() = '${label}']
     Wait Until Page Contains Element    ${xpath}
     Mouse Over    ${xpath}
     Click Element    ${xpath}
 
 Click JupyterLab Menu Item
-    [Arguments]    ${label}
     [Documentation]    Click a currently-visible JupyterLab menu item by ``label``.
+    [Arguments]    ${label}
     ${item} =    Set Variable    ${JLAB XP MENU ITEM LABEL}\[text() = '${label}']
     Wait Until Page Contains Element    ${item}
     Mouse Over    ${item}
     Click Element    ${item}
 
 Open With JupyterLab Menu
-    [Arguments]    ${menu}    @{submenus}
     [Documentation]    Click into a ``menu``, then a series of ``submenus``
+    [Arguments]    ${menu}    @{submenus}
     Click JupyterLab Menu    ${menu}
     FOR    ${submenu}    IN    @{submenus}
         Click JupyterLab Menu Item    ${submenu}
@@ -67,12 +68,14 @@ Open With JupyterLab Menu
 Ensure File Browser is Open
     ${sel} =    Set Variable    css:.lm-TabBar-tab[data-id="filebrowser"]:not(.lm-mod-current)
     ${els} =    Get WebElements    ${sel}
-    Run Keyword If    ${els.__len__()}    Click Element    ${sel}
+    IF    ${els.__len__()}    Click Element    ${sel}
 
 Ensure Sidebar Is Closed
     [Arguments]    ${side}=left
     ${els} =    Get WebElements    css:#jp-${side}-stack
-    Run Keyword If    ${els.__len__()}    Click Element    css:.jp-mod-${side} .lm-TabBar-tab.lm-mod-current
+    IF    ${els.__len__()}
+        Click Element    css:.jp-mod-${side} .lm-TabBar-tab.lm-mod-current
+    END
 
 Open Context Menu for File
     [Arguments]    ${file}
@@ -124,7 +127,8 @@ Enter Cell Editor
 Place Cursor In Cell Editor At
     [Arguments]    ${cell_nr}    ${line}    ${character}
     Enter Cell Editor    ${cell_nr}    ${line}
-    Execute JavaScript    return document.querySelector('.jp-Cell:nth-child(${cell_nr}) .CodeMirror').CodeMirror.setCursor({line: ${line} - 1, ch: ${character}})
+    Execute JavaScript
+    ...    return document.querySelector('.jp-Cell:nth-child(${cell_nr}) .CodeMirror').CodeMirror.setCursor({line: ${line} - 1, ch: ${character}})
 
 Enter File Editor
     Click Element    css:.jp-FileEditor .CodeMirror
@@ -133,7 +137,8 @@ Enter File Editor
 Place Cursor In File Editor At
     [Arguments]    ${line}    ${character}
     Enter File Editor
-    Execute JavaScript    return document.querySelector('.jp-FileEditor .CodeMirror').CodeMirror.setCursor({line: ${line} - 1, ch: ${character}})
+    Execute JavaScript
+    ...    return document.querySelector('.jp-FileEditor .CodeMirror').CodeMirror.setCursor({line: ${line} - 1, ch: ${character}})
 
 Open Context Menu Over
     [Arguments]    ${sel}
@@ -162,7 +167,7 @@ Set Editor Content
 Get Editor Content
     [Arguments]    ${css}=${EMPTY}
     ${content} =    Execute JavaScript    return document.querySelector('${css} .CodeMirror').CodeMirror.getValue()
-    [Return]    ${content}
+    RETURN    ${content}
 
 Clean Up After Working with File and Settings
     [Arguments]    ${file}
@@ -217,12 +222,12 @@ Reset Application State
 Accept Default Dialog Option
     [Documentation]    Accept a dialog, if it exists
     ${el} =    Get WebElements    ${CSS DIALOG OK}
-    Run Keyword If    ${el.__len__()}    Click Element    ${CSS DIALOG OK}
+    IF    ${el.__len__()}    Click Element    ${CSS DIALOG OK}
 
 Ensure All Kernels Are Shut Down
     Enter Command Name    Shut Down All Kernels
     ${els} =    Get WebElements    ${CMD PALETTE ITEM ACTIVE}
-    Run Keyword If    ${els.__len__()}    Click Element    ${CMD PALETTE ITEM ACTIVE}
+    IF    ${els.__len__()}    Click Element    ${CMD PALETTE ITEM ACTIVE}
     ${accept} =    Set Variable    css:.jp-mod-accept.jp-mod-warn
-    Run Keyword If    ${els.__len__()}    Wait Until Page Contains Element    ${accept}
-    Run Keyword If    ${els.__len__()}    Click Element    ${accept}
+    IF    ${els.__len__()}    Wait Until Page Contains Element    ${accept}
+    IF    ${els.__len__()}    Click Element    ${accept}

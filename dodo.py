@@ -376,7 +376,7 @@ if not (P.TESTING_IN_CI or P.BUILDING_IN_CI):
             targets=[P.OK / "robot_lint"],
             actions=[
                 U.okit("robot_dry_run", remove=True),
-                [*P.PYM, "robot.tidy", "--inplace", *P.ALL_ROBOT],
+                [*P.PYM, "robotidy", *P.ALL_ROBOT],
                 [*ATEST, "--dryrun"],
                 U.okit("robot_lint"),
             ],
