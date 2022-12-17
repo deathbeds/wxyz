@@ -1,5 +1,7 @@
 # `@deathbeds/wxyz-yaml`
 
+
+
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_yaml
@@ -17,13 +19,13 @@
 pip install wxyz_yaml
 ```
 
-or
+or...
 
 ```bash
 mamba install -c conda-forge wxyz_yaml
 ```
 
-od
+or...
 
 ```bash
 conda install -c conda-forge wxyz_yaml
@@ -31,19 +33,66 @@ conda install -c conda-forge wxyz_yaml
 
 ## Developer Installation
 
-The public API of the widgets in `@deathbeds/wxyz-yaml` are not yet fully documented.
-However, it's likely that you can:
+`@deathbeds/wxyz-yaml` is distributed on `npmjs.org` with:
+
+- source maps
+- TypeScript type definitions
+
+While no API docs are published, it's likely that you can:
 
 ```bash
 jlpm add @deathbeds/wxyz-yaml
 ```
 
-and then, in your widget extension:
+...and then, in your widget extension:
 
 ```ts
 import wxyz from '@deathbeds/wxyz-yaml';
 
 console.log(wxyz); // and see _something_
+```
+
+## Reusing `@deathbeds/wxyz-yaml`
+
+### Packaging in Python
+
+If you are authoring a pure-python widget, just ensure your package declares
+a dependency on whatever leaf widgets you're using.
+
+```toml
+[project]
+dependencies = [
+    "wxyz_yaml",                     # but probably pinned sensibly
+]
+```
+
+### Customizing in TypeScript
+
+If you do use these widgets in _other_ widget extensions, you'll likely need to
+ensure they are deduplicated by updating the `jupyterlab` key in your `package.json`:
+
+```yaml
+{
+  "devDependencies": {
+    "@deathbeds/wxyz-yaml": "*"               # but probably pinned sensibly
+  },
+  "jupyterlab": {
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@deathbeds/wxyz-yaml": {
+        "bundled": false,
+        "singleton": true
+      }
+    }
+  }
+}
 ```
 
 ---

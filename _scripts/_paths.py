@@ -383,13 +383,13 @@ TS_README_TXT = """
 pip install {{ py }}
 ```
 
-or
+or...
 
 ```bash
 mamba install -c conda-forge {{ py }}
 ```
 
-od
+or...
 
 ```bash
 conda install -c conda-forge {{ py }}
@@ -397,19 +397,66 @@ conda install -c conda-forge {{ py }}
 
 ## Developer Installation
 
-The public API of the widgets in `{{ name }}` are not yet fully documented.
-However, it's likely that you can:
+`{{ name }}` is distributed on `npmjs.org` with:
+
+- source maps
+- TypeScript type definitions
+
+While no API docs are published, it's likely that you can:
 
 ```bash
 jlpm add {{ name }}
 ```
 
-and then, in your widget extension:
+...and then, in your widget extension:
 
 ```ts
 import wxyz from '{{ name }}';
 
 console.log(wxyz); // and see _something_
+```
+
+## Reusing `{{ name }}`
+
+### Packaging in Python
+
+If you are authoring a pure-python widget, just ensure your package declares
+a dependency on whatever leaf widgets you're using.
+
+```toml
+[project]
+dependencies = [
+    "{{ py }}",                     # but probably pinned sensibly
+]
+```
+
+### Customizing in TypeScript
+
+If you do use these widgets in _other_ widget extensions, you'll likely need to
+ensure they are deduplicated by updating the `jupyterlab` key in your `package.json`:
+
+```yaml
+{
+  "devDependencies": {
+    "{{ name }}": "*"               # but probably pinned sensibly
+  },
+  "jupyterlab": {
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "{{ name }}": {
+        "bundled": false,
+        "singleton": true
+      }
+    }
+  }
+}
 ```
 """
 
