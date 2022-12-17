@@ -157,6 +157,12 @@ DOCS_OUT = BUILD / "docs"
 DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
 LITE_OUT = BUILD / "lite"
 LITE_SHA256SUMS = LITE_OUT / "SHA256SUMS"
+LITE_SDIST = BUILD / "sdist"
+LITE_PYPI = LITE_OUT / "pypi"
+NOARCH_WHL = "py3-none-any.whl"
+LITE_WHEELS = {
+    f"pyld-2.0.3-{NOARCH_WHL}": "https://pypi.io/packages/source/P/PyLD/PyLD-2.0.3.tar.gz"
+}
 
 
 def NO_SPELL():

@@ -4,6 +4,15 @@
 import shutil
 import subprocess
 from datetime import datetime
+import urllib.request
+import os
+import tempfile
+from pathlib import Path
+import time
+import email.utils
+import libarchive
+
+
 
 from doit.reporter import ConsoleReporter
 
@@ -93,3 +102,40 @@ class Reporter(ConsoleReporter):
         self.outstream.write(f"{SKIP} ⏩  {task.title()}\n")
 
     skip_ignore = skip_uptodate
+
+def fetch_one(url, dest):
+    """fetch one file"""
+
+    if dest.exists():
+        print(f"    - already downloaded {dest.name}, skipping...")
+        return
+
+    if not dest.parent.exists():
+        dest.parent.mkdir(parents=True)
+
+    with tempfile.TemporaryDirectory() as td:
+        tdp = Path(td)
+        with urllib.request.urlopen(url) as response:
+            tmp_dest = tdp / dest.name
+            with tmp_dest.open("wb") as fd:
+                shutil.copyfileobj(response, fd)
+            last_modified = response.headers.get("Last-Modified")
+            if last_modified:
+                epoch_time = time.mktime(email.utils.parsedate(last_modified))
+                os.utime(tmp_dest, (epoch_time, epoch_time))
+        shutil.copy2(tmp_dest, dest)
+
+def extract_one(archive: Path, dest: Path):
+    """extract the contents of an archive to a path."""
+    if dest.exists():
+        shutil.rmtree(dest)
+
+    dest.mkdir(parents=True)
+
+
+    old_cwd = os.getcwd()
+    os.chdir(str(dest))
+    try:
+        libarchive.extract_file(str(archive))
+    finally:
+        os.chdir(old_cwd)

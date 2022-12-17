@@ -16,6 +16,7 @@ dependencies:
   - pkginfo
   - pydata-sphinx-theme
   - pytest-check-links >=0.4.4,!=4.3.3
+  - python-build
   - python-graphviz
   - python-libarchive-c
   - recommonmark

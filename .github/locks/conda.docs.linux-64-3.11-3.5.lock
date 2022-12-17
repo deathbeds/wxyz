@@ -40,6 +40,7 @@
 # - pytest-xdist
 # - python
 # - python >=3.11,<3.12
+# - python-build
 # - python-graphviz
 # - python-libarchive-c
 # - pyyaml
@@ -296,6 +297,7 @@ https://conda.anaconda.org/conda-forge/noarch/markdown-it-py-2.1.0-pyhd8ed1ab_0.
 https://conda.anaconda.org/conda-forge/noarch/matplotlib-inline-0.1.6-pyhd8ed1ab_0.tar.bz2#b21613793fcc81d944c76c9f2864a7de
 https://conda.anaconda.org/conda-forge/noarch/outcome-1.2.0-pyhd8ed1ab_0.tar.bz2#3dbb9ece72652131f12d66e889da7c0a
 https://conda.anaconda.org/conda-forge/noarch/packaging-21.3-pyhd8ed1ab_0.tar.bz2#71f1ab2de48613876becddd496371c85
+https://conda.anaconda.org/conda-forge/noarch/pep517-0.13.0-pyhd8ed1ab_0.tar.bz2#d94aa03d99d8adc9898f783eba0d84d2
 https://conda.anaconda.org/conda-forge/noarch/pexpect-4.8.0-pyh1a96a4e_2.tar.bz2#330448ce4403cc74990ac07c555942a1
 https://conda.anaconda.org/conda-forge/linux-64/pillow-9.2.0-py311h9461556_3.tar.bz2#03ff0e369f200145f55f94a7a5be1cc4
 https://conda.anaconda.org/conda-forge/noarch/pip-22.3.1-pyhd8ed1ab_0.tar.bz2#da66f2851b9836d3a7c5190082a45f7d
@@ -332,6 +334,7 @@ https://conda.anaconda.org/conda-forge/noarch/mdit-py-plugins-0.3.3-pyhd8ed1ab_0
 https://conda.anaconda.org/conda-forge/linux-64/pandas-1.5.2-py311h8b32b4d_0.conda#d203d6938a0c1a76cb540a2972644af7
 https://conda.anaconda.org/conda-forge/noarch/pylint-2.15.8-pyhd8ed1ab_0.conda#26a62404bbfc93452c4d22aa2cda6f08
 https://conda.anaconda.org/conda-forge/noarch/pytest-7.2.0-pyhd8ed1ab_2.tar.bz2#ac82c7aebc282e6ac0450fca012ca78c
+https://conda.anaconda.org/conda-forge/noarch/python-build-0.9.0-pyhd8ed1ab_1.conda#886f2d69ec041f250fbfe1ca0e0195a6
 https://conda.anaconda.org/conda-forge/noarch/rich-12.6.0-pyhd8ed1ab_0.tar.bz2#162ed4cc104133be23e592faa1e055e3
 https://conda.anaconda.org/conda-forge/noarch/robotframework-pabot-2.8.0-pyhd8ed1ab_0.tar.bz2#4209b39ac3ff6533a24ec62d196c124a
 https://conda.anaconda.org/conda-forge/noarch/robotframework-robocop-2.6.0-pyhd8ed1ab_0.tar.bz2#bc7dad792b185aab3b1c59994f99b970

@@ -11,6 +11,7 @@ import os
 import shutil
 import subprocess
 import time
+from pathlib import Path
 from hashlib import sha256
 
 try:
@@ -758,6 +759,30 @@ def task_predocs():
 def task_lite():
     """build the jupyterlite site"""
 
+    all_wheels = []
+
+    for wheel_name, url in P.LITE_WHEELS.items():
+        sdist_name = Path(url).name
+        sdist = P.LITE_SDIST / sdist_name
+        work_dir = P.LITE_SDIST / sdist_name.replace(".tar.gz", "")
+        wheel_path = P.LITE_PYPI / wheel_name
+        all_wheels += [wheel_path]
+        yield dict(
+            name=f"fetch:{sdist_name}",
+            actions=[
+                (U.fetch_one, [url, sdist])
+            ],
+            targets=[sdist]
+        )
+        yield dict(
+            name=f"build:{wheel_name}",
+            actions=[
+                (U.extract_one, [sdist, work_dir]),
+                CmdAction(["pyproject-build", "--wheel", "--outdir", P.LITE_PYPI], shell=False, cwd=work_dir)
+            ],
+            targets=[wheel_path]
+        )
+
     yield dict(
         name="pip:install",
         file_dep=[P.OK_PY],
@@ -766,7 +791,7 @@ def task_lite():
 
     yield dict(
         name="build",
-        file_dep=[*P.WHEELS.values(), *P.LITE_CONFIG, *P.ALL_IPYNB, P.OK_LAB],
+        file_dep=[*P.WHEELS.values(), *all_wheels, *P.LITE_CONFIG, *P.ALL_IPYNB, P.OK_LAB],
         task_dep=["lite:pip:install"],
         targets=[P.LITE_SHA256SUMS],
         actions=[
