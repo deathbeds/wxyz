@@ -18,7 +18,6 @@ dependencies:
   - python-graphviz
   - python-libarchive-c
   - recommonmark
-  - requests-cache
   - sphinx-autobuild
   - sphinx-autodoc-typehints
   - sphinx-copybutton
