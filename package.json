@@ -20,7 +20,7 @@
     "build:ts": "lerna run build",
     "clean": "lerna exec --parallel --stream rimraf lib *.tgz",
     "lint": "jlpm lint:prettier",
-    "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml,yaml}\" \"./{src,.github,packages}/**/*.{ts,json,md,yml,yaml,css,yaml}\"",
+    "lint:prettier": "prettier --list-different --write \"./*.{json,md,yml,yaml}\" \"./{lite,src,.github,packages}/**/*.{ts,json,md,yml,yaml,css,yaml}\"",
     "watch": "lerna run --parallel --stream watch"
   },
   "prettier": {

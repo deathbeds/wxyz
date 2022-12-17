@@ -22,6 +22,7 @@
 # - jsonpointer
 # - jupyterlab >=3,<4
 # - jupyterlab >=3.5,<3.6
+# - jupyterlab-webrtc-docprovider
 # - lxml
 # - myst-nb
 # - nbval
@@ -191,6 +192,7 @@ https://conda.anaconda.org/conda-forge/noarch/jeepney-0.8.0-pyhd8ed1ab_0.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/json-e-4.4.3-pyhd8ed1ab_0.tar.bz2#6c3375ac32ba014e108de7d4b6c0e5d8
 https://conda.anaconda.org/conda-forge/noarch/json5-0.9.5-pyh9f0ad1d_0.tar.bz2#10759827a94e6b14996e81fb002c0bda
 https://conda.anaconda.org/conda-forge/noarch/jsonpointer-2.0-py_0.tar.bz2#07d85c22a3beb102a48cd123df84c2a6
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-webrtc-docprovider-0.1.1-pyhd8ed1ab_0.tar.bz2#df681674fa6b47876964cae0c0030640
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.4-pyhd8ed1ab_0.conda#fa777b81ecc1dc717fbeef5f900752a2
 https://conda.anaconda.org/conda-forge/linux-64/lazy-object-proxy-1.8.0-py311hd4cff14_0.tar.bz2#14cde277962444a8570bf4034aa9401a
 https://conda.anaconda.org/conda-forge/linux-64/lcms2-2.14-h6ed2654_0.tar.bz2#dcc588839de1445d90995a0a2c4f3a39
@@ -283,7 +285,7 @@ https://conda.anaconda.org/conda-forge/noarch/h11-0.14.0-pyhd8ed1ab_0.tar.bz2#b2
 https://conda.anaconda.org/conda-forge/noarch/html5lib-1.1-pyh9f0ad1d_0.tar.bz2#b2355343d6315c892543200231d7154a
 https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-5.1.0-pyha770c72_0.conda#46a62e35b9ae515cf0e49afc7fe0e7ef
 https://conda.anaconda.org/conda-forge/noarch/importlib_resources-5.10.1-pyhd8ed1ab_0.conda#db5d88c84c769798bf4b2f6776446b32
-https://conda.anaconda.org/conda-forge/noarch/isort-5.11.2-pyhd8ed1ab_0.conda#86ff7cc3ec84aaf29488c4c8c788c954
+https://conda.anaconda.org/conda-forge/noarch/isort-5.11.3-pyhd8ed1ab_0.conda#df79686d95d8dd88eda0422711e5e7e3
 https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.2.3-pyhd8ed1ab_0.tar.bz2#31e4a1506968d017229bdb64695013a1
 https://conda.anaconda.org/conda-forge/noarch/jedi-0.18.2-pyhd8ed1ab_0.conda#b5e695ef9c3f0d27d6cd96bf5adc9e07
 https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.2-pyhd8ed1ab_1.tar.bz2#c8490ed5c70966d232fdd389d0dbed37

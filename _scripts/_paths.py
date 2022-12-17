@@ -302,8 +302,9 @@ ALL_PRETTIER = sorted(
         for pretty in [
             *ALL_MD,
             *ALL_YAML,
-            *CI.glob("*.yml"),
+            *CI.rglob("*.yml"),
             *DOCS.rglob("*.css"),
+            *LITE.glob("*.json"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
             *SRC.rglob("*.css"),

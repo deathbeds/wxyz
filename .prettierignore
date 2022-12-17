@@ -3,6 +3,7 @@
 *.db
 *.xml
 **/__pycache__/
+**/.ipynb_checkpoints/
 **/.pytest_cache/
 **/*.egg-info/
 **/build/
@@ -13,3 +14,4 @@
 **/notebooks/Design/
 atest/output/
 envs/
+lite/.cache/
