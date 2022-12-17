@@ -293,7 +293,7 @@ def task_lint():
     yield dict(
         name="prettier:rest",
         file_dep=[P.YARN_INTEGRITY, P.YARN_LOCK, *P.ALL_PRETTIER],
-        targets=[P.OK / "prettier"],
+        targets=[P.OK_PRETTY],
         actions=[
             U.okit("prettier", remove=True),
             ["jlpm", "lint:prettier"],
@@ -440,8 +440,8 @@ def task_ts():
 
     file_dep = [P.YARN_LOCK, *P.TS_PACKAGE, *P.ALL_TS]
 
-    if not P.BUILDING_IN_CI:
-        file_dep += [P.OK / "prettier"]
+    if not (P.BUILDING_IN_CI or P.RTD):
+        file_dep += [P.OK_PRETTY]
 
     yield dict(
         name="tsc",

@@ -79,6 +79,7 @@ BUILD = ROOT / "build"
 OK = BUILD / "ok"
 OK_PY = OK / "setup_py"
 OK_LAB = OK / "setup_lab"
+OK_PRETTY = OK / "prettier"
 
 GITHUB = CI = ROOT / ".github"
 CI_YML = GITHUB / "workflows" / "ci.yml"
