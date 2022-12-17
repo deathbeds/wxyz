@@ -182,36 +182,23 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           condarc-file: .github/.condarc
-          miniforge-variant: Mambaforge
-          use-mamba: true
-
-      - name: mamba (env, unix)
-        if: ${{ matrix.os != 'windows' }}
-        run: |-
-          mamba create -p ./envs/_base test --file "${{ env.LOCKFILE }}"
-
-      - name: mamba (env, win)
-        if: ${{ matrix.os == 'windows' }}
-        shell: cmd /C CALL {0}
-        run: |-
-          mamba create -p ./envs/_base --file "${{ env.LOCKFILE }}"
+          environment-file: ${{ env.LOCKFILE }}
 
       - name: doit (lint)
         if: ${{ matrix.lockname == 'docs' }}
         run: |-
-          source "${CONDA}/bin/activate" ./envs/_base
           TESTING_IN_CI=0 doit -n4 lint
 
       - name: doit (test, unix)
         if: ${{ matrix.os != 'windows' }}
         run: |-
-          source "${CONDA}/bin/activate" ./envs/_base
           doit setup_py nbtest robot || doit setup_py nbtest robot
 
       - name: doit (test, windows)
         if: ${{ matrix.os == 'windows' }}
         shell: cmd /C CALL {0}
-        run: .github/win.bat
+        run: |
+          doit setup_py nbtest robot || doit setup_py nbtest robot || exit 1
 
       - name: upload (atest)
         uses: actions/upload-artifact@v3
@@ -234,7 +221,6 @@ jobs:
         env:
           TESTING_IN_CI: 0
         run: |-
-          source "${CONDA}/bin/activate" ./envs/_base
           doit -n4 docs || doit docs
 
       - name: upload (docs)
@@ -260,7 +246,6 @@ jobs:
         env:
           TESTING_IN_CI: 0
         run: |-
-          source "${CONDA}/bin/activate" ./envs/_base
           doit -n4 spell checklinks || doit spell checklinks
 
       - name: Rename uncached conda packages
