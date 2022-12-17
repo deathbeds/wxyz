@@ -821,6 +821,7 @@ def task_checklinks():
     args = [
         "pytest-check-links",
         "-o",
+        *["-p", "no:importnb"],
         "junit_suite_name=checklinks",
         "--check-anchors",
         "--check-links-cache",
