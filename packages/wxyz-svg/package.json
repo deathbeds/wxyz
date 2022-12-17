@@ -39,7 +39,6 @@
     "@jupyter-widgets/controls": "5",
     "@jupyter-widgets/jupyterlab-manager": "5",
     "@jupyterlab/builder": "^3.5.0",
-    "@jupyterlab/rendermime": "3",
     "@types/d3-drag": "^2.0.0",
     "@types/d3-selection": "^2.0.0",
     "@types/d3-zoom": "^2.0.0",

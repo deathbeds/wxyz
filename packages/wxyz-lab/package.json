@@ -36,7 +36,6 @@
     "@jupyter-widgets/controls": "5",
     "@jupyter-widgets/jupyterlab-manager": "5",
     "@jupyterlab/builder": "^3.5.0",
-    "@jupyterlab/rendermime": "3",
     "@types/codemirror": "^0.0.71",
     "@types/marked": "~0.3.0",
     "@types/node": "^10.11.6",

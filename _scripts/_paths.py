@@ -380,7 +380,19 @@ TS_README_TXT = """
 **If you just want to _use_ `{{ name }}` in JupyterLab 3**
 
 ```bash
-pip install {{ py }}  # or conda, or mamba
+pip install {{ py }}
+```
+
+or
+
+```bash
+mamba install -c conda-forge {{ py }}
+```
+
+od
+
+```bash
+conda install -c conda-forge {{ py }}
 ```
 
 ## Developer Installation
@@ -398,23 +410,6 @@ and then, in your widget extension:
 import wxyz from '{{ name }}';
 
 console.log(wxyz); // and see _something_
-```
-
-## Legacy Installation (Pre-JupyterLab 2)
-
-> _This approach is no longer recommended, and is **not tested**_
-
-> Prerequisites:
-> - `python >=3.8`
-> - `nodejs >=18`
-> - `jupyterlab >=3.1,<4`
-
-```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
-{%- for dep in devDependencies -%}
-{% if "@deathbeds" in dep %} {{ dep }}{% endif %}
-{%- endfor %} {{ name }}
-pip install {{ jupyterlab.discovery.server.base.name }}
 ```
 """
 

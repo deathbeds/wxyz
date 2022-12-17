@@ -14,7 +14,19 @@
 **If you just want to _use_ `@deathbeds/wxyz-json-e` in JupyterLab 3**
 
 ```bash
-pip install wxyz_json_e  # or conda, or mamba
+pip install wxyz_json_e
+```
+
+or
+
+```bash
+mamba install -c conda-forge wxyz_json_e
+```
+
+od
+
+```bash
+conda install -c conda-forge wxyz_json_e
 ```
 
 ## Developer Installation
@@ -32,21 +44,6 @@ and then, in your widget extension:
 import wxyz from '@deathbeds/wxyz-json-e';
 
 console.log(wxyz); // and see _something_
-```
-
-## Legacy Installation (Pre-JupyterLab 2)
-
-> _This approach is no longer recommended, and is **not tested**_
-
-> Prerequisites:
->
-> - `python >=3.8`
-> - `nodejs >=18`
-> - `jupyterlab >=3.1,<4`
-
-```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-json-e
-pip install wxyz_json_e
 ```
 
 ---

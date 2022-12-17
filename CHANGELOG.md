@@ -4,7 +4,7 @@
 
 - require ipywidgets 8
 - many widgets supported in [JupyterLite]
-- reduced package sizes
+- sourcemaps are included for downstream debuggings
 
 [jupyterlite]: jupyterlite.readthedocs.io
 

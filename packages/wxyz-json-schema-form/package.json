@@ -30,7 +30,8 @@
   ],
   "dependencies": {
     "@deathbeds/jupyterlab-rjsf": "^1.0.2",
-    "@deathbeds/wxyz-core": "~0.6.0"
+    "@deathbeds/wxyz-core": "~0.6.0",
+    "@jupyterlab/rendermime": "3"
   },
   "devDependencies": {
     "@blueprintjs/core": "*",
@@ -80,6 +81,10 @@
       "@rjsf/core": {
         "bundled": true,
         "singleton": false
+      },
+      "@jupyterlab/rendermime": {
+        "bundled": false,
+        "singleton": true
       }
     }
   }

@@ -36,7 +36,6 @@
     "@jupyter-widgets/controls": "5",
     "@jupyter-widgets/jupyterlab-manager": "5",
     "@jupyterlab/builder": "^3.5.0",
-    "@jupyterlab/rendermime": "3",
     "@lumino/datagrid": "^0.36.6",
     "@types/node": "^10.11.6"
   },

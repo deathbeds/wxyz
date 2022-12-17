@@ -14,7 +14,19 @@
 **If you just want to _use_ `@deathbeds/wxyz-core` in JupyterLab 3**
 
 ```bash
-pip install wxyz_core  # or conda, or mamba
+pip install wxyz_core
+```
+
+or
+
+```bash
+mamba install -c conda-forge wxyz_core
+```
+
+od
+
+```bash
+conda install -c conda-forge wxyz_core
 ```
 
 ## Developer Installation
@@ -32,21 +44,6 @@ and then, in your widget extension:
 import wxyz from '@deathbeds/wxyz-core';
 
 console.log(wxyz); // and see _something_
-```
-
-## Legacy Installation (Pre-JupyterLab 2)
-
-> _This approach is no longer recommended, and is **not tested**_
-
-> Prerequisites:
->
-> - `python >=3.8`
-> - `nodejs >=18`
-> - `jupyterlab >=3.1,<4`
-
-```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core
-pip install wxyz_core
 ```
 
 ---
