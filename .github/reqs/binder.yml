@@ -5,10 +5,13 @@ channels:
   - nodefaults
 
 dependencies:
+  - ipydrawio
   - jupyter-lsp-python-plugins
   - jupyter-starters
   - jupyterhub-singleuser
+  - jupyterlab-deck
   - jupyterlab-lsp
   - jupyterlab-tour
   - nbgitpuller
   - nbresuse
+  - nodejs >=18,<19
