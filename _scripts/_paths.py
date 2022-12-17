@@ -164,6 +164,7 @@ PYPI_SRC = "https://pypi.io/packages/source"
 LITE_WHEELS = {
     f"PyLD-2.0.3-{NOARCH_WHL}": f"{PYPI_SRC}/P/PyLD/PyLD-2.0.3.tar.gz",
 }
+LITE_PYPI_INDEX = LITE_OUT / "pypi/all.json"
 
 
 def NO_SPELL():

@@ -829,6 +829,22 @@ def task_lite():
         ],
     )
 
+    def _normalize_names():
+        original = json.loads(P.LITE_PYPI_INDEX.read_text(encoding="utf-8"))
+        normal = {}
+        for dist_name, info in original.items():
+            normal[dist_name.lower().replace("_", "-")] = info
+        P.LITE_PYPI_INDEX.write_text(
+            json.dumps(normal, indent=2, sort_keys=True), encoding="utf-8"
+        )
+
+    yield dict(
+        name="patch",
+        file_dep=[P.LITE_SHA256SUMS],
+        targets=[P.LITE_PYPI_INDEX],
+        actions=[_normalize_names],
+    )
+
 
 def task_docs():
     """build the docs"""
@@ -848,6 +864,7 @@ def task_docs():
                 P.DOCS_CONF_PY,
                 P.OK_PY,
                 P.LITE_SHA256SUMS,
+                P.LITE_PYPI_INDEX,
             ],
             targets=[P.DOCS_BUILDINFO],
         )
