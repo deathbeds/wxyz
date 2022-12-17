@@ -29,7 +29,7 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "@deathbeds/wxyz-core": "^0.6.0",
+    "@deathbeds/wxyz-core": "~0.6.0",
     "nunjucks": "^3.2.3"
   },
   "devDependencies": {
