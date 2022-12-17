@@ -74,6 +74,22 @@
       "@deathbeds/wxyz-core": {
         "bundled": false,
         "singleton": true
+      },
+      "xterm": {
+        "bundled": false,
+        "singleton": true
+      },
+      "xterm-addon-fit": {
+        "bundled": false,
+        "singleton": true
+      },
+      "marked": {
+        "bundled": false,
+        "singleton": true
+      },
+      "jquery": {
+        "bundled": false,
+        "singleton": true
       }
     }
   }

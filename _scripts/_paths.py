@@ -263,7 +263,7 @@ TS_D_PACKAGE_JSON = {
 }
 
 SDISTS = {
-    ppt.parent.name: DIST / f"{ppt.parent.name}-{version}.tar.gz"
+    ppt.parent.name: DIST / f"""{ppt.parent.name.replace("_", "-")}-{version}.tar.gz"""
     for ppt, version in PY_VERSION.items()
 }
 
