@@ -1,10 +1,10 @@
-# `wxyz_html`
+# `wxyz-html`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_html
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-html
 [pypi]: https://pypi.org/project/wxyz-html
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-html
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-html
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_html
+pip install wxyz-html
 ```
 
 ---

@@ -1,6 +1,9 @@
 """ Widgets for working with markdown
+
+This module does not yet work in ``jupyterlite``
 """
-from nbconvert.filters.markdown import markdown2html_mistune
+# pylint: disable=import-outside-toplevel
+import sys
 
 from wxyz.core.base import Fn
 
@@ -15,4 +18,6 @@ class Markdown(Fn, LabBase):
 
     def the_function(self, source):
         """Render some Jupyter markdown"""
+        if "nbconvert" not in sys.modules:
+            from nbconvert.filters.markdown import markdown2html_mistune
         return markdown2html_mistune(source)

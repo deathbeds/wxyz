@@ -1,10 +1,10 @@
-# `wxyz_tpl_jinja`
+# `wxyz-tpl-jinja`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_tpl_jinja
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-tpl-jinja
 [pypi]: https://pypi.org/project/wxyz-tpl-jinja
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-tpl-nunjucks
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-tpl-nunjucks
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_tpl_jinja
+pip install wxyz-tpl-jinja
 ```
 
 ---

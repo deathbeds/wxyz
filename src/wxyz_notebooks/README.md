@@ -1,10 +1,10 @@
-# `wxyz_notebooks`
+# `wxyz-notebooks`
 
 [![pypi-badge][]][pypi] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_notebooks
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-notebooks
 [pypi]: https://pypi.org/project/wxyz-notebooks
 
 > notebook demos for experimental Jupyter widgets
@@ -17,7 +17,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_notebooks
+pip install wxyz-notebooks
 ```
 
 ---

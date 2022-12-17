@@ -1,10 +1,10 @@
-# `wxyz_core`
+# `wxyz-core`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_core
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-core
 [pypi]: https://pypi.org/project/wxyz-core
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-core
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-core
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_core
+pip install wxyz-core
 ```
 
 ---

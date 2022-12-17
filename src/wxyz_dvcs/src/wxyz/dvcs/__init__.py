@@ -1,4 +1,6 @@
 """ DVCS widgets
+
+At present, none of these widgets work in ``jupyterlite``.
 """
 from ._version import __prefix__, __version__, module_name
 from .repos.repo_base import Repo

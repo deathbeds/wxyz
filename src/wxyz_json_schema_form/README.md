@@ -1,10 +1,10 @@
-# `wxyz_json_schema_form`
+# `wxyz-json-schema-form`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_json_schema_form
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-json-schema-form
 [pypi]: https://pypi.org/project/wxyz-json-schema-form
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-json-schema-form
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-json-schema-form
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_json_schema_form
+pip install wxyz-json-schema-form
 ```
 
 ---

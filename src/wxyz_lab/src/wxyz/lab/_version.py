@@ -1,4 +1,4 @@
-"""source of truth for wxyz_lab version info"""
+"""source of truth for wxyz-lab version info"""
 import sys
 from importlib.metadata import version
 from pathlib import Path
@@ -10,5 +10,5 @@ SHARE = "share/jupyter/labextensions"
 IN_TREE = (HERE / "../../../_d" / SHARE / module_name).resolve()
 IN_PREFIX = Path(sys.prefix) / SHARE / module_name
 __prefix__ = IN_TREE if IN_TREE.exists() else IN_PREFIX
-NAME = "wxyz_lab"
+NAME = "wxyz-lab"
 __version__ = version(NAME)

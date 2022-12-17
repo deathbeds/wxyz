@@ -5,7 +5,7 @@ requires = [
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "wxyz_notebooks"
+name = "wxyz-notebooks"
 version = "0.6.0"
 description = "notebook demos for experimental Jupyter widgets"
 readme = "README.md"

@@ -1,10 +1,10 @@
-# `wxyz_svg`
+# `wxyz-svg`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_svg
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-svg
 [pypi]: https://pypi.org/project/wxyz-svg
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-svg
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-svg
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_svg
+pip install wxyz-svg
 ```
 
 ---

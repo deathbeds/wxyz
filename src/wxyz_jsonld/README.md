@@ -1,10 +1,10 @@
-# `wxyz_jsonld`
+# `wxyz-jsonld`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_jsonld
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-jsonld
 [pypi]: https://pypi.org/project/wxyz-jsonld
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-jsonld
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-jsonld
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_jsonld
+pip install wxyz-jsonld
 ```
 
 ---

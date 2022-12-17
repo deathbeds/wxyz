@@ -1,10 +1,10 @@
-# `wxyz_datagrid`
+# `wxyz-datagrid`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_datagrid
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-datagrid
 [pypi]: https://pypi.org/project/wxyz-datagrid
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-datagrid
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-datagrid
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_datagrid
+pip install wxyz-datagrid
 ```
 
 ---

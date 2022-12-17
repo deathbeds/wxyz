@@ -5,7 +5,7 @@ requires = [
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "wxyz_dvcs"
+name = "wxyz-dvcs"
 version = "0.6.0"
 description = "experimental Jupyter widgets for working with data in revision control"
 readme = "README.md"

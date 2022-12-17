@@ -1,10 +1,10 @@
-# `wxyz_yaml`
+# `wxyz-yaml`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_yaml
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-yaml
 [pypi]: https://pypi.org/project/wxyz-yaml
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-yaml
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-yaml
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_yaml
+pip install wxyz-yaml
 ```
 
 ---

@@ -1,10 +1,10 @@
-# `wxyz_json_e`
+# `wxyz-json-e`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
 [docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_json_e
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-json-e
 [pypi]: https://pypi.org/project/wxyz-json-e
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-json-e
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-json-e
@@ -19,7 +19,7 @@
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_json_e
+pip install wxyz-json-e
 ```
 
 ---

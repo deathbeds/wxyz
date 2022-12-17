@@ -1,5 +1,5 @@
-"""source of truth for wxyz_notebooks version info"""
+"""source of truth for wxyz-notebooks version info"""
 from importlib.metadata import version
 
-NAME = "wxyz_notebooks"
+NAME = "wxyz-notebooks"
 __version__ = version(NAME)

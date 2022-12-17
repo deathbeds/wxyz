@@ -5,7 +5,7 @@ requires = [
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "wxyz_html"
+name = "wxyz-html"
 version = "0.6.0"
 description = "experimental Jupyter widgets for HTML5"
 readme = "README.md"

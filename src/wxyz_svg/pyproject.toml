@@ -5,7 +5,7 @@ requires = [
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "wxyz_svg"
+name = "wxyz-svg"
 version = "0.6.0"
 description = "experimental Jupyter widgets for SVG"
 readme = "README.md"
