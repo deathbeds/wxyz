@@ -45,7 +45,7 @@ console.log(wxyz); // and see _something_
 > - `jupyterlab >=3.1,<4`
 
 ```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-core @deathbeds/wxyz-datagrid
+jupyter labextension install @jupyter-widgets/jupyterlab-manager @deathbeds/wxyz-datagrid
 pip install wxyz_datagrid
 ```
 

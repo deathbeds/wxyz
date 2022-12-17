@@ -20,7 +20,7 @@
   "license": "BSD-3-Clause",
   "author": {
     "name": "wxyz contributors",
-    "email": ""
+    "email": "ripxl@googlegroups.com"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
