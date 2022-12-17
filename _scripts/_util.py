@@ -1,19 +1,17 @@
 """ utilities for doit
 """
 # pylint: disable=expression-not-assigned
+import email.utils
+import os
 import shutil
 import subprocess
-from datetime import datetime
-import urllib.request
-import os
 import tempfile
-from pathlib import Path
 import time
-import email.utils
+import urllib.request
+from datetime import datetime
+from pathlib import Path
+
 import libarchive
-
-
-
 from doit.reporter import ConsoleReporter
 
 from . import _paths as P
@@ -103,6 +101,7 @@ class Reporter(ConsoleReporter):
 
     skip_ignore = skip_uptodate
 
+
 def fetch_one(url, dest):
     """fetch one file"""
 
@@ -125,13 +124,13 @@ def fetch_one(url, dest):
                 os.utime(tmp_dest, (epoch_time, epoch_time))
         shutil.copy2(tmp_dest, dest)
 
+
 def extract_one(archive: Path, dest: Path):
     """extract the contents of an archive to a path."""
     if dest.exists():
         shutil.rmtree(dest)
 
     dest.mkdir(parents=True)
-
 
     old_cwd = os.getcwd()
     os.chdir(str(dest))

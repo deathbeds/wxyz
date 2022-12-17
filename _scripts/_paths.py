@@ -158,10 +158,11 @@ DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
 LITE_OUT = BUILD / "lite"
 LITE_SHA256SUMS = LITE_OUT / "SHA256SUMS"
 LITE_SDIST = BUILD / "sdist"
-LITE_PYPI = LITE_OUT / "pypi"
+LITE_PYPI = LITE / "pypi"
 NOARCH_WHL = "py3-none-any.whl"
+PYPI_SRC = "https://pypi.io/packages/source"
 LITE_WHEELS = {
-    f"pyld-2.0.3-{NOARCH_WHL}": "https://pypi.io/packages/source/P/PyLD/PyLD-2.0.3.tar.gz"
+    f"PyLD-2.0.3-{NOARCH_WHL}": f"{PYPI_SRC}/P/PyLD/PyLD-2.0.3.tar.gz",
 }
 
 
