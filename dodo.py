@@ -34,7 +34,7 @@ DOIT_CONFIG = {
 }
 
 os.environ.update(
-    PIP_NO_BUILD_ISOLATION="1",
+    PIP_NO_BUILD_ISOLATION="True",
     PYDEVD_DISABLE_FILE_VALIDATION="1",
 )
 
