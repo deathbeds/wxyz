@@ -85,7 +85,7 @@ def task_lock():
     TODO: this should be more deriveable directly from a file tree structure
             that matches a github actions schema
     """
-    if P.RUNNING_IN_CI:
+    if P.RUNNING_IN_CI or P.RTD:
         return
 
     base_envs = [P.ENV.base, *P.ENV.WXYZ]
@@ -162,7 +162,7 @@ def task_setup_ts():
 
 def task_licenses():
     """put licenses everywhere"""
-    if P.RUNNING_IN_CI:
+    if P.RUNNING_IN_CI or P.RTD:
         return
 
     for path in [*P.ALL_PYPROJECT_TOML, *P.TS_PACKAGE]:
@@ -275,7 +275,7 @@ def _make_linters(label, files):
 
 def task_lint():
     """detect and (hopefully) correct code style/formatting"""
-    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI or P.RTD:
         return
 
     for label, files in P.LINT_GROUPS.items():
@@ -898,7 +898,7 @@ def _make_lab(watch=False):
 
 def task_lab():
     """start JupyterLab, no funny stuff (Note: Single Ctrl+C stops)"""
-    if P.RUNNING_IN_CI:
+    if P.RUNNING_IN_CI or P.RTD:
         return
 
     yield dict(
@@ -911,7 +911,7 @@ def task_lab():
 
 def task_watch():
     """watch typescript sources, launch JupyterLab, rebuilding as files change"""
-    if P.RUNNING_IN_CI:
+    if P.RUNNING_IN_CI or P.RTD:
         return
 
     yield dict(
@@ -951,7 +951,7 @@ def task_watch():
 
 def task_binder():
     """get to a working interactive state"""
-    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI or P.RTD:
         return
     return dict(
         file_dep=[P.OK / "setup_lab", P.OK / "setup_py"],
@@ -989,7 +989,7 @@ def task_robot():
 
 def task_integrity():
     """check various sources of version and documentation issues"""
-    if P.BUILDING_IN_CI or P.TESTING_IN_CI:
+    if P.BUILDING_IN_CI or P.TESTING_IN_CI or P.RTD:
         return
     return dict(
         file_dep=[
