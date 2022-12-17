@@ -399,25 +399,18 @@ TS_README_TMPL = jinja2.Template(TS_README_TXT.strip())
 
 ALL_VERSION_PY = sorted(SRC.glob("*/src/wxyz/*/_version.py"))
 
-PY_VERSION_TXT = '''
-"""source of truth for {{ project["name"] }} version info"""
-from importlib.metadata import version
-
+PY_VERSION_TXT = '''"""source of truth for {{ project["name"] }} version info"""
 {% if js_pkg %}import sys
-from pathlib import Path
+{% endif %}from importlib.metadata import version
+{% if js_pkg %}from pathlib import Path
 
 module_name = "{{ js_pkg["name"] }}"
 module_version = "{{ js_pkg["version"] }}"
-
 HERE = Path(__file__).parent
-
 SHARE = "share/jupyter/labextensions"
 IN_TREE = (HERE / "../../../_d" / SHARE / module_name).resolve()
 IN_PREFIX = Path(sys.prefix) / SHARE / module_name
-
 __prefix__ = IN_TREE if IN_TREE.exists() else IN_PREFIX
-
-
 {% endif %}NAME = "{{ project["name"] }}"
 __version__ = version(NAME)
 '''

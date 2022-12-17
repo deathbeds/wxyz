@@ -537,7 +537,7 @@ def _make_py_readme(py_proj):
             _write,
             ["jlpm", "--silent", "prettier", "--write", "--list-different", readme],
         ],
-        file_dep=[P.README, py_proj],
+        file_dep=[P.README, py_proj, P.YARN_INTEGRITY],
         targets=[readme],
     )
 
@@ -555,7 +555,7 @@ def _make_py_version(py_proj):
                 context["js_pkg"] = package_json
                 break
 
-        version_py.write_text(P.PY_VERSION_TMPL.render(**context).strip())
+        version_py.write_text(P.PY_VERSION_TMPL.render(**context))
 
     return dict(
         name=f"version:py:{pkg.name}",
@@ -589,7 +589,7 @@ def _make_ts_readme(package_json):
             _write,
             ["jlpm", "prettier", "--write", "--list-different", readme],
         ],
-        file_dep=[P.README, package_json],
+        file_dep=[P.README, package_json, P.YARN_INTEGRITY],
         targets=[readme],
     )
 
@@ -727,9 +727,9 @@ def _make_dot(setup_py):
     )
 
 
-def task_docs():
+def task_predocs():
     """make the docs right"""
-    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+    if P.TESTING_IN_CI or P.BUILDING_IN_CI or P.RTD:
         return
     widget_index_deps = []
 
@@ -754,6 +754,9 @@ def task_docs():
         targets=[P.DOCS_FAVICON],
     )
 
+
+def task_docs():
+    """build the docs"""
     if shutil.which("sphinx-build"):
         yield dict(
             name="sphinx",
