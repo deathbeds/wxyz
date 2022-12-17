@@ -350,6 +350,7 @@ NoneType
 numpy
 png
 proto
+PyData
 pydoit
 rankdir
 repr
