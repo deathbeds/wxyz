@@ -11,7 +11,6 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 
-import libarchive
 from doit.reporter import ConsoleReporter
 
 from . import _paths as P
@@ -135,6 +134,6 @@ def extract_one(archive: Path, dest: Path):
     old_cwd = os.getcwd()
     os.chdir(str(dest))
     try:
-        libarchive.extract_file(str(archive))
+        __import__("libarchive").extract_file(str(archive))
     finally:
         os.chdir(old_cwd)
