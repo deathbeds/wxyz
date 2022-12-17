@@ -43,6 +43,7 @@
   },
   "jupyterlab": {
     "extension": "lib/plugin",
+    "webpackConfig": "./webpack.config.js",
     "discovery": {
       "server": {
         "base": {

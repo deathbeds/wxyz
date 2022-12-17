@@ -41,12 +41,14 @@
     "@types/marked": "~0.3.0",
     "@types/node": "^10.11.6",
     "codemirror": "*",
+    "jquery": "^3.1.1",
     "marked": "*",
-    "xterm": "~4.2.0",
-    "xterm-addon-fit": "~0.3.0"
+    "xterm": "~4.19.0",
+    "xterm-addon-fit": "~0.5.0"
   },
   "jupyterlab": {
     "extension": "lib/plugin",
+    "webpackConfig": "./webpack.config.js",
     "discovery": {
       "server": {
         "base": {

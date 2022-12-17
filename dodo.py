@@ -543,7 +543,6 @@ def _make_py_readme(py_proj):
         uptodate=[config_changed(P.PY_README_TXT)],
         actions=[
             _write,
-            ["jlpm", "--silent", "prettier", "--write", "--list-different", readme],
         ],
         file_dep=[P.README, py_proj, P.YARN_INTEGRITY],
         targets=[readme],
@@ -595,7 +594,6 @@ def _make_ts_readme(package_json):
         uptodate=[config_changed(P.TS_README_TXT)],
         actions=[
             _write,
-            ["jlpm", "prettier", "--write", "--list-different", readme],
         ],
         file_dep=[P.README, package_json, P.YARN_INTEGRITY],
         targets=[readme],
@@ -735,8 +733,8 @@ def _make_dot(setup_py):
     )
 
 
-def task_predocs():
-    """make the docs right"""
+def task_generate():
+    """generate source code"""
     if P.TESTING_IN_CI or P.BUILDING_IN_CI or P.RTD:
         return
     widget_index_deps = []
@@ -752,8 +750,20 @@ def task_predocs():
     yield _make_widget_index(widget_index_deps)
 
     for package_json in P.TS_PACKAGE:
-        if "meta" not in package_json.parent.name:
-            yield _make_ts_readme(package_json)
+        pkg = package_json.parent
+        if "meta" in pkg.name:
+            continue
+        yield _make_ts_readme(package_json)
+        yield dict(
+            name=f"webpack:{pkg.name}",
+            file_dep=[P.TMPL_WEBPACK],
+            actions=[
+                (
+                    U.template_one,
+                    [P.TMPL_WEBPACK, pkg / P.TMPL_WEBPACK.name.replace(".j2", ""), {}],
+                )
+            ],
+        )
 
     yield dict(
         name="favicon",

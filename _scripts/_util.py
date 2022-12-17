@@ -137,3 +137,12 @@ def extract_one(archive: Path, dest: Path):
         __import__("libarchive").extract_file(str(archive))
     finally:
         os.chdir(old_cwd)
+
+
+def template_one(src: Path, dest: Path, context):
+    """template something."""
+    jinja2 = __import__("jinja2")
+    tmpl_src = src.read_text(encoding="utf-8")
+    tmpl = jinja2.Template(tmpl_src)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(tmpl.render(**context), encoding="utf-8")

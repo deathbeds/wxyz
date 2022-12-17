@@ -327,6 +327,10 @@ ALL_PRETTIER = sorted(
 
 ALL_ROBOT = [*ATEST.rglob("*.robot")]
 
+TEMPLATES = SCRIPTS / "templates"
+
+TMPL_WEBPACK = TEMPLATES / "webpack.config.j2.js"
+
 PY_README_TXT = """
 # `{{ project.name }}`
 
