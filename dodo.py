@@ -19,7 +19,7 @@ except ImportError:
     pass
 
 from doit import create_after
-from doit.tools import PythonInteractiveAction, config_changed
+from doit.tools import CmdAction, PythonInteractiveAction, config_changed
 
 from _scripts import _paths as P
 from _scripts import _util as U
@@ -182,7 +182,7 @@ def task_setup_py():
         yield dict(
             name="ci",
             file_dep=[*P.WHEELS.values()],
-            targets=[P.OK / "setup_py", P.OK / "setup_lab"],
+            targets=[P.OK_PY, P.OK_LAB],
             actions=[
                 U.okit("setup_py", remove=True),
                 U.okit("setup_lab", remove=True),
@@ -221,7 +221,7 @@ def task_setup_py():
         yield dict(
             name="dev:pip",
             file_dep=[P.PY_DEV_REQS, *P.TS_D_PACKAGE_JSON.values()],
-            targets=[P.OK / "setup_py"],
+            targets=[P.OK_PY],
             actions=[
                 U.okit("setup_py", remove=True),
                 [
@@ -232,16 +232,16 @@ def task_setup_py():
                     "-r",
                     P.PY_DEV_REQS,
                 ],
-                [*P.PIP, "freeze"],
                 [*P.PIP, "check"],
+                [*P.PIP, "freeze"],
                 U.okit("setup_py"),
             ],
         )
 
         yield dict(
             name="dev:lab",
-            file_dep=[P.PY_DEV_REQS, P.OK / "setup_py"],
-            targets=[P.OK / "setup_lab"],
+            file_dep=[P.PY_DEV_REQS, P.OK_PY],
+            targets=[P.OK_LAB],
             actions=[
                 U.okit("setup_lab", remove=True),
                 ["jupyter", "labextension", "list"],
@@ -251,7 +251,7 @@ def task_setup_py():
 
 
 def _make_linters(label, files):
-    prev = [P.OK / "setup_py"]
+    prev = [P.OK_PY]
     next_prev = []
 
     for i, cmd_group in enumerate(P.PY_LINT_CMDS):
@@ -261,7 +261,7 @@ def _make_linters(label, files):
 
             yield dict(
                 name=f"{label}:{linter}",
-                file_dep=[*files, *prev] if prev else [*files, P.OK / "setup_py"],
+                file_dep=[*files, *prev] if prev else [*files, P.OK_PY],
                 actions=[
                     U.okit(ok, remove=True),
                     *(cmd(files) if callable(cmd) else [cmd + files]),
@@ -475,7 +475,7 @@ def task_nbtest():
     env.update(WXYZ_WIDGET_LOG_OUT=str(P.WIDGET_LOG_OUT))
 
     return dict(
-        file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK / "setup_py"],
+        file_dep=[*P.ALL_SRC_PY, *P.ALL_IPYNB, P.OK_PY],
         targets=[P.OK / "nbtest"],
         actions=[
             lambda: [P.WIDGET_LOG_OUT.exists() or P.WIDGET_LOG_OUT.mkdir(), None][-1],
@@ -618,7 +618,7 @@ def _make_py_rst(setup_py):
         actions=[_write],
         targets=[target],
         uptodate=[config_changed(P.PY_RST_TEMPLATE_TXT)],
-        file_dep=[*(setup_py.parent / "src").rglob("*.py"), P.OK / "setup_py"],
+        file_dep=[*(setup_py.parent / "src").rglob("*.py"), P.OK_PY],
     )
 
 
@@ -722,7 +722,7 @@ def _make_dot(setup_py):
         name=f"dot:{name}",
         actions=[_make],
         uptodate=[config_changed({"args": P.PYREVERSE})],
-        file_dep=[*py_files, P.OK / "setup_py"],
+        file_dep=[*py_files, P.OK_PY],
         targets=[target],
     )
 
@@ -755,6 +755,37 @@ def task_predocs():
     )
 
 
+def task_lite():
+    """build the jupyterlite site"""
+
+    yield dict(
+        name="pip:install",
+        file_dep=[P.OK_PY],
+        actions=[[*P.PIP, "install", "--no-deps", *P.LITE_SPEC]],
+    )
+
+    yield dict(
+        name="build",
+        file_dep=[*P.WHEELS.values(), *P.LITE_CONFIG, *P.ALL_IPYNB, P.OK_LAB],
+        task_dep=["lite:pip:install"],
+        targets=[P.LITE_SHA256SUMS],
+        actions=[
+            CmdAction(["jupyter", "lite", "build"], shell=False, cwd=str(P.LITE)),
+            CmdAction(
+                [
+                    "jupyter",
+                    "lite",
+                    "doit",
+                    "--",
+                    "pre_archive:report:SHA256SUMS",
+                ],
+                shell=False,
+                cwd=str(P.LITE),
+            ),
+        ],
+    )
+
+
 def task_docs():
     """build the docs"""
     if shutil.which("sphinx-build"):
@@ -771,7 +802,8 @@ def task_docs():
                 *P.DOCS_TEMPLATES,
                 *P.PY_DOCS_RST,
                 P.DOCS_CONF_PY,
-                P.OK / "setup_py",
+                P.OK_PY,
+                P.LITE_SHA256SUMS,
             ],
             targets=[P.DOCS_BUILDINFO],
         )
@@ -902,7 +934,7 @@ def task_lab():
     yield dict(
         name="serve",
         uptodate=[lambda: False],
-        file_dep=[P.OK / "setup_lab"],
+        file_dep=[P.OK_LAB],
         actions=[PythonInteractiveAction(_make_lab())],
     )
 
@@ -915,7 +947,7 @@ def task_watch():
     yield dict(
         name="lab",
         uptodate=[lambda: False],
-        file_dep=[P.OK / "setup_lab"],
+        file_dep=[P.OK_LAB],
         actions=[PythonInteractiveAction(_make_lab(watch=True))],
     )
 
@@ -952,7 +984,7 @@ def task_binder():
     if P.TESTING_IN_CI or P.BUILDING_IN_CI or P.RTD:
         return
     return dict(
-        file_dep=[P.OK / "setup_lab", P.OK / "setup_py"],
+        file_dep=[P.OK_LAB, P.OK_PY],
         actions=[lambda: print("OK")],
     )
 
@@ -972,7 +1004,7 @@ def task_robot():
         *P.ALL_TS,
         *P.ALL_IPYNB,
         P.SCRIPTS / "_atest.py",
-        P.OK / "setup_lab",
+        P.OK_LAB,
     ]
 
     if not P.RUNNING_IN_CI:

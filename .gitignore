@@ -1,13 +1,14 @@
 __pycache__/
 _*_repo_/
+.cache/
 .conda-packages/
 .coverage
-.doit*
 .ipynb_checkpoints/
 .pabotsuitenames
 .pytest_cache/
 .vscode/
 .yarn-packages/
+*.doit.*
 *.egg-info
 *.isorted
 *.log

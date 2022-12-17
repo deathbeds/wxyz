@@ -77,6 +77,8 @@ ROOT = SCRIPTS.parent
 
 BUILD = ROOT / "build"
 OK = BUILD / "ok"
+OK_PY = OK / "setup_py"
+OK_LAB = OK / "setup_lab"
 
 GITHUB = CI = ROOT / ".github"
 CI_YML = GITHUB / "workflows" / "ci.yml"
@@ -106,8 +108,11 @@ class ENV:
     WXYZ = REQS.glob("wxyz_*.yml")
 
 
+DODO = ROOT / "dodo.py"
+
 SRC = ROOT / "src"
 PY_SRC = SRC
+
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
@@ -115,7 +120,9 @@ DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in s
 DOCS_STATIC = DOCS / "_static"
 DOCS_LOGO = DOCS_STATIC / "wxyz.svg"
 DOCS_FAVICON = DOCS_STATIC / "favicon.ico"
-DODO = ROOT / "dodo.py"
+LITE_SPEC = ["jupyterlite==0.1.0b15"]
+LITE = ROOT / "lite"
+LITE_CONFIG = sorted(LITE.glob("*.json"))
 
 PYLINTRC = ROOT / ".pylintrc"
 
@@ -147,6 +154,8 @@ DIST = ROOT / "dist"
 TEST_OUT = BUILD / "test_output"
 DOCS_OUT = BUILD / "docs"
 DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
+LITE_OUT = BUILD / "lite"
+LITE_SHA256SUMS = LITE_OUT / "SHA256SUMS"
 
 
 def NO_SPELL():
