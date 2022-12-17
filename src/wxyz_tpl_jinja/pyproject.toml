@@ -30,6 +30,7 @@ classifiers = [
 ]
 dependencies = [
     "wxyz_core",
+    "jinja2",
 ]
 requires-python = ">=3.8"
 

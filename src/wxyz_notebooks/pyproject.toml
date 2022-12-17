@@ -29,6 +29,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = [
+    "importnb",
     "wxyz_core >=0.6,<0.7",
     "wxyz_datagrid >=0.6,<0.7",
     "wxyz_dvcs >=0.6,<0.7",
