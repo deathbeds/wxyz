@@ -2,9 +2,9 @@
 
 This module does not yet work in ``jupyterlite``
 """
-# pylint: disable=import-outside-toplevel
-import sys
+import mistune
 
+# pylint: disable=import-outside-toplevel
 from wxyz.core.base import Fn
 
 from .base import LabBase, T, W
@@ -17,7 +17,5 @@ class Markdown(Fn, LabBase):
     _model_name = T.Unicode("MarkdownModel").tag(sync=True)
 
     def the_function(self, source):
-        """Render some Jupyter markdown"""
-        if "nbconvert" not in sys.modules:
-            from nbconvert.filters.markdown import markdown2html_mistune
-        return markdown2html_mistune(source)
+        """Render some markdown"""
+        return mistune.html(source)

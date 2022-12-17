@@ -10,6 +10,7 @@ dependencies:
   - doit
   - hunspell
   - hunspell-en
+  - jupyter-server-mathjax
   - jupyterlab-webrtc-docprovider
   - myst-nb
   - nodejs >=16,!=17.*,<19

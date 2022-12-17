@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { ITerminalOptions, Terminal as Xterm } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 
@@ -98,8 +97,7 @@ export class TerminalView extends DOMWidgetView {
     if (this.luminoWidget) {
       this.luminoWidget.dispose();
     }
-    this.$el = el instanceof $ ? el : $(el);
-    this.el = this.$el[0];
+    this.el = el;
     this.luminoWidget = new TerminalLuminoWidget({
       node: el,
       view: this,
@@ -107,8 +105,8 @@ export class TerminalView extends DOMWidgetView {
   }
 
   setTermOption(attr: string, value: any) {
-    if (this._term.getOption(attr) !== value) {
-      this._term.setOption(attr, value);
+    if ((this._term.options as any)[attr] !== value) {
+      (this._term.options as any)[attr] = value;
     }
   }
 

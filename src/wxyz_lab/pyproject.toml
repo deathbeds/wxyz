@@ -29,6 +29,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = [
+    "mistune",
     "wxyz_core >=0.6,<0.7",
 ]
 requires-python = ">=3.8"

@@ -29,7 +29,9 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "@deathbeds/wxyz-core": "~0.6.0"
+    "@deathbeds/wxyz-core": "~0.6.0",
+    "xterm": "~4.19.0",
+    "xterm-addon-fit": "~0.5.0"
   },
   "devDependencies": {
     "@jupyter-widgets/base": "6",
@@ -37,13 +39,8 @@
     "@jupyter-widgets/jupyterlab-manager": "5",
     "@jupyterlab/builder": "^3.5.0",
     "@types/codemirror": "^0.0.71",
-    "@types/marked": "~0.3.0",
     "@types/node": "^10.11.6",
-    "codemirror": "*",
-    "jquery": "^3.1.1",
-    "marked": "*",
-    "xterm": "~4.19.0",
-    "xterm-addon-fit": "~0.5.0"
+    "codemirror": "*"
   },
   "jupyterlab": {
     "extension": "lib/plugin",
@@ -73,22 +70,6 @@
         "singleton": true
       },
       "@deathbeds/wxyz-core": {
-        "bundled": false,
-        "singleton": true
-      },
-      "xterm": {
-        "bundled": false,
-        "singleton": true
-      },
-      "xterm-addon-fit": {
-        "bundled": false,
-        "singleton": true
-      },
-      "marked": {
-        "bundled": false,
-        "singleton": true
-      },
-      "jquery": {
         "bundled": false,
         "singleton": true
       }
