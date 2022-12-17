@@ -36,6 +36,7 @@ DOIT_CONFIG = {
 os.environ.update(
     PIP_NO_BUILD_ISOLATION="True",
     PYDEVD_DISABLE_FILE_VALIDATION="1",
+    SOURCE_DATE_EPOCH=P.SOURCE_DATE_EPOCH,
 )
 
 
@@ -176,7 +177,7 @@ def task_licenses():
 
 def task_setup_py():
     """setup python packages"""
-    if P.RUNNING_IN_CI:
+    if P.RUNNING_IN_CI or P.RTD:
 
         yield dict(
             name="ci",
@@ -364,6 +365,7 @@ def _make_pydist(pyproj):
 
     yield dict(
         name=pkg.name,
+        uptodate=[config_changed(dict(SOURCE_DATE_EPOCH=P.SOURCE_DATE_EPOCH))],
         doc=f"build {pkg.name} distributions",
         file_dep=file_dep,
         actions=[

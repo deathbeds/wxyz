@@ -7,6 +7,7 @@ import os
 import platform
 import shutil
 import site
+import subprocess
 import sys
 from pathlib import Path
 
@@ -42,6 +43,13 @@ TESTING_IN_CI = _get_boolish("TESTING_IN_CI")
 
 RUNNING_IN_GITHUB = _get_boolish("RUNNING_IN_GITHUB")
 RTD = _get_boolish("READTHEDOCS")
+
+SOURCE_DATE_EPOCH = (
+    subprocess.check_output(["git", "log", "-1", "--format=%ct"])
+    .decode("utf-8")
+    .strip()
+)
+
 
 PY = Path(sys.executable)
 PYM = [PY, "-m"]
