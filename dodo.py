@@ -357,12 +357,18 @@ def task_schema():
 def _make_pydist(pyproj):
     """build python release artifacts"""
     pkg = pyproj.parent
-    file_dep = [pyproj, pkg / P.LICENSE_NAME, *sorted((pkg / "src").rglob("*.py"))]
+    file_dep = [
+        *sorted((pkg / "src").rglob("*.py")),
+        pkg / P.LICENSE_NAME,
+        pkg / P.README.name,
+        pyproj,
+    ]
 
     if pkg in P.TS_D_PACKAGE_JSON:
         file_dep += [P.TS_D_PACKAGE_JSON[pkg]]
 
     wheel, sdist = P.WHEELS[pkg.name], P.SDISTS[pkg.name]
+    flit_args = ["flit", "--debug", "build", "--setup-py"]
 
     yield dict(
         name=pkg.name,
@@ -370,7 +376,8 @@ def _make_pydist(pyproj):
         doc=f"build {pkg.name} distributions",
         file_dep=file_dep,
         actions=[
-            (U.call, [["flit", "build"]], {"cwd": pkg}),
+            (U.call, [[*flit_args, "--format=sdist"]], {"cwd": pkg}),
+            (U.call, [[*flit_args, "--format=wheel"]], {"cwd": pkg}),
             (U.copy_one, [pkg / f"dist/{sdist.name}", sdist]),
             (U.copy_one, [pkg / f"dist/{wheel.name}", wheel]),
         ],

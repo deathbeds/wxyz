@@ -263,13 +263,13 @@ TS_D_PACKAGE_JSON = {
 }
 
 SDISTS = {
-    pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
-    for pys, version in PY_VERSION.items()
+    ppt.parent.name: DIST / f"{ppt.parent.name}-{version}.tar.gz"
+    for ppt, version in PY_VERSION.items()
 }
 
 WHEELS = {
-    pys.parent.name: DIST / f"{pys.parent.name}-{version}-py3-none-any.whl"
-    for pys, version in PY_VERSION.items()
+    ppt.parent.name: DIST / f"{ppt.parent.name}-{version}-{NOARCH_WHL}"
+    for ppt, version in PY_VERSION.items()
 }
 
 HASH_DEPS = sorted([*TS_TARBALLS, *SDISTS.values(), *WHEELS.values()])
