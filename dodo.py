@@ -84,7 +84,7 @@ def task_lock():
     TODO: this should be more deriveable directly from a file tree structure
             that matches a github actions schema
     """
-    if P.TESTING_IN_CI or P.BUILDING_IN_CI:
+    if P.RUNNING_IN_CI:
         return
 
     base_envs = [P.ENV.base, *P.ENV.WXYZ]
@@ -161,6 +161,9 @@ def task_setup_ts():
 
 def task_licenses():
     """put licenses everywhere"""
+    if P.RUNNING_IN_CI:
+        return
+
     for path in [*P.ALL_PYPROJECT_TOML, *P.TS_PACKAGE]:
         license_ = path.parent / P.LICENSE.name
         yield dict(
