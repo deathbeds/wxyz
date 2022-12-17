@@ -257,9 +257,11 @@ jobs:
 
       - name: check (spelling, checklinks)
         if: ${{ matrix.lockname == 'docs' }}
+        env:
+          TESTING_IN_CI: 0
         run: |-
-          source "${CONDA}/bin/activate" ./envs/_base TESTING_IN_CI=0 doit -n4 spell
-          checklinks || doit spell checklinks
+          source "${CONDA}/bin/activate" ./envs/_base
+          doit -n4 spell checklinks || doit spell checklinks
 
       - name: Rename uncached conda packages
         shell: bash
