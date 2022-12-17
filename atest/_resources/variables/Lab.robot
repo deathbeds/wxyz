@@ -12,8 +12,9 @@ ${JLAB XP CODE CELLS}
 ${JLAB XP LAST CODE CELL}       ${JLAB XP CODE CELLS}\[last()]
 ${JLAB XP LAST CODE PROMPT}     ${JLAB XP LAST CODE CELL}//*[contains(@class, 'jp-InputArea-prompt')]
 ${JLAB XP STDERR}               xpath://*[@data-mime-type="application/vnd.jupyter.stderr"]
-${JLAB XP KERNEL IDLE}          xpath://*[@data-status="idle"]
+${JLAB XP KERNEL IDLE}          xpath://*[@data-status="idle"] | //*[@data-icon="ui-components:circle-empty"]
 ${JLAB CSS VERSION}             css:.jp-About-version
+${JLAB CSS REFRESH FILES}       css:.jp-FileBrowser-toolbar button [data-icon='ui-components:refresh']
 ${CSS DIALOG OK}                css:.jp-Dialog .jp-mod-accept
 ${MENU OPEN WITH}               xpath://div[contains(@class, 'lm-Menu-itemLabel')][contains(text(), "Open With")]
 # R is missing on purpose (may need to use .)
