@@ -134,7 +134,7 @@ def task_lock():
     yield dict(
         name="binder",
         file_dep=docs_task["targets"],
-        actions=[(lock_to_env, [docs_task["targets"][0], P.BINDER_ENV])],
+        actions=[(lock_to_env, [binder_task["targets"][0], P.BINDER_ENV])],
         targets=[P.BINDER_ENV],
     )
 
