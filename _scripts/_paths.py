@@ -121,6 +121,15 @@ DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in s
 DOCS_STATIC = DOCS / "_static"
 DOCS_LOGO = DOCS_STATIC / "wxyz.svg"
 DOCS_FAVICON = DOCS_STATIC / "favicon.ico"
+
+DOCS_RAW_TYPEDOC = BUILD / "typedoc"
+DOCS_RAW_TYPEDOC_README = DOCS_RAW_TYPEDOC / "README.md"
+NO_TYPEDOC = ["wxyz-meta"]
+TYPEDOC_JSON = ROOT / "typedoc.json"
+TSCONFIG_TYPEDOC = ROOT / "tsconfig.typedoc.json"
+TYPEDOC_CONF = [TSCONFIG_TYPEDOC, TYPEDOC_JSON]
+
+
 LITE_SPEC = ["jupyterlite==0.1.0b15"]
 LITE = ROOT / "lite"
 LITE_CONFIG = sorted(LITE.glob("*.json"))
@@ -261,6 +270,17 @@ TS_D_PACKAGE_JSON = {
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
     if "jupyterlab" in tsp_json
 }
+
+DOCS_JS = DOCS / "js"
+DOCS_JS_MYST_INDEX = DOCS_JS / "index.md"
+DOCS_JS_MYST_MODULES = DOCS_JS / "modules.md"
+DOCS_JS_MYST_INTERFACES = DOCS_JS / "interfaces.md"
+DOCS_JS_MYST_CLASSES = DOCS_JS / "classes.md"
+DOCS_JS_MODULES = [
+    DOCS / f"js/modules/deathbeds_{pkg.parent.name.replace('-', '_')}.md"
+    for pkg in TS_PACKAGE
+    if pkg.parent.name not in NO_TYPEDOC
+]
 
 SDISTS = {
     ppt.parent.name: DIST / f"""{ppt.parent.name.replace("_", "-")}-{version}.tar.gz"""
@@ -553,12 +573,16 @@ PYREVERSE = [
     # "--ancestor", "ipywidgets.Box"
 ]
 
-RTD_ENV = DOCS / "rtd.yml"
-RTD_ENV_TXT = """
+ENV_TMPL_TXT = """
 channels:
   - conda-forge
   - nodefaults
 dependencies:{% for dep in deps %}
   - {{ dep }}{% endfor %}
 """
-RTD_ENV_TMPL = jinja2.Template(RTD_ENV_TXT)
+ENV_TMPL = jinja2.Template(ENV_TMPL_TXT)
+
+RTD_ENV = DOCS / "rtd.yml"
+
+BINDER = ROOT / ".binder"
+BINDER_ENV = BINDER / "environment.yml"

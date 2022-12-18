@@ -21,6 +21,7 @@ atest/output/
 build/
 dask-worker-space/
 dist/
+docs/js/
 envs/
 lib/
 node_modules/

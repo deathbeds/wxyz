@@ -108,12 +108,13 @@ def task_lock():
     for conda_platform in P.ALL_CONDA_PLATFORMS:
         yield make_lock_task("lock", [P.ENV.lock], {}, conda_platform, P.LOCK_PY)
 
-    yield make_lock_task(
+    binder_task = make_lock_task(
         "binder",
         [*base_envs, P.ENV.binder],
         {},
         *binder_args,
     )
+    yield binder_task
 
     docs_task = make_lock_task(
         "docs",
@@ -128,6 +129,13 @@ def task_lock():
         file_dep=docs_task["targets"],
         actions=[(lock_to_env, [docs_task["targets"][0], P.RTD_ENV])],
         targets=[P.RTD_ENV],
+    )
+
+    yield dict(
+        name="binder",
+        file_dep=docs_task["targets"],
+        actions=[(lock_to_env, [docs_task["targets"][0], P.BINDER_ENV])],
+        targets=[P.BINDER_ENV],
     )
 
 
@@ -865,6 +873,34 @@ def task_lite():
 
 def task_docs():
     """build the docs"""
+    yield dict(
+        name="typedoc:ensure",
+        file_dep=[*P.TS_PACKAGE, P.YARN_INTEGRITY],
+        actions=[
+            U.typedoc_conf,
+            ["jlpm", "prettier", *P.TYPEDOC_CONF],
+        ],
+        targets=[P.TYPEDOC_JSON, P.TSCONFIG_TYPEDOC],
+    )
+    yield dict(
+        name="typedoc:build",
+        doc="build the TS API documentation with typedoc",
+        file_dep=[P.TS_META_BUILD, *P.TYPEDOC_CONF],
+        actions=[["jlpm", "typedoc"]],
+        targets=[P.DOCS_RAW_TYPEDOC_README],
+    )
+
+    yield dict(
+        name="typedoc:mystify",
+        doc="transform raw typedoc into myst markdown",
+        file_dep=[P.DOCS_RAW_TYPEDOC_README],
+        targets=[P.DOCS_JS_MYST_INDEX, *P.DOCS_JS_MODULES],
+        actions=[
+            U.mystify,
+            ["jlpm", "prettier", P.DOCS_JS],
+        ],
+    )
+
     if shutil.which("sphinx-build"):
         yield dict(
             name="sphinx",

@@ -17,6 +17,7 @@
 # - jupyterlab >=3.5,<3.6
 # - jupyterlab-deck
 # - jupyterlab-lsp
+# - jupyterlab-myst
 # - jupyterlab-tour
 # - lxml
 # - nbgitpuller
@@ -223,7 +224,6 @@ https://conda.anaconda.org/conda-forge/noarch/gitpython-3.1.29-pyhd8ed1ab_0.tar.
 https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-5.1.0-hd8ed1ab_0.conda#3dc2248927de739b4d2e2da9a9972bfe
 https://conda.anaconda.org/conda-forge/noarch/jsonschema-4.17.3-pyhd8ed1ab_0.conda#723268a468177cd44568eb8f794e0d80
 https://conda.anaconda.org/conda-forge/noarch/jupyter_client-7.4.8-pyhd8ed1ab_0.conda#bd4951aa5fbf3336a249e25c90f50333
-https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.4.2-pyhd8ed1ab_0.conda#85990f166093bacddd1b733fb55446c3
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.2.2-pyhd8ed1ab_0.tar.bz2#243f63592c8e449f40cd42eb5cf32f40
 https://conda.anaconda.org/conda-forge/noarch/mako-1.2.4-pyhd8ed1ab_0.tar.bz2#0d072f0edc017b6318dbab701e053f94
 https://conda.anaconda.org/conda-forge/linux-64/pandas-1.5.2-py311h8b32b4d_0.conda#d203d6938a0c1a76cb540a2972644af7
@@ -235,7 +235,6 @@ https://conda.anaconda.org/conda-forge/noarch/watchgod-0.8.2-pyhd8ed1ab_0.tar.bz
 https://conda.anaconda.org/conda-forge/noarch/wcwidth-0.2.5-pyh9f0ad1d_2.tar.bz2#5266fcd697043c59621fda522b3d78ee
 https://conda.anaconda.org/conda-forge/noarch/alembic-1.9.0-pyhd8ed1ab_0.conda#bf0355fed63253fffee0b292ba16c033
 https://conda.anaconda.org/conda-forge/noarch/argon2-cffi-21.3.0-pyhd8ed1ab_0.tar.bz2#a0b402db58f73aaab8ee0ca1025a362e
-https://conda.anaconda.org/conda-forge/noarch/jupyter_events-0.5.0-pyhd8ed1ab_0.tar.bz2#3d64e8858396939c9143dc0814a4c0ab
 https://conda.anaconda.org/conda-forge/noarch/jupyter_telemetry-0.1.0-pyhd8ed1ab_1.tar.bz2#bb9ebdb6d5aa2622484aff1faceee181
 https://conda.anaconda.org/conda-forge/noarch/nbformat-5.7.0-pyhd8ed1ab_0.tar.bz2#f8439ce65664bec6d348346590ed57f0
 https://conda.anaconda.org/conda-forge/noarch/oauthlib-3.2.2-pyhd8ed1ab_0.tar.bz2#8f882b197fd9c4941a787926baea4868
@@ -257,7 +256,7 @@ https://conda.anaconda.org/conda-forge/noarch/pylsp-mypy-0.6.4-pyhd8ed1ab_0.cond
 https://conda.anaconda.org/conda-forge/noarch/requests-2.28.1-pyhd8ed1ab_1.tar.bz2#089382ee0e2dc2eae33a04cc3c2bddb0
 https://conda.anaconda.org/conda-forge/noarch/flit-3.8.0-pyhd8ed1ab_0.tar.bz2#d37c34176396c5402cf80c32e67731b7
 https://conda.anaconda.org/conda-forge/noarch/ipywidgets-8.0.3-pyhd8ed1ab_0.conda#c40e33af46fb0f1bb26a6cb08167add9
-https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.0.1-pyhd8ed1ab_0.conda#c2e046bc083aa665d1eff11521d1a5de
+https://conda.anaconda.org/conda-forge/noarch/jupyter_server-1.23.3-pyhd8ed1ab_0.conda#c497ada2dbcb07e6912756f4ea709f65
 https://conda.anaconda.org/conda-forge/noarch/jupyterhub-base-3.1.0-pyh2a2186d_0.conda#ca96c2cd4d1aaa98d9098d775e5012cb
 https://conda.anaconda.org/conda-forge/noarch/nbconvert-pandoc-7.2.6-pyhd8ed1ab_0.conda#c75ece5b10744eb2db7e9faaa02e25eb
 https://conda.anaconda.org/conda-forge/noarch/pyld-2.0.3-pyhd8ed1ab_1.tar.bz2#7cf1deedbb078d614dde4fe25dbec3c7
@@ -282,5 +281,7 @@ https://conda.anaconda.org/conda-forge/noarch/jupyter-starters-1.1.0-pyhd8ed1ab_
 https://conda.anaconda.org/conda-forge/noarch/jupyterhub-singleuser-3.1.0-pyh2a2186d_0.conda#7607cbc55a1bc12bc9c78ce827c7bb8e
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab-fonts-2.1.1-pyhd8ed1ab_0.tar.bz2#fc28d40ad8ffa770a870d3c30eac09f2
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab-lsp-3.10.2-pyhd8ed1ab_0.tar.bz2#7d35c4204a3a7b69b6cad9e893db555f
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-markup-1.0.1-pyhd8ed1ab_0.tar.bz2#821a870f1c41018a0a9458bb6969ad5b
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab-tour-3.1.4-pyhd8ed1ab_0.tar.bz2#f024235b373fbc757d7cd13b0b32c4dc
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab-deck-0.1.3-pyhd8ed1ab_0.tar.bz2#79affb7b10399c1ad5705f7ac18c94f3
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-myst-0.1.6-pyhd8ed1ab_0.tar.bz2#e88eaaf0d64fa366a7ead1ed42c04b81

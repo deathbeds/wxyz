@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -eux
 
-export CONDARC=".github/.condarc"
-export MAMBA_NO_BANNER="1"
-export LOCKFILE=".github/locks/conda.binder.linux-64-3.11-3.5.lock"
-
-time mamba create --yes --prefix "${NB_PYTHON_PREFIX}" --file "${LOCKFILE}"
-
 export RUNNING_IN_BINDER="1"
 
-time doit -n4 binder || doit binder
+time doit binder || doit binder

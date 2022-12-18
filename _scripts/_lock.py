@@ -149,7 +149,7 @@ def iter_matrix(matrix, keys=None):
 def lock_to_env(lock: Path, env: Path):
     """Generate a very explicit env from a lock."""
     env.write_text(
-        P.RTD_ENV_TMPL.render(
+        P.ENV_TMPL.render(
             deps=lock.read_text(encoding="utf-8")
             .split(EXPLICIT)[1]
             .strip()

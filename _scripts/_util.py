@@ -2,7 +2,9 @@
 """
 # pylint: disable=expression-not-assigned
 import email.utils
+import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -146,3 +148,131 @@ def template_one(src: Path, dest: Path, context):
     tmpl = jinja2.Template(tmpl_src)
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(tmpl.render(**context), encoding="utf-8")
+
+
+def typedoc_conf():
+    """generate typedoc configuration"""
+    typedoc = json.loads(P.TYPEDOC_JSON.read_text(encoding="utf-8"))
+    original_entry_points = sorted(typedoc["entryPoints"])
+    new_entry_points = sorted(
+        [
+            f"packages/{pkg.parent.name}"
+            for pkg in P.TS_PACKAGE
+            if pkg.parent.name not in P.NO_TYPEDOC
+        ]
+    )
+
+    if json.dumps(original_entry_points) != json.dumps(new_entry_points):
+        typedoc["entryPoints"] = new_entry_points
+        P.TYPEDOC_JSON.write_text(
+            json.dumps(typedoc, indent=2, sort_keys=True), encoding="utf-8"
+        )
+
+    tsconfig = json.loads(P.TSCONFIG_TYPEDOC.read_text(encoding="utf-8"))
+    original_references = tsconfig["references"]
+    new_references = [
+        {"path": f"./packages/{pkg.parent.name}"}
+        for pkg in sorted(P.TS_PACKAGE)
+        if pkg.parent.name not in P.NO_TYPEDOC
+    ]
+
+    if json.dumps(original_references) != json.dumps(new_references):
+        tsconfig["references"] = new_references
+        P.TSCONFIG_TYPEDOC.write_text(
+            json.dumps(tsconfig, indent=2, sort_keys=True), encoding="utf-8"
+        )
+
+
+def mystify():
+    """unwrap monorepo docs into per-module docs"""
+    if P.DOCS_JS.exists():
+        shutil.rmtree(P.DOCS_JS)
+
+    def unescape_name_header(matchobj):
+        unescaped = matchobj.group(1).replace("\\_", "_")
+        if unescaped not in ["Interfaces"]:
+            unescaped = f"`{unescaped}`"
+        return f"""### {unescaped}"""
+
+    def unescape_bold(matchobj):
+        unescaped = matchobj.group(1).replace("\\_", "_")
+        return f"""**`{unescaped}`**"""
+
+    for doc in sorted(P.DOCS_RAW_TYPEDOC.rglob("*.md")):
+        if doc.parent == P.DOCS_RAW_TYPEDOC:
+            continue
+        if doc.name == "README.md":
+            continue
+        doc_text = doc.read_text(encoding="utf-8")
+        doc_lines = doc_text.splitlines()
+
+        # rewrite doc and write back out
+        out_doc = P.DOCS_JS / doc.relative_to(P.DOCS_RAW_TYPEDOC)
+        if not out_doc.parent.exists():
+            out_doc.parent.mkdir(parents=True)
+
+        out_text = "\n".join([*doc_lines[1:], ""]).replace("README.md", "index.md")
+        out_text = re.sub(
+            r"## Table of contents(.*?)\n## ",
+            "\n## ",
+            out_text,
+            flags=re.M | re.S,
+        )
+        out_text = re.sub(r"^# Module: (.*)$", r"# `\1`", out_text, flags=re.M)
+        out_text = re.sub(r"^# (.*): (.*)$", r"# \1: `\2`", out_text, flags=re.M)
+        out_text = re.sub(r"^### (.*)$", unescape_name_header, out_text, flags=re.M)
+        out_text = re.sub(r"^[\-_]{3}$", "", out_text, flags=re.M)
+        # what even is this
+        out_text = re.sub(r"^[•▸] ", ">\n> ", out_text, flags=re.M)
+        out_text = re.sub(r"\*\*([^\*]+)\*\*", unescape_bold, out_text, flags=re.M)
+        out_text = out_text.replace("/src]", "]")
+        out_text = re.sub(r"/src$", "", out_text, flags=re.M)
+        out_text = re.sub(
+            r"^((Implementation of|Overrides|Inherited from):)",
+            "_\\1_",
+            out_text,
+            flags=re.M | re.S,
+        )
+        out_text = re.sub(
+            r"^Defined in: ([^\n]+)$",
+            "_Defined in:_ `\\1`",
+            out_text,
+            flags=re.M | re.S,
+        )
+
+        out_doc.write_text(out_text, encoding="utf-8")
+
+    for index in [
+        P.DOCS_JS_MYST_INTERFACES,
+        P.DOCS_JS_MYST_MODULES,
+        P.DOCS_JS_MYST_CLASSES,
+    ]:
+        name = index.name[:-3]
+        index.write_text(
+            "\n".join(
+                [
+                    f"# {name.title()}",
+                    "\n",
+                    "```{toctree}",
+                    ":maxdepth: 1",
+                    ":glob:",
+                    f"{name}/*",
+                    "```",
+                ]
+            )
+        )
+
+    P.DOCS_JS_MYST_INDEX.write_text(
+        "\n".join(
+            [
+                "# `@deathbeds`\n",
+                "```{toctree}",
+                ":maxdepth: 1",
+                "modules",
+                "interfaces",
+                "classes",
+                "```",
+            ]
+        ),
+        encoding="utf-8",
+    )

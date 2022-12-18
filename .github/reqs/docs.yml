@@ -11,6 +11,8 @@ dependencies:
   - hunspell
   - hunspell-en
   - jupyter-server-mathjax
+  - jupyterlab-deck
+  - jupyterlab-myst
   - jupyterlab-webrtc-docprovider
   - myst-nb
   - nodejs >=16,!=17.*,<19
