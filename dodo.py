@@ -973,7 +973,7 @@ def task_checklinks():
         *["-p", "no:importnb"],
         "--check-anchors",
         # might be able to relax this, eventually
-        *["-k", "not https"],
+        *["-k", "not http"],
     ]
     return dict(
         uptodate=[config_changed(dict(args=args))],
