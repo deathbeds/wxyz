@@ -31,15 +31,17 @@ conda install -c conda-forge wxyz_tpl_jinja
 
 ## Developer Installation
 
-`@deathbeds/wxyz-tpl-nunjucks` is distributed on `npmjs.org` with:
+The `@deathbeds/wxyz-tpl-nunjucks` TypeScript API is documented on [ReadTheDocs][docs].
+The contents of these docs are also available in-line in your editor, via the
+`@deathbeds/wxyz-tpl-nunjucks` on `npmjs.org` with:
 
 - source maps
 - TypeScript type definitions
 
-While no API docs are published, it's likely that you can:
+It is encouraged to try working with it in a development setting:
 
 ```bash
-jlpm add @deathbeds/wxyz-tpl-nunjucks
+jlpm add --dev @deathbeds/wxyz-tpl-nunjucks
 ```
 
 ...and then, in your widget extension:

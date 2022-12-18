@@ -225,7 +225,6 @@ PY_DOCS_RST = [
     DOCS / f"""widgets/{ppt.parent.name.replace("wxyz_", "")}.rst""" for ppt in PY_PROJ
 ]
 
-
 DOCS_DOT = [*PY_DOCS_DOT]
 
 SITE_PKGS = Path(site.getsitepackages()[0])
@@ -351,154 +350,17 @@ TEMPLATES = SCRIPTS / "templates"
 
 TMPL_WEBPACK = TEMPLATES / "webpack.config.j2.js"
 
-PY_README_TXT = """
-# `{{ project.name }}`
-
-[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif
-%} [![docs-badge][docs]]
-
-[docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://wxyz.rtfd.io
-[pypi-badge]: https://img.shields.io/pypi/v/{{ project.name }}
-[pypi]: https://pypi.org/project/{{ project.name.replace("_", "-") }}
-{% if js_pkg %}
-[npm-badge]: https://img.shields.io/npm/v/{{ js_pkg.name }}
-[npm]: https://www.npmjs.com/package/{{ js_pkg.name }}
-{% endif %}
-
-> {{ project.description }}
-
-## Installation
-
-> Prerequisites:
-> - `python {{ project["requires-python"] }}`
-> - `jupyterlab >=3.1,<4`
-
-```bash
-pip install {{ project.name }}
-```
-"""
+PY_README_TXT = (TEMPLATES / "py_README.j2.md").read_text(encoding="utf-8")
 
 PY_README_TMPL = jinja2.Template(PY_README_TXT.strip())
 
-TS_README_TXT = """
-# `{{ name }}`
-
-{% set py = jupyterlab.discovery.server.base.name %}
-
-[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
-
-[pypi-badge]: https://img.shields.io/pypi/v/{{ py }}
-[pypi]: https://pypi.org/project/{{ py.replace("_", "-") }}
-[npm-badge]: https://img.shields.io/npm/v/{{ name }}
-[npm]: https://www.npmjs.com/package/{{ name }}
-[docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://wxyz.rtfd.io
-
-> {{ description }}
-
-**If you just want to _use_ `{{ name }}` in JupyterLab 3**
-
-```bash
-pip install {{ py }}
-```
-
-or...
-
-```bash
-mamba install -c conda-forge {{ py }}
-```
-
-or...
-
-```bash
-conda install -c conda-forge {{ py }}
-```
-
-## Developer Installation
-
-`{{ name }}` is distributed on `npmjs.org` with:
-
-- source maps
-- TypeScript type definitions
-
-While no API docs are published, it's likely that you can:
-
-```bash
-jlpm add {{ name }}
-```
-
-...and then, in your widget extension:
-
-```ts
-import wxyz from '{{ name }}';
-
-console.log(wxyz); // and see _something_
-```
-
-## Reusing `{{ name }}`
-
-### Packaging in Python
-
-If you are authoring a pure-python widget, just ensure your package declares
-a dependency on whatever leaf widgets you're using.
-
-```toml
-[project]
-dependencies = [
-    "{{ py }}",                     # but probably pinned sensibly
-]
-```
-
-### Customizing in TypeScript
-
-If you do use these widgets in _other_ widget extensions, you'll likely need to
-ensure they are deduplicated by updating the `jupyterlab` key in your `package.json`:
-
-```yaml
-{
-  "devDependencies": {
-    "{{ name }}": "*"               # but probably pinned sensibly
-  },
-  "jupyterlab": {
-    "sharedPackages": {
-      "@jupyter-widgets/base": {
-        "bundled": false,
-        "singleton": true
-      },
-      "@jupyter-widgets/controls": {
-        "bundled": false,
-        "singleton": true
-      },
-      "{{ name }}": {
-        "bundled": false,
-        "singleton": true
-      }
-    }
-  }
-}
-```
-"""
+TS_README_TXT = (TEMPLATES / "js_README.j2.md").read_text(encoding="utf-8")
 
 TS_README_TMPL = jinja2.Template(TS_README_TXT.strip())
 
 ALL_VERSION_PY = sorted(SRC.glob("*/src/wxyz/*/_version.py"))
 
-PY_VERSION_TXT = '''"""source of truth for {{ project["name"] }} version info"""
-{% if js_pkg %}import sys
-{% endif %}from importlib.metadata import version
-{% if js_pkg %}from pathlib import Path
-
-module_name = "{{ js_pkg["name"] }}"
-module_version = "{{ js_pkg["version"] }}"
-HERE = Path(__file__).parent
-SHARE = "share/jupyter/labextensions"
-IN_TREE = (HERE / "../../../_d" / SHARE / module_name).resolve()
-IN_PREFIX = Path(sys.prefix) / SHARE / module_name
-__prefix__ = IN_TREE if IN_TREE.exists() else IN_PREFIX
-{% endif %}NAME = "{{ project["name"] }}"
-__version__ = version(NAME)
-'''
+PY_VERSION_TXT = (TEMPLATES / "py_version.j2.py").read_text(encoding="utf-8")
 
 PY_VERSION_TMPL = jinja2.Template(PY_VERSION_TXT.strip())
 
@@ -556,8 +418,6 @@ PY_RST_TEMPLATE_TXT = """{{ stars }}
    :inherited-members:
    :show-inheritance:
    :exclude-members: {{ exclude_members }}
-
-
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)

@@ -31,15 +31,17 @@ conda install -c conda-forge wxyz_html
 
 ## Developer Installation
 
-`@deathbeds/wxyz-html` is distributed on `npmjs.org` with:
+The `@deathbeds/wxyz-html` TypeScript API is documented on [ReadTheDocs][docs]. The
+contents of these docs are also available in-line in your editor, via the
+`@deathbeds/wxyz-html` on `npmjs.org` with:
 
 - source maps
 - TypeScript type definitions
 
-While no API docs are published, it's likely that you can:
+It is encouraged to try working with it in a development setting:
 
 ```bash
-jlpm add @deathbeds/wxyz-html
+jlpm add --dev @deathbeds/wxyz-html
 ```
 
 ...and then, in your widget extension:

@@ -31,15 +31,17 @@ conda install -c conda-forge wxyz_lab
 
 ## Developer Installation
 
-`@deathbeds/wxyz-lab` is distributed on `npmjs.org` with:
+The `@deathbeds/wxyz-lab` TypeScript API is documented on [ReadTheDocs][docs]. The
+contents of these docs are also available in-line in your editor, via the
+`@deathbeds/wxyz-lab` on `npmjs.org` with:
 
 - source maps
 - TypeScript type definitions
 
-While no API docs are published, it's likely that you can:
+It is encouraged to try working with it in a development setting:
 
 ```bash
-jlpm add @deathbeds/wxyz-lab
+jlpm add --dev @deathbeds/wxyz-lab
 ```
 
 ...and then, in your widget extension:
