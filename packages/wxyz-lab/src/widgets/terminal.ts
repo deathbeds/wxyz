@@ -93,6 +93,7 @@ export class TerminalView extends DOMWidgetView {
   protected _fitAddon: FitAddon;
   private _wasInitialized = false;
   _setElement(el: HTMLElement) {
+    const { $ } = window.Backbone;
 
     if (this.luminoWidget) {
       this.luminoWidget.dispose();
