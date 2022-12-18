@@ -17,6 +17,7 @@ dependencies:
   - https://conda.anaconda.org/conda-forge/linux-64/bzip2-1.0.8-h7f98852_4.tar.bz2#a1fd65c7ccbf10880423d82bca54eb54
   - https://conda.anaconda.org/conda-forge/linux-64/c-ares-1.18.1-h7f98852_0.tar.bz2#f26ef8098fab1f719c91eb760d63381a
   - https://conda.anaconda.org/conda-forge/linux-64/expat-2.5.0-h27087fc_0.tar.bz2#c4fbad8d4bddeb3c085f18cbf97fbfad
+  - https://conda.anaconda.org/conda-forge/linux-64/fossil-pikchr-2.20-h0b41bf4_1.conda#8189f275759755da906545ae801da70f
   - https://conda.anaconda.org/conda-forge/linux-64/gettext-0.21.1-h27087fc_0.tar.bz2#14947d8770185e5153fdd04d4673ed37
   - https://conda.anaconda.org/conda-forge/linux-64/icu-70.1-h27087fc_0.tar.bz2#87473a15119779e021c314249d4b4aed
   - https://conda.anaconda.org/conda-forge/linux-64/keyutils-1.6.1-h166bdaf_0.tar.bz2#30186d27e2c9fa62b45fb1476b7200e3
@@ -214,6 +215,5 @@ dependencies:
   - https://conda.anaconda.org/conda-forge/noarch/jupyterlab-fonts-2.1.1-pyhd8ed1ab_0.tar.bz2#fc28d40ad8ffa770a870d3c30eac09f2
   - https://conda.anaconda.org/conda-forge/noarch/jupyterlab-markup-1.0.1-pyhd8ed1ab_0.tar.bz2#821a870f1c41018a0a9458bb6969ad5b
   - https://conda.anaconda.org/conda-forge/noarch/jupyterlab-tour-3.1.4-pyhd8ed1ab_0.tar.bz2#f024235b373fbc757d7cd13b0b32c4dc
-  - https://conda.anaconda.org/conda-forge/noarch/jupikchr-0.2.0-pyhd8ed1ab_0.conda#45abbcc34617f32c05009690e0f352e2
   - https://conda.anaconda.org/conda-forge/noarch/jupyterlab-deck-0.1.3-pyhd8ed1ab_0.tar.bz2#79affb7b10399c1ad5705f7ac18c94f3
   - https://conda.anaconda.org/conda-forge/noarch/jupyterlab-myst-0.1.6-pyhd8ed1ab_0.tar.bz2#e88eaaf0d64fa366a7ead1ed42c04b81

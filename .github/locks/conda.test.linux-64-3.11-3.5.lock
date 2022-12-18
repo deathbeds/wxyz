@@ -7,6 +7,7 @@
 # - flake8
 # - flit >=3.8
 # - fossil
+# - fossil-pikchr
 # - geckodriver
 # - git
 # - gitpython
@@ -56,6 +57,7 @@ https://conda.anaconda.org/conda-forge/linux-64/bzip2-1.0.8-h7f98852_4.tar.bz2#a
 https://conda.anaconda.org/conda-forge/linux-64/c-ares-1.18.1-h7f98852_0.tar.bz2#f26ef8098fab1f719c91eb760d63381a
 https://conda.anaconda.org/conda-forge/linux-64/expat-2.5.0-h27087fc_0.tar.bz2#c4fbad8d4bddeb3c085f18cbf97fbfad
 https://conda.anaconda.org/conda-forge/linux-64/firefox-102.6.0esr-hcb278e6_0.conda#4e5f050f77ae1cbec7c2395b646ef259
+https://conda.anaconda.org/conda-forge/linux-64/fossil-pikchr-2.20-h0b41bf4_1.conda#8189f275759755da906545ae801da70f
 https://conda.anaconda.org/conda-forge/linux-64/geckodriver-0.32.0-h4b87306_0.tar.bz2#513d5d9ae8626ead2e0787660f7edd4d
 https://conda.anaconda.org/conda-forge/linux-64/gettext-0.21.1-h27087fc_0.tar.bz2#14947d8770185e5153fdd04d4673ed37
 https://conda.anaconda.org/conda-forge/linux-64/icu-70.1-h27087fc_0.tar.bz2#87473a15119779e021c314249d4b4aed
@@ -200,7 +202,7 @@ https://conda.anaconda.org/conda-forge/noarch/gitdb-4.0.10-pyhd8ed1ab_0.conda#37
 https://conda.anaconda.org/conda-forge/noarch/h11-0.14.0-pyhd8ed1ab_0.tar.bz2#b21ed0883505ba1910994f1df031a428
 https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-5.1.0-pyha770c72_0.conda#46a62e35b9ae515cf0e49afc7fe0e7ef
 https://conda.anaconda.org/conda-forge/noarch/importlib_resources-5.10.1-pyhd8ed1ab_0.conda#db5d88c84c769798bf4b2f6776446b32
-https://conda.anaconda.org/conda-forge/noarch/isort-5.11.2-pyhd8ed1ab_0.conda#86ff7cc3ec84aaf29488c4c8c788c954
+https://conda.anaconda.org/conda-forge/noarch/isort-5.11.3-pyhd8ed1ab_0.conda#df79686d95d8dd88eda0422711e5e7e3
 https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.2.3-pyhd8ed1ab_0.tar.bz2#31e4a1506968d017229bdb64695013a1
 https://conda.anaconda.org/conda-forge/noarch/jedi-0.18.2-pyhd8ed1ab_0.conda#b5e695ef9c3f0d27d6cd96bf5adc9e07
 https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.2-pyhd8ed1ab_1.tar.bz2#c8490ed5c70966d232fdd389d0dbed37
@@ -235,7 +237,7 @@ https://conda.anaconda.org/conda-forge/noarch/jupyter_client-7.4.8-pyhd8ed1ab_0.
 https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.4.2-pyhd8ed1ab_0.conda#85990f166093bacddd1b733fb55446c3
 https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.2.2-pyhd8ed1ab_0.tar.bz2#243f63592c8e449f40cd42eb5cf32f40
 https://conda.anaconda.org/conda-forge/linux-64/pandas-1.5.2-py311h8b32b4d_0.conda#d203d6938a0c1a76cb540a2972644af7
-https://conda.anaconda.org/conda-forge/noarch/pylint-2.15.8-pyhd8ed1ab_0.conda#26a62404bbfc93452c4d22aa2cda6f08
+https://conda.anaconda.org/conda-forge/noarch/pylint-2.15.9-pyhd8ed1ab_0.conda#5bfc68e1b8f0883f793ae0acedc88770
 https://conda.anaconda.org/conda-forge/noarch/pytest-7.2.0-pyhd8ed1ab_2.tar.bz2#ac82c7aebc282e6ac0450fca012ca78c
 https://conda.anaconda.org/conda-forge/noarch/rich-12.6.0-pyhd8ed1ab_0.tar.bz2#162ed4cc104133be23e592faa1e055e3
 https://conda.anaconda.org/conda-forge/noarch/robotframework-pabot-2.8.0-pyhd8ed1ab_0.tar.bz2#4209b39ac3ff6533a24ec62d196c124a

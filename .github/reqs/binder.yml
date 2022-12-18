@@ -6,7 +6,6 @@ channels:
 
 dependencies:
   - ipydrawio
-  - jupikchr
   - jupyter-starters
   - jupyterhub-singleuser
   - jupyterlab-deck

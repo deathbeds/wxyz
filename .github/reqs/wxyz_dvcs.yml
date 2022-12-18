@@ -6,6 +6,7 @@ channels:
 
 dependencies:
   - fossil
+  - fossil-pikchr
   - git
   - gitpython
   - watchgod
