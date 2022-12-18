@@ -73,15 +73,15 @@
       },
       "d3-zoom": {
         "bundled": true,
-        "singleton": true
+        "singleton": false
       },
       "d3-selection": {
         "bundled": true,
-        "singleton": true
+        "singleton": false
       },
       "d3-drag": {
         "bundled": true,
-        "singleton": true
+        "singleton": false
       }
     }
   }
