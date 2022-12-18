@@ -42,6 +42,8 @@
     "@rjsf/core": "~2.4.0",
     "@types/node": "^10.11.6",
     "@types/react-dom": "*"
+  },"scripts": {
+    "watch": "jupyter labextension watch ."
   },
   "jupyterlab": {
     "extension": "lib/plugin",

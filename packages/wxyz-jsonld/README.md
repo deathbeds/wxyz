@@ -1,5 +1,7 @@
 # `@deathbeds/wxyz-jsonld`
 
+
+
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_jsonld
@@ -31,8 +33,7 @@ conda install -c conda-forge wxyz_jsonld
 
 ## Developer Installation
 
-The `@deathbeds/wxyz-jsonld` TypeScript API is documented on [ReadTheDocs][docs]. The
-contents of these docs are also available in-line in your editor, via the
+The `@deathbeds/wxyz-jsonld` TypeScript API is documented on [ReadTheDocs][docs]. The contents of these docs are also available in-line in your editor, via the
 `@deathbeds/wxyz-jsonld` on `npmjs.org` with:
 
 - source maps
@@ -56,8 +57,8 @@ console.log(wxyz); // and see _something_
 
 ### Packaging in Python
 
-If you are authoring a pure-python widget, just ensure your package declares a
-dependency on whatever leaf widgets you're using.
+If you are authoring a pure-python widget, just ensure your package declares
+a dependency on whatever leaf widgets you're using.
 
 ```toml
 [project]
@@ -68,13 +69,31 @@ dependencies = [
 
 ### Customizing in TypeScript
 
-If you do use these widgets in _other_ widget extensions, you'll likely need to ensure
-they are deduplicated by updating the `jupyterlab` key in your `package.json`:
+If you do use these widgets in _other_ widget extensions, you'll likely need to
+ensure they are deduplicated by updating the `jupyterlab` key in your `package.json`:
 
 ```yaml
-{ 'devDependencies': {
-      '@deathbeds/wxyz-jsonld': '*', # but probably pinned sensibly
-    }, 'jupyterlab': { 'sharedPackages': { '@jupyter-widgets/base': { 'bundled': false, 'singleton': true }, '@jupyter-widgets/controls': { 'bundled': false, 'singleton': true }, '@deathbeds/wxyz-jsonld': { 'bundled': false, 'singleton': true } } } }
+{
+  "devDependencies": {
+    "@deathbeds/wxyz-jsonld": "*"               # but probably pinned sensibly
+  },
+  "jupyterlab": {
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@deathbeds/wxyz-jsonld": {
+        "bundled": false,
+        "singleton": true
+      }
+    }
+  }
+}
 ```
 
 ---

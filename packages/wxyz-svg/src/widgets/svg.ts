@@ -125,9 +125,9 @@ export class SVGBoxView extends BoxView {
   }
 
   layout(): void {
-    const el = this.el.parentNode;
+    const { parentNode } = this.el;
 
-    if (!el) {
+    if (!parentNode) {
       _.delay(_.bind(this.layout, this), 10);
       return;
     }
@@ -211,6 +211,12 @@ export class SVGBoxView extends BoxView {
 
   private _zoom: d3Zoom.ZoomBehavior<any, any>;
 
+  saveZoom = ({ transform }: any) => {
+    this._zoomer.attr('transform', transform);
+    this.model.saveZoom(transform);
+    this.touch();
+  };
+
   resize(): void {
     if (!this._original) {
       return;
@@ -219,10 +225,7 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      this._zoom = d3Zoom.zoom().on('zoom', function ({ transform }) {
-        view._zoomer.attr('transform', transform);
-        view.model.saveZoom(transform);
-      });
+      this._zoom = d3Zoom.zoom().on('zoom', this.saveZoom);
       // TODO: fix this
       layout.call(this._zoom as any);
     }

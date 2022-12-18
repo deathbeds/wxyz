@@ -98,8 +98,11 @@ export class JupyterPhosphorDockPanelWidget extends DockPanelSvg {
   }
 
   onLayoutChanged() {
-    let layout = this.saveLayout();
-    this._view.model.set('dock_layout', this.areaToJWidgets(layout.main));
+    let { main } = this.saveLayout();
+    if (!main) {
+      return;
+    }
+    this._view.model.set('dock_layout', this.areaToJWidgets(main));
     this._view.touch();
   }
 

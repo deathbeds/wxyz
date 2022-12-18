@@ -10,7 +10,6 @@ import json
 import os
 import shutil
 import subprocess
-import time
 from hashlib import sha256
 from pathlib import Path
 
@@ -421,7 +420,7 @@ def _make_lab_ext_build(ext):
     yield dict(
         name=f"""ext:{ext.name}""".replace("/", "_"),
         file_dep=[
-            ext / "lib" / ".tsbuildinfo",
+            ext / ".src.tsbuildinfo",
             ext / "README.md",
             ext / "LICENSE.txt",
             *ext.rglob("style/*.css"),
@@ -988,17 +987,6 @@ def task_checklinks():
 def _make_lab(watch=False):
     # pylint: disable=consider-using-with
     def _lab():
-        if watch:
-            print(">>> Starting typescript watcher...", flush=True)
-            ts = subprocess.Popen(["jlpm", "watch"])
-
-            ext_watchers = [
-                subprocess.Popen([*P.LAB_EXT, "watch", "."], cwd=str(p))
-                for p in P.WXYZ_LAB_EXTENSIONS
-            ]
-
-            print(">>> Waiting a bit to JupyterLab...", flush=True)
-            time.sleep(3)
         print(">>> Starting JupyterLab...", flush=True)
         lab = subprocess.Popen(
             [*P.JPY, "lab", "--no-browser", "--debug"],
@@ -1015,19 +1003,8 @@ def _make_lab(watch=False):
             )
         finally:
             print(">>> Stopping watchers...", flush=True)
-            if watch:
-                [x.terminate() for x in ext_watchers]
-                ts.terminate()
             lab.terminate()
             lab.communicate(b"y\n")
-            if watch:
-                ts.wait()
-                lab.wait()
-                [x.wait() for x in ext_watchers]
-                print(
-                    ">>> Stopped watchers! maybe check process monitor...",
-                    flush=True,
-                )
 
         return True
 
@@ -1056,7 +1033,7 @@ def task_watch():
         name="lab",
         uptodate=[lambda: False],
         file_dep=[P.OK_LAB],
-        actions=[PythonInteractiveAction(_make_lab(watch=True))],
+        actions=[["jlpm", "watch"]],
     )
 
     def _docs():

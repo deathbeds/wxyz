@@ -240,8 +240,8 @@ TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
 TS_META = PACKAGES / "wxyz-meta"
-TS_META_BUILD = PACKAGES / "wxyz-meta/lib/.tsbuildinfo"
-TS_ALL_BUILD = [p / "lib" / ".tsbuildinfo" for p in TS_SRC]
+TS_META_BUILD = PACKAGES / "wxyz-meta/.src.tsbuildinfo"
+TS_ALL_BUILD = [p / ".src.tsbuildinfo" for p in TS_SRC]
 
 WXYZ_LAB_EXTENSIONS = [tsp.parent for tsp in TS_PACKAGE if tsp.parent != TS_META]
 ALL_TS = sorted(

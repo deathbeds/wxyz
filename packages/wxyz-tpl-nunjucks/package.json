@@ -16,6 +16,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/deathbeds/wxyz"
+  },"scripts": {
+    "watch": "jupyter labextension watch ."
   },
   "license": "BSD-3-Clause",
   "author": {

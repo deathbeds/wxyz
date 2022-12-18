@@ -38,6 +38,8 @@
     "@jupyter-widgets/jupyterlab-manager": "5",
     "@jupyterlab/builder": "^3.5.0",
     "@types/node": "^10.11.6"
+  },"scripts": {
+    "watch": "jupyter labextension watch ."
   },
   "jupyterlab": {
     "extension": "lib/plugin",

@@ -21,6 +21,8 @@
   "author": {
     "name": "wxyz contributors",
     "email": "ripxl@googlegroups.com"
+  },"scripts": {
+    "watch": "jupyter labextension watch ."
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

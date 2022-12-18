@@ -28,6 +28,9 @@
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
+  "scripts": {
+    "watch": "jupyter labextension watch ."
+  },
   "dependencies": {
     "jsonpointer": "^4.1.0"
   },

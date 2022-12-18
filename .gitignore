@@ -16,7 +16,7 @@ _*_repo_/
 **/labextension/
 **/static/
 **/test-output.xml
-/lab/
+*.tsbuildinfo
 atest/output/
 build/
 dask-worker-space/
