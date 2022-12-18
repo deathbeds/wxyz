@@ -6,11 +6,9 @@ channels:
 
 dependencies:
   - ipydrawio
-  - jupyter-lsp-python-plugins
   - jupyter-starters
   - jupyterhub-singleuser
   - jupyterlab-deck
-  - jupyterlab-lsp
   - jupyterlab-myst
   - jupyterlab-tour
   - nbgitpuller
