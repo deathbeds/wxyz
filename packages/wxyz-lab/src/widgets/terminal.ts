@@ -92,12 +92,13 @@ export class TerminalView extends DOMWidgetView {
   protected _term: Xterm;
   protected _fitAddon: FitAddon;
   private _wasInitialized = false;
-
   _setElement(el: HTMLElement) {
+
     if (this.luminoWidget) {
       this.luminoWidget.dispose();
     }
-    this.el = el;
+    this.$el = el instanceof $ ? el : $(el);
+    this.el = this.$el[0];
     this.luminoWidget = new TerminalLuminoWidget({
       node: el,
       view: this,
