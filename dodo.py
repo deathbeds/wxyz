@@ -169,21 +169,6 @@ def task_setup_ts():
     )
 
 
-def task_licenses():
-    """put licenses everywhere"""
-    if P.RUNNING_IN_CI or P.RTD:
-        return
-
-    for path in [*P.ALL_PYPROJECT_TOML, *P.TS_PACKAGE]:
-        license_ = path.parent / P.LICENSE.name
-        yield dict(
-            name=path.parent.name,
-            file_dep=[P.LICENSE],
-            targets=[license_],
-            actions=[(U.copy_one, [P.LICENSE, license_])],
-        )
-
-
 def task_setup_py():
     """setup python packages"""
     if P.RUNNING_IN_CI or P.RTD:
@@ -780,6 +765,15 @@ def task_generate():
         targets=[P.DOCS_FAVICON],
     )
 
+    for path in [*P.ALL_PYPROJECT_TOML, *P.TS_PACKAGE]:
+        license_ = path.parent / P.LICENSE.name
+        yield dict(
+            name=path.parent.name,
+            file_dep=[P.LICENSE],
+            targets=[license_],
+            actions=[(U.copy_one, [P.LICENSE, license_])],
+        )
+
 
 def task_lite():
     """build the jupyterlite site"""
@@ -830,10 +824,10 @@ def task_lite():
     yield dict(
         name="build",
         file_dep=[
-            *P.WHEELS.values(),
             *all_wheels,
-            *P.LITE_CONFIG,
             *P.ALL_IPYNB,
+            *P.LITE_CONFIG,
+            *P.WHEELS.values(),
             P.OK_LAB,
         ],
         task_dep=["lite:pip:install"],
