@@ -90,7 +90,6 @@ export class SVGBoxView extends BoxView {
       .select(this.el)
       .style('position', 'relative')
       .style('text-align', 'center');
-    d3.select(window).on('', _.bind(this.update, this));
     this.luminoWidget.addClass(CSS.SVG);
     this.model.on('change:svg change:area_attr', this.loadSVG, this);
     this.model.on('change:zoom_lock', this.zoomLock, this);
@@ -108,7 +107,7 @@ export class SVGBoxView extends BoxView {
     }
   }
 
-  onZoom() {
+  onZoom(change: any) {
     this._zoomer &&
       this._zoomer.call(
         // TODO: fix this
@@ -211,10 +210,11 @@ export class SVGBoxView extends BoxView {
 
   private _zoom: d3Zoom.ZoomBehavior<any, any>;
 
-  saveZoom = ({ transform }: any) => {
+  saveZoom = ({ transform }: any): boolean => {
     this._zoomer.attr('transform', transform);
-    this.model.saveZoom(transform);
+    const changed = this.model.saveZoom(transform);
     this.touch();
+    return changed;
   };
 
   resize(): void {
@@ -225,7 +225,11 @@ export class SVGBoxView extends BoxView {
 
     const view = this;
     if (!this._zoom) {
-      this._zoom = d3Zoom.zoom().on('zoom', this.saveZoom);
+      this._zoom = d3Zoom.zoom().on('zoom', ({ transform }) => {
+        if (this.saveZoom({ transform })) {
+          this.resize();
+        }
+      });
       // TODO: fix this
       layout.call(this._zoom as any);
     }
