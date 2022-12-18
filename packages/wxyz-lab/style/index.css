@@ -1,3 +1,5 @@
+@import url('~xterm/css/xterm.css');
+
 .jupyter-widgets.lm-DockPanel {
   overflow: hidden;
 }
