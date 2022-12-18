@@ -4,7 +4,9 @@
   opacity: 0.75 !important;
   outline: dotted 1px var(--jp-brand-color2);
 }
-
+.jp-WXYZ-SVG-Zoom {
+  cursor: all-scroll;
+}
 .jp-WXYZ-SVG svg {
   width: 100%;
   height: 100%;
