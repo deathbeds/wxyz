@@ -295,7 +295,7 @@
 "@deathbeds/wxyz-core@file:packages/wxyz-core":
   version "0.6.0"
   dependencies:
-    jsonpointer "^4.1.0"
+    jsonpointer "^5.0.1"
 
 "@deathbeds/wxyz-datagrid@file:packages/wxyz-datagrid":
   version "0.6.0"
@@ -343,9 +343,9 @@
   version "0.6.0"
   dependencies:
     "@deathbeds/wxyz-core" "~0.6.0"
-    d3-drag "3"
-    d3-selection "3"
-    d3-zoom "3"
+    d3-drag "^3.0.0"
+    d3-selection "^3.0.0"
+    d3-zoom "^3.0.0"
 
 "@deathbeds/wxyz-tpl-nunjucks@file:packages/wxyz-tpl-nunjucks":
   version "0.6.0"
@@ -465,7 +465,7 @@
     base64-js "^1.2.1"
     sanitize-html "^2.3"
 
-"@jupyter-widgets/base@6", "@jupyter-widgets/base@^6.0.2":
+"@jupyter-widgets/base@^6.0.0", "@jupyter-widgets/base@^6.0.2":
   version "6.0.2"
   resolved "https://registry.npmjs.org/@jupyter-widgets/base/-/base-6.0.2.tgz#ee6e614eb70f2593fce61eea8731217d869c5a2a"
   integrity sha512-CIVjSTrqQFzkg9VCdDjrjDqwbba3eZfNigCPFSuKmMVXc+ATAOFczOv9/9uaCPzQ+E+0g6SOLhJ25SpKB0cl9g==
@@ -480,7 +480,7 @@
     jquery "^3.1.1"
     lodash "^4.17.4"
 
-"@jupyter-widgets/controls@5", "@jupyter-widgets/controls@^5.0.2":
+"@jupyter-widgets/controls@^5.0.0", "@jupyter-widgets/controls@^5.0.2":
   version "5.0.2"
   resolved "https://registry.npmjs.org/@jupyter-widgets/controls/-/controls-5.0.2.tgz#11208f24d533e49be496be6c8d44b03f211b81c9"
   integrity sha512-jll2esU+phkBCEX+8+Vvuu0NtpbvuoY2vWHOpc0IZGIL2QWYqW7VTBliZUgkVD2IxHB/jSaoRf4hkNXHX+YtTA==
@@ -496,7 +496,7 @@
     jquery "^3.1.1"
     nouislider "15.4.0"
 
-"@jupyter-widgets/jupyterlab-manager@5":
+"@jupyter-widgets/jupyterlab-manager@^5.0.0":
   version "5.0.4"
   resolved "https://registry.npmjs.org/@jupyter-widgets/jupyterlab-manager/-/jupyterlab-manager-5.0.4.tgz#698de9b44a01d376cc6ef9a4578f0f347d5948e7"
   integrity sha512-O8inBeoeM5uTO+BMxCNUWk0A7xJTYXLjnXAmqEF7CXP+5rYhWWETVeDqrUkmm6N5GdwEqqhWmPRKlBoP+CmFXg==
@@ -2285,7 +2285,7 @@
   resolved "https://registry.npmjs.org/@types/d3-color/-/d3-color-2.0.3.tgz#8bc4589073c80e33d126345542f588056511fe82"
   integrity sha512-+0EtEjBfKEDtH9Rk3u3kLOUXM5F+iZK+WvASPb0MhIZl8J8NUvGeZRwKCXl+P3HkYx5TdU4YtcibpqHkSR9n7w==
 
-"@types/d3-drag@3":
+"@types/d3-drag@^3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@types/d3-drag/-/d3-drag-3.0.1.tgz#fb1e3d5cceeee4d913caa59dedf55c94cb66e80f"
   integrity sha512-o1Va7bLwwk6h03+nSM8dpaGEYnoIG19P0lKqlic8Un36ymh9NSkNFX1yiXMKNMx8rJ0Kfnn2eovuFaL6Jvj0zA==
@@ -2299,12 +2299,12 @@
   dependencies:
     "@types/d3-color" "^2"
 
-"@types/d3-selection@*", "@types/d3-selection@3":
+"@types/d3-selection@*", "@types/d3-selection@^3.0.3":
   version "3.0.3"
   resolved "https://registry.npmjs.org/@types/d3-selection/-/d3-selection-3.0.3.tgz#57be7da68e7d9c9b29efefd8ea5a9ef1171e42ba"
   integrity sha512-Mw5cf6nlW1MlefpD9zrshZ+DAWL4IQ5LnWfRheW6xwsdaWOb6IRRu2H7XPAQcyXEx1D7XQWgdoKR83ui1/HlEA==
 
-"@types/d3-zoom@3":
+"@types/d3-zoom@^3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@types/d3-zoom/-/d3-zoom-3.0.1.tgz#4bfc7e29625c4f79df38e2c36de52ec3e9faf826"
   integrity sha512-7s5L9TjfqIYQmQQEUcpMAcBOahem7TRoSO/+Gkz02GbMVuULiZzjF2BOdw291dbO2aNon4m2OdFsRGaCq2caLQ==
@@ -3708,12 +3708,7 @@ csstype@3.0.10, csstype@^3.0.2, csstype@~3.0.3:
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.0.10.tgz#2ad3a7bed70f35b965707c092e5f30b327c290e5"
   integrity sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==
 
-"d3-color@1 - 2":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/d3-color/-/d3-color-2.0.0.tgz#8d625cab42ed9b8f601a1760a389f7ea9189d62e"
-  integrity sha512-SPXi0TSKPD4g9tw0NMZFnR95XVgUZiBH+uUTqQuDu1OsE2zomHU7ho0FISciaPvosimixwHFl3WHLGabv6dDgQ==
-
-d3-color@^3.0.1:
+"d3-color@1 - 2", d3-color@^3.0.1, d3-color@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/d3-color/-/d3-color-3.1.0.tgz#395b2833dfac71507f12ac2f7af23bf819de24e2"
   integrity sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA==
@@ -3723,7 +3718,7 @@ d3-color@^3.0.1:
   resolved "https://registry.npmjs.org/d3-dispatch/-/d3-dispatch-2.0.0.tgz#8a18e16f76dd3fcaef42163c97b926aa9b55e7cf"
   integrity sha512-S/m2VsXI7gAti2pBoLClFFTMOO1HTtT0j99AuXLoGFKO6deHDdnv6ZGTxSTTUTgO1zVcv82fCOtDjYK4EECmWA==
 
-"d3-drag@2 - 3", d3-drag@3:
+"d3-drag@2 - 3", d3-drag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/d3-drag/-/d3-drag-3.0.0.tgz#994aae9cd23c719f53b5e10e3a0a6108c69607ba"
   integrity sha512-pWbUJLdETVA8lQNJecMxoXfH6x+mO2UQo8rSmZ+QqxcbyA3hfeprFgIT//HW2nlHChWeIIMwS2Fq+gEARkhTkg==
@@ -3748,7 +3743,7 @@ d3-format@^3.0.1:
   dependencies:
     d3-color "1 - 2"
 
-"d3-selection@2 - 3", d3-selection@3:
+"d3-selection@2 - 3", d3-selection@3, d3-selection@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/d3-selection/-/d3-selection-3.0.0.tgz#c25338207efa72cc5b9bd1458a1a41901f1e1b31"
   integrity sha512-fmTRWbNMmsmWq6xJV8D19U/gw/bwrHfNXxrIN+HfZgnzqTHp9jOmKMhsTUjXOJnZOdZY9Q28y4yebKzqDKlxlQ==
@@ -3769,7 +3764,7 @@ d3-format@^3.0.1:
     d3-interpolate "1 - 2"
     d3-timer "1 - 2"
 
-d3-zoom@3:
+d3-zoom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/d3-zoom/-/d3-zoom-3.0.0.tgz#d13f4165c73217ffeaa54295cd6969b3e7aee8f3"
   integrity sha512-b8AmV3kfQaqWAuacbPuNbL6vahnOJflOhexLzMMNLga62+/nh0JzvJ0aO/5a5MVgUFGS7Hu1P9P03o3fJkDCyw==
@@ -5572,12 +5567,7 @@ jsonparse@^1.2.0, jsonparse@^1.3.1:
   resolved "https://registry.npmjs.org/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
   integrity sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==
 
-jsonpointer@^4.0.1, jsonpointer@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/jsonpointer/-/jsonpointer-4.1.0.tgz#501fb89986a2389765ba09e6053299ceb4f2c2cc"
-  integrity sha512-CXcRvMyTlnR53xMcKnuMzfCA5i/nfblTnnr74CZb6C4vG39eu6w51t7nKmU5MfLfbTgGItliNyjO/ciNPDqClg==
-
-jsonpointer@^5.0.0:
+jsonpointer@^4.0.1, jsonpointer@^5.0.0, jsonpointer@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/jsonpointer/-/jsonpointer-5.0.1.tgz#2110e0af0900fd37467b5907ecd13a7884a1b559"
   integrity sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==
