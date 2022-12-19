@@ -63,7 +63,7 @@ https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyha2e5f31_6.tar.bz2
 https://conda.anaconda.org/conda-forge/osx-64/pyyaml-6.0-py311h5547dcb_5.tar.bz2#8d1e456914ce961119b07f396187a564
 https://conda.anaconda.org/conda-forge/osx-64/ruamel.yaml.clib-0.2.7-py311h5547dcb_1.conda#fdae97fc41b9e4aa53d644cca8ba6c54
 https://conda.anaconda.org/conda-forge/osx-64/ruamel_yaml-0.15.80-py311h5547dcb_1008.tar.bz2#42c63993b1aaba9dc3c69a36e368d11c
-https://conda.anaconda.org/conda-forge/noarch/setuptools-65.5.1-pyhd8ed1ab_0.tar.bz2#cfb8dc4d9d285ca5fb1177b9dd450e33
+https://conda.anaconda.org/conda-forge/noarch/setuptools-65.6.3-pyhd8ed1ab_0.conda#9600fc9524d3f821e6a6d58c52f5bf5a
 https://conda.anaconda.org/conda-forge/noarch/six-1.16.0-pyh6c4a22f_0.tar.bz2#e5f25f8dbc060e9a8d912e432202afc2
 https://conda.anaconda.org/conda-forge/noarch/smmap-3.0.5-pyh44b312d_0.tar.bz2#3a8dc70789709aa315325d5df06fb7e4
 https://conda.anaconda.org/conda-forge/noarch/tomli-2.0.1-pyhd8ed1ab_0.tar.bz2#5844808ffab9ebdb694585b50ba02a96
@@ -77,7 +77,7 @@ https://conda.anaconda.org/conda-forge/noarch/click-default-group-1.2.2-pyhd8ed1
 https://conda.anaconda.org/conda-forge/noarch/clikit-0.6.2-pyh9f0ad1d_0.tar.bz2#159273f717a11e53b2656f8b6521a5e2
 https://conda.anaconda.org/conda-forge/noarch/gitdb-4.0.10-pyhd8ed1ab_0.conda#3706d2f3d7cb5dae600c833345a76132
 https://conda.anaconda.org/conda-forge/noarch/html5lib-1.1-pyh9f0ad1d_0.tar.bz2#b2355343d6315c892543200231d7154a
-https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-5.1.0-pyha770c72_0.conda#46a62e35b9ae515cf0e49afc7fe0e7ef
+https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-5.2.0-pyha770c72_0.conda#2e8eec7a08bcf85547a3778225f00634
 https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.2.3-pyhd8ed1ab_0.tar.bz2#31e4a1506968d017229bdb64695013a1
 https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.2-pyhd8ed1ab_1.tar.bz2#c8490ed5c70966d232fdd389d0dbed37
 https://conda.anaconda.org/conda-forge/osx-64/libmamba-1.1.0-h8b63968_2.conda#b2f3194abef248954cbd738d602fc6a5
@@ -89,7 +89,7 @@ https://conda.anaconda.org/conda-forge/osx-64/brotlipy-0.7.0-py311h5547dcb_1005.
 https://conda.anaconda.org/conda-forge/osx-64/cryptography-38.0.4-py311h61927ef_0.conda#d7415ad7ae6c27050886ab2b583f09ca
 https://conda.anaconda.org/conda-forge/noarch/doit-0.36.0-pyhd8ed1ab_0.tar.bz2#fc5e53d070f1ee7bb38c2ece282dcb82
 https://conda.anaconda.org/conda-forge/noarch/gitpython-3.1.29-pyhd8ed1ab_0.tar.bz2#8a65d15b1f37e21b683fc2080ba35593
-https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-5.1.0-hd8ed1ab_0.conda#3dc2248927de739b4d2e2da9a9972bfe
+https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-5.2.0-hd8ed1ab_0.conda#fe869d480dad3299a8ac60f31fb10bbd
 https://conda.anaconda.org/conda-forge/osx-64/libmambapy-1.1.0-py311hcc19a12_2.conda#cc99f203f28f3a4826657de7a4bab9d7
 https://conda.anaconda.org/conda-forge/osx-64/pydantic-1.10.2-py311h5547dcb_1.tar.bz2#edb88a2277e81771adbf5f043e45e9c3
 https://conda.anaconda.org/conda-forge/osx-64/zstandard-0.19.0-py311hebd4beb_1.conda#b0d4f55c803038fd429494acf684e6ef
