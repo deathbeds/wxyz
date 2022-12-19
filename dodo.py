@@ -306,6 +306,17 @@ def task_lint():
         ],
     )
 
+    yield dict(
+        name="dictionary",
+        file_dep=[P.DICTIONARY],
+        targets=[P.OK / "dictionary"],
+        actions=[
+            U.okit("dictionary", remove=True),
+            (U.sort_unique_file, [P.DICTIONARY]),
+            U.okit("dictionary"),
+        ],
+    )
+
 
 def _make_schema(source, targets):
     schema = P.SCHEMA / f"{source.stem}.schema.json"
