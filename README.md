@@ -77,6 +77,15 @@ better suited to your needs.
 - [jupyterlab-tour]
   - a pleasant "guided tour" of JupyterLab via CSS selectors and JSON Schema
 
+## Code of Conduct
+
+`wxyz` contributors and users are expected to behave in a manner in line with the [code
+of conduct].
+
+## Open Source
+
+`wxyz` is licensed under the [`BSD-3-Clause`][license]
+
 [binder-badge]: https://mybinder.org/badge_logo.svg
 [binder]:
   https://mybinder.org/v2/gh/deathbeds/wxyz/main?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
@@ -101,3 +110,5 @@ better suited to your needs.
 [this repo]: https://github.com/deathbeds/wxyz
 [traitlets]: https://github.com/ipython/traitlets
 [widgets]: https://jupyter.org/widgets
+[license]: https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md
+[code of conduct]: https://github.com/deathbeds/wxyz/blob/main/CODE_OF_CONDUCT.md
