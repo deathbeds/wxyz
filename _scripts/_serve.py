@@ -31,21 +31,21 @@ class CacheStaticHandler(web.StaticFileHandler):
         """
         return int(1e10)
 
-    async def get(self, url, include_body=True) -> None:
+    async def get(self, path, include_body=True) -> None:
         """get, but handles index.html"""
         root = Path(SETTINGS["static_path"])
-        path = root / url
+        path = root / path
         if path.is_dir():
             index = path / "index.html"
-            url = str(index.relative_to(root).as_posix())
-        await super().get(url, include_body)
+            path = str(index.relative_to(root).as_posix())
+        await super().get(path, include_body)
 
 
 def make_app():
     """create and return (but do not start) a tornado app"""
     app = web.Application(
         [(r"^/(.*)", CacheStaticHandler, dict(path=SETTINGS["static_path"]))],
-        **SETTINGS
+        **SETTINGS,
     )
 
     return app
@@ -55,9 +55,9 @@ def main(port, host):
     """start a tornado app on the desired port"""
     app = make_app()
     app.listen(port, host)
-    url = "http://{}:{}/".format(host, port)
-    print("Watching files: \t\t{static_path}".format(**SETTINGS))
-    print("Hosting site on:\t\t{}".format(url))
+    url = f"http://{host}:{port}/"
+    print("Watching files: \t", SETTINGS["static_path"])
+    print("Hosting site on:\t", url)
     print("\nPress `Ctrl+C` to stop")
     try:
         ioloop.IOLoop.current().start()

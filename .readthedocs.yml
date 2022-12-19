@@ -1,0 +1,20 @@
+version: 2
+
+build:
+  os: ubuntu-20.04
+  tools:
+    python: mambaforge-4.10
+  jobs:
+    pre_build:
+      - doit list --all --status
+      - doit setup_ts
+      - doit dist
+      - doit setup_py
+      - doit lite
+
+sphinx:
+  builder: html
+  configuration: docs/conf.py
+
+conda:
+  environment: docs/rtd.yml

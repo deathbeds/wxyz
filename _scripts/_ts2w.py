@@ -42,14 +42,11 @@ def prop_to_trait(prop_name, prop, add_tag=True, add_help=True):
 
     if any_of:
         trait = "Union"
-        args += [
-            "[{}]".format(
-                ", ".join(
-                    prop_to_trait("", any_of_prop, add_tag=False, add_help=False)
-                    for any_of_prop in any_of
-                )
-            )
-        ]
+        union_str = ", ".join(
+            prop_to_trait("", any_of_prop, add_tag=False, add_help=False)
+            for any_of_prop in any_of
+        )
+        args += [f"[{union_str}]"]
     elif ptype == "object":
         trait = "Dict"
     elif ptype == "boolean":

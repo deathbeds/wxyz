@@ -1,6 +1,6 @@
 """baseline tools for working with remotes"""
 
-# pylint: disable=no-self-use,unused-argument
+# pylint: disable=unused-argument
 
 import ipywidgets as W
 import traitlets as T

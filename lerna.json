@@ -1,6 +1,5 @@
 {
-  "lerna": "3.13.0",
-  "version": "independent",
-  "npmClient": "yarn",
-  "useWorkspaces": true
+  "npmClient": "jlpm",
+  "useWorkspaces": true,
+  "version": "independent"
 }

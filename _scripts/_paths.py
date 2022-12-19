@@ -7,15 +7,18 @@ import os
 import platform
 import shutil
 import site
+import subprocess
 import sys
 from pathlib import Path
 
 import jinja2
+import yaml
 
 try:
-    import yaml
+    import tomllib
 except ImportError:
-    import ruamel_yaml as yaml
+    import tomli as tomllib
+
 
 try:
     from colorama import init
@@ -24,16 +27,29 @@ try:
 except ImportError:
     pass
 
-RUNNING_IN_CI = bool(json.loads(os.environ.get("RUNNING_IN_CI", "false")))
-RUNNING_IN_BINDER = bool(json.loads(os.environ.get("RUNNING_IN_BINDER", "false")))
+
+def _get_boolish(name, default="false"):
+    return bool(json.loads(os.environ.get(name, default).lower()))
+
+
+RUNNING_IN_CI = _get_boolish("RUNNING_IN_CI")
+RUNNING_IN_BINDER = _get_boolish("RUNNING_IN_BINDER")
 
 # avoid certain checks etc
-BUILDING_IN_CI = bool(json.loads(os.environ.get("BUILDING_IN_CI", "false")))
+BUILDING_IN_CI = _get_boolish("BUILDING_IN_CI")
 
 # generally avoid re-building assetc, checks.
-TESTING_IN_CI = bool(json.loads(os.environ.get("TESTING_IN_CI", "false")))
+TESTING_IN_CI = _get_boolish("TESTING_IN_CI")
 
-RUNNING_IN_GITHUB = bool(json.loads(os.environ.get("RUNNING_IN_GITHUB", "false")))
+RUNNING_IN_GITHUB = _get_boolish("RUNNING_IN_GITHUB")
+RTD = _get_boolish("READTHEDOCS")
+
+SOURCE_DATE_EPOCH = (
+    subprocess.check_output(["git", "log", "-1", "--format=%ct"])
+    .decode("utf-8")
+    .strip()
+)
+
 
 PY = Path(sys.executable)
 PYM = [PY, "-m"]
@@ -61,6 +77,9 @@ ROOT = SCRIPTS.parent
 
 BUILD = ROOT / "build"
 OK = BUILD / "ok"
+OK_PY = OK / "setup_py"
+OK_LAB = OK / "setup_lab"
+OK_PRETTY = OK / "prettier"
 
 GITHUB = CI = ROOT / ".github"
 CI_YML = GITHUB / "workflows" / "ci.yml"
@@ -70,6 +89,7 @@ LOCKS = GITHUB / "locks"
 REQS = GITHUB / "reqs"
 
 ALL_CONDA_PLATFORMS = ["linux-64", "osx-64", "win-64"]
+LOCK_PY = "3.11"
 
 POSTBUILD = ROOT / ".binder" / "postBuild"
 
@@ -86,14 +106,14 @@ class ENV:
     utest = REQS / "utest.yml"
     win = REQS / "win.yml"
     unix = REQS / "unix.yml"
-    tpot = REQS / "tpot.yml"
-    unix_tpot = REQS / "unix_tpot.yml"
-    win_tpot = REQS / "win_tpot.yml"
     WXYZ = REQS.glob("wxyz_*.yml")
 
 
+DODO = ROOT / "dodo.py"
+
 SRC = ROOT / "src"
 PY_SRC = SRC
+
 DOCS = ROOT / "docs"
 DOCS_CONF_PY = DOCS / "conf.py"
 DOCS_TEMPLATES = (DOCS / "_templates").rglob("*.html")
@@ -101,22 +121,33 @@ DOCS_IPYNB = [nb for nb in DOCS.rglob("*.ipynb") if "ipynb_checkpoints" not in s
 DOCS_STATIC = DOCS / "_static"
 DOCS_LOGO = DOCS_STATIC / "wxyz.svg"
 DOCS_FAVICON = DOCS_STATIC / "favicon.ico"
-DODO = ROOT / "dodo.py"
+
+DOCS_RAW_TYPEDOC = BUILD / "typedoc"
+DOCS_RAW_TYPEDOC_README = DOCS_RAW_TYPEDOC / "README.md"
+NO_TYPEDOC = ["wxyz-meta"]
+TYPEDOC_JSON = ROOT / "typedoc.json"
+TSCONFIG_TYPEDOC = ROOT / "tsconfig.typedoc.json"
+TYPEDOC_CONF = [TSCONFIG_TYPEDOC, TYPEDOC_JSON]
+
+
+LITE_SPEC = ["jupyterlite==0.1.0b15"]
+LITE = ROOT / "lite"
+LITE_CONFIG = sorted(LITE.glob("*.json"))
 
 PYLINTRC = ROOT / ".pylintrc"
 
 SRC_IGNORE_PATTERNS = [
-    ".ipynb_checkpoints/",
-    "build/",
-    "dist/",
-    "lib/",
-    "node_modules/",
-    "*.egg-info/",
-    "output/",
-    "labextension/",
+    "/.ipynb_checkpoints/",
+    "/build/",
+    "/dist/",
+    "/lib/",
+    "/node_modules/",
+    "/*.egg-info/",
+    "/output/",
+    "/_d/",
 ]
 # these are actual packages
-ALL_SETUP_CFG = sorted(PY_SRC.glob("*/setup.cfg"))
+ALL_PYPROJECT_TOML = sorted(PY_SRC.glob("*/pyproject.toml"))
 ALL_SRC_PY = sorted(
     [
         py
@@ -133,6 +164,16 @@ DIST = ROOT / "dist"
 TEST_OUT = BUILD / "test_output"
 DOCS_OUT = BUILD / "docs"
 DOCS_BUILDINFO = DOCS_OUT / ".buildinfo"
+LITE_OUT = BUILD / "lite"
+LITE_SHA256SUMS = LITE_OUT / "SHA256SUMS"
+LITE_SDIST = BUILD / "sdist"
+LITE_PYPI = LITE / "pypi"
+NOARCH_WHL = "py3-none-any.whl"
+PYPI_SRC = "https://pypi.io/packages/source"
+LITE_WHEELS = {
+    f"PyLD-2.0.3-{NOARCH_WHL}": f"{PYPI_SRC}/P/PyLD/PyLD-2.0.3.tar.gz",
+}
+LITE_PYPI_INDEX = LITE_OUT / "pypi/all.json"
 
 
 def NO_SPELL():
@@ -172,38 +213,17 @@ ATEST = ROOT / "atest"
 ATEST_OUT = ATEST / "output"
 ATEST_PY = sorted(ATEST.rglob("*.py"))
 
-PY_SETUP = sorted(PY_SRC.glob("*/setup.py"))
-PY_VERSION = {
-    pys: json.loads(
-        next((pys.parent / "src" / "wxyz").glob("*/js/package.json")).read_text(
-            encoding="utf-8"
-        )
-    )["version"]
-    for pys in PY_SETUP
-}
-PY_DEP = {
-    pys.parent.name: [
-        other.parent.name
-        for other in PY_SETUP
-        if pys.parent.name in (other.parent / "setup.cfg").read_text(encoding="utf-8")
-        and pys != other
-    ]
-    for pys in PY_SETUP
-}
+PY_PROJ = {p: tomllib.loads(p.read_text(encoding="utf-8")) for p in ALL_PYPROJECT_TOML}
+PY_VERSION = {ppt: pptd["project"]["version"] for ppt, pptd in PY_PROJ.items()}
 PY_DEV_REQS = BUILD / "requirements-dev.txt"
 
 PY_DOCS_DOT = [
-    DOCS
-    / "widgets"
-    / "dot"
-    / f"""classes_{py_setup.parent.name.replace("wxyz_", "")}.dot"""
-    for py_setup in PY_SETUP
+    DOCS / "widgets/dot" / f"""classes_{ppt.parent.name.replace("wxyz_", "")}.dot"""
+    for ppt in PY_PROJ
 ]
 PY_DOCS_RST = [
-    DOCS / "widgets" / f"""{py_setup.parent.name.replace("wxyz_", "")}.rst"""
-    for py_setup in PY_SETUP
+    DOCS / f"""widgets/{ppt.parent.name.replace("wxyz_", "")}.rst""" for ppt in PY_PROJ
 ]
-
 
 DOCS_DOT = [*PY_DOCS_DOT]
 
@@ -213,17 +233,17 @@ YARN_LOCK = ROOT / "yarn.lock"
 YARN_INTEGRITY = ROOT / "node_modules" / ".yarn-integrity"
 ROOT_PACKAGE = ROOT / "package.json"
 
-TS_PACKAGE = [[*(p.parent / "src").glob("wxyz/*/js/package.json")][0] for p in PY_SETUP]
+PACKAGES = ROOT / "packages"
+TS_PACKAGE = sorted(PACKAGES.glob("*/package.json"))
 
 TS_SRC = [p.parent for p in TS_PACKAGE]
 TS_READMES = [p / "README.md" for p in TS_SRC]
 TS_LICENSES = [p / "LICENSE.txt" for p in TS_SRC]
-TS_META_BUILD = ROOT / "src/wxyz_notebooks/src/wxyz/notebooks/js/lib/.tsbuildinfo"
-TS_ALL_BUILD = [p / "lib" / ".tsbuildinfo" for p in TS_SRC]
+TS_META = PACKAGES / "wxyz-meta"
+TS_META_BUILD = PACKAGES / "wxyz-meta/.src.tsbuildinfo"
+TS_ALL_BUILD = [p / ".src.tsbuildinfo" for p in TS_SRC]
 
-WXYZ_LAB_EXTENSIONS = [
-    tsp.parent for tsp in TS_PACKAGE if "notebooks" not in tsp.parent.parent.name
-]
+WXYZ_LAB_EXTENSIONS = [tsp.parent for tsp in TS_PACKAGE if tsp.parent != TS_META]
 ALL_TS = sorted(
     sum(
         [
@@ -241,15 +261,34 @@ TS_TARBALLS = [
     / f"""deathbeds-{tsp_json["name"].split("/")[-1]}-{tsp_json["version"]}.tgz"""
     for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
 ]
+TS_D_PACKAGE_JSON = {
+    SRC
+    / tsp_json["jupyterlab"]["discovery"]["server"]["base"]["name"]: (
+        tsp.parent / tsp_json["jupyterlab"]["outputDir"] / "package.json"
+    ).resolve()
+    for tsp, tsp_json in TS_PACKAGE_CONTENT.items()
+    if "jupyterlab" in tsp_json
+}
+
+DOCS_JS = DOCS / "js"
+DOCS_JS_MYST_INDEX = DOCS_JS / "index.md"
+DOCS_JS_MYST_MODULES = DOCS_JS / "modules.md"
+DOCS_JS_MYST_INTERFACES = DOCS_JS / "interfaces.md"
+DOCS_JS_MYST_CLASSES = DOCS_JS / "classes.md"
+DOCS_JS_MODULES = [
+    DOCS / f"js/modules/deathbeds_{pkg.parent.name.replace('-', '_')}.md"
+    for pkg in TS_PACKAGE
+    if pkg.parent.name not in NO_TYPEDOC
+]
 
 SDISTS = {
-    pys.parent.name: DIST / f"{pys.parent.name}-{version}.tar.gz"
-    for pys, version in PY_VERSION.items()
+    ppt.parent.name: DIST / f"""{ppt.parent.name.replace("_", "-")}-{version}.tar.gz"""
+    for ppt, version in PY_VERSION.items()
 }
 
 WHEELS = {
-    pys.parent.name: DIST / f"{pys.parent.name}-{version}-py3-none-any.whl"
-    for pys, version in PY_VERSION.items()
+    ppt.parent.name: DIST / f"{ppt.parent.name}-{version}-{NOARCH_WHL}"
+    for ppt, version in PY_VERSION.items()
 }
 
 HASH_DEPS = sorted([*TS_TARBALLS, *SDISTS.values(), *WHEELS.values()])
@@ -291,8 +330,9 @@ ALL_PRETTIER = sorted(
         for pretty in [
             *ALL_MD,
             *ALL_YAML,
-            *CI.glob("*.yml"),
+            *CI.rglob("*.yml"),
             *DOCS.rglob("*.css"),
+            *LITE.glob("*.json"),
             *ROOT.glob("*.json"),
             *ROOT.glob("*.yml"),
             *SRC.rglob("*.css"),
@@ -306,94 +346,23 @@ ALL_PRETTIER = sorted(
 
 ALL_ROBOT = [*ATEST.rglob("*.robot")]
 
-PY_README_TXT = """
-# `{{ metadata.name }}`
+TEMPLATES = SCRIPTS / "templates"
 
-[![pypi-badge][]][pypi]{% if js_pkg %} [![npm-badge][]][npm]{% endif
-%} [![docs-badge][docs]]
+TMPL_WEBPACK = TEMPLATES / "webpack.config.j2.js"
 
-[docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
-[pypi-badge]: https://img.shields.io/pypi/v/{{ metadata.name }}
-[pypi]: https://pypi.org/project/{{ metadata.name.replace("_", "-") }}
-{% if js_pkg %}
-[npm-badge]: https://img.shields.io/npm/v/{{ js_pkg.name }}
-[npm]: https://www.npmjs.com/package/{{ js_pkg.name }}
-{% endif %}
-
-> {{ metadata.description }}
-
-## Installation
-
-> Prerequisites:
-> - `python {{ options.python_requires }}`
-> - `jupyterlab >=3,<4`
-
-```bash
-pip install {{ metadata.name }}
-```
-"""
+PY_README_TXT = (TEMPLATES / "py_README.j2.md").read_text(encoding="utf-8")
 
 PY_README_TMPL = jinja2.Template(PY_README_TXT.strip())
 
-TS_README_TXT = """
-# `{{ name }}`
-
-{% set py = jupyterlab.discovery.server.base.name %}
-
-[![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
-
-[pypi-badge]: https://img.shields.io/pypi/v/{{ py }}
-[pypi]: https://pypi.org/project/{{ py.replace("_", "-") }}
-[npm-badge]: https://img.shields.io/npm/v/{{ name }}
-[npm]: https://www.npmjs.com/package/{{ name }}
-[docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
-
-> {{ description }}
-
-**If you just want to _use_ `{{ name }}` in JupyterLab 3**
-
-```bash
-pip install {{ py }}  # or conda, or mamba
-```
-
-## Developer Installation
-
-The public API of the widgets in `{{ name }}` are not yet fully documented.
-However, it's likely that you can:
-
-```bash
-jlpm add {{ name }}
-```
-
-and then, in your widget extension:
-
-```ts
-import wxyz from '{{ name }}';
-
-console.log(wxyz); // and see _something_
-```
-
-## Legacy Installation (Pre-JupyterLab 2)
-
-> _This approach is no longer recommended, and is **not tested**_
-
-> Prerequisites:
-> - `python >=3.7`
-> - `nodejs >=12`
-> - `jupyterlab >=3,<4`
-
-```bash
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
-{%- for dep in devDependencies -%}
-{% if "@deathbeds" in dep %} {{ dep }}{% endif %}
-{%- endfor %} {{ name }}
-pip install {{ jupyterlab.discovery.server.base.name }}
-```
-"""
+TS_README_TXT = (TEMPLATES / "js_README.j2.md").read_text(encoding="utf-8")
 
 TS_README_TMPL = jinja2.Template(TS_README_TXT.strip())
+
+ALL_VERSION_PY = sorted(SRC.glob("*/src/wxyz/*/_version.py"))
+
+PY_VERSION_TXT = (TEMPLATES / "py_version.j2.py").read_text(encoding="utf-8")
+
+PY_VERSION_TMPL = jinja2.Template(PY_VERSION_TXT.strip())
 
 
 PY_LINT_CMDS = [
@@ -412,7 +381,7 @@ PY_LINT_CMDS = [
 
 
 LINT_GROUPS = {
-    i.parent.name: [i, *sorted((i.parent / "src").rglob("*.py"))] for i in PY_SETUP
+    ppt.parent.name: sorted((ppt.parent / "src").rglob("*.py")) for ppt in PY_PROJ
 }
 
 LINT_GROUPS["misc"] = [DODO, *SCRIPTS.glob("*.py"), *ATEST_PY, DOCS_CONF_PY]
@@ -422,19 +391,17 @@ SCHEMA = BUILD / "schema"
 # these schema update files in-place
 
 
-SCHEMA_TS_CM_OPTIONS = SRC / "wxyz_lab/src/wxyz/lab/js/src/widgets/_cm_options.ts"
+SCHEMA_TS_CM_OPTIONS = PACKAGES / "wxyz-lab/src/widgets/_cm_options.ts"
 
-SCHEMA_TS_DG_STYLE = (
-    SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/_datagrid_styles.ts"
-)
+SCHEMA_TS_DG_STYLE = PACKAGES / "wxyz-datagrid/src/widgets/_datagrid_styles.ts"
 
 SCHEMA_WIDGETS = {
     SCHEMA_TS_CM_OPTIONS: [
-        SRC / "wxyz_lab/src/wxyz/lab/js/src/widgets/editor.ts",
+        PACKAGES / "wxyz-lab/src/widgets/editor.ts",
         SRC / "wxyz_lab/src/wxyz/lab/widget_editor.py",
     ],
     SCHEMA_TS_DG_STYLE: [
-        SRC / "wxyz_datagrid/src/wxyz/datagrid/js/src/widgets/pwidgets/stylegrid.ts",
+        PACKAGES / "wxyz-datagrid/src/widgets/pwidgets/stylegrid.ts",
         SRC / "wxyz_datagrid/src/wxyz/datagrid/widget_stylegrid.py",
     ],
 }
@@ -451,87 +418,9 @@ PY_RST_TEMPLATE_TXT = """{{ stars }}
    :inherited-members:
    :show-inheritance:
    :exclude-members: {{ exclude_members }}
-
-
 """
 
 PY_RST_TEMPLATE = jinja2.Template(PY_RST_TEMPLATE_TXT)
-
-
-PY_SETUP_TEXT = '''
-"""generated setup for wxyz_{{ wxyz_name }}, do not edit by hand"""
-import json
-import sys
-from pathlib import Path
-WXYZ_NAME = "{{ wxyz_name }}"
-
-HERE = Path(__file__).parent
-JS_PKG = HERE / f"src/wxyz/{WXYZ_NAME}/js/package.json"
-
-__jspackage__ = json.loads(JS_PKG.read_text(encoding="utf-8"))
-
-
-HERE = Path(__file__).parent
-EXT_NAME = __jspackage__["name"]
-
-EXT_FILES = {}
-
-SHARE = f"share/jupyter/labextensions/{EXT_NAME}"
-
-EXT = HERE / f"src/wxyz/{WXYZ_NAME}/labextension"
-
-for ext_path in [EXT] + [d for d in EXT.rglob("*") if d.is_dir()]:
-    if ext_path == EXT:
-        target = str(SHARE)
-    else:
-        target = f"{SHARE}/{ext_path.relative_to(EXT)}"
-    EXT_FILES[target] = [
-        str(p.relative_to(HERE).as_posix())
-        for p in ext_path.glob("*")
-        if not p.is_dir()
-    ]
-
-ALL_FILES = sum(EXT_FILES.values(), [])
-
-if "sdist" in sys.argv or "bdist_wheel" in sys.argv:
-    assert (
-        len([p for p in ALL_FILES if "remoteEntry" in str(p)]) == 1
-    ), "expected _exactly one_ remoteEntry.*.js"
-
-EXT_FILES[SHARE] += [f"src/wxyz/{WXYZ_NAME}/install.json"]
-
-SETUP_ARGS=dict(
-    version=__jspackage__["version"],
-    data_files=[
-        (str(k), list(map(str, v))) for k, v in EXT_FILES.items()
-    ]
-)
-
-if __name__ == "__main__":
-    import setuptools
-    setuptools.setup(**SETUP_ARGS)
-'''
-PY_SETUP_TEMPLATE = jinja2.Template(PY_SETUP_TEXT.strip())
-
-
-INSTALL_JSON_TEXT = """{
-  "packageManager": "python",
-  "packageName": "wxyz_{{ wxyz_name }}",
-  "uninstallInstructions": "Use `pip/conda uninstall wxyz_{{ wxyz_name }}`"
-}"""
-INSTALL_JSON_TEMPLATE = jinja2.Template(INSTALL_JSON_TEXT.strip())
-
-MANIFEST_TEXT = """
-# generated python data file manifest for wxyz_{{ wxyz_name }}, do not edit by hand
-include             README.md
-include             src/wxyz/{{ wxyz_name }}/js/package.json
-include             src/wxyz/{{ wxyz_name }}/js/LICENSE.txt
-include             src/wxyz/{{ wxyz_name }}/js/README.md
-recursive-include   src/wxyz/{{ wxyz_name }}/labextension *.*
-global-exclude      .ipynb_checkpoints
-global-exclude      node_modules
-"""
-MANIFEST_TEMPLATE = jinja2.Template(MANIFEST_TEXT.strip())
 
 PYREVERSE = [
     "pyreverse",
@@ -543,3 +432,17 @@ PYREVERSE = [
     # # we want widgets
     # "--ancestor", "ipywidgets.Box"
 ]
+
+ENV_TMPL_TXT = """
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:{% for dep in deps %}
+  - {{ dep }}{% endfor %}
+"""
+ENV_TMPL = jinja2.Template(ENV_TMPL_TXT)
+
+RTD_ENV = DOCS / "rtd.yml"
+
+BINDER = ROOT / ".binder"
+BINDER_ENV = BINDER / "environment.yml"

@@ -1,10 +1,10 @@
-# `wxyz_tpl_jinja`
+# `wxyz-tpl-jinja`
 
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [docs-badge]: https://img.shields.io/badge/docs-pages-black
-[docs]: https://deathbeds.github.io/wxyz
-[pypi-badge]: https://img.shields.io/pypi/v/wxyz_tpl_jinja
+[docs]: https://wxyz.rtfd.io
+[pypi-badge]: https://img.shields.io/pypi/v/wxyz-tpl-jinja
 [pypi]: https://pypi.org/project/wxyz-tpl-jinja
 [npm-badge]: https://img.shields.io/npm/v/@deathbeds/wxyz-tpl-nunjucks
 [npm]: https://www.npmjs.com/package/@deathbeds/wxyz-tpl-nunjucks
@@ -15,11 +15,11 @@
 
 > Prerequisites:
 >
-> - `python >=3.7`
-> - `jupyterlab >=3,<4`
+> - `python >=3.8`
+> - `jupyterlab >=3.1,<4`
 
 ```bash
-pip install wxyz_tpl_jinja
+pip install wxyz-tpl-jinja
 ```
 
 ---
@@ -50,8 +50,8 @@ pip install wxyz_tpl_jinja
 
 ### Strongly Discouraged
 
-`wxyz_notebooks`, not **recommended for production use**, requires all of the
-`wxyz_*` packages.
+`wxyz_notebooks`, not **recommended for production use**, requires all of the `wxyz_*`
+packages.
 
 Some _`extra(s)` dangerous_ dependencies are available as well
 
@@ -62,8 +62,8 @@ pip install wxyz_notebooks[thirdparty]  # some casually co-tested third-party pa
 pip install wxyz_notebooks[all]         # everything. it's a lot. good luck.
 ```
 
-It is unknown whether the heavier dependencies will continue to work in the future
-and may carry _very specific version pins_ which might not be solveable with any old:
+It is unknown whether the heavier dependencies will continue to work in the future and
+may carry _very specific version pins_ which might not be solveable with any old:
 
 - operating system
 - version of python
@@ -71,11 +71,10 @@ and may carry _very specific version pins_ which might not be solveable with any
 
 ## Motivation
 
-`wxyz` contains a number of "missing pieces" from the [ipywidgets][] toolbox.
-It is made up of a number of packages for Python and the browser, in [this repo][].
-While many create _pixels on the page_, some are focused around configurably
-transforming the [traitlets][] of one widget to another, in the _kernel_, the
-_browser_ or _both_.
+`wxyz` contains a number of "missing pieces" from the [ipywidgets][] toolbox. It is made
+up of a number of packages for Python and the browser, in [this repo][]. While many
+create _pixels on the page_, some are focused around configurably transforming the
+[traitlets][] of one widget to another, in the _kernel_, the _browser_ or _both_.
 
 ## Uninstall
 
@@ -85,8 +84,8 @@ Use `pip` or `conda` to uninstall any `wxyz_*` packages.
 
 ## Alternatives
 
-If you don't like `wxyz`, that's fine! There are a number of related tools that
-might be better suited to your needs.
+If you don't like `wxyz`, that's fine! There are a number of related tools that might be
+better suited to your needs.
 
 - [formulas]
   - a python-side re-implementation of an Excel/LibreOffice reactive functional
@@ -94,25 +93,28 @@ might be better suited to your needs.
 - [ipyevents]
   - fine-grained DOM event control
 - [ipylab]
-  - a number of similar utilities as parts of `wxyz.lab`, and nice
-    support for commands, and additional [lumino][] primitives, e.g. `SplitPanel`
+  - a number of similar utilities as parts of `wxyz.lab`, and nice support for commands,
+    and additional [lumino][] primitives, e.g. `SplitPanel`
 - [ipyregulartable]
-  - a high-performance datagrid solution, supporting pandas `MultiIndex`-type
-    data
+  - a high-performance datagrid solution, supporting pandas `MultiIndex`-type data
 - [jupyter-starters]
-  - wizard-style project templates, driven by simple configuration, JSON Schema
-    or notebooks
+  - wizard-style project templates, driven by simple configuration, JSON Schema or
+    notebooks
 - [jupyterlab-tour]
   - a pleasant "guided tour" of JupyterLab via CSS selectors and JSON Schema
 
 [binder-badge]: https://mybinder.org/badge_logo.svg
-[binder]: https://mybinder.org/v2/gh/deathbeds/wxyz/master?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[binder]:
+  https://mybinder.org/v2/gh/deathbeds/wxyz/main?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
 [docs]: https://deathbeds.github.io/wxyz
-[build-badge]: https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=master
-[build]: https://dev.azure.com/nickbollweg/deathbeds/_build/latest?definitionId=6&branchName=master
-[changelog]: https://github.com/deathbeds/wxyz/blob/master/CHANGELOG.md
-[contributing]: https://github.com/deathbeds/wxyz/blob/master/CONTRIBUTING.md
-[examples]: https://github.com/deathbeds/wxyz/blob/master/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
+[build-badge]:
+  https://dev.azure.com/nickbollweg/deathbeds/_apis/build/status/deathbeds.wxyz?branchName=main
+[build]:
+  https://dev.azure.com/nickbollweg/deathbeds/_build/latest?definitionId=6&branchName=main
+[changelog]: https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md
+[contributing]: https://github.com/deathbeds/wxyz/blob/main/CONTRIBUTING.md
+[examples]:
+  https://github.com/deathbeds/wxyz/blob/main/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
 [formulas]: https://pypi.org/project/formulas/
 [ipyevents]: https://github.com/mwcraig/ipyevents
 [ipylab]: https://github.com/jtpio/ipylab

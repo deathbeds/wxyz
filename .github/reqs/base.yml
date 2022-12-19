@@ -1,14 +1,17 @@
 name: wxyz-base
 
 channels:
-  - https://conda.anaconda.org/conda-forge
+  - conda-forge
+  - nodefaults
 
 dependencies:
   - bs4
   - doit
+  - flit >=3.8
   - importnb
-  - ipywidgets
-  - jupyterlab
+  - ipykernel !=6.19.*
+  - ipywidgets >=8,<9
+  - jupyterlab >=3,<4
   - pip
   - python
   - twine

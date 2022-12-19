@@ -1,0 +1,23 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPointStrategy": "packages",
+  "entryPoints": [
+    "packages/wxyz-core",
+    "packages/wxyz-datagrid",
+    "packages/wxyz-dvcs",
+    "packages/wxyz-html",
+    "packages/wxyz-json-e",
+    "packages/wxyz-json-schema-form",
+    "packages/wxyz-jsonld",
+    "packages/wxyz-lab",
+    "packages/wxyz-svg",
+    "packages/wxyz-tpl-nunjucks",
+    "packages/wxyz-yaml"
+  ],
+  "githubPages": false,
+  "logLevel": "Verbose",
+  "name": "wxyz",
+  "out": "build/typedoc",
+  "readme": "none",
+  "tsconfig": "tsconfig.typedoc.json"
+}

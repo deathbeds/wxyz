@@ -1,12 +1,14 @@
 name: wxyz-atest
 
 channels:
-  - https://conda.anaconda.org/conda-forge
+  - conda-forge
+  - nodefaults
 
 dependencies:
-  - firefox =78
+  - firefox =102
   - geckodriver
-  - robotframework >=4
-  - robotframework-lint
+  - robotframework >=6
+  - robotframework-tidy
+  - robotframework-robocop
   - robotframework-pabot
   - robotframework-seleniumlibrary

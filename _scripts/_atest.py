@@ -78,11 +78,11 @@ def atest(attempt, extra_args):
     os.chdir(P.ATEST)
 
     if out_dir.exists():
-        print("trying to clean out {}".format(out_dir))
+        print(f"trying to clean out {out_dir}")
         try:
             shutil.rmtree(out_dir)
         except Exception as err:
-            print("Error deleting {}, hopefully harmless: {}".format(out_dir, err))
+            print(f"Error deleting {out_dir}, hopefully harmless: {err}")
 
     if "--dryrun" in extra_args:
         run_robot = robot.run_cli
@@ -95,7 +95,6 @@ def atest(attempt, extra_args):
             "--artifactsinsubfolders",
             "--artifacts",
             "png,log",
-            "--testlevelsplit",
             *args,
         ]
 
@@ -119,7 +118,7 @@ def attempt_atest_with_retries(*extra_args):
 
     while error_count != 0 and attempt <= retries:
         attempt += 1
-        print("attempt {} of {}...".format(attempt, retries + 1))
+        print(f"attempt {attempt} of {retries + 1}...")
         start_time = time.time()
         error_count = atest(attempt=attempt, extra_args=list(extra_args))
         print(error_count, "errors in", int(time.time() - start_time), "seconds")

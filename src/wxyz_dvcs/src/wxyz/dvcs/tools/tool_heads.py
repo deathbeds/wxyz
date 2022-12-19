@@ -20,7 +20,7 @@ DEFAULT_STATUS_TEMPLATE = """
 class HeadStatus(W.HBox):
     """a status bar"""
 
-    # pylint: disable=fixme,no-self-use
+    # pylint: disable=fixme
 
     repo = T.Instance(Repo)
     # todo: break up more for styling
@@ -46,7 +46,7 @@ class HeadStatus(W.HBox):
 class HeadPicker(W.HBox):
     """a simple dropdown-based picker of current DVCS heads"""
 
-    # pylint: disable=no-self-use,unused-argument
+    # pylint: disable=unused-argument
 
     repo = T.Instance(Repo)
     picker = T.Instance(W.DOMWidget)
@@ -116,7 +116,7 @@ class HeadPicker(W.HBox):
 class Brancher(W.HBox):
     """Create a new branch from the current commit"""
 
-    # pylint: disable=no-self-use,unused-argument
+    # pylint: disable=unused-argument
 
     repo = T.Instance(Repo)
     create_btn = T.Instance(W.Button)

@@ -1,0 +1,48 @@
+{
+  "name": "@deathbeds/wxyz-meta",
+  "version": "0.6.0",
+  "description": "metapackage for building @deathbeds/wxyz (probably won't install)",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": "ripxl@googlegroups.com"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
+    "LICENSE.txt"
+  ],
+  "scripts": {
+    "build": "tsc -b src",
+    "watch": "jlpm build --watch --preserveWatchOutput"
+  },
+  "dependencies": {
+    "@deathbeds/wxyz-core": "file:../wxyz-core",
+    "@deathbeds/wxyz-datagrid": "file:../wxyz-datagrid",
+    "@deathbeds/wxyz-dvcs": "file:../wxyz-dvcs",
+    "@deathbeds/wxyz-html": "file:../wxyz-html",
+    "@deathbeds/wxyz-json-e": "file:../wxyz-json-e",
+    "@deathbeds/wxyz-json-schema-form": "file:../wxyz-json-schema-form",
+    "@deathbeds/wxyz-jsonld": "file:../wxyz-jsonld",
+    "@deathbeds/wxyz-lab": "file:../wxyz-lab",
+    "@deathbeds/wxyz-svg": "file:../wxyz-svg",
+    "@deathbeds/wxyz-tpl-nunjucks": "file:../wxyz-tpl-nunjucks",
+    "@deathbeds/wxyz-yaml": "file:../wxyz-yaml"
+  }
+}

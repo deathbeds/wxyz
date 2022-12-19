@@ -11,7 +11,6 @@ from .tracker_base import DictTracker, ExecutorTracker
 class JSONDictTracker(DictTracker, ExecutorTracker):
     """sync a widget's traits to single JSON file on disk"""
 
-    # pylint: disable=no-self-use
     __extension__ = ".json"
 
     def _read(self, text):

@@ -1,8 +1,0 @@
-name: wxyz-win-tpot
-
-channels:
-  - https://conda.anaconda.org/conda-forge
-
-dependencies:
-  - nomkl
-  - tpot <0.11.6

@@ -1,0 +1,93 @@
+{
+  "name": "@deathbeds/wxyz-json-schema-form",
+  "version": "0.6.0",
+  "description": "experimental Jupyter widgets for JSON Schema Form",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": "ripxl@googlegroups.com"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
+    "LICENSE.txt"
+  ],
+  "dependencies": {
+    "@deathbeds/jupyterlab-rjsf": "^1.0.2",
+    "@deathbeds/wxyz-core": "~0.6.0",
+    "@jupyterlab/rendermime": "3"
+  },
+  "devDependencies": {
+    "@blueprintjs/core": "*",
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyterlab/builder": "^3.5.0",
+    "@rjsf/core": "~2.4.0",
+    "@types/node": "^10.11.6",
+    "@types/react-dom": "*"
+  },"scripts": {
+    "watch": "jupyter labextension watch ."
+  },
+  "jupyterlab": {
+    "extension": "lib/plugin",
+    "webpackConfig": "./webpack.config.js",
+    "discovery": {
+      "server": {
+        "base": {
+          "name": "wxyz_json_schema_form"
+        },
+        "managers": [
+          "pip"
+        ]
+      }
+    },
+    "outputDir": "../../src/wxyz_json_schema_form/src/_d/share/jupyter/labextensions/@deathbeds/wxyz-json-schema-form",
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@deathbeds/wxyz-core": {
+        "bundled": false,
+        "singleton": true
+      },
+      "codemirror": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@deathbeds/jupyterlab-rjsf": {
+        "bundled": true,
+        "singleton": false
+      },
+      "@rjsf/core": {
+        "bundled": true,
+        "singleton": false
+      },
+      "@jupyterlab/rendermime": {
+        "bundled": false,
+        "singleton": true
+      }
+    }
+  }
+}

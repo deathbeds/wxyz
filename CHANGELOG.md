@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0
+
+- require ipywidgets 8
+- many widgets supported in [JupyterLite]
+- sourcemaps are included for downstream debuggings
+
+[jupyterlite]: jupyterlite.readthedocs.io
+
 ## 0.5.1
 
 - maintenance release, bumps versions

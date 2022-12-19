@@ -2,7 +2,7 @@
 """
 import time
 
-# pylint: disable=no-self-use,keyword-arg-before-vararg
+# pylint: disable=keyword-arg-before-vararg
 from asyncio import Event
 from pathlib import Path
 

@@ -1,8 +1,0 @@
-# generated python data file manifest for wxyz_jsonld, do not edit by hand
-include             README.md
-include             src/wxyz/jsonld/js/package.json
-include             src/wxyz/jsonld/js/LICENSE.txt
-include             src/wxyz/jsonld/js/README.md
-recursive-include   src/wxyz/jsonld/labextension *.*
-global-exclude      .ipynb_checkpoints
-global-exclude      node_modules

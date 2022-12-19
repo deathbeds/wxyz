@@ -1,5 +1,6 @@
 *** Settings ***
-Resource          ../variables/WXYZ.robot
+Resource    ../variables/WXYZ.robot
+
 
 *** Keywords ***
 Open WXYZ Notebook

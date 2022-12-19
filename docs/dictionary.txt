@@ -350,6 +350,7 @@ NoneType
 numpy
 png
 proto
+PyData
 pydoit
 rankdir
 repr
@@ -379,9 +380,9 @@ TraitError
 traitlets
 traitname
 TraitType
-TraitType
 un
 UnJSON
+unstage
 UnYAML
 url
 utf

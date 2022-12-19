@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfigbase.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../lib",
+    "tsBuildInfoFile": "../.src.tsbuildinfo"
+  },
+  "include": ["./**/*"],
+  "references": [
+    { "path": "../" },
+    { "path": "../../wxyz-core/src" },
+    { "path": "../../wxyz-datagrid/src" },
+    { "path": "../../wxyz-dvcs/src" },
+    { "path": "../../wxyz-html/src" },
+    { "path": "../../wxyz-json-schema-form/src" },
+    { "path": "../../wxyz-json-e/src" },
+    { "path": "../../wxyz-jsonld/src" },
+    { "path": "../../wxyz-lab/src" },
+    { "path": "../../wxyz-svg/src" },
+    { "path": "../../wxyz-tpl-nunjucks/src" },
+    { "path": "../../wxyz-yaml/src" }
+  ]
+}

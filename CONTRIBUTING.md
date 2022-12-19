@@ -1,50 +1,64 @@
-# Contributing to wxyz
+# Contributing
 
-Get [Mambaforge][]. Start a dev environment from a [lockfile][], list tasks, launch Lab:
+Get [Mambaforge]. Start a dev environment from a [lockfile], list tasks, launch Lab:
 
-    mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.8-3.0.lock
-    source activate envs/docs
-    doit list --status --all
-    doit lab
+```bash
+mamba create --prefix envs/docs --file .github/locks/conda.binder.linux-64-3.11-3.5.lock
+source activate envs/docs
+doit list --status --all
+doit lab
+```
 
 [mambaforge]: https://github.com/conda-forge/miniforge/releases
-[lockfile]: ./.github/locks
+[lockfile]: https://github.com/deathbeds/wxyz/tree/main/.github/locks
 
 ## Use doit
 
-Local development and continuous integration are both driven by [pydoit](https://pydoit.org/contents.html).
+Local development and continuous integration are both driven by
+[pydoit](https://pydoit.org/contents.html).
 
 ### View all doit commands
 
-    doit list
+```bashs
+doit list
+```
 
 > `--all` and `--status` can be combined for a lot of quick information.
 
-    doit list --all --status | sort
+```bash
+doit list --all --status | sort
+```
 
 ### Run everything up to development
 
-    doit
+```bash
+doit
+```
 
-> This actually runs the `binder` task, which is used in `postBuild` for the
-> interactive demo
+> This actually runs the `binder` task, which is used in `postBuild` for the interactive
+> demo
 
 The equivalent of _starting_ Binder is:
 
-    doit lab
+```bash
+doit lab
+```
 
 ### Do everything to prepare for a release
 
-    doit release
+```bash
+doit release
+```
 
 ### Do everything to prepare the docs site
 
-    doit release
-    doit docs
+```bash
+doit release
+doit docs
+```
 
-> This is two un-coupled `doit` runs, so that it possible to replace notebook
-> widget data or screenshots "hot" without worry too much about where they came
-> from.
+> This is two un-coupled `doit` runs, so that it possible to replace notebook widget
+> data or screenshots "hot" without worry too much about where they came from.
 
 ### Live Development
 
@@ -57,14 +71,19 @@ To rebuild the labextension and your JupyterLab, use:
 
 Semi-incompatibly, you can live run the docs build process (with some limitations)
 
-    doit watch:docs
+```bash
+doit watch:docs
+```
 
 ## Testing
 
 ### Notebooks
 
-Tests are primarily captured as executable notebooks imported or linked to from
-the [notebook index](src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb).
+Tests are primarily captured as executable notebooks imported (or linked) to from the
+[notebook index][index].
+
+[index]:
+  https://github.com/deathbeds/wxyz/tree/main/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
 
 Each notebook should:
 
@@ -75,25 +94,31 @@ Each notebook should:
 
 ### Robot Framework Testing
 
-Where appropriate, individual components should be tested with Robot Framework
-tests. Ideal tests include thoroughly exercising the demo notebooks as a user would.
+Where appropriate, individual components should be tested with Robot Framework tests.
+Ideal tests include thoroughly exercising the demo notebooks as a user would.
 
-    doit robot
+```bash
+doit robot
+```
 
 ## Code Style
 
-Code style is enforced by a number of python, typescript and miscellaneous files
-(e.g. YAML, JSON).
+Code style is enforced by a number of python, typescript and miscellaneous files (e.g.
+YAML, JSON).
 
-    doit lint*
+```bash
+doit lint
+```
 
 ## Updating lockfiles
 
 The lockfiles in `.github/locks` are created in a separate environment from the main
-development environment to avoid a `conda` dependency. `mamba` is recommended, as
-many solutions are run.
+development environment to avoid a `conda` dependency. `mamba` is recommended, as many
+solutions are run.
 
-    mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.8-.lock
-    source envs/lock/bin/activate
-    doit list --all --status
-    CONDA_EXE=mamba CONDARC=.github/.condarc doit -n8 lock
+```bash
+mamba create --prefix envs/lock --file .github/locks/conda.lock.linux-64-3.11-.lock
+source envs/lock/bin/activate
+doit list --all --status
+CONDA_EXE=mamba CONDARC=.github/.condarc doit -n4 lock
+```

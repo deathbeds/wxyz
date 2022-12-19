@@ -1,0 +1,8 @@
+{
+  "LiteBuildConfig": {
+    "output_dir": "../build/lite",
+    "contents": ["../src/wxyz_notebooks/src/wxyz/notebooks"],
+    "piplite_urls": ["../dist"],
+    "extra_ignore_contents": ["/tests/"]
+  }
+}

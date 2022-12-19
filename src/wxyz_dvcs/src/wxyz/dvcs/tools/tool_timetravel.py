@@ -9,7 +9,7 @@ from ..repos.repo_base import Repo
 
 CSS_PREFIX = "jp-wxyz-dvcs-tool-timetravel"
 
-DEFAULT_OPTIONS = [("No History", None)]
+DEFAULT_OPTIONS = [("No History", 0)]
 
 DEFAULT_OPTION_TMPL = """
 [{{ commit[:7] }}] {{ message }} by {{ author.name }} {{ timestamp }}
@@ -19,7 +19,7 @@ DEFAULT_OPTION_TMPL = """
 class TimeTraveler(W.HBox):
     """Show a selection widget"""
 
-    # pylint: disable=no-self-use,unused-argument
+    # pylint: disable=unused-argument
     repo = T.Instance(Repo)
     commits = T.Instance(W.DOMWidget)
     enabled = T.Bool(default_value=False)
@@ -88,4 +88,6 @@ class TimeTraveler(W.HBox):
 
     @T.default("enable_chk")
     def _default_enable_chk(self):
-        return W.Checkbox(description="Time Travel", layout=dict(flex="0"))
+        checkbox = W.Checkbox(description="Time Travel", layout=dict(flex="0"))
+        checkbox.add_class("jp-wxyz-dvcs-timetravel")
+        return checkbox

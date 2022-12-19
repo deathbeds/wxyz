@@ -1,0 +1,80 @@
+{
+  "name": "@deathbeds/wxyz-lab",
+  "version": "0.6.0",
+  "description": "Experimental widgets for JupyterLab",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension",
+    "jupyter-widgets",
+    "widgets"
+  ],
+  "homepage": "https://deathbeds.github.io/wxyz",
+  "bugs": {
+    "url": "https://github.com/deathbeds/wxyz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deathbeds/wxyz"
+  },
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "wxyz contributors",
+    "email": "ripxl@googlegroups.com"
+  },"scripts": {
+    "watch": "jupyter labextension watch ."
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
+    "LICENSE.txt"
+  ],
+  "dependencies": {
+    "@deathbeds/wxyz-core": "~0.6.0",
+    "xterm": "~4.19.0",
+    "xterm-addon-fit": "~0.5.0"
+  },
+  "devDependencies": {
+    "@jupyter-widgets/base": "6",
+    "@jupyter-widgets/controls": "5",
+    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyterlab/builder": "^3.5.0",
+    "@types/codemirror": "^0.0.71",
+    "@types/node": "^10.11.6",
+    "codemirror": "*"
+  },
+  "jupyterlab": {
+    "extension": "lib/plugin",
+    "webpackConfig": "./webpack.config.js",
+    "discovery": {
+      "server": {
+        "base": {
+          "name": "wxyz_lab"
+        },
+        "managers": [
+          "pip"
+        ]
+      }
+    },
+    "outputDir": "../../src/wxyz_lab/src/_d/share/jupyter/labextensions/@deathbeds/wxyz-lab",
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@jupyter-widgets/controls": {
+        "bundled": false,
+        "singleton": true
+      },
+      "codemirror": {
+        "bundled": false,
+        "singleton": true
+      },
+      "@deathbeds/wxyz-core": {
+        "bundled": false,
+        "singleton": true
+      }
+    }
+  }
+}
