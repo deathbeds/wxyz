@@ -9,7 +9,7 @@ dependencies:
   - doit
   - flit >=3.8
   - importnb
-  - ipykernel !=6.19.*
+  - ipykernel !=6.19.0,!=6.19.1,!=6.19.2
   - ipywidgets >=8,<9
   - jupyterlab >=3,<4
   - pip
