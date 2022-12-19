@@ -32,7 +32,7 @@
     "watch": "jupyter labextension watch ."
   },
   "dependencies": {
-    "jsonpointer": "^4.1.0"
+    "jsonpointer": "^5.0.0"
   },
   "devDependencies": {
     "@jupyter-widgets/base": "6",
