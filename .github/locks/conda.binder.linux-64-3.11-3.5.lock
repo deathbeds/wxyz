@@ -7,7 +7,7 @@
 # - gitpython
 # - importnb
 # - ipydrawio
-# - ipykernel !=6.19.*
+# - ipykernel !=6.19.0,!=6.19.1,!=6.19.2
 # - ipywidgets >=8,<9
 # - json-e >=4.3,<5
 # - jsonpointer
@@ -153,7 +153,7 @@ https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.3.2.post1-pyhd8ed1ab_0
 https://conda.anaconda.org/conda-forge/noarch/tomli-2.0.1-pyhd8ed1ab_0.tar.bz2#5844808ffab9ebdb694585b50ba02a96
 https://conda.anaconda.org/conda-forge/noarch/tomli-w-1.0.0-pyhd8ed1ab_0.tar.bz2#73506d1ab4202481841c68c169b7ef6c
 https://conda.anaconda.org/conda-forge/linux-64/tornado-6.2-py311hd4cff14_1.tar.bz2#4d86cd6dbdc1185f4e72d974f1f1f852
-https://conda.anaconda.org/conda-forge/noarch/traitlets-5.7.1-pyhd8ed1ab_0.conda#96a8c913bcd01dd9ab7360290aeb4c42
+https://conda.anaconda.org/conda-forge/noarch/traitlets-5.8.0-pyhd8ed1ab_0.conda#75fa7ac3992a41e6a06102594bbf67d0
 https://conda.anaconda.org/conda-forge/noarch/typing_extensions-4.4.0-pyha770c72_0.tar.bz2#2d93b130d148d7fc77e583677792fc6a
 https://conda.anaconda.org/conda-forge/noarch/webencodings-0.5.1-py_1.tar.bz2#3563be4c5611a44210d9ba0c16113136
 https://conda.anaconda.org/conda-forge/noarch/websocket-client-1.4.2-pyhd8ed1ab_0.tar.bz2#5309fca1777cfdd2d7ab582edb8cc41a
@@ -167,6 +167,7 @@ https://conda.anaconda.org/conda-forge/noarch/backports.functools_lru_cache-1.6.
 https://conda.anaconda.org/conda-forge/noarch/beautifulsoup4-4.11.1-pyha770c72_0.tar.bz2#eeec8814bd97b2681f708bb127478d7d
 https://conda.anaconda.org/conda-forge/noarch/bleach-5.0.1-pyhd8ed1ab_0.tar.bz2#1f5151d37e4a2b1137f81c89a3a769f2
 https://conda.anaconda.org/conda-forge/linux-64/cffi-1.15.1-py311h409f033_3.conda#9025d0786dbbe4bc91fd8e85502decce
+https://conda.anaconda.org/conda-forge/noarch/comm-0.1.2-pyhd8ed1ab_0.conda#3c78af4752bb1600ebe5e83ef4588eaa
 https://conda.anaconda.org/conda-forge/noarch/commonmark-0.9.1-py_0.tar.bz2#6aa0173c14befcd577ded130cf6f22f5
 https://conda.anaconda.org/conda-forge/linux-64/curl-7.86.0-hdc1c0ab_2.conda#3c96ba0c180e389621c4fd62d06c151b
 https://conda.anaconda.org/conda-forge/noarch/gitdb-4.0.10-pyhd8ed1ab_0.conda#3706d2f3d7cb5dae600c833345a76132
@@ -207,7 +208,7 @@ https://conda.anaconda.org/conda-forge/noarch/wcwidth-0.2.5-pyh9f0ad1d_2.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/alembic-1.9.0-pyhd8ed1ab_0.conda#bf0355fed63253fffee0b292ba16c033
 https://conda.anaconda.org/conda-forge/noarch/argon2-cffi-21.3.0-pyhd8ed1ab_0.tar.bz2#a0b402db58f73aaab8ee0ca1025a362e
 https://conda.anaconda.org/conda-forge/noarch/jupyter_telemetry-0.1.0-pyhd8ed1ab_1.tar.bz2#bb9ebdb6d5aa2622484aff1faceee181
-https://conda.anaconda.org/conda-forge/noarch/nbformat-5.7.0-pyhd8ed1ab_0.tar.bz2#f8439ce65664bec6d348346590ed57f0
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.7.1-pyhd8ed1ab_0.conda#facb42913140f1a399a5ebb65b30915e
 https://conda.anaconda.org/conda-forge/noarch/oauthlib-3.2.2-pyhd8ed1ab_0.tar.bz2#8f882b197fd9c4941a787926baea4868
 https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.36-pyha770c72_0.conda#4d79ec192e0bfd530a254006d123b9a6
 https://conda.anaconda.org/conda-forge/noarch/pyopenssl-22.1.0-pyhd8ed1ab_0.tar.bz2#fbfa0a180d48c800f922a10a114a8632
@@ -218,7 +219,7 @@ https://conda.anaconda.org/conda-forge/noarch/ipython-8.7.0-pyh41d4057_0.conda#a
 https://conda.anaconda.org/conda-forge/linux-64/keyring-23.11.0-py311h38be061_0.tar.bz2#7543c57f42d726a96ba291f072067d0b
 https://conda.anaconda.org/conda-forge/noarch/nbclient-0.7.2-pyhd8ed1ab_0.conda#6c7b0d75b66a220274bb5a28c23197f2
 https://conda.anaconda.org/conda-forge/noarch/urllib3-1.26.13-pyhd8ed1ab_0.conda#3078ef2359efd6ecadbc7e085c5e0592
-https://conda.anaconda.org/conda-forge/noarch/ipykernel-6.17.1-pyh210e3f2_0.tar.bz2#31a2b5532fad6b7d7f4779d8f02d0ab3
+https://conda.anaconda.org/conda-forge/noarch/ipykernel-6.19.3-pyh210e3f2_0.conda#55ea1fa80bdf9ed9903254d7295653bf
 https://conda.anaconda.org/conda-forge/noarch/nbconvert-core-7.2.6-pyhd8ed1ab_0.conda#d222e8861fa78999b66ae7fa14710c1c
 https://conda.anaconda.org/conda-forge/noarch/requests-2.28.1-pyhd8ed1ab_1.tar.bz2#089382ee0e2dc2eae33a04cc3c2bddb0
 https://conda.anaconda.org/conda-forge/noarch/flit-3.8.0-pyhd8ed1ab_0.tar.bz2#d37c34176396c5402cf80c32e67731b7
