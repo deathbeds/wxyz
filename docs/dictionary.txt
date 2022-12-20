@@ -313,6 +313,7 @@ lworkTime
 lzoom
 MacOS
 Mambaforge
+mimetypes
 msg
 NoneType
 numpy
@@ -355,6 +356,7 @@ un
 UnJSON
 unstage
 UnYAML
+uploadable
 url
 utf
 valuewidget
