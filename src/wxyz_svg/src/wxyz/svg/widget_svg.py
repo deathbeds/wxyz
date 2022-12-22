@@ -23,22 +23,22 @@ class SVGBox(SVGBase, W.Box):
     svg_file = T.Unicode(help="a path to local ``.svg`` file")
 
     svg = T.Unicode(help="an SVG string").tag(sync=True)
-    show_svg = T.Bool(True, help="only use SVG for sizing, do no show").tag(sync=True)
+    show_svg = T.Bool(True, help="only use SVG for sizing, do not show").tag(sync=True)
     area_attr = T.Unicode(
-        DEFAULT_ATTR, help="namespaced XML attribute on SVG ``g``s with unique values"
+        DEFAULT_ATTR, help="namespaced XML attribute on SVG ``g`` with unique values"
     ).tag(sync=True)
 
     area_widgets = T.Dict(
         help=(
             "a dictionary of child indices keyed by unique values of "
-            "`area_attr` in SVG"
+            "``area_attr`` in SVG"
         )
     ).tag(sync=True)
 
     visible_areas = T.Tuple(
         [None],
         help=(
-            "a list of ``area_attrs``s of SVG ``g``s to show. "
+            "a list of ``area_attr`` of SVG ``g`` to show. "
             "Accepts ``[None]`` for all"
         ),
     ).tag(sync=True)
