@@ -6,7 +6,7 @@ channels:
 
 dependencies:
   - bs4
-  - doit
+  - doit-with-toml
   - flit >=3.8
   - importnb
   - ipykernel !=6.19.0,!=6.19.1,!=6.19.2,!=6.19.3
