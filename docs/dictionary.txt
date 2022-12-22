@@ -127,8 +127,8 @@ jupyter
 jupyterlab
 JupyterLab
 JupyterWatcher
-keymap
 keyMap
+keymap
 keymaps
 klass
 kwargs
@@ -225,8 +225,8 @@ licon
 lindent
 lindentUnit
 lindentWithTabs
-linenumbers
 lineNumbers
+linenumbers
 lineWrapping
 linfo
 linit
