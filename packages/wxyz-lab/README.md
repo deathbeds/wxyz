@@ -1,7 +1,5 @@
 # `@deathbeds/wxyz-lab`
 
-
-
 [![pypi-badge][]][pypi] [![npm-badge][]][npm] [![docs-badge][docs]]
 
 [pypi-badge]: https://img.shields.io/pypi/v/wxyz_lab
@@ -33,7 +31,8 @@ conda install -c conda-forge wxyz_lab
 
 ## Developer Installation
 
-The `@deathbeds/wxyz-lab` TypeScript API is documented on [ReadTheDocs][docs]. The contents of these docs are also available in-line in your editor, via the
+The `@deathbeds/wxyz-lab` TypeScript API is documented on [ReadTheDocs][docs]. The
+contents of these docs are also available in-line in your editor, via the
 `@deathbeds/wxyz-lab` on `npmjs.org` with:
 
 - source maps
@@ -57,8 +56,8 @@ console.log(wxyz); // and see _something_
 
 ### Packaging in Python
 
-If you are authoring a pure-python widget, just ensure your package declares
-a dependency on whatever leaf widgets you're using.
+If you are authoring a pure-python widget, just ensure your package declares a
+dependency on whatever leaf widgets you're using.
 
 ```toml
 [project]
@@ -69,31 +68,13 @@ dependencies = [
 
 ### Customizing in TypeScript
 
-If you do use these widgets in _other_ widget extensions, you'll likely need to
-ensure they are deduplicated by updating the `jupyterlab` key in your `package.json`:
+If you do use these widgets in _other_ widget extensions, you'll likely need to ensure
+they are deduplicated by updating the `jupyterlab` key in your `package.json`:
 
 ```yaml
-{
-  "devDependencies": {
-    "@deathbeds/wxyz-lab": "*"               # but probably pinned sensibly
-  },
-  "jupyterlab": {
-    "sharedPackages": {
-      "@jupyter-widgets/base": {
-        "bundled": false,
-        "singleton": true
-      },
-      "@jupyter-widgets/controls": {
-        "bundled": false,
-        "singleton": true
-      },
-      "@deathbeds/wxyz-lab": {
-        "bundled": false,
-        "singleton": true
-      }
-    }
-  }
-}
+{ 'devDependencies': {
+      '@deathbeds/wxyz-lab': '*', # but probably pinned sensibly
+    }, 'jupyterlab': { 'sharedPackages': { '@jupyter-widgets/base': { 'bundled': false, 'singleton': true }, '@jupyter-widgets/controls': { 'bundled': false, 'singleton': true }, '@deathbeds/wxyz-lab': { 'bundled': false, 'singleton': true } } } }
 ```
 
 ---
@@ -177,6 +158,15 @@ better suited to your needs.
 - [jupyterlab-tour]
   - a pleasant "guided tour" of JupyterLab via CSS selectors and JSON Schema
 
+## Code of Conduct
+
+`wxyz` contributors and users are expected to behave in a manner in line with the [code
+of conduct].
+
+## Open Source
+
+`wxyz` is licensed under the [`BSD-3-Clause`][license]
+
 [binder-badge]: https://mybinder.org/badge_logo.svg
 [binder]:
   https://mybinder.org/v2/gh/deathbeds/wxyz/main?urlpath=lab/tree/src/py/wxyz_notebooks/src/wxyz/notebooks/index.ipynb
@@ -201,3 +191,5 @@ better suited to your needs.
 [this repo]: https://github.com/deathbeds/wxyz
 [traitlets]: https://github.com/ipython/traitlets
 [widgets]: https://jupyter.org/widgets
+[license]: https://github.com/deathbeds/wxyz/blob/main/CHANGELOG.md
+[code of conduct]: https://github.com/deathbeds/wxyz/blob/main/CODE_OF_CONDUCT.md

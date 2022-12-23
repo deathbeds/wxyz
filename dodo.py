@@ -300,9 +300,20 @@ def task_lint():
         targets=[P.OK / "robot_lint"],
         actions=[
             U.okit("robot_dry_run", remove=True),
-            [*P.PYM, "robotidy", *P.ALL_ROBOT],
+            ["robotidy", *P.ALL_ROBOT],
             [*ATEST, "--dryrun"],
             U.okit("robot_lint"),
+        ],
+    )
+
+    yield dict(
+        name="dictionary",
+        file_dep=[P.DICTIONARY],
+        targets=[P.OK / "dictionary"],
+        actions=[
+            U.okit("dictionary", remove=True),
+            (U.sort_unique_file, [P.DICTIONARY]),
+            U.okit("dictionary"),
         ],
     )
 

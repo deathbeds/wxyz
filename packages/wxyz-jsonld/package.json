@@ -28,20 +28,21 @@
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
+  "scripts": {
+    "watch": "jupyter labextension watch ."
+  },
   "dependencies": {
     "@deathbeds/wxyz-core": "~0.6.0",
     "jsonld": "^5.2.0"
   },
   "devDependencies": {
-    "@jupyter-widgets/base": "6",
-    "@jupyter-widgets/controls": "5",
-    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyter-widgets/base": "^6.0.0",
+    "@jupyter-widgets/controls": "^5.0.0",
+    "@jupyter-widgets/jupyterlab-manager": "^5.0.0",
     "@jupyterlab/builder": "^3.5.0",
     "@types/codemirror": "^0.0.71",
     "@types/jsonld": "^1.5.5",
     "@types/node": "^10.11.6"
-  },"scripts": {
-    "watch": "jupyter labextension watch ."
   },
   "jupyterlab": {
     "extension": "lib/plugin",

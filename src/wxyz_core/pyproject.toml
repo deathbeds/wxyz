@@ -29,7 +29,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = [
-    "ipywidgets >=8,<9",
+    "ipywidgets >=8.0.4,<9",
     "jsonpointer",
     "jsonschema",
 ]

@@ -276,3 +276,15 @@ def mystify():
         ),
         encoding="utf-8",
     )
+
+
+def sort_unique_file(path: Path):
+    """sort the unique lines of a file.
+
+    sorts by lowercase, then by the case of the first letter, which seems reasonable
+    """
+    text = path.read_text(encoding="utf-8")
+    lines = [line.strip() for line in text.strip().splitlines()]
+    lines = sorted(set(lines), key=lambda x: (x.upper(), x[0] != x[0].lower()))
+    new_text = "\n".join([*lines, ""])
+    path.write_text(new_text, encoding="utf-8")

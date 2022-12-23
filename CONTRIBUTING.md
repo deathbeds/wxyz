@@ -3,7 +3,7 @@
 Get [Mambaforge]. Start a dev environment from a [lockfile], list tasks, launch Lab:
 
 ```bash
-mamba create --prefix envs/docs --file .github/locks/conda.binder.linux-64-3.11-3.5.lock
+mamba create --prefix envs/docs --file .github/locks/conda.docs.linux-64-3.11-3.5.lock
 source activate envs/docs
 doit list --status --all
 doit lab

@@ -27,7 +27,8 @@
   "files": [
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map}",
     "LICENSE.txt"
-  ],"scripts": {
+  ],
+  "scripts": {
     "watch": "jupyter labextension watch ."
   },
   "dependencies": {
@@ -35,9 +36,9 @@
     "json-e": "^4.4.1"
   },
   "devDependencies": {
-    "@jupyter-widgets/base": "6",
-    "@jupyter-widgets/controls": "5",
-    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyter-widgets/base": "^6.0.0",
+    "@jupyter-widgets/controls": "^5.0.0",
+    "@jupyter-widgets/jupyterlab-manager": "^5.0.0",
     "@jupyterlab/builder": "^3.5.0",
     "@types/codemirror": "^0.0.71",
     "@types/js-yaml": "^3.12.0",

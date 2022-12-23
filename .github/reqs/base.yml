@@ -6,12 +6,13 @@ channels:
 
 dependencies:
   - bs4
-  - doit
+  - doit-with-toml
   - flit >=3.8
   - importnb
-  - ipykernel !=6.19.*
-  - ipywidgets >=8,<9
+  - ipykernel !=6.19.0,!=6.19.1,!=6.19.2,!=6.19.3
+  - ipywidgets >=8.0.4,<9
   - jupyterlab >=3,<4
+  - jupyterlab_widgets >=3.0.5
   - pip
   - python
   - twine

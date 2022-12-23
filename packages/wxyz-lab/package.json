@@ -21,8 +21,6 @@
   "author": {
     "name": "wxyz contributors",
     "email": "ripxl@googlegroups.com"
-  },"scripts": {
-    "watch": "jupyter labextension watch ."
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -30,15 +28,18 @@
     "{src,lib,style}/**/*.{js,ts,svg,json,css,map,ts,tsx}",
     "LICENSE.txt"
   ],
+  "scripts": {
+    "watch": "jupyter labextension watch ."
+  },
   "dependencies": {
     "@deathbeds/wxyz-core": "~0.6.0",
     "xterm": "~4.19.0",
     "xterm-addon-fit": "~0.5.0"
   },
   "devDependencies": {
-    "@jupyter-widgets/base": "6",
-    "@jupyter-widgets/controls": "5",
-    "@jupyter-widgets/jupyterlab-manager": "5",
+    "@jupyter-widgets/base": "^6.0.0",
+    "@jupyter-widgets/controls": "^5.0.0",
+    "@jupyter-widgets/jupyterlab-manager": "^5.0.0",
     "@jupyterlab/builder": "^3.5.0",
     "@types/codemirror": "^0.0.71",
     "@types/node": "^10.11.6",
